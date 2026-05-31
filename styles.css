@@ -220,6 +220,31 @@ footer a{color:var(--muted)}footer a:hover{color:var(--cyan)}
 .free-tile h4{font-size:15px;margin-bottom:4px}
 .free-tile p{color:var(--muted);font-size:13px;line-height:1.4}
 
+/* SESIONES 1:1 */
+.sesiones-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:22px;margin-top:10px}
+.sesion-card{
+  background:linear-gradient(180deg,var(--card),#080b22);
+  border:1px solid var(--line);border-radius:var(--radius);padding:28px;
+  display:flex;flex-direction:column;gap:12px;position:relative;
+  transition:.2s}
+.sesion-card:hover{border-color:var(--neon);transform:translateY(-4px);box-shadow:var(--shadow)}
+.sesion-card.feat{border-color:var(--neon);box-shadow:var(--glow)}
+.sesion-badge{
+  position:absolute;top:-1px;right:20px;
+  background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;
+  font-size:10px;font-weight:900;letter-spacing:1px;padding:4px 12px;
+  border-radius:0 0 10px 10px;text-transform:uppercase}
+.sesion-precio{font-size:42px;font-weight:900;color:var(--cyan);line-height:1}
+.sesion-precio span{font-size:16px;font-weight:600;color:var(--muted)}
+.sesion-card h3{font-size:20px;font-weight:800;margin:0}
+.sesion-dur{font-size:13px;color:var(--neon);font-weight:700}
+.sesion-card p{color:var(--muted);font-size:14px;line-height:1.6;flex:1}
+.sesion-inc{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+.sesion-inc li{font-size:13.5px;color:#cdd9f5;padding-left:20px;position:relative}
+.sesion-inc li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:800}
+
 @media(max-width:600px){
   .explainer-row{flex-direction:column}
   .steps{grid-template-columns:1fr 1fr}
