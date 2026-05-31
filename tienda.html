@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Tienda · Plantillas de Excel — Mente en Automático</title>
+<meta name="description" content="Plantillas de Excel listas para usar: inventario, compras, food cost, fiados, ventas. Llena las celdas azules y todo se calcula solo. Desde $5.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span></a>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="#plantillas">Plantillas</a>
+      <a href="#packs">Packs</a>
+      <a href="novedades.html">Novedades</a>
+      <a href="#como">Cómo comprar</a>
+    </nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker">Plantillas de Excel · listas para usar</span>
+    <h1>Ordena tu negocio con <span>plantillas que se calculan solas</span></h1>
+    <p class="sub">Inventario, compras, food cost, fiados y ventas. Tú solo llenas las celdas azules — el resto lo hace la plantilla. Hechas por alguien que las usa en logística real todos los días.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#packs">Ver el Pack con 50% off →</a>
+      <a class="btn btn-ghost" href="#plantillas">Ver plantillas sueltas</a>
+    </div>
+    <div class="trust">
+      <span>✓ <b>Pago único</b>, sin suscripción</span>
+      <span>✓ Entrega <b>inmediata</b></span>
+      <span>✓ Fórmulas reales, <b>0 errores</b></span>
+    </div>
+  </div>
+</section>
+
+<section id="packs">
+  <div class="wrap">
+    <h2 class="section-title">Packs (mientras más llevas, más barato)</h2>
+    <p class="section-sub">La forma más rentable de empezar. El Pack Operación Pro te deja cada plantilla a menos de $4.</p>
+    <div id="packList"></div>
+  </div>
+</section>
+
+<section id="plantillas">
+  <div class="wrap">
+    <h2 class="section-title">Plantillas sueltas</h2>
+    <p class="section-sub">¿Solo necesitas una? Llévala suelta desde $5. Cada una incluye su hoja de instrucciones.</p>
+    <div id="productGrid" class="grid"></div>
+  </div>
+</section>
+
+<section id="como">
+  <div class="wrap">
+    <h2 class="section-title">Cómo comprar</h2>
+    <p class="section-sub">Rápido y directo. En minutos tienes tu plantilla.</p>
+    <div class="steps">
+      <div class="step reveal"><h4>1. Elige</h4><p>Toca "Comprar" en la plantilla o pack que quieres.</p></div>
+      <div class="step reveal"><h4>2. Escríbeme</h4><p>Se abre el chat con el mensaje listo. Te paso el medio de pago.</p></div>
+      <div class="step reveal"><h4>3. Paga</h4><p>Pago único por el medio que prefieras. Sin suscripciones.</p></div>
+      <div class="step reveal"><h4>4. Recíbela</h4><p>Te envío el archivo al instante. Lista para usar.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta-final reveal">
+      <h2>¿No sabes cuál te sirve?</h2>
+      <p>Cuéntame de tu negocio y te recomiendo la plantilla o el pack ideal. Sin compromiso.</p>
+      <a class="btn btn-primary" href="https://ig.me/m/menteenautomatico" target="_blank">Escríbeme por Instagram</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="y"></span> Mente en Automático · IA &amp; Eficiencia</div>
+    <div>
+      <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a> ·
+      <a href="mailto:menteautomatica26@gmail.com">Correo</a> ·
+      <a href="index.html">Inicio</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Modal fallback -->
+<div class="modal" id="buyModal">
+  <div class="box">
+    <button class="x" onclick="closeModal()">×</button>
+    <h3>Casi listo 🤖</h3>
+    <p>Te llevé a mi Instagram. Mándame este mensaje y te paso el pago y el archivo:</p>
+    <p style="color:var(--ink);background:#080b22;border:1px solid var(--line);border-radius:10px;padding:12px">
+      Quiero comprar: <b id="modalLabel"></b> (<span id="modalPrice"></span>)</p>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>document.getElementById("y").textContent=new Date().getFullYear();</script>
+</body>
+</html>

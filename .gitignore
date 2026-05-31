@@ -1,0 +1,6 @@
+# Nada sensible debe entrar aquí. Este repo es PÚBLICO (solo el sitio).
+.DS_Store
+Thumbs.db
+*.log
+.vscode/
+.idea/

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>¡Gracias por tu compra! — Mente en Automático</title>
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<canvas id="particles"></canvas>
+<header class="nav"><div class="wrap">
+  <a class="brand" href="index.html"><img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+    <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span></a>
+</div></header>
+
+<section class="hero">
+  <div class="wrap" style="max-width:680px">
+    <span class="kicker">Pago recibido</span>
+    <h1>¡Gracias! Tu plantilla <span>ya viene en camino</span></h1>
+    <p class="sub">Tu compra está confirmada. Así la recibes y la pones a trabajar en minutos:</p>
+    <div class="steps" style="text-align:left;margin-top:20px">
+      <div class="step"><h4>Revisa tu mensaje</h4><p>Te envío el archivo por el mismo chat donde compraste (DM o WhatsApp).</p></div>
+      <div class="step"><h4>Ábrela en Excel</h4><p>Funciona en Excel y en Google Sheets (súbela a Drive y ábrela con Sheets).</p></div>
+      <div class="step"><h4>Llena lo azul</h4><p>Solo escribe en las celdas azules. Todo lo demás se calcula solo.</p></div>
+    </div>
+    <div class="cta" style="margin-top:30px">
+      <a class="btn btn-primary" href="https://ig.me/m/menteenautomatico" target="_blank">¿Dudas? Escríbeme</a>
+      <a class="btn btn-ghost" href="tienda.html">Ver más plantillas</a>
+    </div>
+    <p class="trust" style="margin-top:24px">Si te sirvió, una historia etiquetándome <b>@menteenautomatico</b> me ayuda un montón 🙌</p>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <div>© <span id="y"></span> Mente en Automático</div>
+  <div><a href="index.html">Inicio</a> · <a href="tienda.html">Tienda</a></div>
+</div></footer>
+<script src="app.js"></script>
+<script>document.getElementById("y").textContent=new Date().getFullYear();</script>
+</body>
+</html>

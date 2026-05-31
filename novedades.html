@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Novedades · IA y negocios — Mente en Automático</title>
+<meta name="description" content="Novedades de IA, tips y recursos prácticos para tu trabajo, tu negocio y tus estudios. Explicado simple, sin tecnicismos.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span></a>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="tienda.html">Tienda</a>
+      <a href="novedades.html">Novedades</a>
+      <a href="index.html#contacto">Contacto</a>
+    </nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="hero" style="padding-bottom:24px">
+  <div class="wrap">
+    <span class="kicker">Novedades · IA &amp; negocios</span>
+    <h1>Lo que pasa en IA, <span>explicado simple</span></h1>
+    <p class="sub">Novedades, tips y recursos para aplicar la IA en tu trabajo, tu negocio o tus estudios. Sin tecnicismos, directo al grano.</p>
+  </div>
+</section>
+
+<section style="padding-top:10px">
+  <div class="wrap">
+    <div id="newsList" class="posts"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="cta-final reveal">
+      <h2>¿Quieres las herramientas, no solo leer? 🚀</h2>
+      <p>Mis plantillas hacen el trabajo por ti: inventario, compras, fiados, costos y ventas. Empieza con 2 gratis.</p>
+      <a class="btn btn-primary" href="tienda.html">Ver la tienda</a>
+      <a class="btn btn-ghost" href="https://ig.me/m/menteenautomatico" target="_blank">Pedir las gratis</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="y"></span> Mente en Automático · IA &amp; Eficiencia</div>
+    <div>
+      <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a> ·
+      <a href="mailto:menteautomatica26@gmail.com">Correo</a> ·
+      <a href="tienda.html">Tienda</a>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>document.getElementById("y").textContent=new Date().getFullYear();</script>
+</body>
+</html>
