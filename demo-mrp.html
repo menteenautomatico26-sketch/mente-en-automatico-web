@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demo MRP de Compras — Mente en Automático</title>
+<meta name="description" content="Demo interactivo: sistema MRP que calcula qué pedir, cuánto y cuándo. Días de inventario, punto de reorden y semáforo automático.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+.demo-wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:14px;margin:24px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center}
+.kpi .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.kpi .val{font-size:28px;font-weight:900;color:var(--cyan)}
+.kpi .val.red{color:#ff5d6c}.kpi .val.yellow{color:#ffd166}.kpi .val.green{color:#39d98a}
+.tbl-wrap{overflow-x:auto;margin:22px 0}
+table.mrp{width:100%;border-collapse:collapse;font-size:13.5px}
+table.mrp th{background:#0a0a2e;color:var(--neon);padding:10px 12px;text-align:left;
+  font-size:11px;text-transform:uppercase;letter-spacing:.8px;border-bottom:2px solid var(--line);white-space:nowrap}
+table.mrp td{padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.mrp tr:hover td{background:rgba(0,191,255,.03)}
+input.cell{background:#e8f6ff;color:#0b132b;border:1.5px solid var(--neon);border-radius:7px;
+  padding:5px 8px;font-size:13px;font-weight:700;width:80px;outline:none}
+input.cell:focus{border-color:#3fd8ff;box-shadow:0 0 0 3px rgba(0,191,255,.15)}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;
+  font-size:11.5px;font-weight:800;white-space:nowrap}
+.crit{background:rgba(255,93,108,.12);color:#ff5d6c;border:1px solid #ff5d6c}
+.warn{background:rgba(255,209,102,.12);color:#ffd166;border:1px solid #ffd166}
+.ok  {background:rgba(57,217,138,.12);color:#39d98a;border:1px solid #39d98a}
+.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:28px 0}
+.chart-box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.chart-box h4{font-size:13px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px}
+.hint-row{background:rgba(0,191,255,.06);border:1px solid rgba(0,191,255,.15);border-radius:12px;
+  padding:14px 18px;margin-bottom:22px;font-size:14px;color:var(--muted)}
+.hint-row b{color:var(--ink)}
+@media(max-width:720px){.charts-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span>
+    </a>
+    <nav>
+      <a href="index.html#demos">← Demos</a>
+      <a href="index.html#contacto">Quiero uno así</a>
+    </nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="hero" style="padding-bottom:14px">
+  <div class="wrap" style="max-width:720px">
+    <span class="kicker">Demo interactivo · MRP de Compras</span>
+    <h1>Sabe qué pedir, <span>cuánto y cuándo</span></h1>
+    <p class="sub">Cambia el stock de cualquier producto — el sistema recalcula los días de inventario, el punto de reorden y la sugerencia de compra en tiempo real.</p>
+  </div>
+</section>
+
+<section style="padding-top:8px">
+<div class="demo-wrap">
+
+  <div class="hint-row">
+    ✏️ <b>Instrucción:</b> haz clic en cualquier número azul (Stock, Consumo/día o Lead Time) y cámbialo. Todo se recalcula solo. Los productos en <span style="color:#ff5d6c">rojo</span> necesitan ordenarse hoy.
+  </div>
+
+  <!-- KPIs -->
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">Productos críticos</div><div class="val red" id="k-crit">0</div></div>
+    <div class="kpi"><div class="lbl">En vigilancia</div><div class="val yellow" id="k-warn">0</div></div>
+    <div class="kpi"><div class="lbl">Stock OK</div><div class="val green" id="k-ok">0</div></div>
+    <div class="kpi"><div class="lbl">Unidades a pedir</div><div class="val" id="k-units">0</div></div>
+    <div class="kpi"><div class="lbl">Días prom. inventario</div><div class="val" id="k-dias">—</div></div>
+  </div>
+
+  <!-- Tabla MRP -->
+  <div class="tbl-wrap">
+    <table class="mrp">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Producto</th>
+          <th>Unidad</th>
+          <th>Stock actual</th>
+          <th>Consumo/día</th>
+          <th>Lead time (días)</th>
+          <th>Stock seg.</th>
+          <th>Días inventario</th>
+          <th>Punto reorden</th>
+          <th>Cant. sugerida</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody id="mrp-body"></tbody>
+    </table>
+  </div>
+
+  <!-- Gráficas -->
+  <div class="charts-row">
+    <div class="chart-box">
+      <h4>Días de inventario por producto</h4>
+      <canvas id="chart-dias" height="240"></canvas>
+    </div>
+    <div class="chart-box">
+      <h4>Estado del inventario</h4>
+      <canvas id="chart-estado" height="240"></canvas>
+    </div>
+  </div>
+
+  <div style="text-align:center;padding:24px 0">
+    <p style="color:var(--muted);margin-bottom:16px;font-size:15px">¿Quieres este sistema adaptado a tu operación?</p>
+    <a class="btn btn-primary" href="index.html#contacto">Cuéntame tu idea →</a>
+    <a class="btn btn-ghost" href="servicios.html" style="margin-left:10px">Ver más detalles</a>
+  </div>
+
+</div>
+</section>
+
+<footer><div class="wrap">
+  <div>© <span id="y"></span> Mente en Automático</div>
+  <div><a href="index.html">Inicio</a> · <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a></div>
+</div></footer>
+
+<script src="app.js"></script>
+<script>
+document.getElementById("y").textContent=new Date().getFullYear();
+
+// ─── DATOS DEMO (distribuidora de alimentos genérica) ─────────────────────
+const PRODS = [
+  {n:"Aceite vegetal",     u:"Bidón 20L", stock:18,  cons:1.2, lt:14, ss:4,  target:45},
+  {n:"Harina de trigo",    u:"Saco 50kg", stock:42,  cons:3.5, lt:7,  ss:10, target:30},
+  {n:"Queso mozzarella",   u:"Bloque 2kg",stock:8,   cons:2.0, lt:5,  ss:6,  target:21},
+  {n:"Salsa de tomate",    u:"Caja 12un", stock:31,  cons:4.1, lt:7,  ss:8,  target:28},
+  {n:"Papel aluminio",     u:"Rollo ind.", stock:6,  cons:0.8, lt:10, ss:3,  target:30},
+  {n:"Guantes latex",      u:"Caja 100",  stock:14,  cons:1.5, lt:5,  ss:4,  target:21},
+  {n:"Desinfectante",      u:"Garrafón",  stock:22,  cons:1.0, lt:7,  ss:3,  target:28},
+  {n:"Servilletas",        u:"Paquete",   stock:65,  cons:8.0, lt:5,  ss:15, target:21},
+  {n:"Bolsas empaque",     u:"Rollo",     stock:4,   cons:0.6, lt:14, ss:2,  target:45},
+  {n:"Papas congeladas",   u:"Caja 10kg", stock:28,  cons:5.5, lt:7,  ss:10, target:21},
+  {n:"Pollo troceado",     u:"Caja 15kg", stock:12,  cons:3.8, lt:3,  ss:8,  target:14},
+  {n:"Papel parafinado",   u:"Caja",      stock:9,   cons:1.2, lt:10, ss:3,  target:30},
+];
+
+let charts = {};
+
+function calc(p){
+  const dias = p.cons > 0 ? p.stock / p.cons : 999;
+  const pr = (p.cons * p.lt) + p.ss;
+  const sugg = Math.max(0, Math.ceil((p.cons * p.target) - p.stock + p.ss));
+  const st = dias <= 7 ? "crit" : dias <= 14 ? "warn" : "ok";
+  return {dias: dias.toFixed(1), pr: Math.ceil(pr), sugg, st};
+}
+
+function render(){
+  const body = document.getElementById("mrp-body");
+  body.innerHTML = "";
+  let crit=0, warn=0, ok=0, units=0, diasSum=0;
+
+  PRODS.forEach((p,i)=>{
+    const c = calc(p);
+    if(c.st==="crit") crit++; else if(c.st==="warn") warn++; else ok++;
+    units += c.sugg;
+    diasSum += parseFloat(c.dias);
+
+    const tr = document.createElement("tr");
+    const stLabel = c.st==="crit"?"⚠️ Crítico":c.st==="warn"?"👁 Vigilar":"✅ OK";
+    tr.innerHTML = `
+      <td style="color:var(--muted);font-size:12px">${i+1}</td>
+      <td style="font-weight:600">${p.n}</td>
+      <td style="color:var(--muted);font-size:12px">${p.u}</td>
+      <td><input class="cell" type="number" min="0" data-i="${i}" data-f="stock" value="${p.stock}"></td>
+      <td><input class="cell" type="number" min="0.1" step="0.1" data-i="${i}" data-f="cons" value="${p.cons}"></td>
+      <td><input class="cell" type="number" min="1" data-i="${i}" data-f="lt" value="${p.lt}"></td>
+      <td style="color:var(--muted)">${p.ss}</td>
+      <td style="font-weight:700;color:${c.st==="crit"?"#ff5d6c":c.st==="warn"?"#ffd166":"#39d98a"}">${c.dias} días</td>
+      <td style="color:var(--muted)">${c.pr}</td>
+      <td style="font-weight:700;color:${c.sugg>0?"var(--cyan)":"var(--muted)"}">${c.sugg > 0 ? c.sugg : "—"}</td>
+      <td><span class="badge ${c.st}">${stLabel}</span></td>
+    `;
+    body.appendChild(tr);
+  });
+
+  document.getElementById("k-crit").textContent = crit;
+  document.getElementById("k-warn").textContent = warn;
+  document.getElementById("k-ok").textContent   = ok;
+  document.getElementById("k-units").textContent = units;
+  document.getElementById("k-dias").textContent = (diasSum/PRODS.length).toFixed(1)+" d";
+
+  updateCharts();
+  attachListeners();
+}
+
+function updateCharts(){
+  const labels = PRODS.map(p => p.n.length > 12 ? p.n.slice(0,12)+"…" : p.n);
+  const dias   = PRODS.map(p => parseFloat(calc(p).dias));
+  const colors = PRODS.map(p => {
+    const d = parseFloat(calc(p).dias);
+    return d<=7 ? "rgba(255,93,108,.85)" : d<=14 ? "rgba(255,209,102,.85)" : "rgba(57,217,138,.85)";
+  });
+
+  // Días de inventario
+  if(charts.dias) charts.dias.destroy();
+  const ctx1 = document.getElementById("chart-dias").getContext("2d");
+  charts.dias = new Chart(ctx1,{
+    type:"bar",
+    data:{labels, datasets:[{label:"Días de inventario",data:dias,backgroundColor:colors,borderRadius:6}]},
+    options:{
+      plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>` ${c.raw} días`}}},
+      scales:{
+        x:{ticks:{color:"#8aa0c6",font:{size:10}},grid:{color:"rgba(27,35,80,.5)"}},
+        y:{ticks:{color:"#8aa0c6"},grid:{color:"rgba(27,35,80,.5)"},
+           title:{display:true,text:"Días",color:"#8aa0c6"}}
+      },
+      annotation:{annotations:{line7:{type:"line",yMin:7,yMax:7,borderColor:"#ff5d6c",borderWidth:1.5,borderDash:[4,4]}}}
+    }
+  });
+
+  // Estado pie
+  const crit=PRODS.filter(p=>parseFloat(calc(p).dias)<=7).length;
+  const warn=PRODS.filter(p=>{const d=parseFloat(calc(p).dias);return d>7&&d<=14;}).length;
+  const ok  =PRODS.filter(p=>parseFloat(calc(p).dias)>14).length;
+  if(charts.est) charts.est.destroy();
+  const ctx2 = document.getElementById("chart-estado").getContext("2d");
+  charts.est = new Chart(ctx2,{
+    type:"doughnut",
+    data:{
+      labels:["Crítico (≤7d)","Vigilar (8-14d)","OK (>14d)"],
+      datasets:[{data:[crit,warn,ok],
+        backgroundColor:["rgba(255,93,108,.85)","rgba(255,209,102,.85)","rgba(57,217,138,.85)"],
+        borderColor:["#ff5d6c","#ffd166","#39d98a"],borderWidth:2}]
+    },
+    options:{
+      plugins:{legend:{labels:{color:"#8aa0c6",font:{size:12}}}},
+      cutout:"65%"
+    }
+  });
+}
+
+function attachListeners(){
+  document.querySelectorAll(".cell").forEach(inp=>{
+    inp.addEventListener("change",()=>{
+      const i = parseInt(inp.dataset.i);
+      const f = inp.dataset.f;
+      PRODS[i][f] = parseFloat(inp.value)||0;
+      render();
+    });
+  });
+}
+
+render();
+</script>
+</body>
+</html>

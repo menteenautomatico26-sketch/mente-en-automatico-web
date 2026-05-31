@@ -3,53 +3,177 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mente en Automático — IA &amp; Eficiencia</title>
-<meta name="description" content="IA aplicada a la operación real. Plantillas de Excel, herramientas y contenido para profesionales y negocios de LatAm. Práctico, sin tecnicismos.">
+<title>Mente en Automático — Sistemas que automatizan tu operación</title>
+<meta name="description" content="Construyo sistemas que automatizan tu operación: MRP, control de inventario, dashboards, apps web y más. IA aplicada al trabajo real.">
 <link rel="icon" href="icon.jpg">
 <link rel="stylesheet" href="styles.css">
+<style>
+.demo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+.demo-card{background:linear-gradient(180deg,var(--card),#080b22);border:1px solid var(--line);
+  border-radius:var(--radius);overflow:hidden;transition:.2s;display:flex;flex-direction:column}
+.demo-card:hover{border-color:var(--neon);transform:translateY(-4px);box-shadow:var(--shadow)}
+.demo-preview{height:180px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#060618,#0a0a2e);border-bottom:1px solid var(--line);
+  font-size:64px;position:relative;overflow:hidden}
+.demo-preview::after{content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 50%,rgba(0,191,255,.08),transparent 70%)}
+.demo-body{padding:22px;flex:1;display:flex;flex-direction:column}
+.demo-tag{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;
+  color:var(--neon);margin-bottom:8px}
+.demo-body h3{font-size:20px;margin-bottom:8px;line-height:1.2}
+.demo-body p{color:var(--muted);font-size:14px;flex:1;margin-bottom:16px}
+.demo-body .actions{display:flex;gap:10px;flex-wrap:wrap}
+.demo-body .actions a{flex:1;text-align:center;padding:10px 12px;font-size:13.5px}
+
+.free-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.free-item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;
+  display:flex;flex-direction:column;gap:8px}
+.free-item .ic{font-size:28px}
+.free-item h4{font-size:16px}
+.free-item p{color:var(--muted);font-size:13px;flex:1}
+
+.lead-box{background:linear-gradient(135deg,#0a1340,#0a0a2e);border:2px solid var(--neon);
+  border-radius:24px;padding:48px;text-align:center;box-shadow:var(--glow);max-width:680px;margin:0 auto}
+.lead-form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
+.lead-form input{flex:1;min-width:220px;background:#080b22;border:1.5px solid var(--line);
+  border-radius:999px;padding:13px 20px;font-size:15px;color:var(--ink);
+  font-family:inherit;outline:none;transition:.18s}
+.lead-form input:focus{border-color:var(--neon);box-shadow:0 0 0 3px rgba(0,191,255,.12)}
+</style>
 </head>
 <body>
 <canvas id="particles"></canvas>
 
 <header class="nav">
   <div class="wrap">
-    <a class="brand" href="index.html"><img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
-      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span></a>
+    <a class="brand" href="index.html">
+      <img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span>
+    </a>
     <nav>
-      <a href="#sobre">Sobre mí</a>
-      <a href="tienda.html">Tienda</a>
+      <a href="tienda.html">🛒 Sistemas</a>
+      <a href="#demos">Demos</a>
+      <a href="#gratis">Gratis</a>
       <a href="novedades.html">Novedades</a>
-      <a href="servicios.html">Servicios</a>
-      <a href="#recursos">Recursos gratis</a>
-      <a href="#contacto">Contacto</a>
+      <a href="#contacto">A la medida</a>
     </nav>
     <button class="menu-btn">☰</button>
   </div>
 </header>
 
+<!-- HERO -->
 <section class="hero">
-  <div class="wrap">
+  <div class="wrap" style="max-width:780px">
     <span class="kicker">IA desde la operación real</span>
-    <h1>Pon tu trabajo y tu negocio <span>en automático</span></h1>
-    <p class="sub">Soy Jonathan. He trabajado en logística, comercio y servicios — y creo herramientas prácticas que ordenan el trabajo y los negocios. Probadas en el día a día, no en la teoría.</p>
+    <h1>Construyo sistemas que <span>automatizan tu operación</span></h1>
+    <p class="sub">Dashboards, MRP, control de horas, gestión de reclamos y apps web a la medida. Probados en distribución, logística y supply chain. No teoría — operación real.</p>
     <div class="cta">
-      <a class="btn btn-primary" href="tienda.html">Ver plantillas (desde $5) →</a>
-      <a class="btn btn-ghost" href="#recursos">Recursos gratis</a>
+      <a class="btn btn-primary" href="#demos">Ver los sistemas →</a>
+      <a class="btn btn-ghost" href="#contacto">Quiero uno a la medida</a>
     </div>
     <div class="trust">
-      <span>📦 Logística &amp; compras</span>
-      <span>🏪 Tiendas &amp; negocios</span>
-      <span>🍔 Restaurantes</span>
+      <span>🏭 Logística &amp; Supply Chain</span>
+      <span>🏪 Negocios &amp; Operaciones</span>
+      <span>🎓 Estudiantes USAC</span>
     </div>
   </div>
 </section>
 
+<!-- DEMOS -->
+<section id="demos">
+  <div class="wrap">
+    <h2 class="section-title">Sistemas en funcionamiento</h2>
+    <p class="section-sub">Haz clic en "Ver demo" — son funcionales, no imágenes. Puedes interactuar con cada uno.</p>
+    <div class="demo-grid">
+
+      <div class="demo-card reveal">
+        <div class="demo-preview">🧮</div>
+        <div class="demo-body">
+          <div class="demo-tag">MRP · Inventario</div>
+          <h3>Sistema MRP de Compras</h3>
+          <p>Qué pedir, cuánto y cuándo. Días de inventario, punto de reorden, semáforo de urgencia y gráfica en tiempo real. Cambia el stock y todo se recalcula.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="demo-mrp.html">Ver demo →</a>
+            <a class="btn btn-ghost" href="#contacto">Quiero uno así</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card reveal">
+        <div class="demo-preview">📋</div>
+        <div class="demo-body">
+          <div class="demo-tag">RR.HH. · Nómina</div>
+          <h3>Control de Horas Extras</h3>
+          <p>Registro de asistencia con cálculo automático de horas regulares y especiales (L-V vs. sábado y domingo). Exporta a Excel o PDF con un clic.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="demo-horas.html">Ver demo →</a>
+            <a class="btn btn-ghost" href="#contacto">Quiero uno así</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card reveal">
+        <div class="demo-preview">⚠️</div>
+        <div class="demo-body">
+          <div class="demo-tag">Calidad · Proveedores</div>
+          <h3>Gestión de Reclamos (GRC)</h3>
+          <p>Sistema completo con login, 3 roles de usuario, KPIs, gráficas de Chart.js, exportación PDF y XLSX. Para registrar y analizar reclamos a proveedores.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="demo-grc.html">Ver demo →</a>
+            <a class="btn btn-ghost" href="#contacto">Quiero uno así</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card reveal">
+        <div class="demo-preview">📊</div>
+        <div class="demo-body">
+          <div class="demo-tag">Dashboard · Analytics</div>
+          <h3>Dashboard Operacional</h3>
+          <p>Panel de KPIs en tiempo real: ventas, rotación, tendencias, alertas y comparativas por período. Gráficas interactivas con filtros dinámicos.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="demo-dashboard.html">Ver demo →</a>
+            <a class="btn btn-ghost" href="#contacto">Quiero uno así</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card reveal">
+        <div class="demo-preview">🚚</div>
+        <div class="demo-body">
+          <div class="demo-tag">Logística · Distribución</div>
+          <h3>Sistema Logístico</h3>
+          <p>Control de pedidos, rutas, recepciones y estados de entrega. Con roles de usuario, historial y reportes. Adaptable a cualquier operación de distribución.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="demo-logistica.html">Ver demo →</a>
+            <a class="btn btn-ghost" href="#contacto">Quiero uno así</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card reveal" style="border-style:dashed;opacity:.75">
+        <div class="demo-preview" style="font-size:40px">🔜</div>
+        <div class="demo-body">
+          <div class="demo-tag">Próximamente</div>
+          <h3>¿Tienes una idea diferente?</h3>
+          <p>Agenda para clínicas, control de fiados con app, sistema de cotizaciones, tracker de proveedores… si lo puedes imaginar, lo podemos construir.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#contacto">Cuéntame tu idea →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE MÍ -->
 <section id="sobre">
   <div class="wrap about">
     <div class="journey">
       <span class="kicker">Mi recorrido</span>
       <h3>De la operación real a las herramientas</h3>
-      <p>He trabajado en muchos lados, y en cada uno aprendí cómo funciona un negocio por dentro:</p>
+      <p>He trabajado en muchos entornos y en cada uno aprendí cómo funciona un negocio por dentro:</p>
       <div class="chips">
         <span>📦 Logística &amp; Supply Chain</span>
         <span>🚚 Distribución</span>
@@ -57,82 +181,81 @@
         <span>🛒 Tiendas y abarroterías</span>
         <span>🧱 Construcción</span>
         <span>🧽 Servicios</span>
-        <span>🎓 Estudiante de Admin. de Empresas (USAC)</span>
+        <span>🎓 Administración de Empresas — USAC</span>
       </div>
     </div>
     <div>
       <h2 class="section-title" style="text-align:left">Quién está detrás</h2>
-      <p style="color:var(--muted);margin-bottom:18px">Soy Jonathan. He pasado por la logística, la distribución, el comercio y los servicios — desde la bodega hasta el mostrador — y hoy estudio Administración de Empresas. En todo ese recorrido fui creando las herramientas que me hubiera gustado tener en cada trabajo. Eso es lo que comparto aquí: cosas prácticas, probadas en el día a día, no teoría.</p>
+      <p style="color:var(--muted);margin-bottom:18px">Soy Jonathan. He pasado por la logística, la distribución, el comercio y los servicios. En todo ese recorrido fui creando las herramientas que me hubiera gustado tener. Hoy construyo sistemas personalizados para negocios y equipos que quieren dejar de hacer las cosas a mano.</p>
       <div class="feats">
-        <div class="feat-box"><div class="ic">🛠️</div><h4>Experiencia real</h4><p>Probado en negocios de verdad: bodega, tienda, distribución y más.</p></div>
-        <div class="feat-box"><div class="ic">📊</div><h4>Sin tecnicismos</h4><p>Herramientas simples que cualquiera puede usar hoy mismo.</p></div>
-        <div class="feat-box"><div class="ic">🎓</div><h4>También para estudiantes</h4><p>Contenido y plantillas para aplicar lo que ves en la U a la práctica.</p></div>
-        <div class="feat-box"><div class="ic">🔒</div><h4>Pago único</h4><p>Compras la plantilla y es tuya. Sin suscripciones.</p></div>
+        <div class="feat-box"><div class="ic">🛠️</div><h4>Experiencia real</h4><p>Probado en operaciones reales: bodega, tienda, distribución, logística.</p></div>
+        <div class="feat-box"><div class="ic">⚡</div><h4>Entrega rápida</h4><p>Prototipo funcional en días, no meses.</p></div>
+        <div class="feat-box"><div class="ic">🎓</div><h4>También para estudiantes</h4><p>Herramientas para aplicar lo de la universidad a la práctica.</p></div>
+        <div class="feat-box"><div class="ic">🤖</div><h4>IA integrada</h4><p>Clasificación automática, reportes con IA, alertas inteligentes.</p></div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- GRATIS -->
+<section id="gratis">
+  <div class="wrap">
+    <h2 class="section-title">9 plantillas de Excel <span style="color:var(--ok)">gratis</span> 🎁</h2>
+    <p class="section-sub">Herramientas de Excel listas para usar, sin costo y sin registro. Descárgalas todas desde Google Drive.</p>
+    <div class="free-grid">
+      <div class="free-item reveal"><div class="ic">💵</div><h4>Caja Diaria</h4><p>Ingresos, gastos y saldo del día. Resumen y mejor día automático.</p></div>
+      <div class="free-item reveal"><div class="ic">🛒</div><h4>Inventario Express</h4><p>Semáforo Reponer / OK. Sabe qué comprar hoy en segundos.</p></div>
+      <div class="free-item reveal"><div class="ic">📒</div><h4>Control de Fiados</h4><p>Quién te debe, cuánto y desde cuándo. Estado en colores.</p></div>
+      <div class="free-item reveal"><div class="ic">🏪</div><h4>Inventario + Margen</h4><p>Margen Q y % por producto, alerta de reposición.</p></div>
+      <div class="free-item reveal"><div class="ic">📈</div><h4>Ventas Diarias KPIs</h4><p>Ticket promedio, mejor día y tendencia de crecimiento.</p></div>
+      <div class="free-item reveal"><div class="ic">🍔</div><h4>Costo de Recetas</h4><p>Costo por porción y precio sugerido para asegurar tu margen.</p></div>
+      <div class="free-item reveal"><div class="ic">🧮</div><h4>MRP de Compras</h4><p>Qué pedir, cuánto y cuándo. Con control de recepciones.</p></div>
+      <div class="free-item reveal"><div class="ic">🌐</div><h4>Comparador FOB</h4><p>El proveedor realmente más barato, con flete y aduana incluidos.</p></div>
+      <div class="free-item reveal"><div class="ic">🔄</div><h4>Inventario por Días</h4><p>Días de inventario, punto de reorden y semáforo automático.</p></div>
+    </div>
+    <div style="text-align:center;margin-top:28px">
+      <a class="btn btn-primary" href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" style="font-size:16px;padding:14px 30px">
+        ⬇️ Descargar las 9 desde Google Drive
+      </a>
+      <p style="color:var(--muted);font-size:13px;margin-top:12px">Acceso directo — sin registro ni DM necesario.</p>
+    </div>
+    <p style="text-align:center;color:var(--muted);font-size:14px;margin-top:20px">¿Quieres automatización real? <a href="tienda.html" style="color:var(--cyan)">Ver los sistemas Google Sheets →</a></p>
+  </div>
+</section>
+
+<!-- NOVEDADES IA -->
 <section>
   <div class="wrap">
-    <h2 class="section-title">Herramientas que ordenan tu negocio</h2>
-    <p class="section-sub">Plantillas de Excel que se calculan solas. Tú llenas las celdas azules, ellas hacen el resto.</p>
-    <div id="productGrid" class="grid"></div>
-    <div style="text-align:center;margin-top:30px">
-      <a class="btn btn-primary" href="tienda.html">Ir a la tienda y ver los packs →</a>
+    <h2 class="section-title">Novedades de IA</h2>
+    <p class="section-sub">Lo que pasa en inteligencia artificial, explicado sin tecnicismos y aplicado a negocios reales.</p>
+    <div id="newsList" class="posts"></div>
+    <div style="text-align:center;margin-top:24px">
+      <a class="btn btn-ghost" href="novedades.html">Ver todas las novedades →</a>
     </div>
   </div>
 </section>
 
-<section id="recursos">
-  <div class="wrap">
-    <h2 class="section-title">Recursos gratis 🎁</h2>
-    <p class="section-sub">Herramientas y materiales que puedes usar hoy mismo, sin costo. Comenta <b>PLANTILLA</b> en mi último post o escríbeme por DM.</p>
-    <div class="grid" style="margin-bottom:32px">
-      <div class="card reveal">
-        <div class="emoji">📦</div>
-        <div class="for">Plantilla gratis</div>
-        <h3>Inventario Express</h3>
-        <p class="desc">Sabe qué reponer hoy: alerta en rojo automática. Solo llenas stock actual y mínimo.</p>
-        <ul><li>Semáforo Reponer / OK automático</li><li>Funciona en Excel y Google Sheets</li><li>Lista para usar en minutos</li></ul>
-        <div class="actions"><a class="btn btn-primary" href="https://ig.me/m/menteenautomatico" target="_blank">Pedir por DM</a></div>
-      </div>
-      <div class="card reveal">
-        <div class="emoji">💰</div>
-        <div class="for">Plantilla gratis</div>
-        <h3>Caja Diaria</h3>
-        <p class="desc">Cuánto entró, cuánto salió y cuánto te quedó. Resumen automático, sin saber de contabilidad.</p>
-        <ul><li>Saldo del día calculado solo</li><li>Mejor día detectado automáticamente</li><li>Funciona en Excel y Google Sheets</li></ul>
-        <div class="actions"><a class="btn btn-primary" href="https://ig.me/m/menteenautomatico" target="_blank">Pedir por DM</a></div>
-      </div>
-      <div class="card reveal">
-        <div class="emoji">🤖</div>
-        <div class="for">Guía de prompts</div>
-        <h3>Prompts para tu negocio</h3>
-        <p class="desc">Los prompts que más uso para logística, compras y análisis. Listos para copiar y usar en Claude, ChatGPT o Gemini.</p>
-        <ul><li>Para negocios y operaciones</li><li>También útiles en la universidad</li><li>Actualizados con lo que funciona</li></ul>
-        <div class="actions"><a class="btn btn-primary" href="https://ig.me/m/menteenautomatico" target="_blank">Pedir por DM</a></div>
-      </div>
-      <div class="card reveal">
-        <div class="emoji">📰</div>
-        <div class="for">Blog semanal</div>
-        <h3>Novedades de IA</h3>
-        <p class="desc">Lo nuevo en IA explicado simple: para tu trabajo, tu negocio y tus estudios. Sin tecnicismos.</p>
-        <ul><li>Tips aplicables desde hoy</li><li>Noticias que sí importan</li><li>Gratis, siempre</li></ul>
-        <div class="actions"><a class="btn btn-ghost" href="novedades.html">Ver novedades</a></div>
-      </div>
-    </div>
-  </div>
-</section>
-
+<!-- CONTACTO / LEAD CAPTURE -->
 <section id="contacto">
   <div class="wrap">
-    <h2 class="section-title">Sígueme / Escríbeme</h2>
-    <p class="section-sub">Contenido práctico de IA aplicada al trabajo y los negocios.</p>
-    <div class="cta" style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-      <a class="btn btn-primary" href="https://instagram.com/menteenautomatico" target="_blank">Instagram @menteenautomatico</a>
-      <a class="btn btn-ghost" href="mailto:menteautomatica26@gmail.com">Escríbeme un correo</a>
-      <a class="btn btn-ghost" href="tienda.html">Ver la tienda</a>
+    <div class="lead-box reveal">
+      <span class="kicker">Proyecto a medida</span>
+      <h2>¿Quieres algo así <span style="color:var(--cyan)">para tu negocio?</span></h2>
+      <p style="color:var(--muted);margin:14px auto;max-width:520px;font-size:16px">
+        Cuéntame tu idea. Puede ser un Excel con automatización, un dashboard, un sistema con login o una app web completa. Le echamos un vistazo sin compromiso.
+      </p>
+      <div class="lead-form">
+        <form action="https://formsubmit.co/menteautomatica26@gmail.com" method="POST" style="display:flex;gap:12px;flex-wrap:wrap;justify-content:center;width:100%">
+          <input type="hidden" name="_subject" value="Nuevo lead — Mente en Automático">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="https://menteenautomatico.netlify.app/gracias-proyecto.html">
+          <input type="text" name="nombre" placeholder="Tu nombre" required style="flex:1;min-width:180px">
+          <input type="email" name="correo" placeholder="Tu correo electrónico" required style="flex:2;min-width:220px">
+          <button type="submit" class="btn btn-primary" style="white-space:nowrap">Enviar →</button>
+        </form>
+      </div>
+      <p style="color:var(--muted);font-size:13px;margin-top:14px">O escríbeme directo: <a href="https://ig.me/m/menteenautomatico" target="_blank" style="color:var(--cyan)">Instagram @menteenautomatico</a> · <a href="mailto:menteautomatica26@gmail.com" style="color:var(--cyan)">correo</a></p>
+      <p style="color:var(--muted);font-size:13px;margin-top:6px">¿Quieres un proyecto completo? <a href="servicios.html" style="color:var(--cyan)">Cuéntanos más detalles aquí →</a></p>
     </div>
   </div>
 </section>
@@ -140,11 +263,19 @@
 <footer>
   <div class="wrap">
     <div>© <span id="y"></span> Mente en Automático · IA &amp; Eficiencia</div>
-    <div><a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a> · <a href="mailto:menteautomatica26@gmail.com">Correo</a> · <a href="tienda.html">Tienda</a></div>
+    <div>
+      <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a> ·
+      <a href="mailto:menteautomatica26@gmail.com">Correo</a> ·
+      <a href="novedades.html">Novedades</a> ·
+      <a href="servicios.html">Servicios</a>
+    </div>
   </div>
 </footer>
 
 <script src="app.js"></script>
-<script>document.getElementById("y").textContent=new Date().getFullYear();</script>
+<script>
+document.getElementById("y").textContent = new Date().getFullYear();
+renderNews("#newsList");
+</script>
 </body>
 </html>

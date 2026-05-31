@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demo Sistema Logístico — Mente en Automático</title>
+<meta name="description" content="Sistema de control logístico: pedidos, rutas, recepciones y estados. Con roles de usuario y exportación de reportes.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+.demo-wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:22px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center}
+.kpi .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.kpi .val{font-size:26px;font-weight:900;color:var(--cyan)}
+.filter-bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:16px 0}
+.filter-bar select,.filter-bar input{background:var(--card);border:1px solid var(--line);color:var(--ink);
+  border-radius:9px;padding:8px 14px;font-family:inherit;font-size:13px;cursor:pointer;outline:none}
+.filter-bar select:focus,.filter-bar input:focus{border-color:var(--neon)}
+.tbl-wrap{overflow-x:auto;margin:16px 0}
+table.log{width:100%;border-collapse:collapse;font-size:13.5px}
+table.log th{background:#0a0a2e;color:var(--neon);padding:10px 14px;text-align:left;
+  font-size:11px;text-transform:uppercase;letter-spacing:.8px;border-bottom:2px solid var(--line);white-space:nowrap}
+table.log td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+table.log tr:hover td{background:rgba(0,191,255,.03)}
+.badge{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:11.5px;font-weight:700}
+.b-pen{background:rgba(255,209,102,.12);color:#ffd166;border:1px solid #ffd166}
+.b-tra{background:rgba(0,191,255,.12);color:#00bfff;border:1px solid #00bfff}
+.b-ent{background:rgba(57,217,138,.12);color:#39d98a;border:1px solid #39d98a}
+.b-ret{background:rgba(255,93,108,.12);color:#ff5d6c;border:1px solid #ff5d6c}
+.b-aut{background:rgba(168,85,247,.12);color:#a855f7;border:1px solid #a855f7}
+.charts-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:24px 0}
+.chart-box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.chart-box h4{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px}
+.btn-sm-action{padding:5px 12px;font-size:12px;border-radius:7px}
+@media(max-width:700px){.charts-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<header class="nav"><div class="wrap">
+  <a class="brand" href="index.html"><img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+    <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span></a>
+  <nav><a href="index.html#demos">← Demos</a><a href="index.html#contacto">Quiero uno así</a></nav>
+  <button class="menu-btn">☰</button>
+</div></header>
+
+<section class="hero" style="padding-bottom:14px">
+  <div class="wrap" style="max-width:720px">
+    <span class="kicker">Demo interactivo · Sistema Logístico</span>
+    <h1>Control total de <span>pedidos y entregas</span></h1>
+    <p class="sub">Rastrea pedidos, rutas y recepciones. Filtra por estado o proveedor, actualiza estados con un clic y ve los KPIs en tiempo real.</p>
+  </div>
+</section>
+
+<section style="padding-top:8px">
+<div class="demo-wrap">
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">Pedidos activos</div><div class="val" id="k-act">—</div></div>
+    <div class="kpi"><div class="lbl">En tránsito</div><div class="val" style="color:#00bfff" id="k-tra">—</div></div>
+    <div class="kpi"><div class="lbl">Entregados hoy</div><div class="val" style="color:#39d98a" id="k-ent">—</div></div>
+    <div class="kpi"><div class="lbl">Con retraso</div><div class="val" style="color:#ff5d6c" id="k-ret">—</div></div>
+    <div class="kpi"><div class="lbl">% cumplimiento</div><div class="val" id="k-pct">—</div></div>
+  </div>
+
+  <div class="filter-bar">
+    <select id="f-estado" onchange="renderLog()">
+      <option value="">Todos los estados</option>
+      <option value="Pendiente">Pendiente</option>
+      <option value="En tránsito">En tránsito</option>
+      <option value="Entregado">Entregado</option>
+      <option value="Retrasado">Retrasado</option>
+      <option value="Autorizado">Autorizado</option>
+    </select>
+    <select id="f-prov" onchange="renderLog()">
+      <option value="">Todos los proveedores</option>
+      <option value="AlimexCorp">AlimexCorp</option>
+      <option value="DistribuGroup">DistribuGroup</option>
+      <option value="FoodTech">FoodTech</option>
+      <option value="AceitesFusion">AceitesFusion</option>
+      <option value="LacteosNorte">LacteosNorte</option>
+    </select>
+    <input type="text" id="f-search" placeholder="Buscar orden o producto..." oninput="renderLog()">
+  </div>
+
+  <div class="tbl-wrap">
+    <table class="log">
+      <thead><tr>
+        <th>Orden</th><th>Proveedor</th><th>Producto</th><th>Unidades</th>
+        <th>Fecha pedido</th><th>ETA</th><th>Estado</th><th>Acción</th>
+      </tr></thead>
+      <tbody id="log-body"></tbody>
+    </table>
+  </div>
+
+  <div class="charts-row">
+    <div class="chart-box"><h4>Pedidos por estado</h4><canvas id="chart-est" height="220"></canvas></div>
+    <div class="chart-box"><h4>Volumen por proveedor</h4><canvas id="chart-prov" height="220"></canvas></div>
+  </div>
+
+  <div style="text-align:center;padding:18px 0">
+    <p style="color:var(--muted);margin-bottom:14px">¿Lo quieres con base de datos, notificaciones y app móvil?</p>
+    <a class="btn btn-primary" href="index.html#contacto">Cuéntame tu idea →</a>
+  </div>
+</div>
+</section>
+
+<footer><div class="wrap">
+  <div>© <span id="y"></span> Mente en Automático</div>
+  <div><a href="index.html">Inicio</a></div>
+</div></footer>
+
+<script src="app.js"></script>
+<script>
+document.getElementById("y").textContent=new Date().getFullYear();
+
+const ORDERS=[
+  {id:"ORD-001",prov:"AlimexCorp",   prod:"Aceite vegetal",      qty:48,  pedido:"2026-05-20",eta:"2026-06-03",est:"En tránsito"},
+  {id:"ORD-002",prov:"DistribuGroup",prod:"Harina de trigo",     qty:120, pedido:"2026-05-22",eta:"2026-05-29",est:"Entregado"},
+  {id:"ORD-003",prov:"FoodTech",     prod:"Mezcla preparada",    qty:36,  pedido:"2026-05-23",eta:"2026-05-28",est:"Retrasado"},
+  {id:"ORD-004",prov:"LacteosNorte", prod:"Queso procesado",     qty:60,  pedido:"2026-05-24",eta:"2026-05-31",est:"Autorizado"},
+  {id:"ORD-005",prov:"AceitesFusion",prod:"Aceite de maíz",      qty:24,  pedido:"2026-05-25",eta:"2026-06-08",est:"Pendiente"},
+  {id:"ORD-006",prov:"AlimexCorp",   prod:"Film estirable",      qty:200, pedido:"2026-05-25",eta:"2026-06-04",est:"En tránsito"},
+  {id:"ORD-007",prov:"DistribuGroup",prod:"Servilletas industriales",qty:300,pedido:"2026-05-26",eta:"2026-06-01",est:"Entregado"},
+  {id:"ORD-008",prov:"FoodTech",     prod:"Salsa condimentada",  qty:80,  pedido:"2026-05-26",eta:"2026-05-30",est:"Pendiente"},
+  {id:"ORD-009",prov:"LacteosNorte", prod:"Crema ácida",         qty:45,  pedido:"2026-05-27",eta:"2026-06-03",est:"Autorizado"},
+  {id:"ORD-010",prov:"AceitesFusion",prod:"Manteca vegetal",     qty:32,  pedido:"2026-05-27",eta:"2026-06-10",est:"Retrasado"},
+  {id:"ORD-011",prov:"AlimexCorp",   prod:"Guantes latex",       qty:500, pedido:"2026-05-28",eta:"2026-06-05",est:"En tránsito"},
+  {id:"ORD-012",prov:"DistribuGroup",prod:"Papel parafinado",    qty:150, pedido:"2026-05-28",eta:"2026-06-02",est:"Entregado"},
+  {id:"ORD-013",prov:"FoodTech",     prod:"Bolsas de empaque",   qty:400, pedido:"2026-05-29",eta:"2026-06-12",est:"Pendiente"},
+  {id:"ORD-014",prov:"LacteosNorte", prod:"Yogur líquido",       qty:120, pedido:"2026-05-29",eta:"2026-06-06",est:"En tránsito"},
+  {id:"ORD-015",prov:"AceitesFusion",prod:"Aceite vegetal prem.",qty:60,  pedido:"2026-05-30",eta:"2026-06-14",est:"Autorizado"},
+];
+
+const NEXT={
+  "Autorizado":"En tránsito","Pendiente":"Autorizado",
+  "En tránsito":"Entregado","Retrasado":"En tránsito","Entregado":"Entregado"
+};
+const BADGE={
+  "Pendiente":"b-pen","En tránsito":"b-tra","Entregado":"b-ent",
+  "Retrasado":"b-ret","Autorizado":"b-aut"
+};
+
+let charts={};
+function renderLog(){
+  const fEst=document.getElementById("f-estado").value;
+  const fProv=document.getElementById("f-prov").value;
+  const fSrch=document.getElementById("f-search").value.toLowerCase();
+  const filtered=ORDERS.filter(o=>
+    (!fEst||o.est===fEst)&&
+    (!fProv||o.prov===fProv)&&
+    (!fSrch||o.id.toLowerCase().includes(fSrch)||o.prod.toLowerCase().includes(fSrch)||o.prov.toLowerCase().includes(fSrch))
+  );
+  const body=document.getElementById("log-body");
+  body.innerHTML=filtered.map(o=>`
+    <tr>
+      <td style="font-family:monospace;color:var(--cyan);font-size:12px">${o.id}</td>
+      <td style="font-weight:600">${o.prov}</td>
+      <td style="color:#cdd9f5">${o.prod}</td>
+      <td style="text-align:right">${o.qty.toLocaleString()}</td>
+      <td style="color:var(--muted);font-size:12px">${o.pedido}</td>
+      <td style="color:${o.est==="Retrasado"?"#ff5d6c":"var(--muted)"};font-size:12px">${o.eta}</td>
+      <td><span class="badge ${BADGE[o.est]}">${o.est}</span></td>
+      <td>${o.est!=="Entregado"?`<button class="btn btn-ghost btn-sm-action" onclick="advance('${o.id}')">Avanzar →</button>`:
+           '<span style="color:var(--muted);font-size:12px">✅ Completo</span>'}</td>
+    </tr>`).join("");
+
+  const c=s=>ORDERS.filter(o=>o.est===s).length;
+  document.getElementById("k-act").textContent=ORDERS.filter(o=>o.est!=="Entregado").length;
+  document.getElementById("k-tra").textContent=c("En tránsito");
+  document.getElementById("k-ent").textContent=c("Entregado");
+  document.getElementById("k-ret").textContent=c("Retrasado");
+  document.getElementById("k-pct").textContent=Math.round(c("Entregado")/ORDERS.length*100)+"%";
+
+  updateCharts();
+}
+function advance(id){
+  const o=ORDERS.find(x=>x.id===id);
+  if(o&&NEXT[o.est]) o.est=NEXT[o.est];
+  renderLog();
+}
+function updateCharts(){
+  const ests=["Pendiente","Autorizado","En tránsito","Retrasado","Entregado"];
+  const cols=["rgba(255,209,102,.8)","rgba(168,85,247,.8)","rgba(0,191,255,.8)","rgba(255,93,108,.8)","rgba(57,217,138,.8)"];
+  const provs=[...new Set(ORDERS.map(o=>o.prov))];
+
+  if(charts.est)charts.est.destroy();
+  charts.est=new Chart(document.getElementById("chart-est").getContext("2d"),{
+    type:"doughnut",data:{labels:ests,datasets:[{data:ests.map(s=>ORDERS.filter(o=>o.est===s).length),
+      backgroundColor:cols,borderColor:cols.map(c=>c.replace(".8","1")),borderWidth:2}]},
+    options:{plugins:{legend:{labels:{color:"#8aa0c6",font:{size:11}}}},cutout:"55%"}
+  });
+
+  if(charts.prov)charts.prov.destroy();
+  charts.prov=new Chart(document.getElementById("chart-prov").getContext("2d"),{
+    type:"bar",data:{labels:provs,datasets:[{label:"Órdenes",
+      data:provs.map(p=>ORDERS.filter(o=>o.prov===p).length),
+      backgroundColor:"rgba(0,191,255,.75)",borderRadius:5}]},
+    options:{indexAxis:"y",plugins:{legend:{display:false}},
+      scales:{x:{ticks:{color:"#8aa0c6"},grid:{color:"rgba(27,35,80,.5)"}},
+              y:{ticks:{color:"#8aa0c6",font:{size:11}},grid:{display:false}}}}
+  });
+}
+renderLog();
+</script>
+</body>
+</html>

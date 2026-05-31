@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demo Control de Horas Extras — Mente en Automático</title>
+<meta name="description" content="Sistema de control de tiempo con cálculo automático de horas regulares y extras. Lunes-Viernes vs. fines de semana.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+.demo-wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:22px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;text-align:center}
+.kpi .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.kpi .val{font-size:26px;font-weight:900;color:var(--cyan)}
+.week-tabs{display:flex;gap:8px;margin:18px 0;flex-wrap:wrap}
+.tab{padding:8px 18px;border-radius:999px;font-size:13px;font-weight:700;cursor:pointer;
+  background:var(--card);border:1px solid var(--line);color:var(--muted);transition:.15s}
+.tab.active{background:var(--neon);color:#001226;border-color:var(--neon)}
+.emp-card{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:16px}
+.emp-header{background:#0a0a2e;padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
+.emp-name{font-weight:700;font-size:16px}
+.emp-role{font-size:12px;color:var(--neon)}
+.emp-totals{display:flex;gap:20px}
+.emp-tot-lbl{font-size:11px;color:var(--muted);text-transform:uppercase}
+.emp-tot-val{font-size:20px;font-weight:900}
+.days-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:0}
+.day-col{padding:10px 8px;text-align:center;border-right:1px solid var(--line)}
+.day-col:last-child{border-right:none}
+.day-name{font-size:10px;font-weight:700;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.day-name.weekend{color:#ffd166}
+.time-inp{background:#e8f6ff;color:#0b132b;border:1.5px solid var(--neon);border-radius:7px;
+  padding:4px 6px;font-size:12px;font-weight:700;width:100%;box-sizing:border-box;text-align:center;outline:none;margin:3px 0}
+.time-inp.weekend{border-color:#ffd166;background:#fffbeb}
+.time-inp:focus{box-shadow:0 0 0 3px rgba(0,191,255,.15)}
+.hrs-display{font-size:13px;font-weight:700;margin-top:4px}
+.hrs-reg{color:#39d98a}.hrs-ext{color:#ffd166}.hrs-none{color:var(--muted)}
+.chart-row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:24px 0}
+.chart-box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.chart-box h4{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px}
+@media(max-width:700px){.days-grid{grid-template-columns:repeat(4,1fr)}.chart-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<header class="nav"><div class="wrap">
+  <a class="brand" href="index.html"><img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+    <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span></a>
+  <nav><a href="index.html#demos">← Demos</a><a href="index.html#contacto">Quiero uno así</a></nav>
+  <button class="menu-btn">☰</button>
+</div></header>
+
+<section class="hero" style="padding-bottom:14px">
+  <div class="wrap" style="max-width:720px">
+    <span class="kicker">Demo interactivo · Control de Horas</span>
+    <h1>Horas regulares y extras, <span>calculadas solas</span></h1>
+    <p class="sub">Registra entrada y salida de cada empleado. El sistema distingue horas regulares (L-V) de horas extras y fin de semana automáticamente.</p>
+  </div>
+</section>
+
+<section style="padding-top:8px">
+<div class="demo-wrap">
+  <div style="background:rgba(255,209,102,.08);border:1px solid rgba(255,209,102,.2);border-radius:12px;padding:13px 18px;margin-bottom:18px;font-size:14px;color:var(--muted)">
+    ✏️ <b style="color:var(--ink)">Instrucción:</b> cambia cualquier hora de entrada/salida (celdas azules = L-V, amarillas = fin de semana). Las horas se recalculan solas.
+    Jornada regular: 8h/día de L-V · Sábado y domingo = 100% horas extras.
+  </div>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">Total horas L-V</div><div class="val" id="k-lv">0</div></div>
+    <div class="kpi"><div class="lbl">Horas extras L-V</div><div class="val" style="color:#ffd166" id="k-ext-lv">0</div></div>
+    <div class="kpi"><div class="lbl">Horas fin de semana</div><div class="val" style="color:#ffd166" id="k-fds">0</div></div>
+    <div class="kpi"><div class="lbl">Total horas extras</div><div class="val" style="color:#ff5d6c" id="k-tot-ext">0</div></div>
+    <div class="kpi"><div class="lbl">Empleados registrados</div><div class="val" id="k-emp">0</div></div>
+  </div>
+
+  <div id="emp-cards"></div>
+
+  <div class="chart-row">
+    <div class="chart-box"><h4>Horas regulares vs extras por empleado</h4><canvas id="chart-emps" height="250"></canvas></div>
+    <div class="chart-box"><h4>Distribución de horas extras</h4><canvas id="chart-ext" height="250"></canvas></div>
+  </div>
+
+  <div style="text-align:center;padding:18px 0">
+    <p style="color:var(--muted);margin-bottom:14px">¿Lo quieres conectado a una base de datos y con exportación automática?</p>
+    <a class="btn btn-primary" href="index.html#contacto">Cuéntame tu idea →</a>
+  </div>
+</div>
+</section>
+
+<footer><div class="wrap">
+  <div>© <span id="y"></span> Mente en Automático</div>
+  <div><a href="index.html">Inicio</a> · <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a></div>
+</div></footer>
+
+<script src="app.js"></script>
+<script>
+document.getElementById("y").textContent=new Date().getFullYear();
+const DAYS = ["Lun","Mar","Mié","Jue","Vie","Sáb","Dom"];
+const WKD  = [5,6]; // indices de fin de semana
+
+const EMPS = [
+  {name:"Ana Martínez",   role:"Operaria",   sched:[["07:00","16:00"],["07:00","18:00"],["07:00","16:00"],["07:00","19:00"],["07:00","16:00"],["08:00","14:00"],["","""]]},
+  {name:"Carlos López",   role:"Supervisor", sched:[["06:00","15:00"],["06:00","15:00"],["06:00","17:30"],["06:00","15:00"],["06:00","15:00"],["",""],            ["",""]]},
+  {name:"Sofía Ramírez",  role:"Asistente",  sched:[["08:00","17:00"],["08:00","17:00"],["08:00","17:00"],["08:00","17:00"],["08:00","17:00"],["",""],            ["",""]]},
+  {name:"Diego Fuentes",  role:"Operario",   sched:[["07:00","16:00"],["07:00","20:00"],["07:00","16:00"],["07:00","16:00"],["07:00","16:00"],["07:00","13:00"],  ["07:00","11:00"]]},
+];
+
+function toMin(t){ if(!t) return null; const [h,m]=t.split(":").map(Number); return h*60+m; }
+function minToH(m){ return (m/60).toFixed(1); }
+
+function calcDay(ent, sal, isWkd){
+  const e=toMin(ent), s=toMin(sal);
+  if(e===null||s===null||s<=e) return {reg:0,ext:0};
+  const total=(s-e)/60;
+  if(isWkd) return {reg:0, ext:total};
+  const reg=Math.min(8,total), ext=Math.max(0,total-8);
+  return {reg, ext};
+}
+
+function renderAll(){
+  const container=document.getElementById("emp-cards");
+  container.innerHTML="";
+  let totLV=0, extLV=0, fds=0;
+
+  const chartRegs=[], chartExts=[], chartNames=[];
+
+  EMPS.forEach((emp,ei)=>{
+    let empReg=0, empExt=0;
+    const card=document.createElement("div"); card.className="emp-card";
+
+    const daysHTML = DAYS.map((d,di)=>{
+      const isWkd=WKD.includes(di);
+      const [entD,salD]=emp.sched[di];
+      const c=calcDay(entD,salD,isWkd);
+      empReg+=c.reg; empExt+=c.ext;
+      const cls=isWkd?"weekend":"";
+      return `
+        <div class="day-col">
+          <div class="day-name ${cls}">${d}</div>
+          <input class="time-inp ${cls}" type="time" data-ei="${ei}" data-di="${di}" data-t="e" value="${entD}" placeholder="--:--">
+          <input class="time-inp ${cls}" type="time" data-ei="${ei}" data-di="${di}" data-t="s" value="${salD}" placeholder="--:--">
+          <div class="hrs-display ${c.reg>0?"hrs-reg":c.ext>0?"hrs-ext":"hrs-none"}" id="hrs-${ei}-${di}">
+            ${c.reg>0?c.reg.toFixed(1)+"h reg":c.ext>0?c.ext.toFixed(1)+"h ext":"—"}
+          </div>
+        </div>`;
+    }).join("");
+
+    card.innerHTML=`
+      <div class="emp-header">
+        <div><div class="emp-name">${emp.name}</div><div class="emp-role">${emp.role}</div></div>
+        <div class="emp-totals">
+          <div><div class="emp-tot-lbl">Regulares</div><div class="emp-tot-val" style="color:#39d98a" id="emp-reg-${ei}">${empReg.toFixed(1)}h</div></div>
+          <div><div class="emp-tot-lbl">Extras</div><div class="emp-tot-val" style="color:#ffd166" id="emp-ext-${ei}">${empExt.toFixed(1)}h</div></div>
+        </div>
+      </div>
+      <div class="days-grid">${daysHTML}</div>`;
+    container.appendChild(card);
+
+    chartNames.push(emp.name.split(" ")[0]);
+    chartRegs.push(parseFloat(empReg.toFixed(1)));
+    chartExts.push(parseFloat(empExt.toFixed(1)));
+  });
+
+  // Totales KPI
+  EMPS.forEach(emp=>{
+    DAYS.forEach((d,di)=>{
+      const isWkd=WKD.includes(di);
+      const [e,s]=emp.sched[di];
+      const c=calcDay(e,s,isWkd);
+      if(!isWkd){totLV+=c.reg; extLV+=c.ext;} else fds+=c.ext;
+    });
+  });
+
+  document.getElementById("k-lv").textContent    = totLV.toFixed(0)+"h";
+  document.getElementById("k-ext-lv").textContent= extLV.toFixed(1)+"h";
+  document.getElementById("k-fds").textContent   = fds.toFixed(1)+"h";
+  document.getElementById("k-tot-ext").textContent=(extLV+fds).toFixed(1)+"h";
+  document.getElementById("k-emp").textContent   = EMPS.length;
+
+  updateCharts(chartNames, chartRegs, chartExts, extLV, fds);
+  attachListeners();
+}
+
+let ch1,ch2;
+function updateCharts(names,regs,exts,extLV,fds){
+  if(ch1)ch1.destroy(); if(ch2)ch2.destroy();
+  ch1=new Chart(document.getElementById("chart-emps").getContext("2d"),{
+    type:"bar",data:{labels:names,datasets:[
+      {label:"Regulares",data:regs,backgroundColor:"rgba(57,217,138,.75)",borderRadius:4},
+      {label:"Extras",   data:exts,backgroundColor:"rgba(255,209,102,.75)",borderRadius:4}
+    ]},
+    options:{plugins:{legend:{labels:{color:"#8aa0c6"}}},
+      scales:{x:{stacked:false,ticks:{color:"#8aa0c6"},grid:{color:"rgba(27,35,80,.5)"}},
+              y:{ticks:{color:"#8aa0c6"},grid:{color:"rgba(27,35,80,.5)"}}}}
+  });
+  ch2=new Chart(document.getElementById("chart-ext").getContext("2d"),{
+    type:"doughnut",data:{
+      labels:["Extras L-V","Extras Fin de Semana"],
+      datasets:[{data:[extLV.toFixed(1),fds.toFixed(1)],
+        backgroundColor:["rgba(255,209,102,.85)","rgba(255,93,108,.85)"],
+        borderColor:["#ffd166","#ff5d6c"],borderWidth:2}]
+    },
+    options:{plugins:{legend:{labels:{color:"#8aa0c6"}}},cutout:"60%"}
+  });
+}
+
+function attachListeners(){
+  document.querySelectorAll(".time-inp").forEach(inp=>{
+    inp.addEventListener("change",()=>{
+      const ei=+inp.dataset.ei, di=+inp.dataset.di, t=inp.dataset.t;
+      if(t==="e") EMPS[ei].sched[di][0]=inp.value||"";
+      else        EMPS[ei].sched[di][1]=inp.value||"";
+      renderAll();
+    });
+  });
+}
+
+renderAll();
+</script>
+</body>
+</html>

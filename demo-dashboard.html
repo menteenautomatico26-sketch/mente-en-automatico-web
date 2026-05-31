@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demo Dashboard Operacional — Mente en Automático</title>
+<meta name="description" content="Dashboard interactivo con KPIs, gráficas de ventas, alertas y filtros dinámicos. Construido para operaciones reales.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+.demo-wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin:22px 0}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;position:relative;overflow:hidden}
+.kpi::before{content:'';position:absolute;top:0;left:0;width:4px;height:100%;background:var(--accent,var(--neon))}
+.kpi .lbl{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.kpi .val{font-size:26px;font-weight:900;color:var(--ink)}
+.kpi .sub{font-size:12px;color:var(--muted);margin-top:4px}
+.kpi .trend{font-size:13px;font-weight:700}
+.up{color:#39d98a}.dn{color:#ff5d6c}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin:18px 0;align-items:center}
+.filters label{font-size:13px;color:var(--muted)}
+.filters select{background:var(--card);border:1px solid var(--line);color:var(--ink);
+  border-radius:9px;padding:8px 14px;font-family:inherit;font-size:13px;cursor:pointer;outline:none}
+.filters select:focus{border-color:var(--neon)}
+.charts-main{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-bottom:18px}
+.charts-bottom{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
+.chart-box{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px}
+.chart-box.full{grid-column:1/-1}
+.chart-box h4{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px;
+  display:flex;align-items:center;justify-content:space-between}
+.alert-list{margin-top:14px}
+.alert-row{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--line)}
+.alert-row:last-child{border:none}
+.alert-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px}
+.alert-row p{font-size:13px;color:#cdd9f5;margin:0}
+.alert-row small{font-size:11.5px;color:var(--muted)}
+@media(max-width:800px){.charts-main{grid-template-columns:1fr}.charts-bottom{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.charts-bottom{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<header class="nav"><div class="wrap">
+  <a class="brand" href="index.html"><img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+    <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span></a>
+  <nav><a href="index.html#demos">← Demos</a><a href="index.html#contacto">Quiero uno así</a></nav>
+  <button class="menu-btn">☰</button>
+</div></header>
+
+<section class="hero" style="padding-bottom:14px">
+  <div class="wrap" style="max-width:720px">
+    <span class="kicker">Demo interactivo · Dashboard Operacional</span>
+    <h1>Tus datos convertidos en <span>decisiones visuales</span></h1>
+    <p class="sub">KPIs en tiempo real, gráficas de tendencia, alertas automáticas y filtros dinámicos. Adaptable a ventas, logística, inventario o producción.</p>
+  </div>
+</section>
+
+<section style="padding-top:8px">
+<div class="demo-wrap">
+
+  <div class="filters">
+    <label>Período:</label>
+    <select id="filter-periodo" onchange="renderDash()">
+      <option value="7">Últimos 7 días</option>
+      <option value="30" selected>Últimos 30 días</option>
+      <option value="90">Últimos 90 días</option>
+    </select>
+    <label>Categoría:</label>
+    <select id="filter-cat" onchange="renderDash()">
+      <option value="all">Todas</option>
+      <option value="A">Categoría A</option>
+      <option value="B">Categoría B</option>
+      <option value="C">Categoría C</option>
+    </select>
+  </div>
+
+  <div class="kpis">
+    <div class="kpi" style="--accent:#39d98a"><div class="lbl">Ventas del período</div><div class="val" id="k-ventas">—</div><div class="sub trend up" id="k-ventas-t">—</div></div>
+    <div class="kpi" style="--accent:#00bfff"><div class="lbl">Órdenes procesadas</div><div class="val" id="k-ord">—</div><div class="sub trend" id="k-ord-t">—</div></div>
+    <div class="kpi" style="--accent:#ffd166"><div class="lbl">Ticket promedio</div><div class="val" id="k-ticket">—</div><div class="sub" id="k-ticket-t">—</div></div>
+    <div class="kpi" style="--accent:#ff5d6c"><div class="lbl">Alertas activas</div><div class="val" id="k-alerts">—</div><div class="sub" id="k-alerts-t">—</div></div>
+    <div class="kpi" style="--accent:#a855f7"><div class="lbl">Cumplimiento</div><div class="val" id="k-cum">—</div><div class="sub" id="k-cum-t">—</div></div>
+  </div>
+
+  <div class="charts-main">
+    <div class="chart-box"><h4>Tendencia de ventas <span id="label-dias"></span></h4><canvas id="chart-trend" height="200"></canvas></div>
+    <div class="chart-box">
+      <h4>Alertas del sistema</h4>
+      <div class="alert-list" id="alert-list"></div>
+    </div>
+  </div>
+
+  <div class="charts-bottom">
+    <div class="chart-box"><h4>Distribución por categoría</h4><canvas id="chart-cat" height="220"></canvas></div>
+    <div class="chart-box"><h4>Top productos</h4><canvas id="chart-top" height="220"></canvas></div>
+    <div class="chart-box"><h4>Cumplimiento vs objetivo</h4><canvas id="chart-cum" height="220"></canvas></div>
+  </div>
+
+  <div style="text-align:center;padding:20px 0">
+    <p style="color:var(--muted);margin-bottom:14px">¿Quieres este dashboard con tus datos reales?</p>
+    <a class="btn btn-primary" href="index.html#contacto">Cuéntame tu idea →</a>
+  </div>
+
+</div>
+</section>
+
+<footer><div class="wrap">
+  <div>© <span id="y"></span> Mente en Automático</div>
+  <div><a href="index.html">Inicio</a></div>
+</div></footer>
+
+<script src="app.js"></script>
+<script>
+document.getElementById("y").textContent=new Date().getFullYear();
+const CH={};
+
+function seed(s){let x=Math.sin(s)*10000;return x-Math.floor(x);}
+function rnd(base,var_,i){return Math.round(base+var_*(seed(i*13+7)*2-1));}
+
+const CATS=["Categoría A","Categoría B","Categoría C"];
+const PRODS=["Producto Alfa","Producto Beta","Producto Gamma","Prod. Delta","Prod. Épsilon"];
+const ALERTS=[
+  {sev:"red",  msg:"Producto Alfa: stock por debajo del mínimo",  time:"Hace 2h"},
+  {sev:"yellow",msg:"Orden #0482 pendiente de confirmación",       time:"Hace 4h"},
+  {sev:"yellow",msg:"Producto Gamma: vencimiento en 5 días",       time:"Hace 6h"},
+  {sev:"blue",  msg:"Reporte semanal generado y enviado",          time:"Ayer 08:00"},
+];
+
+function renderDash(){
+  const dias=+document.getElementById("filter-periodo").value;
+  const cat=document.getElementById("filter-cat").value;
+  document.getElementById("label-dias").textContent=`(${dias} días)`;
+
+  const mult=cat==="all"?1:cat==="A"?0.45:cat==="B"?0.35:0.2;
+  const ventasBase=dias*(820+rnd(0,200,dias))*mult;
+  const ords=Math.round(dias*(4.2+seed(dias)*1.8)*mult);
+  const ticket=Math.round(ventasBase/ords);
+  const cum=Math.round(88+seed(dias+cat.length)*8);
+
+  document.getElementById("k-ventas").textContent="Q "+Math.round(ventasBase).toLocaleString();
+  document.getElementById("k-ventas-t").textContent=(dias>7?"▲ +6.4% vs período anterior":"▲ +2.1% vs período anterior");
+  document.getElementById("k-ventas-t").className="sub trend up";
+  document.getElementById("k-ord").textContent=ords.toLocaleString();
+  document.getElementById("k-ord-t").textContent="▲ +"+Math.round(seed(dias)*12)+"%";
+  document.getElementById("k-ord-t").className="sub trend up";
+  document.getElementById("k-ticket").textContent="Q "+ticket.toLocaleString();
+  document.getElementById("k-ticket-t").textContent="Por orden promedio";
+  document.getElementById("k-alerts").textContent=cat==="all"?ALERTS.length:Math.max(1,ALERTS.length-1);
+  document.getElementById("k-alerts-t").textContent="Requieren atención";
+  document.getElementById("k-cum").textContent=cum+"%";
+  document.getElementById("k-cum-t").textContent=cum>=90?"▲ Meta alcanzada":"▼ Por debajo de meta";
+  document.getElementById("k-cum-t").className="sub trend "+(cum>=90?"up":"dn");
+
+  // Alertas
+  const al=document.getElementById("alert-list");
+  al.innerHTML=ALERTS.slice(0,cat==="all"?4:3).map(a=>`
+    <div class="alert-row">
+      <div class="alert-dot" style="background:${a.sev==="red"?"#ff5d6c":a.sev==="yellow"?"#ffd166":"#00bfff"}"></div>
+      <div><p>${a.msg}</p><small>${a.time}</small></div>
+    </div>`).join("");
+
+  // Tendencia
+  const labels=Array.from({length:Math.min(dias,30)},(_,i)=>{
+    const d=new Date(); d.setDate(d.getDate()-Math.min(dias,30)+i+1);
+    return d.toLocaleDateString("es-GT",{day:"2-digit",month:"short"});
+  });
+  const trendData=labels.map((_,i)=>rnd(Math.round(ventasBase/labels.length),400*mult,i+dias));
+
+  if(CH.trend)CH.trend.destroy();
+  CH.trend=new Chart(document.getElementById("chart-trend").getContext("2d"),{
+    type:"line",
+    data:{labels,datasets:[{label:"Ventas (Q)",data:trendData,borderColor:"#00bfff",
+      backgroundColor:"rgba(0,191,255,.08)",fill:true,tension:.4,pointRadius:2}]},
+    options:{plugins:{legend:{display:false}},scales:{
+      x:{ticks:{color:"#8aa0c6",maxRotation:40,font:{size:10}},grid:{color:"rgba(27,35,80,.5)"}},
+      y:{ticks:{color:"#8aa0c6",callback:v=>"Q "+v.toLocaleString()},grid:{color:"rgba(27,35,80,.5)"}}
+    }}
+  });
+
+  // Categorías
+  const catData=CATS.map((_,i)=>[38,32,30][i]*mult+(seed(i+dias)*10));
+  if(CH.cat)CH.cat.destroy();
+  CH.cat=new Chart(document.getElementById("chart-cat").getContext("2d"),{
+    type:"doughnut",data:{labels:CATS,datasets:[{data:catData,
+      backgroundColor:["rgba(0,191,255,.8)","rgba(57,217,138,.8)","rgba(255,209,102,.8)"],
+      borderColor:["#00bfff","#39d98a","#ffd166"],borderWidth:2}]},
+    options:{plugins:{legend:{labels:{color:"#8aa0c6",font:{size:11}}}},cutout:"55%"}
+  });
+
+  // Top productos
+  if(CH.top)CH.top.destroy();
+  CH.top=new Chart(document.getElementById("chart-top").getContext("2d"),{
+    type:"bar",
+    data:{labels:PRODS,datasets:[{label:"Ventas",
+      data:PRODS.map((_,i)=>rnd(Math.round(ventasBase*[.28,.22,.20,.16,.14][i]),200*mult,i+dias*2)),
+      backgroundColor:["rgba(0,191,255,.85)","rgba(57,217,138,.7)","rgba(255,209,102,.7)","rgba(168,85,247,.7)","rgba(255,93,108,.7)"],
+      borderRadius:5}]},
+    options:{indexAxis:"y",plugins:{legend:{display:false}},scales:{
+      x:{ticks:{color:"#8aa0c6"},grid:{color:"rgba(27,35,80,.5)"}},
+      y:{ticks:{color:"#8aa0c6",font:{size:11}},grid:{display:false}}
+    }}
+  });
+
+  // Cumplimiento
+  const meses=["Ene","Feb","Mar","Abr","May","Jun"];
+  const cumData=meses.map((_,i)=>rnd(88,8,i+dias));
+  if(CH.cum)CH.cum.destroy();
+  CH.cum=new Chart(document.getElementById("chart-cum").getContext("2d"),{
+    type:"bar",
+    data:{labels:meses,datasets:[
+      {label:"Real",data:cumData,backgroundColor:cumData.map(v=>v>=90?"rgba(57,217,138,.8)":"rgba(255,209,102,.8)"),borderRadius:5},
+      {type:"line",label:"Objetivo",data:meses.map(()=>90),borderColor:"rgba(255,93,108,.7)",
+       borderDash:[5,4],pointRadius:0,borderWidth:2}
+    ]},
+    options:{plugins:{legend:{labels:{color:"#8aa0c6",font:{size:11}}}},scales:{
+      x:{ticks:{color:"#8aa0c6"},grid:{color:"rgba(27,35,80,.5)"}},
+      y:{min:75,max:100,ticks:{color:"#8aa0c6",callback:v=>v+"%"},grid:{color:"rgba(27,35,80,.5)"}}
+    }}
+  });
+}
+renderDash();
+</script>
+</body>
+</html>
