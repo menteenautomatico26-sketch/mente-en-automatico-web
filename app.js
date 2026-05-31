@@ -11,10 +11,16 @@
      "Comprar" abrirá WhatsApp con el mensaje listo (venta por DM).
 --------------------------------------------------------------------------- */
 const CONFIG = {
-  whatsapp: "502########",          // ← TU WHATSAPP (ej. 50255551234)
+  whatsapp: "",                      // ← Déjalo vacío: usamos Instagram como canal único
   instagram: "menteenautomatico",
   email: "menteautomatica26@gmail.com",
-  // Links de pago directos (opcionales). Pégalos cuando tengas Gumroad/PayPal:
+  // -----------------------------------------------------------------
+  // COBRO INTERNACIONAL:
+  //   Guatemala  → transferencia bancaria o Binance Pay (DM por Instagram)
+  //   LatAm/mundo → Gumroad (acepta tarjetas y PayPal internacionales)
+  //                 Cuando tengas tu cuenta en gumroad.com, pega aquí
+  //                 el link de cada producto y el botón cobrará solo.
+  // -----------------------------------------------------------------
   links: {
     p1:"", p2:"", p3:"", p4:"", p5:"", p6:"", p7:"",
     packPro:"", packLog:"", packCom:""
@@ -90,14 +96,11 @@ function renderNews(sel){
   }).join("");
 }
 
-/* COMPRA: link directo si existe, si no WhatsApp con mensaje listo --------- */
+/* COMPRA: link de Gumroad si existe; si no, Instagram DM + modal --------- */
 function buy(id, label, price){
   const link = CONFIG.links[id];
   if(link && link.trim()){ window.open(link, "_blank"); return; }
-  const num = (CONFIG.whatsapp||"").replace(/\D/g,"");
-  const msg = encodeURIComponent(`¡Hola! Quiero comprar: ${label} ($${price}). ¿Cómo me la envías?`);
-  if(num && !num.includes("########")){ window.open(`https://wa.me/${num}?text=${msg}`,"_blank"); return; }
-  // sin whatsapp configurado → Instagram DM
+  // Sin link de pago → Instagram DM (funciona tanto para GT como internacional)
   window.open(`https://ig.me/m/${CONFIG.instagram}`,"_blank");
   openModal(label, price);
 }
@@ -105,6 +108,14 @@ function openModal(label, price){
   const m=document.getElementById("buyModal"); if(!m) return;
   document.getElementById("modalLabel").textContent=label;
   document.getElementById("modalPrice").textContent="$"+price;
+  // Opciones de pago según ubicación
+  const isGT = Intl.DateTimeFormat().resolvedOptions().timeZone.includes("Guatemala");
+  const payOpts = document.getElementById("modalPayOpts");
+  if(payOpts){
+    payOpts.innerHTML = isGT
+      ? `<p style="color:var(--muted);font-size:13.5px;margin-top:8px">💳 <b>Guatemala:</b> transferencia bancaria o Binance Pay — escríbeme y te paso los datos.</p>`
+      : `<p style="color:var(--muted);font-size:13.5px;margin-top:8px">🌎 <b>Internacional:</b> te acepto tarjeta, PayPal o cripto — escríbeme a Instagram y lo resolvemos.</p>`;
+  }
   m.classList.add("open");
 }
 function closeModal(){const m=document.getElementById("buyModal");if(m)m.classList.remove("open");}
