@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Proyectos a la Medida — Mente en Automático</title>
+<meta name="description" content="¿Necesitas un Excel avanzado, una automatización o una app a la medida? Cuéntanos tu idea y lo hacemos realidad.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+.form-card{background:linear-gradient(180deg,var(--card),#080b22);border:1px solid var(--line);
+  border-radius:24px;padding:38px;max-width:680px;margin:0 auto}
+.form-group{margin-bottom:22px}
+.form-group label{display:block;font-size:14px;font-weight:700;color:var(--cyan);
+  margin-bottom:8px;letter-spacing:.3px}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;background:#080b22;border:1.5px solid var(--line);border-radius:12px;
+  padding:13px 16px;font-size:15px;color:var(--ink);font-family:inherit;
+  outline:none;transition:.18s;box-sizing:border-box}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  border-color:var(--neon);box-shadow:0 0 0 3px rgba(0,191,255,.12)}
+.form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300bfff' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center}
+.form-group textarea{min-height:130px;resize:vertical}
+.form-group select option{background:#080b22;color:var(--ink)}
+.ejemplos{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:32px 0}
+.ej{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.ej .ic{font-size:26px;margin-bottom:8px}
+.ej h4{font-size:16px;margin-bottom:5px}
+.ej p{color:var(--muted);font-size:13.5px}
+.success-msg{background:rgba(57,217,138,.1);border:1px solid #39d98a;border-radius:14px;
+  padding:24px;text-align:center;display:none}
+.success-msg h3{color:#39d98a;margin-bottom:8px}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span></a>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="tienda.html">Tienda</a>
+      <a href="novedades.html">Novedades</a>
+      <a href="servicios.html">Servicios</a>
+    </nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="hero" style="padding-bottom:20px">
+  <div class="wrap" style="max-width:700px">
+    <span class="kicker">Proyectos a la medida</span>
+    <h1>¿Tienes una idea? <span>La hacemos realidad</span></h1>
+    <p class="sub">Desde un Excel avanzado con gráficas y alertas automáticas, hasta una app web completa. Cuéntame tu idea y vemos cómo resolverla.</p>
+  </div>
+</section>
+
+<section style="padding-top:8px">
+  <div class="wrap">
+    <h2 class="section-title">¿Qué tipo de proyectos hacemos?</h2>
+    <p class="section-sub">Si lo puedes imaginar, probablemente lo podemos construir.</p>
+    <div class="ejemplos">
+      <div class="ej reveal"><div class="ic">📊</div>
+        <h4>Dashboards interactivos</h4>
+        <p>Reportes visuales en tiempo real: gráficas, KPIs, filtros. Para gerencia o para ti.</p></div>
+      <div class="ej reveal"><div class="ic">⚙️</div>
+        <h4>Google Sheets con automatización</h4>
+        <p>Hojas de cálculo que se actualizan solas, envían correos y generan reportes automáticos.</p></div>
+      <div class="ej reveal"><div class="ic">🌐</div>
+        <h4>Apps web a la medida</h4>
+        <p>Sistemas con login, roles de usuario, base de datos. Para tu equipo o tu negocio.</p></div>
+      <div class="ej reveal"><div class="ic">🤖</div>
+        <h4>Herramientas con IA</h4>
+        <p>Clasifica reclamos, genera reportes o analiza datos usando inteligencia artificial.</p></div>
+      <div class="ej reveal"><div class="ic">📋</div>
+        <h4>Formularios y flujos digitales</h4>
+        <p>De papel o WhatsApp a un formulario digital con base de datos y notificaciones.</p></div>
+      <div class="ej reveal"><div class="ic">📦</div>
+        <h4>Control de inventario avanzado</h4>
+        <p>MRP, punto de reorden, semáforos, proveedores y proyecciones. Todo conectado.</p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Cuéntame tu idea</h2>
+    <p class="section-sub">Sin compromiso. Te respondo en menos de 24 horas.</p>
+
+    <div class="form-card reveal">
+      <!-- FormSubmit: envía al correo sin backend, gratis -->
+      <form action="https://formsubmit.co/menteautomatica26@gmail.com" method="POST" id="proyectoForm">
+        <!-- Config FormSubmit -->
+        <input type="hidden" name="_subject" value="Nueva consulta de proyecto — Mente en Automático">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://menteenautomatico.netlify.app/gracias-proyecto.html">
+        <input type="hidden" name="_template" value="table">
+
+        <div class="form-group">
+          <label>Nombre y apellido *</label>
+          <input type="text" name="nombre" placeholder="Ej. María García" required>
+        </div>
+
+        <div class="form-group">
+          <label>¿Empresa o persona individual? *</label>
+          <select name="tipo" required>
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option value="Empresa">Empresa / negocio</option>
+            <option value="Emprendedor">Emprendedor / negocio propio</option>
+            <option value="Estudiante">Estudiante universitario</option>
+            <option value="Freelancer">Freelancer / independiente</option>
+            <option value="Personal">Uso personal</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Correo electrónico *</label>
+          <input type="email" name="correo" placeholder="tucorreo@ejemplo.com" required>
+        </div>
+
+        <div class="form-group">
+          <label>WhatsApp o teléfono (opcional)</label>
+          <input type="text" name="telefono" placeholder="Ej. +502 5555 1234">
+        </div>
+
+        <div class="form-group">
+          <label>¿Qué necesitas? Explícame tu idea *</label>
+          <textarea name="idea" placeholder="Ej: Tengo una tienda y llevo el inventario en papel. Quiero algo que me avise cuando me falta producto y que calcule cuánto gano por artículo. También quisiera que envíe un reporte por correo cada semana..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>¿Cuál es tu presupuesto aproximado?</label>
+          <select name="presupuesto">
+            <option value="" disabled selected>Selecciona un rango</option>
+            <option value="Menos de $50">Menos de $50</option>
+            <option value="$50 - $150">$50 – $150</option>
+            <option value="$150 - $300">$150 – $300</option>
+            <option value="$300 - $500">$300 – $500</option>
+            <option value="Más de $500">Más de $500</option>
+            <option value="No sé aún">No sé aún, quiero una cotización</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%;padding:16px;font-size:16px">
+          Enviar mi idea →
+        </button>
+        <p style="color:var(--muted);font-size:13px;text-align:center;margin-top:12px">
+          Te respondo en menos de 24 horas a tu correo. Sin compromiso.
+        </p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap" style="max-width:700px;margin:0 auto">
+    <div class="steps">
+      <div class="step reveal"><h4>1. Me cuentas</h4><p>Llenas el formulario con tu idea. Entre más detalle, mejor cotización puedo darte.</p></div>
+      <div class="step reveal"><h4>2. Hablamos</h4><p>Te respondo con preguntas o directamente con una propuesta y un presupuesto.</p></div>
+      <div class="step reveal"><h4>3. Construimos</h4><p>Si acepta la propuesta, arrancamos. Tienes versiones de avance para ir validando.</p></div>
+      <div class="step reveal"><h4>4. Entregamos</h4><p>Recibes el proyecto funcionando, con documentación para que lo uses solo.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="y"></span> Mente en Automático · IA &amp; Eficiencia</div>
+    <div>
+      <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a> ·
+      <a href="mailto:menteautomatica26@gmail.com">Correo</a> ·
+      <a href="tienda.html">Tienda</a>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>document.getElementById("y").textContent=new Date().getFullYear();</script>
+</body>
+</html>
