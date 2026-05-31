@@ -51,11 +51,11 @@
       <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span>
     </a>
     <nav>
-      <a href="tienda.html">🛒 Sistemas</a>
-      <a href="#demos">Demos</a>
+      <a href="tienda.html">Demos</a>
+      <a href="servicios.html">📞 Llamadas 1:1</a>
       <a href="#gratis">Gratis</a>
       <a href="novedades.html">Novedades</a>
-      <a href="#contacto">A la medida</a>
+      <a href="#contacto">Proyectos</a>
     </nav>
     <button class="menu-btn">☰</button>
   </div>
@@ -235,11 +235,10 @@
     <p class="section-sub">Un Excel avanzado, un dashboard, un sistema con login o una app web completa. Cuéntame y te respondo en menos de 24 horas.</p>
 
     <div class="form-card reveal">
-      <form action="https://formsubmit.co/menteautomatica26@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="Nueva consulta — Mente en Automático">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://menteenautomatico.netlify.app/gracias-proyecto.html">
-        <input type="hidden" name="_template" value="table">
+      <form name="contacto-inicio" method="POST" data-netlify="true"
+            netlify-honeypot="bot-field" action="/gracias-proyecto.html">
+        <input type="hidden" name="form-name" value="contacto-inicio">
+        <p style="display:none"><input name="bot-field"></p>
 
         <div class="form-group">
           <label>Nombre y apellido *</label>

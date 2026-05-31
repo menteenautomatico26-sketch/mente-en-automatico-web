@@ -202,11 +202,10 @@
     <p class="section-sub">Sin compromiso. Te respondo en menos de 24 horas con una propuesta o preguntas para entenderte mejor.</p>
 
     <div class="form-card reveal">
-      <form action="https://formsubmit.co/menteautomatica26@gmail.com" method="POST">
-        <input type="hidden" name="_subject" value="Nueva consulta de proyecto — Mente en Automático">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://menteenautomatico.netlify.app/gracias-proyecto.html">
-        <input type="hidden" name="_template" value="table">
+      <form name="contacto-tienda" method="POST" data-netlify="true"
+            netlify-honeypot="bot-field" action="/gracias-proyecto.html">
+        <input type="hidden" name="form-name" value="contacto-tienda">
+        <p style="display:none"><input name="bot-field"></p>
 
         <div class="form-group">
           <label>Nombre y apellido *</label>
