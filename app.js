@@ -30,37 +30,37 @@ const CONFIG = {
 /* CATÁLOGO ---------------------------------------------------------------- */
 const PRODUCTS = [
   { id:"p5", emoji:"📒", name:"Control de Fiados", for:"Tienda / pulpería",
-    usd:5, q:39, desc:"Quién te debe, cuánto y desde cuándo. Estado automático: al día, por vencer, vencido o pagado.",
+    usd:8, q:62, desc:"Quién te debe, cuánto y desde cuándo. Estado automático: al día, por vencer, vencido o pagado.",
     feats:["Saldo y días calculados solos","Total por cobrar y monto vencido","Adiós al cuaderno"] },
   { id:"p4", emoji:"🏪", name:"Inventario + Margen Tienda", for:"Tienda / negocio",
-    usd:5, q:39, desc:"Stock, costo, precio, margen en Q y %, valor del inventario y alerta de reposición.",
+    usd:8, q:62, desc:"Stock, costo, precio, margen en Q y %, valor del inventario y alerta de reposición.",
     feats:["Margen por producto","Alerta de bajo stock","Ganancia potencial total"] },
   { id:"p7", emoji:"📈", name:"Ventas Diarias + KPIs", for:"Cualquier negocio",
-    usd:5, q:39, desc:"Convierte tus ventas del día en indicadores: ticket promedio, mejor día y tendencia.",
+    usd:8, q:62, desc:"Convierte tus ventas del día en indicadores: ticket promedio, mejor día y tendencia.",
     feats:["Ticket promedio automático","Mejor día detectado","Panel de KPIs"] },
   { id:"p1", emoji:"📦", name:"Inventario por Días", for:"Logística / compras", feat:true,
-    usd:7, q:55, desc:"Sabe qué reordenar en 30 segundos. Días de inventario, punto de reorden y semáforo automático.",
+    usd:10, q:78, desc:"Sabe qué reordenar en 30 segundos. Días de inventario, punto de reorden y semáforo automático.",
     feats:["Semáforo Reordenar/Vigilar/Óptimo","Punto de reorden calculado","Resumen automático"] },
   { id:"p3", emoji:"🌐", name:"Comparador Proveedores FOB", for:"Importación / compras",
-    usd:7, q:55, desc:"Compara proveedores por costo REAL puesto en bodega (con flete y aduana). Marca la mejor opción.",
+    usd:10, q:78, desc:"Compara proveedores por costo REAL puesto en bodega (con flete y aduana). Marca la mejor opción.",
     feats:["Costo landed por unidad","Marca la mejor opción","Calcula tu ahorro"] },
   { id:"p6", emoji:"🍔", name:"Costo de Recetas (Food Cost)", for:"Restaurante / cocina",
-    usd:9, q:70, desc:"Costo por porción, % de food cost y precio de venta sugerido para asegurar tu margen.",
+    usd:13, q:101, desc:"Costo por porción, % de food cost y precio de venta sugerido para asegurar tu margen.",
     feats:["Precio sugerido automático","Food cost real vs objetivo","Costeo por ingrediente"] },
   { id:"p2", emoji:"🧮", name:"MRP de Compras", for:"Logística / abastecimiento", feat:true,
-    usd:12, q:95, desc:"Qué pedir, cuánto y cuándo. Sugerencia de reorden + control de recepciones (¿llegó completo?).",
+    usd:15, q:116, desc:"Qué pedir, cuánto y cuándo. Sugerencia de reorden + control de recepciones (¿llegó completo?).",
     feats:["Cantidad sugerida a pedir","Fecha límite de pedido","Control de recepciones y atrasos"] }
 ];
 
 const PACKS = [
   { id:"packPro", tag:"MÁS VENDIDO", name:"PACK Operación Pro", count:"7 plantillas",
-    usd:25, old:50, q:195, save:"Ahorras 50%",
+    usd:25, old:72, q:195, save:"Ahorras 65%",
     items:["Inventario por Días","MRP de Compras","Comparador FOB","Inventario + Margen Tienda","Control de Fiados","Food Cost","Ventas + KPIs"] },
   { id:"packLog", tag:"COMPRAS", name:"Pack Logística", count:"3 plantillas",
-    usd:16, old:26, q:125, save:"Ahorras 38%",
+    usd:20, old:35, q:155, save:"Ahorras 43%",
     items:["Inventario por Días","MRP de Compras","Comparador FOB"] },
   { id:"packCom", tag:"NEGOCIO", name:"Pack Comerciante", count:"3 plantillas",
-    usd:12, old:17, q:95, save:"Ahorras 30%",
+    usd:20.50, old:29, q:159, save:"Ahorras 29%",
     items:["Inventario + Margen Tienda","Control de Fiados","Ventas + KPIs"] }
 ];
 
