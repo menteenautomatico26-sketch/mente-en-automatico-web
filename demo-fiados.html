@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demo: Control de Fiados — Mente en Automático</title>
+<meta name="description" content="Prueba gratis el Control de Fiados: ve cómo calcula el saldo, los días y el estado de cada cliente que te debe.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+.demo-wrap{max-width:900px;margin:0 auto;padding:0 16px}
+.demo-table{width:100%;border-collapse:collapse;font-size:14px;margin:22px 0}
+.demo-table th{background:#0a0a2e;color:#00bfff;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.8px;border-bottom:2px solid #1b2350}
+.demo-table td{padding:9px 12px;border-bottom:1px solid #1b2350;vertical-align:middle}
+.demo-table tr:hover td{background:rgba(0,191,255,.04)}
+input.cell{background:#e8f6ff;color:#0b132b;border:1.5px solid #00bfff;border-radius:7px;padding:6px 10px;font-size:14px;font-weight:600;width:100%;box-sizing:border-box;outline:none}
+input.cell:focus{border-color:#3fd8ff;box-shadow:0 0 0 3px rgba(0,191,255,.15)}
+input.cell[type=date]{color-scheme:light}
+.out{font-weight:700;font-size:15px;color:#e8f1ff}
+.badge{display:inline-block;padding:4px 14px;border-radius:999px;font-size:12.5px;font-weight:800;letter-spacing:.5px}
+.al-dia{background:#1b7f3b22;color:#39d98a;border:1px solid #39d98a}
+.por-vencer{background:#ffd16622;color:#ffd166;border:1px solid #ffd166}
+.vencido{background:#ff5d6c22;color:#ff5d6c;border:1px solid #ff5d6c}
+.pagado{background:#8aa0c622;color:#8aa0c6;border:1px solid #8aa0c6}
+.total-row td{background:#0a0a2e;font-weight:700;color:#00bfff;font-size:15px}
+.hint{color:#8aa0c6;font-size:13px;margin:6px 0 18px}
+.demo-note{background:linear-gradient(135deg,#0a1340,#0a0a2e);border:1px solid #1b2350;border-radius:14px;padding:20px 22px;margin-top:28px;font-size:14px;color:#cdd9f5}
+.demo-note strong{color:#00bfff}
+@media(max-width:600px){
+  .demo-table th:nth-child(3),.demo-table td:nth-child(3),
+  .demo-table th:nth-child(4),.demo-table td:nth-child(4){display:none}
+  input.cell{font-size:13px;padding:5px 7px}
+}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span></a>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="tienda.html">Tienda</a>
+      <a href="novedades.html">Novedades</a>
+    </nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="hero" style="padding-bottom:10px">
+  <div class="wrap" style="max-width:700px">
+    <span class="kicker">Demo interactiva · Control de Fiados</span>
+    <h1>Pruébala tú mismo, <span>en vivo</span></h1>
+    <p class="sub">Llena los datos de abajo — el saldo, los días y el estado se calculan solos, igual que en la plantilla real.</p>
+  </div>
+</section>
+
+<section style="padding-top:8px">
+  <div class="demo-wrap">
+    <p class="hint">✏️ Haz clic en cualquier celda azul y edita. Todo se actualiza solo.</p>
+
+    <div style="overflow-x:auto">
+    <table class="demo-table" id="tbl">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Cliente</th>
+          <th>Teléfono</th>
+          <th>Fecha del fiado</th>
+          <th>Monto (Q)</th>
+          <th>Abonado (Q)</th>
+          <th>Saldo (Q)</th>
+          <th>Días</th>
+          <th>Estado</th>
+        </tr>
+      </thead>
+      <tbody id="tbody"></tbody>
+      <tfoot>
+        <tr class="total-row">
+          <td colspan="6" style="text-align:right;padding-right:16px">TOTAL POR COBRAR →</td>
+          <td id="totalSaldo">Q 0.00</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="6" style="text-align:right;padding-right:16px;color:#ff5d6c">MONTO VENCIDO →</td>
+          <td id="totalVencido" style="color:#ff5d6c">Q 0.00</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+    </div>
+
+    <div class="demo-note">
+      <strong>Así funciona la plantilla real:</strong> tú solo llenas las celdas azules
+      (cliente, teléfono, fecha, monto y abonos). El saldo, los días y el estado
+      se calculan solos. Cuando el fiado lleva más de <strong>7 días</strong> sin pago
+      completo entra en "Por vencer"; más de <strong>15 días</strong> queda "Vencido".
+      La plantilla también te muestra el total por cobrar y cuánto ya está vencido.
+    </div>
+
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;justify-content:center">
+      <a class="btn btn-primary" href="https://ig.me/m/menteenautomatico" target="_blank">
+        Quiero esta plantilla ($6) →
+      </a>
+      <a class="btn btn-ghost" href="tienda.html">Ver todas las plantillas</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="y"></span> Mente en Automático · IA &amp; Eficiencia</div>
+    <div><a href="tienda.html">Tienda</a> · <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a></div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+document.getElementById("y").textContent = new Date().getFullYear();
+
+// ─── DEMO ENGINE ────────────────────────────────────────────────────────────
+const ROWS = 8;
+const today = new Date();
+
+function demoDate(daysAgo){
+  const d = new Date(today); d.setDate(d.getDate() - daysAgo);
+  return d.toISOString().split('T')[0];
+}
+
+// Datos de ejemplo precargados
+const DEFAULTS = [
+  {cliente:"María López",    tel:"5555-1234", fecha:demoDate(3),  monto:250,  abono:100},
+  {cliente:"Carlos Pérez",   tel:"4444-5678", fecha:demoDate(18), monto:180,  abono:0},
+  {cliente:"Ana Rodríguez",  tel:"3333-9012", fecha:demoDate(10), monto:95,   abono:95},
+  {cliente:"Luis García",    tel:"2222-3456", fecha:demoDate(5),  monto:320,  abono:150},
+  {cliente:"",               tel:"",          fecha:"",            monto:"",   abono:""},
+  {cliente:"",               tel:"",          fecha:"",            monto:"",   abono:""},
+  {cliente:"",               tel:"",          fecha:"",            monto:"",   abono:""},
+  {cliente:"",               tel:"",          fecha:"",            monto:"",   abono:""},
+];
+
+function estado(saldo, dias){
+  if(saldo <= 0) return {txt:"Pagado",    cls:"pagado"};
+  if(dias > 15)  return {txt:"Vencido",   cls:"vencido"};
+  if(dias > 7)   return {txt:"Por vencer",cls:"por-vencer"};
+  return           {txt:"Al día",        cls:"al-dia"};
+}
+
+function diffDays(fechaStr){
+  if(!fechaStr) return 0;
+  const d = new Date(fechaStr);
+  return Math.max(0, Math.floor((today - d)/(1000*60*60*24)));
+}
+
+function fmt(n){ return isNaN(n)||n===""?"—":"Q "+parseFloat(n).toFixed(2); }
+
+function render(){
+  const tbody = document.getElementById("tbody");
+  tbody.innerHTML = "";
+  let totalSaldo = 0, totalVencido = 0;
+
+  for(let i=0;i<ROWS;i++){
+    const d = DEFAULTS[i];
+    const tr = document.createElement("tr");
+
+    const monto  = parseFloat(document.getElementById("m"+i)?.value) || (d.monto||0);
+    const abono  = parseFloat(document.getElementById("a"+i)?.value) || (d.abono||0);
+    const fecha  = document.getElementById("f"+i)?.value || d.fecha;
+    const dias   = diffDays(fecha);
+    const saldo  = isNaN(monto)||monto===""? null : Math.max(0, monto - abono);
+    const est    = saldo !== null ? estado(saldo, dias) : {txt:"",cls:""};
+
+    if(saldo !== null && saldo > 0) totalSaldo += saldo;
+    if(est.cls === "vencido" && saldo > 0) totalVencido += saldo;
+
+    tr.innerHTML = `
+      <td style="color:var(--muted);font-size:13px">${i+1}</td>
+      <td><input class="cell" id="cl${i}" type="text" placeholder="Nombre del cliente" value="${d.cliente}"></td>
+      <td><input class="cell" id="te${i}" type="text" placeholder="5555-0000" value="${d.tel}"></td>
+      <td><input class="cell" id="f${i}"  type="date" value="${d.fecha}"></td>
+      <td><input class="cell" id="m${i}"  type="number" min="0" step="0.01" placeholder="0.00" value="${d.monto}"></td>
+      <td><input class="cell" id="a${i}"  type="number" min="0" step="0.01" placeholder="0.00" value="${d.abono}"></td>
+      <td class="out">${saldo !== null ? fmt(saldo) : "—"}</td>
+      <td class="out" style="color:var(--muted)">${fecha ? dias+"d" : "—"}</td>
+      <td>${est.txt ? `<span class="badge ${est.cls}">${est.txt}</span>` : ""}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+
+  document.getElementById("totalSaldo").textContent   = fmt(totalSaldo);
+  document.getElementById("totalVencido").textContent = fmt(totalVencido);
+
+  // Re-attach listeners
+  document.querySelectorAll(".cell").forEach(inp => {
+    inp.oninput = debounce(recalc, 300);
+  });
+}
+
+function recalc(){
+  // Read current input values back into DEFAULTS
+  for(let i=0;i<ROWS;i++){
+    const cl=document.getElementById("cl"+i);
+    const te=document.getElementById("te"+i);
+    const fi=document.getElementById("f"+i);
+    const mi=document.getElementById("m"+i);
+    const ai=document.getElementById("a"+i);
+    if(cl) DEFAULTS[i].cliente=cl.value;
+    if(te) DEFAULTS[i].tel=te.value;
+    if(fi) DEFAULTS[i].fecha=fi.value;
+    if(mi) DEFAULTS[i].monto=mi.value;
+    if(ai) DEFAULTS[i].abono=ai.value;
+  }
+  render();
+}
+
+function debounce(fn,ms){ let t; return function(){clearTimeout(t);t=setTimeout(fn,ms);} }
+
+render();
+</script>
+</body>
+</html>

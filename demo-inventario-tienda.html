@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demo: Inventario + Margen de Tienda — Mente en Automático</title>
+<meta name="description" content="Prueba gratis la plantilla de Inventario + Margen: ve cómo calcula tu ganancia por producto y cuándo reponer.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+.demo-wrap{max-width:960px;margin:0 auto;padding:0 16px}
+.demo-table{width:100%;border-collapse:collapse;font-size:14px;margin:22px 0}
+.demo-table th{background:#0a0a2e;color:#00bfff;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.8px;border-bottom:2px solid #1b2350}
+.demo-table td{padding:9px 12px;border-bottom:1px solid #1b2350;vertical-align:middle}
+.demo-table tr:hover td{background:rgba(0,191,255,.04)}
+input.cell{background:#e8f6ff;color:#0b132b;border:1.5px solid #00bfff;border-radius:7px;padding:6px 10px;font-size:14px;font-weight:600;width:100%;box-sizing:border-box;outline:none}
+input.cell:focus{border-color:#3fd8ff;box-shadow:0 0 0 3px rgba(0,191,255,.15)}
+.out{font-weight:700;font-size:14px;color:#e8f1ff}
+.badge{display:inline-block;padding:4px 14px;border-radius:999px;font-size:12.5px;font-weight:800}
+.reponer{background:#ff5d6c22;color:#ff5d6c;border:1px solid #ff5d6c}
+.ok{background:#1b7f3b22;color:#39d98a;border:1px solid #39d98a}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin:24px 0}
+.kpi{background:#0c1030;border:1px solid #1b2350;border-radius:14px;padding:18px;text-align:center}
+.kpi .lbl{font-size:12px;color:#8aa0c6;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.kpi .val{font-size:26px;font-weight:900;color:#00bfff}
+.hint{color:#8aa0c6;font-size:13px;margin:6px 0 18px}
+.demo-note{background:linear-gradient(135deg,#0a1340,#0a0a2e);border:1px solid #1b2350;border-radius:14px;padding:20px 22px;margin-top:28px;font-size:14px;color:#cdd9f5}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span></a>
+    <nav><a href="index.html">Inicio</a><a href="tienda.html">Tienda</a><a href="novedades.html">Novedades</a></nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="hero" style="padding-bottom:10px">
+  <div class="wrap" style="max-width:700px">
+    <span class="kicker">Demo interactiva · Inventario + Margen de Tienda</span>
+    <h1>Ve tu margen <span>en tiempo real</span></h1>
+    <p class="sub">Ingresa tus productos — el margen, la alerta de reposición y el valor del inventario se calculan solos.</p>
+  </div>
+</section>
+
+<section style="padding-top:8px">
+  <div class="demo-wrap">
+    <div class="kpi-row">
+      <div class="kpi"><div class="lbl">Valor del inventario</div><div class="val" id="kValInv">Q 0</div></div>
+      <div class="kpi"><div class="lbl">Ganancia potencial</div><div class="val" id="kGanancia">Q 0</div></div>
+      <div class="kpi"><div class="lbl">Productos a reponer</div><div class="val" id="kReponer">0</div></div>
+      <div class="kpi"><div class="lbl">Margen promedio</div><div class="val" id="kMargen">0%</div></div>
+    </div>
+
+    <p class="hint">✏️ Edita cualquier celda azul — los resultados se actualizan solos.</p>
+    <div style="overflow-x:auto">
+    <table class="demo-table">
+      <thead>
+        <tr>
+          <th>#</th><th>Producto</th><th>Stock</th><th>Mínimo</th>
+          <th>Costo (Q)</th><th>Precio venta (Q)</th>
+          <th>Margen Q</th><th>Margen %</th><th>Alerta</th>
+        </tr>
+      </thead>
+      <tbody id="tbody2"></tbody>
+    </table>
+    </div>
+
+    <div class="demo-note">
+      <strong>Así funciona la plantilla real:</strong> llenas producto, stock, mínimo, costo y precio.
+      La plantilla calcula tu <strong>margen en Q y en %</strong> por producto, te avisa cuándo
+      reponer y muestra cuánto vale tu inventario y cuánta ganancia puedes generar si vendes todo.
+    </div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;justify-content:center">
+      <a class="btn btn-primary" href="https://ig.me/m/menteenautomatico" target="_blank">Quiero esta plantilla ($6) →</a>
+      <a class="btn btn-ghost" href="tienda.html">Ver todas las plantillas</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <div>© <span id="y"></span> Mente en Automático</div>
+  <div><a href="tienda.html">Tienda</a> · <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a></div>
+</div></footer>
+
+<script src="app.js"></script>
+<script>
+document.getElementById("y").textContent=new Date().getFullYear();
+const ROWS2=8;
+const DEF2=[
+  {prod:"Aceite 1L",stock:24,min:10,costo:18.50,precio:25},
+  {prod:"Arroz 5lb",stock:6, min:15,costo:22,   precio:30},
+  {prod:"Frijol 1lb",stock:40,min:20,costo:8,    precio:12},
+  {prod:"Azúcar 2lb",stock:12,min:10,costo:11,   precio:16},
+  {prod:"",stock:"",min:"",costo:"",precio:""},
+  {prod:"",stock:"",min:"",costo:"",precio:""},
+  {prod:"",stock:"",min:"",costo:"",precio:""},
+  {prod:"",stock:"",min:"",costo:"",precio:""},
+];
+function fmtQ(n){return isNaN(n)||n===""?"—":"Q "+parseFloat(n).toFixed(2);}
+function render2(){
+  const tbody=document.getElementById("tbody2");tbody.innerHTML="";
+  let valInv=0,ganancia=0,reponer=0,mTotal=0,mCnt=0;
+  for(let i=0;i<ROWS2;i++){
+    const d=DEF2[i];
+    const s=parseFloat(document.getElementById("st"+i)?.value??d.stock)||0;
+    const mn=parseFloat(document.getElementById("mn"+i)?.value??d.min)||0;
+    const c=parseFloat(document.getElementById("co"+i)?.value??d.costo);
+    const p=parseFloat(document.getElementById("pr"+i)?.value??d.precio);
+    const prod=document.getElementById("pr2_"+i)?.value??d.prod;
+    const hasData=d.prod||prod;
+    const mQ=(!isNaN(c)&&!isNaN(p))?(p-c):null;
+    const mPct=(!isNaN(c)&&!isNaN(p)&&p>0)?((p-c)/p*100):null;
+    const alerta=(s>0&&mn>0&&s<=mn)?"Reponer":"OK";
+    if(hasData&&!isNaN(c)&&s>0){valInv+=s*c;}
+    if(hasData&&mQ!==null&&s>0){ganancia+=s*mQ;}
+    if(hasData&&alerta==="Reponer")reponer++;
+    if(mPct!==null){mTotal+=mPct;mCnt++;}
+    const tr=document.createElement("tr");
+    tr.innerHTML=`
+      <td style="color:var(--muted);font-size:13px">${i+1}</td>
+      <td><input class="cell" id="pr2_${i}" type="text" placeholder="Nombre producto" value="${d.prod}"></td>
+      <td><input class="cell" id="st${i}" type="number" min="0" placeholder="0" value="${d.stock}"></td>
+      <td><input class="cell" id="mn${i}" type="number" min="0" placeholder="0" value="${d.min}"></td>
+      <td><input class="cell" id="co${i}" type="number" min="0" step="0.01" placeholder="0.00" value="${d.costo}"></td>
+      <td><input class="cell" id="pr${i}" type="number" min="0" step="0.01" placeholder="0.00" value="${d.precio}"></td>
+      <td class="out">${mQ!==null?fmtQ(mQ):"—"}</td>
+      <td class="out" style="color:${mPct!==null&&mPct>0?"#39d98a":"#ff5d6c"}">${mPct!==null?mPct.toFixed(1)+"%":"—"}</td>
+      <td>${hasData?`<span class="badge ${alerta==="Reponer"?"reponer":"ok"}">${alerta}</span>`:""}</td>
+    `;
+    tbody.appendChild(tr);
+  }
+  document.getElementById("kValInv").textContent="Q "+valInv.toFixed(0);
+  document.getElementById("kGanancia").textContent="Q "+ganancia.toFixed(0);
+  document.getElementById("kReponer").textContent=reponer;
+  document.getElementById("kMargen").textContent=mCnt>0?(mTotal/mCnt).toFixed(1)+"%":"0%";
+  document.querySelectorAll(".cell").forEach(inp=>{inp.oninput=()=>{
+    for(let i=0;i<ROWS2;i++){
+      ["pr2_","st","mn","co","pr"].forEach(pfx=>{
+        const el=document.getElementById(pfx+i);
+        if(el){const k=pfx==="pr2_"?"prod":pfx==="st"?"stock":pfx==="mn"?"min":pfx==="co"?"costo":"precio";DEF2[i][k]=el.value;}
+      });
+    }
+    render2();
+  };});
+}
+render2();
+</script>
+</body>
+</html>

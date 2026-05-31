@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Demo: Ventas Diarias — Mente en Automático</title>
+<meta name="description" content="Prueba gratis la plantilla de Ventas Diarias: ve tu ticket promedio, mejor día y tendencia en tiempo real.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+.demo-wrap{max-width:860px;margin:0 auto;padding:0 16px}
+.demo-table{width:100%;border-collapse:collapse;font-size:14px;margin:22px 0}
+.demo-table th{background:#0a0a2e;color:#00bfff;padding:10px 12px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:.8px;border-bottom:2px solid #1b2350}
+.demo-table td{padding:9px 12px;border-bottom:1px solid #1b2350;vertical-align:middle}
+.demo-table tr:hover td{background:rgba(0,191,255,.04)}
+.best-row td{background:rgba(57,217,138,.06)!important;border-left:3px solid #39d98a}
+input.cell{background:#e8f6ff;color:#0b132b;border:1.5px solid #00bfff;border-radius:7px;padding:6px 10px;font-size:14px;font-weight:600;width:100%;box-sizing:border-box;outline:none}
+input.cell:focus{border-color:#3fd8ff;box-shadow:0 0 0 3px rgba(0,191,255,.15)}
+.out{font-weight:700;font-size:14px;color:#e8f1ff}
+.kpi-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin:24px 0}
+.kpi{background:#0c1030;border:1px solid #1b2350;border-radius:14px;padding:18px;text-align:center}
+.kpi .lbl{font-size:12px;color:#8aa0c6;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.kpi .val{font-size:24px;font-weight:900;color:#00bfff}
+.kpi .val.green{color:#39d98a}.kpi .val.gold{color:#ffd166}
+.hint{color:#8aa0c6;font-size:13px;margin:6px 0 18px}
+.bar-wrap{height:8px;background:#1b2350;border-radius:4px;margin-top:4px;overflow:hidden}
+.bar{height:100%;background:linear-gradient(90deg,#00bfff,#1e90ff);border-radius:4px;transition:.4s}
+.demo-note{background:linear-gradient(135deg,#0a1340,#0a0a2e);border:1px solid #1b2350;border-radius:14px;padding:20px 22px;margin-top:28px;font-size:14px;color:#cdd9f5}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span></a>
+    <nav><a href="index.html">Inicio</a><a href="tienda.html">Tienda</a><a href="novedades.html">Novedades</a></nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="hero" style="padding-bottom:10px">
+  <div class="wrap" style="max-width:700px">
+    <span class="kicker">Demo interactiva · Ventas Diarias</span>
+    <h1>Tus ventas convertidas en <span>decisiones</span></h1>
+    <p class="sub">Ingresa tus ventas de cada día — el ticket promedio, el mejor día y la tendencia aparecen solos.</p>
+  </div>
+</section>
+
+<section style="padding-top:8px">
+  <div class="demo-wrap">
+    <div class="kpi-row">
+      <div class="kpi"><div class="lbl">Total del período</div><div class="val" id="kTotal">Q 0</div></div>
+      <div class="kpi"><div class="lbl">Venta diaria promedio</div><div class="val" id="kProm">Q 0</div></div>
+      <div class="kpi"><div class="lbl">Ticket por cliente</div><div class="val green" id="kTicket">Q 0</div></div>
+      <div class="kpi"><div class="lbl">Mejor día</div><div class="val gold" id="kMejor">—</div></div>
+    </div>
+
+    <p class="hint">✏️ Cambia cualquier número — los indicadores se actualizan en tiempo real.</p>
+    <div style="overflow-x:auto">
+    <table class="demo-table">
+      <thead>
+        <tr><th>Día</th><th>Fecha</th><th>Ventas (Q)</th><th>Clientes</th><th>Ticket prom.</th><th>vs promedio</th></tr>
+      </thead>
+      <tbody id="tbody3"></tbody>
+    </table>
+    </div>
+
+    <div class="demo-note">
+      <strong>Así funciona la plantilla real:</strong> solo ingresas la fecha, tus ventas del día y cuántos
+      clientes atendiste. La plantilla calcula el <strong>ticket promedio por cliente</strong>, detecta tu
+      <strong>mejor día</strong> y muestra si vas subiendo o bajando. Perfecto para saber cuándo reforzar
+      personal o inventario.
+    </div>
+    <div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:28px;justify-content:center">
+      <a class="btn btn-primary" href="https://ig.me/m/menteenautomatico" target="_blank">Quiero esta plantilla ($6) →</a>
+      <a class="btn btn-ghost" href="tienda.html">Ver todas las plantillas</a>
+    </div>
+  </div>
+</section>
+
+<footer><div class="wrap">
+  <div>© <span id="y"></span> Mente en Automático</div>
+  <div><a href="tienda.html">Tienda</a> · <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a></div>
+</div></footer>
+
+<script src="app.js"></script>
+<script>
+document.getElementById("y").textContent=new Date().getFullYear();
+const DIAS=["Lunes","Martes","Miércoles","Jueves","Viernes","Sábado","Domingo"];
+function dDate(offset){const d=new Date();d.setDate(d.getDate()-6+offset);return d.toLocaleDateString("es-GT",{day:"2-digit",month:"short"});}
+const DEF3=[
+  {ventas:1850,clientes:42},
+  {ventas:1420,clientes:31},
+  {ventas:2100,clientes:48},
+  {ventas:1680,clientes:39},
+  {ventas:2350,clientes:55},
+  {ventas:2800,clientes:63},
+  {ventas:1200,clientes:28},
+];
+function render3(){
+  const tbody=document.getElementById("tbody3");tbody.innerHTML="";
+  const datos=DEF3.map((d,i)=>({
+    v:parseFloat(document.getElementById("vv"+i)?.value??d.ventas)||0,
+    c:parseFloat(document.getElementById("vc"+i)?.value??d.clientes)||1,
+    i
+  }));
+  const total=datos.reduce((a,d)=>a+d.v,0);
+  const prom=total/datos.length;
+  const maxV=Math.max(...datos.map(d=>d.v));
+  const bestI=datos.findIndex(d=>d.v===maxV);
+  const totalClientes=datos.reduce((a,d)=>a+d.c,0);
+  const ticket=totalClientes>0?total/totalClientes:0;
+
+  document.getElementById("kTotal").textContent="Q "+total.toFixed(0);
+  document.getElementById("kProm").textContent="Q "+prom.toFixed(0);
+  document.getElementById("kTicket").textContent="Q "+ticket.toFixed(2);
+  document.getElementById("kMejor").textContent=DIAS[bestI];
+
+  datos.forEach((d,i)=>{
+    const ticketD=d.c>0?(d.v/d.c):0;
+    const pct=maxV>0?(d.v/maxV*100):0;
+    const diff=prom>0?((d.v-prom)/prom*100):0;
+    const tr=document.createElement("tr");
+    if(i===bestI)tr.classList.add("best-row");
+    tr.innerHTML=`
+      <td style="font-weight:700;color:${i===bestI?"#39d98a":"var(--muted)"}">${DIAS[i]}${i===bestI?" 🏆":""}</td>
+      <td style="color:var(--muted);font-size:13px">${dDate(i)}</td>
+      <td><input class="cell" id="vv${i}" type="number" min="0" step="0.01" value="${DEF3[i].ventas}" style="max-width:120px"></td>
+      <td><input class="cell" id="vc${i}" type="number" min="1" step="1" value="${DEF3[i].clientes}" style="max-width:80px"></td>
+      <td class="out">Q ${ticketD.toFixed(2)}</td>
+      <td>
+        <span style="font-size:13px;font-weight:700;color:${diff>=0?"#39d98a":"#ff5d6c"}">${diff>=0?"+":""}${diff.toFixed(1)}%</span>
+        <div class="bar-wrap"><div class="bar" style="width:${pct}%"></div></div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+  document.querySelectorAll(".cell").forEach(inp=>{
+    inp.oninput=()=>{
+      for(let i=0;i<7;i++){
+        const vEl=document.getElementById("vv"+i),cEl=document.getElementById("vc"+i);
+        if(vEl)DEF3[i].ventas=vEl.value;
+        if(cEl)DEF3[i].clientes=cEl.value;
+      }
+      render3();
+    };
+  });
+}
+render3();
+</script>
+</body>
+</html>

@@ -30,13 +30,16 @@ const CONFIG = {
 /* CATÁLOGO ---------------------------------------------------------------- */
 const PRODUCTS = [
   { id:"p5", emoji:"📒", name:"Control de Fiados", for:"Tienda / pulpería",
-    usd:6, q:47, desc:"Quién te debe, cuánto y desde cuándo. Estado automático: al día, por vencer, vencido o pagado.",
+    usd:6, q:47, demo:"demo-fiados.html",
+    desc:"Quién te debe, cuánto y desde cuándo. Estado automático: al día, por vencer, vencido o pagado.",
     feats:["Saldo y días calculados solos","Total por cobrar y monto vencido","Adiós al cuaderno"] },
   { id:"p4", emoji:"🏪", name:"Inventario + Margen de Tienda", for:"Tienda / negocio",
-    usd:6, q:47, desc:"Stock, costo, precio, margen en Q y %, valor del inventario y alerta de reposición.",
+    usd:6, q:47, demo:"demo-inventario-tienda.html",
+    desc:"Stock, costo, precio, margen en Q y %, valor del inventario y alerta de reposición.",
     feats:["Margen por producto","Alerta de bajo stock","Ganancia potencial total"] },
   { id:"p7", emoji:"📈", name:"Ventas Diarias", for:"Cualquier negocio",
-    usd:6, q:47, desc:"Convierte tus ventas del día en indicadores reales: ticket promedio, mejor día y tendencia de crecimiento.",
+    usd:6, q:47, demo:"demo-ventas.html",
+    desc:"Convierte tus ventas del día en indicadores reales: ticket promedio, mejor día y tendencia de crecimiento.",
     feats:["Ticket promedio automático","Mejor día de venta detectado","Tendencia de crecimiento visible"] },
   { id:"p1", emoji:"📦", name:"Inventario por Días", for:"Logística / compras", feat:true,
     usd:10, q:78, desc:"Sabe qué reordenar en 30 segundos. Días de inventario, punto de reorden y semáforo automático.",
@@ -133,7 +136,8 @@ function renderProducts(sel){
       <ul>${p.feats.map(f=>`<li>${f}</li>`).join("")}</ul>
       <div class="price"><span class="usd">$${p.usd}</span><span class="q">Q${p.q}</span></div>
       <div class="actions">
-        <button class="btn btn-primary" onclick="buy('${p.id}','${p.name}',${p.usd})">Comprar</button>
+        ${p.demo?`<a class="btn btn-ghost" href="${p.demo}" target="_blank">Ver demo</a>`:''}
+        <button class="btn btn-primary" onclick="buy('${p.id}','${p.name}',${p.usd})">Comprar $${p.usd}</button>
       </div>
     </div>`).join("");
 }
