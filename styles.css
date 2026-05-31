@@ -175,6 +175,24 @@ footer a{color:var(--muted)}footer a:hover{color:var(--cyan)}
 .reveal{opacity:0;transform:translateY(18px);transition:.6s}
 .reveal.in{opacity:1;transform:none}
 
+/* FORMULARIO DE CONTACTO (compartido index + tienda) */
+.form-card{background:linear-gradient(180deg,var(--card),#080b22);border:1px solid var(--line);
+  border-radius:24px;padding:38px;max-width:680px;margin:0 auto}
+.form-group{margin-bottom:22px}
+.form-group label{display:block;font-size:14px;font-weight:700;color:var(--cyan);
+  margin-bottom:8px;letter-spacing:.3px}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;background:#080b22;border:1.5px solid var(--line);border-radius:12px;
+  padding:13px 16px;font-size:15px;color:var(--ink);font-family:inherit;
+  outline:none;transition:.18s;box-sizing:border-box}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  border-color:var(--neon);box-shadow:0 0 0 3px rgba(0,191,255,.12)}
+.form-group select{appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300bfff' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center}
+.form-group textarea{min-height:130px;resize:vertical}
+.form-group select option{background:#080b22;color:var(--ink)}
+
 /* APPS SCRIPT BADGE en tarjetas */
 .script-badge{
   display:inline-block;font-size:10px;font-weight:800;letter-spacing:1.2px;

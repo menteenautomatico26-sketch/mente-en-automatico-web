@@ -3,10 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Sistemas de Automatización · Google Sheets — Mente en Automático</title>
-<meta name="description" content="Google Sheets que trabajan solos: pedidos con formulario, facturador automático, alertas de inventario, CRM y cobranza. Para negocios pequeños sin equipo de IT.">
+<title>Sistemas y Plantillas — Mente en Automático</title>
+<meta name="description" content="Demos en vivo de sistemas reales: MRP, dashboards, control de horas y más. Plantillas gratis de Excel y proyectos a la medida.">
 <link rel="icon" href="icon.jpg">
 <link rel="stylesheet" href="styles.css">
+<style>
+.demo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
+.demo-card{background:linear-gradient(180deg,var(--card),#080b22);border:1px solid var(--line);
+  border-radius:var(--radius);overflow:hidden;transition:.2s;display:flex;flex-direction:column}
+.demo-card:hover{border-color:var(--neon);transform:translateY(-4px);box-shadow:var(--shadow)}
+.demo-preview{height:160px;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#060618,#0a0a2e);border-bottom:1px solid var(--line);
+  font-size:56px;position:relative;overflow:hidden}
+.demo-preview::after{content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 50%,rgba(0,191,255,.08),transparent 70%)}
+.demo-body{padding:22px;flex:1;display:flex;flex-direction:column}
+.demo-tag{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;color:var(--neon);margin-bottom:8px}
+.demo-body h3{font-size:20px;margin-bottom:8px;line-height:1.2}
+.demo-body p{color:var(--muted);font-size:14px;flex:1;margin-bottom:16px}
+.demo-body .actions{display:flex;gap:10px;flex-wrap:wrap}
+.demo-body .actions a{flex:1;text-align:center;padding:10px 12px;font-size:13.5px}
+
+.form-card{background:linear-gradient(180deg,var(--card),#080b22);border:1px solid var(--line);
+  border-radius:24px;padding:38px;max-width:680px;margin:0 auto}
+.form-group{margin-bottom:22px}
+.form-group label{display:block;font-size:14px;font-weight:700;color:var(--cyan);margin-bottom:8px;letter-spacing:.3px}
+.form-group input,.form-group select,.form-group textarea{
+  width:100%;background:#080b22;border:1.5px solid var(--line);border-radius:12px;
+  padding:13px 16px;font-size:15px;color:var(--ink);font-family:inherit;outline:none;transition:.18s;box-sizing:border-box}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  border-color:var(--neon);box-shadow:0 0 0 3px rgba(0,191,255,.12)}
+.form-group select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300bfff' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 16px center}
+.form-group textarea{min-height:130px;resize:vertical}
+.form-group select option{background:#080b22;color:var(--ink)}
+</style>
 </head>
 <body>
 <canvas id="particles"></canvas>
@@ -19,136 +50,221 @@
     </a>
     <nav>
       <a href="index.html">Inicio</a>
-      <a href="#packs">Packs</a>
-      <a href="#sistemas">Sistemas</a>
-      <a href="#gratis">9 Gratis</a>
+      <a href="#demos">Demos</a>
+      <a href="#gratis">Gratis</a>
+      <a href="#contacto">Proyecto a la medida</a>
       <a href="novedades.html">Novedades</a>
-      <a href="#como">Cómo funciona</a>
     </nav>
     <button class="menu-btn">☰</button>
   </div>
 </header>
 
-<!-- HERO ---------------------------------------------------------------- -->
+<!-- HERO -->
 <section class="hero">
-  <div class="wrap" style="max-width:820px">
-    <span class="kicker">Google Sheets · Apps Script · Sin programar</span>
-    <h1>Tu Google Sheets que <span>trabaja solo mientras tú atiendes tu negocio</span></h1>
-    <p class="sub">Pedidos con formulario, facturas por correo, alertas de stock, CRM y cobros automáticos. Sistemas reales para negocios pequeños — setup en 5 minutos, sin equipo de IT.</p>
+  <div class="wrap" style="max-width:780px">
+    <span class="kicker">Sistemas reales · Demos en vivo · Proyectos a la medida</span>
+    <h1>Mira cómo funciona antes de <span>contarme tu idea</span></h1>
+    <p class="sub">Cada demo es un sistema real que puedes probar ahora mismo. Si ves algo que te sirve o tienes una idea propia, cuéntamela y lo hacemos para ti.</p>
     <div class="cta">
-      <a class="btn btn-primary" href="#packs">Ver los packs →</a>
-      <a class="btn btn-ghost" href="#sistemas">Ver sistemas sueltos</a>
+      <a class="btn btn-primary" href="#demos">Ver los demos →</a>
+      <a class="btn btn-ghost" href="#contacto">Cuéntame tu idea</a>
     </div>
     <div class="trust">
-      <span>✓ Solo necesitas <b>Google Sheets gratis</b></span>
-      <span>✓ Setup en <b>5 minutos</b></span>
-      <span>✓ <b>Automatización real</b> sin programar</span>
-      <span>✓ <b>Pago único</b>, sin suscripción</span>
+      <span>🛠️ <b>Sistemas reales</b> probados en operación</span>
+      <span>⚡ Prototipo en <b>días</b>, no meses</span>
+      <span>🎁 <b>Plantillas gratis</b> disponibles ya</span>
     </div>
   </div>
 </section>
 
-<!-- QUÉ ES APPS SCRIPT -------------------------------------------------- -->
-<section style="padding:30px 0 10px">
+<!-- DEMOS -->
+<section id="demos">
   <div class="wrap">
-    <div class="explainer-row reveal">
-      <div class="explainer-ic">⚡</div>
-      <div>
-        <h4 style="font-size:18px;margin-bottom:6px">¿Qué es Apps Script?</h4>
-        <p style="color:var(--muted);font-size:14.5px;max-width:720px">Es el motor de automatización que viene incluido <em>gratis</em> en Google Sheets. No necesitas programar — solo copiar el script que te entrego, dar permisos y listo. El sistema funciona solo desde ese momento: envía correos, genera reportes, detecta vencimientos… mientras tú haces otra cosa.</p>
+    <h2 class="section-title">Sistemas en funcionamiento</h2>
+    <p class="section-sub">Estos son sistemas reales — no imágenes. Puedes interactuar con cada uno ahora mismo.</p>
+    <div class="demo-grid">
+
+      <div class="demo-card reveal">
+        <div class="demo-preview">🧮</div>
+        <div class="demo-body">
+          <div class="demo-tag">MRP · Inventario</div>
+          <h3>Sistema MRP de Compras</h3>
+          <p>Qué pedir, cuánto y cuándo. Días de inventario, punto de reorden, semáforo de urgencia y gráfica en tiempo real.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="demo-mrp.html">Ver demo →</a>
+            <a class="btn btn-ghost" href="#contacto">Quiero uno así</a>
+          </div>
+        </div>
       </div>
+
+      <div class="demo-card reveal">
+        <div class="demo-preview">📋</div>
+        <div class="demo-body">
+          <div class="demo-tag">RR.HH. · Nómina</div>
+          <h3>Control de Horas Extras</h3>
+          <p>Registro de asistencia con cálculo automático de horas regulares y especiales. L-V vs. sábado y domingo separados.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="demo-horas.html">Ver demo →</a>
+            <a class="btn btn-ghost" href="#contacto">Quiero uno así</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card reveal">
+        <div class="demo-preview">⚠️</div>
+        <div class="demo-body">
+          <div class="demo-tag">Calidad · Proveedores</div>
+          <h3>Gestión de Reclamos (GRC)</h3>
+          <p>Sistema con login, 3 roles de usuario, KPIs, gráficas, exportación PDF y XLSX. Para registrar y analizar reclamos.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="demo-grc.html">Ver demo →</a>
+            <a class="btn btn-ghost" href="#contacto">Quiero uno así</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card reveal">
+        <div class="demo-preview">📊</div>
+        <div class="demo-body">
+          <div class="demo-tag">Dashboard · Analytics</div>
+          <h3>Dashboard Operacional</h3>
+          <p>Panel de KPIs en tiempo real: ventas, rotación, tendencias y alertas. Gráficas interactivas con filtros dinámicos.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="demo-dashboard.html">Ver demo →</a>
+            <a class="btn btn-ghost" href="#contacto">Quiero uno así</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card reveal">
+        <div class="demo-preview">🚚</div>
+        <div class="demo-body">
+          <div class="demo-tag">Logística · Distribución</div>
+          <h3>Sistema Logístico</h3>
+          <p>Control de pedidos, rutas, recepciones y estados de entrega. Con roles de usuario, historial y reportes.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="demo-logistica.html">Ver demo →</a>
+            <a class="btn btn-ghost" href="#contacto">Quiero uno así</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-card reveal" style="border-style:dashed;opacity:.75">
+        <div class="demo-preview" style="font-size:40px">🔜</div>
+        <div class="demo-body">
+          <div class="demo-tag">Próximamente</div>
+          <h3>¿Tienes una idea diferente?</h3>
+          <p>Agenda para clínicas, sistema de cotizaciones, tracker de proveedores, app de pedidos… si lo imaginas, lo construimos.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="#contacto">Cuéntame tu idea →</a>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
 
-<!-- PACKS --------------------------------------------------------------- -->
-<section id="packs">
-  <div class="wrap">
-    <h2 class="section-title">Packs — más sistemas, mejor precio</h2>
-    <p class="section-sub">La forma más inteligente de empezar. Todos los sistemas en un solo pago.</p>
-    <div id="packList"></div>
-  </div>
-</section>
-
-<!-- SISTEMAS SUELTOS ---------------------------------------------------- -->
-<section id="sistemas">
-  <div class="wrap">
-    <h2 class="section-title">Sistemas sueltos</h2>
-    <p class="section-sub">¿Solo necesitas uno? Llévalo suelto. Cada sistema incluye el script listo, instrucciones en español y guía de setup.</p>
-    <div id="productGrid" class="grid"></div>
-  </div>
-</section>
-
-<!-- 9 PLANTILLAS GRATIS ------------------------------------------------- -->
+<!-- GRATIS -->
 <section id="gratis" style="background:linear-gradient(180deg,#06071a,#04040f)">
   <div class="wrap">
-    <h2 class="section-title">9 plantillas de Excel <span style="color:var(--ok)">gratis</span> 🎁</h2>
-    <p class="section-sub">Herramientas de Excel listas para usar. Sin registro, sin costo. Descárgalas todas desde Google Drive.</p>
+    <h2 class="section-title">Plantillas gratis 🎁</h2>
+    <p class="section-sub">Herramientas de Excel listas para usar, sin costo. Descárgalas desde Google Drive — sin registro.</p>
 
     <div class="free-tiles">
-      <div class="free-tile reveal"><span class="free-ic">💵</span><div><h4>Caja Diaria</h4><p>Ingresos, gastos y saldo. Mejor día automático.</p></div></div>
-      <div class="free-tile reveal"><span class="free-ic">🛒</span><div><h4>Inventario Express</h4><p>Semáforo Reponer / OK para saber qué comprar hoy.</p></div></div>
-      <div class="free-tile reveal"><span class="free-ic">📒</span><div><h4>Control de Fiados</h4><p>Quién te debe, cuánto y desde cuándo.</p></div></div>
-      <div class="free-tile reveal"><span class="free-ic">🏪</span><div><h4>Inventario + Margen</h4><p>Margen Q y % por producto, alerta de reposición.</p></div></div>
-      <div class="free-tile reveal"><span class="free-ic">📈</span><div><h4>Ventas Diarias KPIs</h4><p>Ticket promedio, mejor día y tendencia.</p></div></div>
-      <div class="free-tile reveal"><span class="free-ic">🍔</span><div><h4>Costo de Recetas</h4><p>Costo por porción y precio sugerido para tu margen.</p></div></div>
-      <div class="free-tile reveal"><span class="free-ic">🧮</span><div><h4>MRP de Compras</h4><p>Qué pedir, cuánto y cuándo. Con recepciones.</p></div></div>
-      <div class="free-tile reveal"><span class="free-ic">🌐</span><div><h4>Comparador FOB</h4><p>El proveedor más barato con flete incluido.</p></div></div>
-      <div class="free-tile reveal"><span class="free-ic">🔄</span><div><h4>Inventario por Días</h4><p>Días de inventario, punto de reorden y semáforo.</p></div></div>
+      <div class="free-tile reveal">
+        <span class="free-ic">💵</span>
+        <div><h4>Caja Diaria</h4><p>Ingresos, gastos y saldo del día. Mejor día automático.</p></div>
+      </div>
+      <div class="free-tile reveal">
+        <span class="free-ic">🛒</span>
+        <div><h4>Inventario Express</h4><p>Semáforo Reponer / OK. Sabe qué comprar hoy en segundos.</p></div>
+      </div>
+      <div class="free-tile reveal">
+        <span class="free-ic">📒</span>
+        <div><h4>Control de Fiados</h4><p>Quién te debe, cuánto y desde cuándo. Estado en colores.</p></div>
+      </div>
     </div>
 
-    <div style="text-align:center;margin-top:34px">
-      <a class="btn btn-primary" href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" style="font-size:17px;padding:16px 34px">
-        ⬇️ Descargar las 9 gratis desde Google Drive
+    <div style="text-align:center;margin-top:28px">
+      <a class="btn btn-primary" href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" style="font-size:16px;padding:14px 30px">
+        ⬇️ Ver todas las plantillas gratis →
       </a>
-      <p style="color:var(--muted);font-size:13px;margin-top:14px">Acceso directo — sin registro ni DM necesario.</p>
+      <p style="color:var(--muted);font-size:13px;margin-top:12px">Y más plantillas llegando pronto.</p>
     </div>
   </div>
 </section>
 
-<!-- CÓMO FUNCIONA ------------------------------------------------------- -->
-<section id="como">
+<!-- CONTACTO -->
+<section id="contacto">
   <div class="wrap">
-    <h2 class="section-title">¿Cómo funciono?</h2>
-    <p class="section-sub">Los sistemas de automatización se entregan como plantillas de Google Sheets con el script incluido.</p>
-    <div class="steps">
-      <div class="step reveal">
-        <h4>1. Compra</h4>
-        <p>Pago único por PayPal o Gumroad. Inmediato, sin suscripción.</p>
-      </div>
-      <div class="step reveal">
-        <h4>2. Recibe el link</h4>
-        <p>Te mando el link de Google Drive con tu plantilla lista.</p>
-      </div>
-      <div class="step reveal">
-        <h4>3. Copia a tu Drive</h4>
-        <p>Clic en "Hacer una copia" — queda en tu cuenta de Google, tuyo para siempre.</p>
-      </div>
-      <div class="step reveal">
-        <h4>4. Activa el script</h4>
-        <p>Sigue las instrucciones incluidas (5 min). Das permisos una sola vez.</p>
-      </div>
-      <div class="step reveal">
-        <h4>5. Listo — trabaja solo</h4>
-        <p>El sistema empieza a funcionar. Tú solo llenas los datos, él hace el resto.</p>
-      </div>
-    </div>
-    <div style="text-align:center;margin-top:30px">
-      <p style="color:var(--muted);font-size:14px">¿Tienes preguntas sobre el setup? <a href="https://ig.me/m/menteenautomatico" target="_blank" style="color:var(--cyan)">Escríbeme por Instagram</a> — te ayudo gratis.</p>
-    </div>
-  </div>
-</section>
+    <h2 class="section-title">Cuéntame tu idea</h2>
+    <p class="section-sub">Sin compromiso. Te respondo en menos de 24 horas con una propuesta o preguntas para entenderte mejor.</p>
 
-<!-- CTA FINAL ----------------------------------------------------------- -->
-<section>
-  <div class="wrap">
-    <div class="cta-final reveal">
-      <h2>¿No sabes cuál te sirve?</h2>
-      <p>Cuéntame de tu negocio y te recomiendo el sistema o el pack ideal para tu operación. Sin compromiso.</p>
-      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
-        <a class="btn btn-primary" href="https://ig.me/m/menteenautomatico" target="_blank">Escríbeme por Instagram →</a>
-        <a class="btn btn-ghost" href="#packs">Ver los packs</a>
-      </div>
+    <div class="form-card reveal">
+      <form action="https://formsubmit.co/menteautomatica26@gmail.com" method="POST">
+        <input type="hidden" name="_subject" value="Nueva consulta de proyecto — Mente en Automático">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://menteenautomatico.netlify.app/gracias-proyecto.html">
+        <input type="hidden" name="_template" value="table">
+
+        <div class="form-group">
+          <label>Nombre y apellido *</label>
+          <input type="text" name="nombre" placeholder="Ej. María García" required>
+        </div>
+
+        <div class="form-group">
+          <label>¿Empresa o persona individual? *</label>
+          <select name="tipo" required>
+            <option value="" disabled selected>Selecciona una opción</option>
+            <option>Empresa / negocio</option>
+            <option>Emprendedor / negocio propio</option>
+            <option>Estudiante universitario</option>
+            <option>Freelancer / independiente</option>
+            <option>Uso personal</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label>Correo electrónico *</label>
+          <input type="email" name="correo" placeholder="tucorreo@ejemplo.com" required>
+        </div>
+
+        <div class="form-group">
+          <label>WhatsApp (opcional — para responderte más rápido)</label>
+          <input type="text" name="whatsapp" placeholder="Ej. +502 5555 1234">
+        </div>
+
+        <div class="form-group">
+          <label>¿Qué necesitas? Cuéntame tu idea *</label>
+          <textarea name="idea" placeholder="Ej: Tengo una tienda y llevo el inventario en papel. Quiero algo que me avise cuando me falta producto y que me muestre cuánto gano por artículo..." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>¿Cuál es tu presupuesto aproximado?</label>
+          <select name="presupuesto">
+            <option value="" disabled selected>Selecciona un rango</option>
+            <option>Menos de $50</option>
+            <option>$50 – $150</option>
+            <option>$150 – $300</option>
+            <option>$300 – $500</option>
+            <option>Más de $500</option>
+            <option>No sé aún — quiero una cotización</option>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%;padding:16px;font-size:16px">
+          Enviar mi idea →
+        </button>
+        <p style="color:var(--muted);font-size:13px;text-align:center;margin-top:12px">
+          Te respondo en menos de 24 horas. Sin compromiso.
+        </p>
+      </form>
+    </div>
+
+    <div style="text-align:center;margin-top:28px;color:var(--muted);font-size:14px">
+      O escríbeme directo:
+      <a href="https://ig.me/m/menteenautomatico" target="_blank" style="color:var(--cyan)">Instagram @menteenautomatico</a>
     </div>
   </div>
 </section>
@@ -164,24 +280,6 @@
     </div>
   </div>
 </footer>
-
-<!-- MODAL --------------------------------------------------------------- -->
-<div class="modal" id="buyModal">
-  <div class="box">
-    <button class="x" onclick="closeModal()">×</button>
-    <h3>Pago recibido 🎉</h3>
-    <p>Gracias por tu compra. Después del pago:</p>
-    <div style="background:#080b22;border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0">
-      <p style="color:var(--ink);font-size:14px;margin-bottom:6px">Producto: <b id="modalLabel"></b></p>
-      <p style="color:var(--cyan);font-size:22px;font-weight:900" id="modalPrice"></p>
-    </div>
-    <p style="color:var(--muted);font-size:13.5px">Envíame el comprobante de pago por Instagram y te mando el link de Google Drive con tu sistema en minutos.</p>
-    <div style="margin-top:16px;display:flex;flex-direction:column;gap:10px">
-      <a class="btn btn-primary" href="https://ig.me/m/menteenautomatico" target="_blank" onclick="closeModal()">Enviar comprobante →</a>
-      <button class="btn btn-ghost" onclick="closeModal()">Cerrar</button>
-    </div>
-  </div>
-</div>
 
 <script src="app.js"></script>
 <script>document.getElementById("y").textContent = new Date().getFullYear();</script>
