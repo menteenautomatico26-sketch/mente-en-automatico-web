@@ -64,12 +64,12 @@
 <!-- HERO -->
 <section class="hero">
   <div class="wrap" style="max-width:780px">
-    <span class="kicker">IA desde la operación real</span>
-    <h1>Construyo sistemas que <span>automatizan tu operación</span></h1>
-    <p class="sub">Dashboards, MRP, control de horas, gestión de reclamos y apps web a la medida. Probados en distribución, logística y supply chain. No teoría — operación real.</p>
+    <span class="kicker">IA aplicada al trabajo real · Guatemala 🇬🇹</span>
+    <h1>Automatizo tu negocio con <span>inteligencia artificial</span></h1>
+    <p class="sub">Sistemas con Claude y Claude Code, dashboards interactivos, Google Sheets con IA y apps web a la medida. Sin tecnicismos — resultados que se ven desde el primer día.</p>
     <div class="cta">
-      <a class="btn btn-primary" href="#demos">Ver los sistemas →</a>
-      <a class="btn btn-ghost" href="contacto.html">Quiero uno a la medida</a>
+      <a class="btn btn-primary" href="#demos">Ver sistemas en vivo →</a>
+      <a class="btn btn-ghost" href="servicios.html">📞 Agendar llamada 1:1</a>
     </div>
     <div class="trust">
       <span>🏭 Logística &amp; Supply Chain</span>
@@ -228,72 +228,57 @@
   </div>
 </section>
 
-<!-- CONTACTO -->
-<section id="contacto">
+<!-- SERVICIOS -->
+<section id="servicios" style="background:linear-gradient(180deg,#06071a,#04040f)">
   <div class="wrap">
-    <h2 class="section-title">¿Tienes una idea? <span style="background:linear-gradient(120deg,var(--cyan),var(--neon2));-webkit-background-clip:text;background-clip:text;color:transparent">La hacemos realidad</span></h2>
-    <p class="section-sub">Un Excel avanzado, un dashboard, un sistema con login o una app web completa. Cuéntame y te respondo en menos de 24 horas.</p>
+    <span class="kicker">Trabajo directo conmigo · 1 a 1</span>
+    <h2 class="section-title">¿Cómo puedo <span style="background:linear-gradient(120deg,var(--cyan),var(--neon2));-webkit-background-clip:text;background-clip:text;color:transparent">ayudarte?</span></h2>
+    <p class="section-sub">Desde una llamada rápida hasta construir el sistema que tu negocio necesita — con IA integrada desde el primer día.</p>
 
-    <div class="form-card reveal">
-      <form name="contacto-inicio" method="POST" data-netlify="true"
-            netlify-honeypot="bot-field" action="/gracias-proyecto.html">
-        <input type="hidden" name="form-name" value="contacto-inicio">
-        <p style="display:none"><input name="bot-field"></p>
+    <div class="sesiones-grid">
 
-        <div class="form-group">
-          <label>Nombre y apellido *</label>
-          <input type="text" name="nombre" placeholder="Ej. María García" required>
-        </div>
+      <!-- Express -->
+      <div class="sesion-card reveal">
+        <div class="sesion-precio">$15 <span>USD</span></div>
+        <h3>Llamada Express</h3>
+        <div class="sesion-dur">⏱ 30 minutos · Videollamada</div>
+        <p>Una sesión enfocada para desbloquearte: qué IA usar, si tu idea tiene sentido o cómo empezar con automatización.</p>
+        <ul class="sesion-inc">
+          <li>Pregunta puntual sobre IA o automatización</li>
+          <li>Setup rápido de Claude, Sheets o cualquier herramienta</li>
+          <li>Validar si un proyecto o idea es viable</li>
+        </ul>
+        <a class="btn btn-ghost" href="servicios.html" style="margin-top:auto;text-align:center">Ver detalles y reservar →</a>
+      </div>
 
-        <div class="form-group">
-          <label>¿Empresa o persona individual? *</label>
-          <select name="tipo" required>
-            <option value="" disabled selected>Selecciona una opción</option>
-            <option>Empresa / negocio</option>
-            <option>Emprendedor / negocio propio</option>
-            <option>Estudiante universitario</option>
-            <option>Freelancer / independiente</option>
-            <option>Uso personal</option>
-          </select>
-        </div>
+      <!-- Sesión de Trabajo -->
+      <div class="sesion-card feat reveal">
+        <div class="sesion-badge">Más popular</div>
+        <div class="sesion-precio">$60 <span>USD</span></div>
+        <h3>Sesión de Trabajo</h3>
+        <div class="sesion-dur">⏱ 60 minutos · Videollamada</div>
+        <p>Revisamos tu negocio, definimos qué automatizar primero y qué herramientas usar. Salís con un plan claro y accionable.</p>
+        <ul class="sesion-inc">
+          <li>Diagnóstico de tu operación actual</li>
+          <li>Selección de herramientas IA para tu caso</li>
+          <li>Plan de automatización paso a paso</li>
+          <li>Desatascarte en algo que no avanza</li>
+        </ul>
+        <a class="btn btn-primary" href="servicios.html" style="margin-top:auto;text-align:center">Reservar sesión →</a>
+      </div>
 
-        <div class="form-group">
-          <label>Correo electrónico *</label>
-          <input type="email" name="correo" placeholder="tucorreo@ejemplo.com" required>
-        </div>
-
-        <div class="form-group">
-          <label>WhatsApp (opcional — para responderte más rápido)</label>
-          <input type="text" name="whatsapp" placeholder="Ej. +502 5555 1234">
-        </div>
-
-        <div class="form-group">
-          <label>¿Qué necesitas? Cuéntame tu idea *</label>
-          <textarea name="idea" placeholder="Ej: Tengo una tienda y llevo el inventario en papel. Quiero algo que me avise cuando me falta producto y que me muestre cuánto gano por artículo..." required></textarea>
-        </div>
-
-        <div class="form-group">
-          <label>¿Cuál es tu presupuesto aproximado?</label>
-          <select name="presupuesto">
-            <option value="" disabled selected>Selecciona un rango</option>
-            <option>Menos de $50</option>
-            <option>$50 – $150</option>
-            <option>$150 – $300</option>
-            <option>$300 – $500</option>
-            <option>Más de $500</option>
-            <option>No sé aún — quiero una cotización</option>
-          </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary" style="width:100%;padding:16px;font-size:16px">
-          Enviar mi idea →
-        </button>
-        <p style="color:var(--muted);font-size:13px;text-align:center;margin-top:12px">
-          Te respondo en menos de 24 horas. Sin compromiso. · O escríbeme directo por
-          <a href="https://ig.me/m/menteenautomatico" target="_blank" style="color:var(--cyan)">Instagram</a>
-        </p>
-      </form>
     </div>
+
+    <!-- Proyectos a la medida -->
+    <div class="cta-final reveal" style="margin-top:38px">
+      <h2>¿Necesitas que lo construya para ti?</h2>
+      <p>Dashboards con IA, Google Sheets automatizado, apps web con login, sistemas a la medida. Dime tu idea y te respondo con una cotización en menos de 24 horas.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a class="btn btn-primary" href="contacto.html">Cuéntame tu proyecto →</a>
+        <a class="btn btn-ghost" href="https://wa.me/50259226328?text=Hola%20Jonathan%2C%20vi%20tu%20p%C3%A1gina%20y%20me%20interesa%20hablar%20de%20un%20proyecto" target="_blank">💬 WhatsApp directo</a>
+      </div>
+    </div>
+
   </div>
 </section>
 
