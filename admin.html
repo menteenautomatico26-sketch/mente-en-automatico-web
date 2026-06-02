@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Admin — Mente en Automático</title>
+<link rel="icon" href="icon.jpg">
+<style>
+:root{
+  --bg:#04040f;--neon:#00bfff;--neon2:#1e90ff;--cyan:#3fd8ff;
+  --ink:#e8f1ff;--muted:#8aa0c6;--card:#0c1030;--card2:#0a0e28;--line:#1b2350;
+  --ok:#39d98a;--warn:#ffd166;--bad:#ff5d6c;--glow:0 0 20px rgba(0,191,255,.3);
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--ink);
+  font-family:"Segoe UI",system-ui,-apple-system,sans-serif;font-size:14px}
+
+/* ── LOGIN ───────────────────────────────────────── */
+#login-screen{position:fixed;inset:0;background:var(--bg);z-index:200;
+  display:flex;align-items:center;justify-content:center;padding:20px}
+.login-box{background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:40px;width:100%;max-width:380px;text-align:center}
+.login-box img{width:52px;border-radius:11px;margin-bottom:16px;box-shadow:var(--glow)}
+.login-box h2{font-size:22px;font-weight:800;margin-bottom:6px}
+.login-box p{color:var(--muted);font-size:14px;margin-bottom:24px}
+.login-box input{width:100%;background:#080b22;border:1.5px solid var(--line);
+  border-radius:999px;padding:13px 18px;font-size:15px;color:var(--ink);
+  font-family:inherit;outline:none;transition:.18s;text-align:center;letter-spacing:2px}
+.login-box input:focus{border-color:var(--neon);box-shadow:0 0 0 3px rgba(0,191,255,.1)}
+.login-box button{width:100%;margin-top:14px;background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;border:none;border-radius:999px;padding:13px;font-size:15px;
+  font-weight:800;cursor:pointer;font-family:inherit;transition:.18s}
+.login-box button:hover{filter:brightness(1.08)}
+.login-err{color:var(--bad);font-size:13px;margin-top:10px;min-height:18px}
+
+/* ── LAYOUT ──────────────────────────────────────── */
+#app{display:none;height:100vh;flex-direction:column}
+#app.show{display:flex}
+
+/* Top bar */
+.topbar{background:rgba(4,4,15,.85);border-bottom:1px solid var(--line);
+  backdrop-filter:blur(10px);padding:0 20px;height:58px;
+  display:flex;align-items:center;justify-content:space-between;flex-shrink:0;z-index:10}
+.tb-brand{display:flex;align-items:center;gap:10px}
+.tb-brand img{width:32px;border-radius:7px;box-shadow:var(--glow)}
+.tb-brand span{font-weight:800;font-size:15px}
+.tb-brand small{color:var(--neon);font-size:11px;font-weight:600;
+  background:rgba(0,191,255,.12);border-radius:999px;padding:2px 8px;margin-left:4px}
+.tb-right{display:flex;align-items:center;gap:16px}
+.tb-btn{background:transparent;border:1px solid var(--line);border-radius:999px;
+  color:var(--muted);padding:7px 16px;font-size:13px;cursor:pointer;
+  transition:.17s;font-family:inherit}
+.tb-btn:hover{border-color:var(--neon);color:var(--neon)}
+
+/* Stats bar */
+.stats-bar{display:flex;gap:12px;padding:14px 20px;background:var(--card2);
+  border-bottom:1px solid var(--line);flex-shrink:0;flex-wrap:wrap}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+  padding:12px 18px;flex:1;min-width:120px;display:flex;flex-direction:column;gap:2px}
+.stat-val{font-size:24px;font-weight:900}
+.stat-lbl{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.8px}
+.stat.s-nuevo .stat-val{color:var(--neon)}
+.stat.s-ok .stat-val{color:var(--ok)}
+.stat.s-warn .stat-val{color:var(--warn)}
+
+/* Main area */
+.main{display:flex;flex:1;overflow:hidden}
+
+/* Lead list */
+.lead-list{width:360px;flex-shrink:0;border-right:1px solid var(--line);
+  overflow-y:auto;display:flex;flex-direction:column}
+.list-header{padding:14px 16px;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;
+  background:var(--card2);z-index:5}
+.list-header h3{font-size:14px;font-weight:800}
+.filter-row{display:flex;gap:6px;flex-wrap:wrap;padding:10px 12px;
+  border-bottom:1px solid var(--line);background:var(--card2)}
+.filt-btn{background:transparent;border:1px solid var(--line);border-radius:999px;
+  color:var(--muted);padding:5px 12px;font-size:12px;cursor:pointer;
+  transition:.15s;font-family:inherit}
+.filt-btn.active{background:rgba(0,191,255,.12);border-color:var(--neon);color:var(--neon)}
+.lead-item{padding:14px 16px;border-bottom:1px solid var(--line);cursor:pointer;
+  transition:.15s;display:flex;flex-direction:column;gap:5px}
+.lead-item:hover{background:rgba(0,191,255,.04)}
+.lead-item.sel{background:rgba(0,191,255,.08);border-left:3px solid var(--neon)}
+.li-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.li-name{font-weight:700;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.li-date{color:var(--muted);font-size:11px;flex-shrink:0}
+.li-email{color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.li-tags{display:flex;gap:5px;flex-wrap:wrap;margin-top:2px}
+.tag{font-size:11px;padding:2px 8px;border-radius:999px;font-weight:700}
+.tag-tipo{background:rgba(0,191,255,.12);color:var(--neon)}
+.tag-status{background:rgba(57,217,138,.12);color:var(--ok)}
+.tag-status.nuevo{background:rgba(0,191,255,.12);color:var(--neon)}
+.tag-status.contactado{background:rgba(255,209,102,.12);color:var(--warn)}
+.tag-status.en_proceso{background:rgba(57,217,138,.12);color:var(--ok)}
+.tag-status.cerrado{background:rgba(139,148,158,.12);color:var(--muted)}
+.li-score{margin-left:auto;font-size:12px;font-weight:800;
+  width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.score-high{background:rgba(57,217,138,.15);color:var(--ok)}
+.score-mid{background:rgba(255,209,102,.15);color:var(--warn)}
+.score-low{background:rgba(255,93,108,.15);color:var(--bad)}
+.no-leads{padding:40px 20px;text-align:center;color:var(--muted);font-size:14px}
+
+/* Detail panel */
+.detail{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+.empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  color:var(--muted);gap:12px;text-align:center;padding:40px}
+.empty-state .ic{font-size:48px}
+.empty-state p{max-width:280px;font-size:14px;line-height:1.55}
+
+.det-header{padding:20px 24px 16px;border-bottom:1px solid var(--line);
+  display:flex;align-items:flex-start;justify-content:space-between;gap:16px;
+  position:sticky;top:0;background:var(--bg);z-index:5}
+.det-name{font-size:22px;font-weight:900;line-height:1.2}
+.det-email{color:var(--neon);font-size:14px;margin-top:3px}
+.det-meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.det-actions{display:flex;gap:8px;flex-shrink:0;flex-wrap:wrap}
+
+/* Status selector */
+.status-sel{background:var(--card);border:1px solid var(--line);border-radius:999px;
+  color:var(--ink);padding:7px 14px;font-size:13px;cursor:pointer;
+  font-family:inherit;outline:none;transition:.17s}
+.status-sel:focus{border-color:var(--neon)}
+
+/* Sections */
+.det-body{padding:20px 24px;display:flex;flex-direction:column;gap:20px}
+.section{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.section-title{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:1px;
+  color:var(--neon);margin-bottom:12px}
+.data-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.data-item{display:flex;flex-direction:column;gap:3px}
+.data-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.7px}
+.data-val{font-size:14px;line-height:1.45}
+.problema-text{font-size:14px;line-height:1.65;color:var(--ink);
+  background:rgba(0,0,0,.2);border-radius:10px;padding:14px;
+  border-left:3px solid var(--neon)}
+
+/* AI section */
+.ai-btn{background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;
+  border:none;border-radius:999px;padding:11px 22px;font-size:14px;font-weight:800;
+  cursor:pointer;font-family:inherit;transition:.18s;display:inline-flex;align-items:center;gap:8px}
+.ai-btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.ai-btn:disabled{opacity:.45;cursor:not-allowed;transform:none;filter:none}
+
+.ai-result{display:none;flex-direction:column;gap:16px;margin-top:16px}
+.ai-result.show{display:flex}
+
+.score-badge{display:inline-flex;align-items:center;gap:10px;
+  background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:12px 18px}
+.score-num{font-size:36px;font-weight:900;line-height:1}
+.score-info{display:flex;flex-direction:column;gap:2px}
+.score-label{font-size:15px;font-weight:700}
+.score-sub{font-size:12px;color:var(--muted)}
+
+.analysis-text{font-size:14px;line-height:1.7;color:var(--ink)}
+.flags{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+.flag-item{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--muted)}
+.flag-item::before{content:'→';color:var(--neon);flex-shrink:0}
+
+.email-box{background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:12px;padding:16px}
+.email-asunto{font-size:13px;color:var(--muted);margin-bottom:10px}
+.email-asunto strong{color:var(--ink)}
+.email-body{font-size:14px;line-height:1.75;white-space:pre-wrap;color:var(--ink)}
+.copy-btn{margin-top:12px;background:transparent;border:1px solid var(--line);
+  border-radius:999px;color:var(--muted);padding:7px 16px;font-size:13px;
+  cursor:pointer;transition:.17s;font-family:inherit;display:inline-flex;align-items:center;gap:6px}
+.copy-btn:hover{border-color:var(--neon);color:var(--neon)}
+.copy-btn.copied{border-color:var(--ok);color:var(--ok)}
+
+/* Spinner */
+.spin{display:inline-block;width:16px;height:16px;border:2.5px solid rgba(0,18,38,.4);
+  border-top-color:#001226;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Loading / error */
+.loading-state{padding:40px;text-align:center;color:var(--muted)}
+.spin-lg{width:32px;height:32px;border:3px solid var(--line);border-top-color:var(--neon);
+  border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px}
+
+@media(max-width:800px){
+  .lead-list{width:100%;max-width:100%;border-right:none}
+  .main{flex-direction:column}
+  .detail{min-height:60vh}
+  .data-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-box">
+    <img src="icon.jpg" alt="MEA">
+    <h2>Panel de Leads</h2>
+    <p>Ingresa la contraseña para acceder</p>
+    <input type="password" id="pwd" placeholder="••••••••" onkeydown="if(event.key==='Enter')login()">
+    <button onclick="login()">Entrar</button>
+    <div class="login-err" id="login-err"></div>
+  </div>
+</div>
+
+<!-- APP -->
+<div id="app">
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="tb-brand">
+      <img src="icon.jpg" alt="MEA">
+      <span>Mente en Automático</span>
+      <small>Admin</small>
+    </div>
+    <div class="tb-right">
+      <button class="tb-btn" onclick="loadLeads()">↻ Actualizar</button>
+      <button class="tb-btn" onclick="logout()">Salir</button>
+    </div>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats-bar">
+    <div class="stat s-nuevo">
+      <div class="stat-val" id="st-total">–</div>
+      <div class="stat-lbl">Total leads</div>
+    </div>
+    <div class="stat s-nuevo">
+      <div class="stat-val" id="st-nuevo">–</div>
+      <div class="stat-lbl">Nuevos</div>
+    </div>
+    <div class="stat s-warn">
+      <div class="stat-val" id="st-contactado">–</div>
+      <div class="stat-lbl">Contactados</div>
+    </div>
+    <div class="stat s-ok">
+      <div class="stat-val" id="st-proceso">–</div>
+      <div class="stat-lbl">En proceso</div>
+    </div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <!-- Lista -->
+    <div class="lead-list">
+      <div class="list-header">
+        <h3>Leads</h3>
+        <span id="list-count" style="color:var(--muted);font-size:12px"></span>
+      </div>
+      <div class="filter-row">
+        <button class="filt-btn active" onclick="setFilter('todos',this)">Todos</button>
+        <button class="filt-btn" onclick="setFilter('nuevo',this)">Nuevos</button>
+        <button class="filt-btn" onclick="setFilter('contactado',this)">Contactados</button>
+        <button class="filt-btn" onclick="setFilter('en_proceso',this)">En proceso</button>
+        <button class="filt-btn" onclick="setFilter('cerrado',this)">Cerrados</button>
+      </div>
+      <div id="lead-list-body">
+        <div class="loading-state"><div class="spin-lg"></div>Cargando...</div>
+      </div>
+    </div>
+
+    <!-- Detalle -->
+    <div class="detail" id="detail-panel">
+      <div class="empty-state">
+        <div class="ic">📋</div>
+        <strong>Selecciona un lead</strong>
+        <p>Haz clic en cualquier lead de la lista para ver sus detalles y analizarlo con IA.</p>
+      </div>
+    </div>
+  </div>
+</div><!-- /app -->
+
+<script>
+/* ============================================================
+   CONFIG — cambia la contraseña antes de subir a Netlify
+   ============================================================ */
+const ADMIN_PASS = 'Jebr8914#';
+
+/* ============================================================
+   LOGIN
+   ============================================================ */
+function login(){
+  const v = document.getElementById('pwd').value;
+  if(v === ADMIN_PASS){
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('app').classList.add('show');
+    loadLeads();
+  } else {
+    document.getElementById('login-err').textContent = 'Contraseña incorrecta';
+    document.getElementById('pwd').value = '';
+  }
+}
+
+function logout(){
+  document.getElementById('app').classList.remove('show');
+  document.getElementById('login-screen').style.display = 'flex';
+  document.getElementById('pwd').value = '';
+  LEADS = []; SELECTED = null;
+}
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let LEADS = [];
+let SELECTED = null;
+let FILTER = 'todos';
+
+/* ============================================================
+   LOAD LEADS
+   ============================================================ */
+async function loadLeads(){
+  document.getElementById('lead-list-body').innerHTML =
+    '<div class="loading-state"><div class="spin-lg"></div>Cargando...</div>';
+  try {
+    const r = await fetch('/.netlify/functions/get-leads');
+    if(!r.ok) throw new Error(await r.text());
+    LEADS = await r.json();
+    renderList();
+    updateStats();
+  } catch(e){
+    document.getElementById('lead-list-body').innerHTML =
+      `<div class="no-leads">Error al cargar leads.<br><small>${e.message}</small></div>`;
+  }
+}
+
+/* ============================================================
+   STATS
+   ============================================================ */
+function updateStats(){
+  document.getElementById('st-total').textContent = LEADS.length;
+  document.getElementById('st-nuevo').textContent = LEADS.filter(l=>l.status==='nuevo').length;
+  document.getElementById('st-contactado').textContent = LEADS.filter(l=>l.status==='contactado').length;
+  document.getElementById('st-proceso').textContent = LEADS.filter(l=>l.status==='en_proceso').length;
+}
+
+/* ============================================================
+   FILTER
+   ============================================================ */
+function setFilter(f, btn){
+  FILTER = f;
+  document.querySelectorAll('.filt-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  renderList();
+}
+
+/* ============================================================
+   RENDER LIST
+   ============================================================ */
+function renderList(){
+  const filtered = FILTER === 'todos' ? LEADS : LEADS.filter(l=>l.status===FILTER);
+  document.getElementById('list-count').textContent = `${filtered.length} lead${filtered.length!==1?'s':''}`;
+
+  if(!filtered.length){
+    document.getElementById('lead-list-body').innerHTML =
+      '<div class="no-leads">No hay leads en esta categoría.</div>';
+    return;
+  }
+
+  document.getElementById('lead-list-body').innerHTML = filtered.map(l=>{
+    const d = new Date(l.created_at);
+    const fecha = d.toLocaleDateString('es-GT',{day:'2-digit',month:'short'});
+    const sel = SELECTED?.id === l.id ? 'sel' : '';
+    const scoreHtml = l.ai_score
+      ? `<span class="li-score ${scoreClass(l.ai_score)}">${l.ai_score}</span>` : '';
+    return `
+    <div class="lead-item ${sel}" onclick="selectLead('${l.id}')">
+      <div class="li-top">
+        <span class="li-name">${esc(l.nombre)}</span>
+        <span class="li-date">${fecha}</span>
+        ${scoreHtml}
+      </div>
+      <div class="li-email">${esc(l.email)}</div>
+      <div class="li-tags">
+        <span class="tag tag-tipo">${l.tipo==='asesoria'?'Asesoría':'Proyecto'}</span>
+        <span class="tag tag-status ${l.status}">${statusLabel(l.status)}</span>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function scoreClass(s){
+  if(s>=8) return 'score-high';
+  if(s>=5) return 'score-mid';
+  return 'score-low';
+}
+
+function statusLabel(s){
+  return {nuevo:'Nuevo',contactado:'Contactado',en_proceso:'En proceso',cerrado:'Cerrado'}[s]||s;
+}
+
+/* ============================================================
+   SELECT LEAD
+   ============================================================ */
+function selectLead(id){
+  SELECTED = LEADS.find(l=>l.id===id);
+  renderList(); // re-render to update selection
+  renderDetail();
+}
+
+/* ============================================================
+   RENDER DETAIL
+   ============================================================ */
+function renderDetail(){
+  const l = SELECTED;
+  if(!l){ return; }
+  const d = new Date(l.created_at).toLocaleString('es-GT',
+    {day:'2-digit',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'});
+
+  const aiResultHtml = l.ai_analysis ? buildAiResult(JSON.parse(l.ai_analysis)) : '';
+
+  document.getElementById('detail-panel').innerHTML = `
+  <div class="det-header">
+    <div>
+      <div class="det-name">${esc(l.nombre)}</div>
+      <div class="det-email">${esc(l.email)}</div>
+      <div class="det-meta">
+        <span class="tag tag-tipo">${l.tipo==='asesoria'?'Asesoría 1:1':'Proyecto técnico'}</span>
+        <span class="tag tag-status ${l.status}">${statusLabel(l.status)}</span>
+        ${l.ai_score ? `<span class="tag" style="background:rgba(57,217,138,.12);color:var(--ok)">Encaje: ${l.ai_score}/10</span>` : ''}
+      </div>
+    </div>
+    <div class="det-actions">
+      <select class="status-sel" onchange="updateStatus('${l.id}',this.value)">
+        <option value="nuevo"       ${l.status==='nuevo'?'selected':''}>Nuevo</option>
+        <option value="contactado"  ${l.status==='contactado'?'selected':''}>Contactado</option>
+        <option value="en_proceso"  ${l.status==='en_proceso'?'selected':''}>En proceso</option>
+        <option value="cerrado"     ${l.status==='cerrado'?'selected':''}>Cerrado</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="det-body">
+    <!-- Data -->
+    <div class="section">
+      <div class="section-title">Datos del lead</div>
+      <div class="data-grid">
+        <div class="data-item"><div class="data-label">Empresa</div><div class="data-val">${esc(l.empresa||'—')}</div></div>
+        <div class="data-item"><div class="data-label">Rol</div><div class="data-val">${esc(l.rol||'—')}</div></div>
+        <div class="data-item"><div class="data-label">Presupuesto</div><div class="data-val">${esc(l.presupuesto||'—')}</div></div>
+        <div class="data-item"><div class="data-label">Timeline</div><div class="data-val">${esc(l.timeline||'—')}</div></div>
+        ${l.herramientas?`<div class="data-item"><div class="data-label">Herramientas</div><div class="data-val">${esc(l.herramientas)}</div></div>`:''}
+        ${l.tipo_proyecto?`<div class="data-item"><div class="data-label">Tipo proyecto</div><div class="data-val">${esc(l.tipo_proyecto)}</div></div>`:''}
+        <div class="data-item"><div class="data-label">Cómo llegó</div><div class="data-val">${esc(l.como_encontro||'—')}</div></div>
+        <div class="data-item"><div class="data-label">Fecha</div><div class="data-val">${d}</div></div>
+      </div>
+    </div>
+
+    <!-- Problema -->
+    <div class="section">
+      <div class="section-title">Problema / necesidad</div>
+      <div class="problema-text">${esc(l.problema)}</div>
+    </div>
+
+    <!-- AI -->
+    <div class="section" id="ai-section">
+      <div class="section-title">Análisis IA</div>
+      ${!l.ai_analysis ? `
+        <p style="color:var(--muted);font-size:13px;margin-bottom:14px">
+          Pulsa el botón para que Claude analice este lead, calcule el encaje y redacte el email de contacto.
+        </p>
+        <button class="ai-btn" id="ai-btn" onclick="analyzeThis()">
+          ✦ Analizar con IA
+        </button>
+        <div id="ai-loading" style="display:none;margin-top:14px;color:var(--muted);font-size:13px">
+          <span class="spin-lg" style="width:20px;height:20px;display:inline-block;margin-right:8px;vertical-align:middle"></span>
+          Claude está analizando el lead...
+        </div>
+      ` : aiResultHtml}
+    </div>
+  </div>
+  `;
+}
+
+/* ============================================================
+   AI ANALYSIS
+   ============================================================ */
+async function analyzeThis(){
+  if(!SELECTED) return;
+  document.getElementById('ai-btn').style.display = 'none';
+  document.getElementById('ai-loading').style.display = 'block';
+
+  try {
+    const r = await fetch('/.netlify/functions/analyze-lead', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({ lead: SELECTED })
+    });
+    if(!r.ok) throw new Error(await r.text());
+    const result = await r.json();
+
+    // Save to Supabase
+    await fetch('/.netlify/functions/update-lead', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({
+        id: SELECTED.id,
+        ai_analysis: JSON.stringify(result),
+        ai_score: result.score
+      })
+    });
+
+    // Update local state
+    SELECTED.ai_analysis = JSON.stringify(result);
+    SELECTED.ai_score = result.score;
+    const idx = LEADS.findIndex(l=>l.id===SELECTED.id);
+    if(idx>-1){ LEADS[idx].ai_analysis=SELECTED.ai_analysis; LEADS[idx].ai_score=result.score; }
+
+    // Re-render AI section only
+    document.getElementById('ai-section').innerHTML =
+      `<div class="section-title">Análisis IA</div>${buildAiResult(result)}`;
+    renderList();
+  } catch(e){
+    document.getElementById('ai-loading').style.display='none';
+    document.getElementById('ai-btn').style.display='inline-flex';
+    document.getElementById('ai-btn').textContent='Error — reintentar';
+    console.error(e);
+  }
+}
+
+function buildAiResult(r){
+  const sc = r.score;
+  let scColor = sc>=8?'var(--ok)':sc>=5?'var(--warn)':'var(--bad)';
+  const flagsHtml = r.banderas?.length
+    ? r.banderas.map(f=>`<div class="flag-item">${esc(f)}</div>`).join('') : '';
+
+  return `
+  <div class="ai-result show">
+    <div class="score-badge">
+      <div class="score-num" style="color:${scColor}">${sc}</div>
+      <div class="score-info">
+        <div class="score-label">${esc(r.score_label||'')}</div>
+        <div class="score-sub">Encaje del lead (sobre 10)</div>
+      </div>
+    </div>
+    <div class="analysis-text">${esc(r.analisis||'')}</div>
+    ${flagsHtml ? `<div class="flags">${flagsHtml}</div>` : ''}
+    <div>
+      <div class="section-title" style="margin-bottom:10px">Email sugerido de contacto</div>
+      <div class="email-box">
+        <div class="email-asunto">Asunto: <strong>${esc(r.email_asunto||'')}</strong></div>
+        <div class="email-body" id="email-body-text">${esc(r.email_cuerpo||'')}</div>
+      </div>
+      <button class="copy-btn" onclick="copyEmail()">
+        <span id="copy-ic">📋</span> Copiar email
+      </button>
+    </div>
+  </div>`;
+}
+
+async function copyEmail(){
+  const txt = document.getElementById('email-body-text')?.textContent;
+  if(!txt) return;
+  try {
+    await navigator.clipboard.writeText(txt);
+    const btn = event.currentTarget;
+    btn.classList.add('copied');
+    document.getElementById('copy-ic').textContent = '✓';
+    btn.childNodes[1].textContent = ' Copiado';
+    setTimeout(()=>{
+      btn.classList.remove('copied');
+      document.getElementById('copy-ic').textContent = '📋';
+      btn.childNodes[1].textContent = ' Copiar email';
+    }, 2000);
+  } catch(e){ console.error(e); }
+}
+
+/* ============================================================
+   UPDATE STATUS
+   ============================================================ */
+async function updateStatus(id, status){
+  try {
+    await fetch('/.netlify/functions/update-lead', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ id, status })
+    });
+    const idx = LEADS.findIndex(l=>l.id===id);
+    if(idx>-1){ LEADS[idx].status=status; if(SELECTED?.id===id) SELECTED.status=status; }
+    updateStats();
+    renderList();
+  } catch(e){ console.error(e); }
+}
+
+/* ============================================================
+   UTILS
+   ============================================================ */
+function esc(s){
+  if(!s) return '';
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+}
+</script>
+</body>
+</html>

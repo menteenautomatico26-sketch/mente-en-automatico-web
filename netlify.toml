@@ -1,7 +1,7 @@
 # Configuración de despliegue en Netlify
-# El sitio es estático: se publica el contenido de esta misma carpeta.
 [build]
   publish = "."
+  functions = "netlify/functions"
 
 [[headers]]
   for = "/*"
