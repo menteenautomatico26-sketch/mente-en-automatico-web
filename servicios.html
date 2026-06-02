@@ -296,65 +296,17 @@
       </div>
     </div>
 
-    <!-- FORMULARIO -->
-    <h2 class="section-title" style="margin-top:14px">Cuéntame tu idea</h2>
-    <p class="section-sub">Sin compromiso. Te respondo en menos de 24 horas.</p>
+    <!-- CTA → contacto.html (único formulario) -->
+    <div class="cta-final reveal" style="margin-top:38px">
+      <h2>¿Tienes una idea? La construimos</h2>
+      <p>Cuéntame tu proyecto — qué necesitas, tu presupuesto y cuándo lo quieres listo. Te respondo con cotización en menos de 24 horas.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a class="btn btn-primary" href="contacto.html">Cuéntame tu proyecto →</a>
+        <a class="btn btn-ghost" href="/wa" target="_blank">💬 WhatsApp directo</a>
+      </div>
+      <p style="color:var(--muted);font-size:13px;margin-top:14px">Sin compromiso · Te respondo en menos de 24 horas</p>
+    </div>
 
-    <div class="contacto-form reveal">
-      <!-- Netlify Forms: funciona automáticamente al desplegarse en Netlify -->
-      <form name="contacto" method="POST" data-netlify="true"
-            netlify-honeypot="bot-field"
-            action="/gracias-proyecto.html">
-        <input type="hidden" name="form-name" value="contacto">
-        <p style="display:none"><input name="bot-field"></p>
-
-        <div class="fg">
-          <label>Nombre *</label>
-          <input type="text" name="nombre" placeholder="Tu nombre" required>
-        </div>
-        <div class="fg">
-          <label>¿Empresa o persona individual? *</label>
-          <select name="tipo" required>
-            <option value="" disabled selected>Selecciona</option>
-            <option>Empresa / negocio</option>
-            <option>Emprendedor / negocio propio</option>
-            <option>Estudiante universitario</option>
-            <option>Freelancer / independiente</option>
-            <option>Uso personal</option>
-          </select>
-        </div>
-        <div class="fg">
-          <label>Correo electrónico *</label>
-          <input type="email" name="correo" placeholder="tucorreo@ejemplo.com" required>
-        </div>
-        <div class="fg">
-          <label>WhatsApp (opcional)</label>
-          <input type="text" name="whatsapp" placeholder="+502 5555 1234">
-        </div>
-        <div class="fg">
-          <label>¿Qué necesitas? Cuéntame tu idea *</label>
-          <textarea name="idea" placeholder="Describe tu situación y lo que necesitas lograr..." required></textarea>
-        </div>
-        <div class="fg">
-          <label>Presupuesto aproximado</label>
-          <select name="presupuesto">
-            <option value="" disabled selected>Selecciona un rango</option>
-            <option>Menos de $50</option>
-            <option>$50 – $150</option>
-            <option>$150 – $300</option>
-            <option>$300 – $500</option>
-            <option>Más de $500</option>
-            <option>No sé aún — quiero cotización</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary" style="width:100%;padding:15px;font-size:15px">
-          Enviar mi idea →
-        </button>
-        <p style="text-align:center;color:var(--muted);font-size:12.5px;margin-top:10px">
-          Te respondo en menos de 24 horas. O escríbeme directo por
-          <a href="https://ig.me/m/menteenautomatico" target="_blank" style="color:var(--cyan)">Instagram</a>.
-        </p>
-      </form>
     </div>
   </div>
 </section>
