@@ -3,42 +3,112 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Mente en Automático — Sistemas que automatizan tu operación</title>
-<meta name="description" content="Construyo sistemas que automatizan tu operación: MRP, control de inventario, dashboards, apps web y más. IA aplicada al trabajo real.">
+<title>Jonathan Bautista — IA para tu trabajo real | Mente en Automático</title>
+<meta name="description" content="Soy Jonathan. Trabajo en supply chain y logística, y enseño cómo usar IA en el trabajo real. Recursos gratuitos, guías, demos y sesiones 1:1.">
 <link rel="icon" href="icon.jpg">
 <link rel="stylesheet" href="styles.css">
 <style>
+/* ── HERO PERSONAL ── */
+.hero-personal{padding:90px 0 64px;text-align:center;position:relative}
+.avatar-wrap{position:relative;display:inline-block;margin-bottom:26px}
+.avatar{width:96px;height:96px;border-radius:50%;object-fit:cover;
+  border:3px solid var(--neon);box-shadow:0 0 36px rgba(0,191,255,.45)}
+.avatar-badge{position:absolute;bottom:2px;right:2px;width:28px;height:28px;
+  border-radius:50%;background:var(--neon);display:flex;align-items:center;
+  justify-content:center;font-size:15px;border:2px solid var(--bg)}
+.hero-personal h1{font-size:clamp(34px,6vw,62px);font-weight:900;line-height:1.05;
+  letter-spacing:-1.5px;margin-bottom:14px}
+.hero-personal .sub{max-width:660px;margin:0 auto 32px;color:var(--muted);
+  font-size:clamp(15px,2.2vw,19px);line-height:1.65}
+.hero-tags{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:30px}
+.hero-tag{font-size:12px;background:rgba(0,191,255,.07);border:1px solid var(--line);
+  color:var(--muted);padding:5px 14px;border-radius:999px}
+
+/* ── DILEMA ── */
+.dilema-wrap{max-width:900px;margin:0 auto}
+.dilema{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:22px;overflow:hidden}
+.dilema-col{padding:38px 34px}
+.dilema-col.sin{background:linear-gradient(145deg,#1a0808,#0f0606);border:1px solid #3a1515}
+.dilema-col.con{background:linear-gradient(145deg,#041a10,#040f0e);border:1px solid #154033;margin-left:-1px}
+.dilema-label{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:18px;padding:5px 14px;border-radius:999px;display:inline-block}
+.dilema-col.sin .dilema-label{color:#ff6b78;background:rgba(255,93,108,.1);border:1px solid rgba(255,93,108,.3)}
+.dilema-col.con .dilema-label{color:var(--ok);background:rgba(57,217,138,.1);border:1px solid rgba(57,217,138,.3)}
+.dilema-col h3{font-size:clamp(17px,2.4vw,22px);margin-bottom:18px;font-weight:800;line-height:1.2}
+.dilema-col.sin h3{color:#ff8a94}
+.dilema-col.con h3{color:#5de8a5}
+.dilema-items{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:11px}
+.dilema-items li{font-size:14px;color:var(--muted);padding-left:24px;position:relative;line-height:1.45}
+.dilema-col.sin .dilema-items li::before{content:"✗";position:absolute;left:0;color:#ff5d6c;font-weight:900}
+.dilema-col.con .dilema-items li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:900}
+@media(max-width:640px){.dilema{grid-template-columns:1fr}.dilema-col.con{margin-left:0;margin-top:-1px}}
+
+/* ── HISTORIA ── */
+.historia-wrap{max-width:680px;margin:0 auto}
+.hist-steps{display:flex;flex-direction:column;gap:0;position:relative;padding-left:10px}
+.hist-steps::before{content:'';position:absolute;left:19px;top:8px;bottom:8px;
+  width:2px;background:linear-gradient(180deg,var(--neon),rgba(0,191,255,0))}
+.hist-step{display:flex;gap:20px;padding-bottom:30px}
+.hist-ico{width:40px;height:40px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--neon),var(--neon2));
+  display:flex;align-items:center;justify-content:center;font-size:17px;
+  box-shadow:var(--glow);z-index:1}
+.hist-body{padding-top:8px}
+.hist-body h4{font-size:15px;font-weight:800;margin-bottom:4px;color:var(--ink)}
+.hist-body p{color:var(--muted);font-size:13.5px;line-height:1.55}
+
+/* ── BÓVEDA ── */
+.boveda-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.boveda-card{background:linear-gradient(180deg,var(--card),#080b22);
+  border:1px solid var(--line);border-radius:18px;padding:24px;
+  display:flex;flex-direction:column;gap:10px;transition:.2s;text-decoration:none;color:inherit}
+.boveda-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.boveda-card.claude{border-color:rgba(255,149,0,.2)}
+.boveda-card.claude:hover{border-color:rgba(255,149,0,.5);box-shadow:0 0 24px rgba(255,149,0,.15)}
+.boveda-card.gemini{border-color:rgba(66,133,244,.2)}
+.boveda-card.gemini:hover{border-color:rgba(66,133,244,.5);box-shadow:0 0 24px rgba(66,133,244,.15)}
+.boveda-card.chatgpt{border-color:rgba(16,163,127,.2)}
+.boveda-card.chatgpt:hover{border-color:rgba(16,163,127,.5);box-shadow:0 0 24px rgba(16,163,127,.15)}
+.boveda-card.excel{border-color:rgba(57,217,138,.2)}
+.boveda-card.excel:hover{border-color:rgba(57,217,138,.5)}
+.boveda-cat{font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  padding:3px 10px;border-radius:999px;display:inline-block}
+.boveda-card.claude .boveda-cat{color:#ff9500;background:rgba(255,149,0,.1);border:1px solid rgba(255,149,0,.25)}
+.boveda-card.gemini .boveda-cat{color:#4285f4;background:rgba(66,133,244,.1);border:1px solid rgba(66,133,244,.25)}
+.boveda-card.chatgpt .boveda-cat{color:#10a37f;background:rgba(16,163,127,.1);border:1px solid rgba(16,163,127,.25)}
+.boveda-card.excel .boveda-cat{color:var(--ok);background:rgba(57,217,138,.1);border:1px solid rgba(57,217,138,.25)}
+.boveda-card.skills .boveda-cat{color:var(--cyan);background:rgba(63,216,255,.1);border:1px solid rgba(63,216,255,.25)}
+.boveda-ic{font-size:30px;line-height:1}
+.boveda-card h3{font-size:16px;font-weight:800;margin:0;line-height:1.3}
+.boveda-card p{color:var(--muted);font-size:13px;line-height:1.5;flex:1;margin:0}
+.boveda-badge{font-size:11px;font-weight:700;color:var(--ok);
+  display:flex;align-items:center;gap:5px;margin-top:4px}
+
+/* ── DEMO GRID ── */
 .demo-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px}
 .demo-card{background:linear-gradient(180deg,var(--card),#080b22);border:1px solid var(--line);
   border-radius:var(--radius);overflow:hidden;transition:.2s;display:flex;flex-direction:column}
 .demo-card:hover{border-color:var(--neon);transform:translateY(-4px);box-shadow:var(--shadow)}
-.demo-preview{height:180px;display:flex;align-items:center;justify-content:center;
+.demo-preview{height:170px;display:flex;align-items:center;justify-content:center;
   background:linear-gradient(135deg,#060618,#0a0a2e);border-bottom:1px solid var(--line);
-  font-size:64px;position:relative;overflow:hidden}
+  font-size:60px;position:relative;overflow:hidden}
 .demo-preview::after{content:'';position:absolute;inset:0;
   background:radial-gradient(circle at 50% 50%,rgba(0,191,255,.08),transparent 70%)}
-.demo-body{padding:22px;flex:1;display:flex;flex-direction:column}
+.demo-body{padding:20px;flex:1;display:flex;flex-direction:column}
 .demo-tag{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1.2px;
-  color:var(--neon);margin-bottom:8px}
-.demo-body h3{font-size:20px;margin-bottom:8px;line-height:1.2}
-.demo-body p{color:var(--muted);font-size:14px;flex:1;margin-bottom:16px}
+  color:var(--neon);margin-bottom:7px}
+.demo-body h3{font-size:18px;margin-bottom:7px;line-height:1.2}
+.demo-body p{color:var(--muted);font-size:13.5px;flex:1;margin-bottom:14px}
 .demo-body .actions{display:flex;gap:10px;flex-wrap:wrap}
-.demo-body .actions a{flex:1;text-align:center;padding:10px 12px;font-size:13.5px}
+.demo-body .actions a{flex:1;text-align:center;padding:10px 12px;font-size:13px}
 
-.free-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+/* ── FREE RESOURCES ── */
+.free-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
 .free-item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;
   display:flex;flex-direction:column;gap:8px}
-.free-item .ic{font-size:28px}
-.free-item h4{font-size:16px}
+.free-item .ic{font-size:26px}
+.free-item h4{font-size:15px}
 .free-item p{color:var(--muted);font-size:13px;flex:1}
-
-.lead-box{background:linear-gradient(135deg,#0a1340,#0a0a2e);border:2px solid var(--neon);
-  border-radius:24px;padding:48px;text-align:center;box-shadow:var(--glow);max-width:680px;margin:0 auto}
-.lead-form{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:24px}
-.lead-form input{flex:1;min-width:220px;background:#080b22;border:1.5px solid var(--line);
-  border-radius:999px;padding:13px 20px;font-size:15px;color:var(--ink);
-  font-family:inherit;outline:none;transition:.18s}
-.lead-form input:focus{border-color:var(--neon);box-shadow:0 0 0 3px rgba(0,191,255,.12)}
 </style>
 </head>
 <body>
@@ -51,39 +121,155 @@
       <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span>
     </a>
     <nav>
-      <a href="tienda.html">Demos</a>
-      <a href="servicios.html">📞 Llamadas 1:1</a>
-      <a href="#gratis">Gratis</a>
+      <a href="recursos.html">📚 Recursos</a>
+      <a href="#demos">Demos</a>
+      <a href="servicios.html">Servicios</a>
       <a href="novedades.html">Novedades</a>
-      <a href="contacto.html">Proyectos</a>
     </nav>
     <button class="menu-btn">☰</button>
   </div>
 </header>
 
-<!-- HERO -->
-<section class="hero">
+<!-- ══════════════════════════════════════════════
+     SECCIÓN 1: PRESENTACIÓN PERSONAL
+══════════════════════════════════════════════ -->
+<section class="hero-personal">
   <div class="wrap" style="max-width:780px">
-    <span class="kicker">IA aplicada al trabajo real · Guatemala 🇬🇹</span>
-    <h1>Automatizo tu negocio con <span>inteligencia artificial</span></h1>
-    <p class="sub">Sistemas con Claude y Claude Code, dashboards interactivos, Google Sheets con IA y apps web a la medida. Sin tecnicismos — resultados que se ven desde el primer día.</p>
-    <div class="cta">
-      <a class="btn btn-primary" href="#demos">Ver sistemas en vivo →</a>
-      <a class="btn btn-ghost" href="servicios.html">📞 Agendar llamada 1:1</a>
+    <div class="avatar-wrap reveal">
+      <img class="avatar" src="icon.jpg" alt="Jonathan Bautista">
+      <div class="avatar-badge">🇬🇹</div>
     </div>
-    <div class="trust">
-      <span>🏭 Logística &amp; Supply Chain</span>
-      <span>🏪 Negocios &amp; Operaciones</span>
-      <span>🎓 Estudiantes USAC</span>
+
+    <span class="kicker">Hola, soy Jonathan</span>
+    <h1>Trabajo con IA en la <span>operación real</span><br>y te enseño cómo hacerlo</h1>
+    <p class="sub">
+      Soy estudiante universitario y llevo años en supply chain y logística.
+      En ese camino descubrí cómo la inteligencia artificial puede cambiar completamente
+      la forma en que trabajamos — sin ser programador, sin cursos caros, sin perder tiempo.
+    </p>
+
+    <div class="hero-tags">
+      <span class="hero-tag">🏭 Supply Chain &amp; Logística</span>
+      <span class="hero-tag">🤖 Claude · Claude Code</span>
+      <span class="hero-tag">📊 Automatización real</span>
+      <span class="hero-tag">🎓 Estudiante universitario</span>
+    </div>
+
+    <div class="cta">
+      <a class="btn btn-primary" href="recursos.html">📚 Explorar recursos gratis →</a>
+      <a class="btn btn-ghost" href="#demos">Ver lo que se puede construir</a>
     </div>
   </div>
 </section>
 
-<!-- DEMOS -->
+<!-- ══════════════════════════════════════════════
+     SECCIÓN 2: EL DILEMA
+══════════════════════════════════════════════ -->
+<section style="padding-top:20px;padding-bottom:60px">
+  <div class="wrap">
+    <span class="kicker" style="display:block;text-align:center;margin-bottom:20px">El punto de partida</span>
+    <h2 class="section-title" style="margin-bottom:8px">Todos estamos en el mismo dilema</h2>
+    <p class="section-sub">La IA ya está cambiando cómo trabajan los negocios, los estudiantes y los profesionales. La pregunta no es <em>si</em> la vas a usar — es <em>cuándo</em>.</p>
+
+    <div class="dilema-wrap reveal">
+      <div class="dilema">
+        <div class="dilema-col sin">
+          <div class="dilema-label">Sin IA</div>
+          <h3>Seguir haciendo todo a mano</h3>
+          <ul class="dilema-items">
+            <li>Horas perdidas en tareas repetitivas</li>
+            <li>Reportes que nadie tiene tiempo de hacer</li>
+            <li>Errores humanos que se acumulan</li>
+            <li>Competidores que ya automatizaron</li>
+            <li>Sensación de que el trabajo nunca termina</li>
+          </ul>
+        </div>
+        <div class="dilema-col con">
+          <div class="dilema-label">Con IA</div>
+          <h3>Trabajar de forma diferente desde hoy</h3>
+          <ul class="dilema-items">
+            <li>Tareas que tardaban horas → minutos</li>
+            <li>Reportes automáticos sin tocar nada</li>
+            <li>Sistemas que trabajan solos, 24/7</li>
+            <li>Más tiempo para lo que realmente importa</li>
+            <li>Ventaja real sobre quienes no la usan</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <p style="text-align:center;margin-top:26px;color:var(--muted);font-size:15px">
+      Yo pasé por ese dilema. Acá te cuento cómo llegué al otro lado.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SECCIÓN 3: MI HISTORIA
+══════════════════════════════════════════════ -->
+<section style="background:linear-gradient(180deg,#06071a,#04040f)">
+  <div class="wrap">
+    <span class="kicker" style="display:block;text-align:center;margin-bottom:20px">Mi recorrido</span>
+    <h2 class="section-title" style="margin-bottom:8px">De la logística a la inteligencia artificial</h2>
+    <p class="section-sub">No llegué a la IA por un curso — llegué por necesidad, frustrándome con procesos manuales que no tenían sentido.</p>
+
+    <div class="historia-wrap">
+      <div class="hist-steps">
+
+        <div class="hist-step reveal">
+          <div class="hist-ico">🏭</div>
+          <div class="hist-body">
+            <h4>Años en supply chain y logística</h4>
+            <p>Trabajé en distribución, tiendas, almacenes y operaciones. Vi de cerca cómo los negocios luchan con tareas manuales, datos desorganizados y procesos que dependen 100% de la memoria de una persona.</p>
+          </div>
+        </div>
+
+        <div class="hist-step reveal">
+          <div class="hist-ico">😤</div>
+          <div class="hist-body">
+            <h4>La frustración real</h4>
+            <p>Invertarios en papel, reportes que nadie actualizaba, pedidos perdidos. Sabía que había una forma mejor — pero nadie la enseñaba de forma práctica, sin tecnicismos ni presupuestos enormes.</p>
+          </div>
+        </div>
+
+        <div class="hist-step reveal">
+          <div class="hist-ico">🤖</div>
+          <div class="hist-body">
+            <h4>Descubrí Claude y Claude Code</h4>
+            <p>Empecé a usar inteligencia artificial — no para "aprender IA", sino para resolver problemas reales. Claude se convirtió en mi herramienta diaria: construía sistemas, automatizaba tareas, analizaba datos en minutos.</p>
+          </div>
+        </div>
+
+        <div class="hist-step reveal">
+          <div class="hist-ico">⚡</div>
+          <div class="hist-body">
+            <h4>Los resultados me sorprendieron</h4>
+            <p>Dashboards completos en horas, automatizaciones que antes hubieran requerido un developer, análisis que tomaban días ahora listos en minutos. La IA cambió completamente mi forma de trabajar.</p>
+          </div>
+        </div>
+
+        <div class="hist-step reveal">
+          <div class="hist-ico">📢</div>
+          <div class="hist-body">
+            <h4>Decidí compartirlo</h4>
+            <p>Si yo pude aprender esto trabajando en logística, cualquier persona con ganas puede hacerlo. Mente en Automático es el lugar donde comparto todo lo que aprendí — sin teoría innecesaria, sin cursos de $500.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
+     SECCIÓN 4: LO QUE SE PUEDE CONSTRUIR
+══════════════════════════════════════════════ -->
 <section id="demos">
   <div class="wrap">
-    <h2 class="section-title">Sistemas en funcionamiento</h2>
-    <p class="section-sub">Haz clic en "Ver demo" — son funcionales, no imágenes. Puedes interactuar con cada uno.</p>
+    <span class="kicker" style="display:block;text-align:center;margin-bottom:16px">Construido con IA</span>
+    <h2 class="section-title">Lo que se puede crear</h2>
+    <p class="section-sub">Estos son sistemas funcionales — no imágenes ni mockups. Haz clic en "Ver demo" e interactúa con cada uno.</p>
+
     <div class="demo-grid">
 
       <div class="demo-card reveal">
@@ -91,10 +277,10 @@
         <div class="demo-body">
           <div class="demo-tag">MRP · Inventario</div>
           <h3>Sistema MRP de Compras</h3>
-          <p>Qué pedir, cuánto y cuándo. Días de inventario, punto de reorden, semáforo de urgencia y gráfica en tiempo real. Cambia el stock y todo se recalcula.</p>
+          <p>Días de inventario, punto de reorden y semáforo de urgencia. Cambia el stock y todo se recalcula solo.</p>
           <div class="actions">
             <a class="btn btn-primary" href="demo-mrp.html">Ver demo →</a>
-            <a class="btn btn-ghost" href="contacto.html">Quiero uno así</a>
+            <a class="btn btn-ghost" href="contacto.html">Lo quiero así</a>
           </div>
         </div>
       </div>
@@ -104,10 +290,10 @@
         <div class="demo-body">
           <div class="demo-tag">RR.HH. · Nómina</div>
           <h3>Control de Horas Extras</h3>
-          <p>Registro de asistencia con cálculo automático de horas regulares y especiales (L-V vs. sábado y domingo). Exporta a Excel o PDF con un clic.</p>
+          <p>Registro de asistencia con cálculo automático de horas especiales. Exporta a Excel o PDF con un clic.</p>
           <div class="actions">
             <a class="btn btn-primary" href="demo-horas.html">Ver demo →</a>
-            <a class="btn btn-ghost" href="contacto.html">Quiero uno así</a>
+            <a class="btn btn-ghost" href="contacto.html">Lo quiero así</a>
           </div>
         </div>
       </div>
@@ -116,11 +302,11 @@
         <div class="demo-preview">⚠️</div>
         <div class="demo-body">
           <div class="demo-tag">Calidad · Proveedores</div>
-          <h3>Gestión de Reclamos (GRC)</h3>
-          <p>Sistema completo con login, 3 roles de usuario, KPIs, gráficas de Chart.js, exportación PDF y XLSX. Para registrar y analizar reclamos a proveedores.</p>
+          <h3>Gestión de Reclamos</h3>
+          <p>Sistema completo con login, 3 roles de usuario, KPIs y exportación PDF/XLSX.</p>
           <div class="actions">
             <a class="btn btn-primary" href="demo-grc.html">Ver demo →</a>
-            <a class="btn btn-ghost" href="contacto.html">Quiero uno así</a>
+            <a class="btn btn-ghost" href="contacto.html">Lo quiero así</a>
           </div>
         </div>
       </div>
@@ -130,10 +316,10 @@
         <div class="demo-body">
           <div class="demo-tag">Dashboard · Analytics</div>
           <h3>Dashboard Operacional</h3>
-          <p>Panel de KPIs en tiempo real: ventas, rotación, tendencias, alertas y comparativas por período. Gráficas interactivas con filtros dinámicos.</p>
+          <p>KPIs en tiempo real: ventas, rotación, tendencias, alertas y comparativas. Gráficas interactivas con filtros.</p>
           <div class="actions">
             <a class="btn btn-primary" href="demo-dashboard.html">Ver demo →</a>
-            <a class="btn btn-ghost" href="contacto.html">Quiero uno así</a>
+            <a class="btn btn-ghost" href="contacto.html">Lo quiero así</a>
           </div>
         </div>
       </div>
@@ -143,20 +329,20 @@
         <div class="demo-body">
           <div class="demo-tag">Logística · Distribución</div>
           <h3>Sistema Logístico</h3>
-          <p>Control de pedidos, rutas, recepciones y estados de entrega. Con roles de usuario, historial y reportes. Adaptable a cualquier operación de distribución.</p>
+          <p>Control de pedidos, rutas, recepciones y estados de entrega. Con roles de usuario y reportes.</p>
           <div class="actions">
             <a class="btn btn-primary" href="demo-logistica.html">Ver demo →</a>
-            <a class="btn btn-ghost" href="contacto.html">Quiero uno así</a>
+            <a class="btn btn-ghost" href="contacto.html">Lo quiero así</a>
           </div>
         </div>
       </div>
 
-      <div class="demo-card reveal" style="border-style:dashed;opacity:.75">
-        <div class="demo-preview" style="font-size:40px">🔜</div>
+      <div class="demo-card reveal" style="border-style:dashed;opacity:.7">
+        <div class="demo-preview" style="font-size:40px">💡</div>
         <div class="demo-body">
-          <div class="demo-tag">Próximamente</div>
-          <h3>¿Tienes una idea diferente?</h3>
-          <p>Agenda para clínicas, control de fiados con app, sistema de cotizaciones, tracker de proveedores… si lo puedes imaginar, lo podemos construir.</p>
+          <div class="demo-tag">Tu idea</div>
+          <h3>¿Tienes algo diferente en mente?</h3>
+          <p>Agenda clínicas, control de fiados, cotizaciones, CRM, sistema de cobranza… si lo puedes imaginar, se puede construir.</p>
           <div class="actions">
             <a class="btn btn-primary" href="contacto.html">Cuéntame tu idea →</a>
           </div>
@@ -167,101 +353,128 @@
   </div>
 </section>
 
-<!-- SOBRE MÍ -->
-<section id="sobre">
-  <div class="wrap about">
-    <div class="journey">
-      <span class="kicker">Mi recorrido</span>
-      <h3>De la operación real a las herramientas</h3>
-      <p>He trabajado en muchos entornos y en cada uno aprendí cómo funciona un negocio por dentro:</p>
-      <div class="chips">
-        <span>📦 Logística &amp; Supply Chain</span>
-        <span>🚚 Distribución</span>
-        <span>🏬 Almacenes</span>
-        <span>🛒 Tiendas y abarroterías</span>
-        <span>🧱 Construcción</span>
-        <span>🧽 Servicios</span>
-        <span>🎓 Administración de Empresas — USAC</span>
-      </div>
+<!-- ══════════════════════════════════════════════
+     SECCIÓN 5: RECURSOS GRATUITOS (La Bóveda)
+══════════════════════════════════════════════ -->
+<section id="recursos" style="background:linear-gradient(180deg,#06071a,#04040f)">
+  <div class="wrap">
+    <span class="kicker" style="display:block;text-align:center;margin-bottom:16px">Acceso gratuito · Sin registro</span>
+    <h2 class="section-title">Los recursos que me hubiera<br>gustado tener al empezar</h2>
+    <p class="section-sub">Guías, plantillas, skills para Claude Code y herramientas — todo organizado para que puedas empezar desde hoy.</p>
+
+    <div class="boveda-grid">
+
+      <a href="recursos.html#claude" class="boveda-card claude reveal">
+        <div class="boveda-cat">Claude · Principal</div>
+        <div class="boveda-ic">🤖</div>
+        <h3>Guía completa de Claude</h3>
+        <p>Cómo funciona el chat, Claude Code y cómo usarlo en tu trabajo diario. Desde cero, sin tecnicismos.</p>
+        <div class="boveda-badge">✦ Gratis · Actualizado 2026</div>
+      </a>
+
+      <a href="recursos.html#code" class="boveda-card skills reveal">
+        <div class="boveda-cat">Claude Code · Skills</div>
+        <div class="boveda-ic">💻</div>
+        <h3>Skills y repositorios</h3>
+        <p>Qué son los skills de Claude Code, cómo instalarlos y los mejores repositorios en GitHub para empezar.</p>
+        <div class="boveda-badge">✦ Gratis · GitHub incluido</div>
+      </a>
+
+      <a href="recursos.html#chatgpt" class="boveda-card chatgpt reveal">
+        <div class="boveda-cat">ChatGPT</div>
+        <div class="boveda-ic">💬</div>
+        <h3>ChatGPT para el trabajo real</h3>
+        <p>Prompts que uso todos los días, diferencias con Claude y cuándo usar cada uno.</p>
+        <div class="boveda-badge">✦ Gratis</div>
+      </a>
+
+      <a href="recursos.html#gemini" class="boveda-card gemini reveal">
+        <div class="boveda-cat">Gemini · Google</div>
+        <div class="boveda-ic">✨</div>
+        <h3>Gemini para estudio e investigación</h3>
+        <p>Ideal para analizar documentos, investigar y conectar con Google Drive. Guía de uso práctico.</p>
+        <div class="boveda-badge">✦ Gratis</div>
+      </a>
+
+      <a href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" class="boveda-card excel reveal">
+        <div class="boveda-cat">Plantillas Excel</div>
+        <div class="boveda-ic">📊</div>
+        <h3>Plantillas que me salvaron horas</h3>
+        <p>Control de inventario, caja diaria, fiados, MRP, ventas, food cost y más. Listas para usar.</p>
+        <div class="boveda-badge">✦ Descarga directa · Google Drive</div>
+      </a>
+
+      <a href="recursos.html#automatizaciones" class="boveda-card reveal">
+        <div class="boveda-cat" style="color:var(--warn);background:rgba(255,209,102,.1);border:1px solid rgba(255,209,102,.25)">Automatizaciones</div>
+        <div class="boveda-ic">⚡</div>
+        <h3>Flujos y herramientas de automatización</h3>
+        <p>Cómo usar Apps Script, n8n y Make para que tu trabajo se haga solo. Guías y ejemplos reales.</p>
+        <div class="boveda-badge">✦ Gratis</div>
+      </a>
+
     </div>
-    <div>
-      <h2 class="section-title" style="text-align:left">Quién está detrás</h2>
-      <p style="color:var(--muted);margin-bottom:18px">Soy Jonathan. He pasado por la logística, la distribución, el comercio y los servicios. En todo ese recorrido fui creando las herramientas que me hubiera gustado tener. Hoy construyo sistemas personalizados para negocios y equipos que quieren dejar de hacer las cosas a mano.</p>
-      <div class="feats">
-        <div class="feat-box"><div class="ic">🛠️</div><h4>Experiencia real</h4><p>Probado en operaciones reales: bodega, tienda, distribución, logística.</p></div>
-        <div class="feat-box"><div class="ic">⚡</div><h4>Entrega rápida</h4><p>Prototipo funcional en días, no meses.</p></div>
-        <div class="feat-box"><div class="ic">🎓</div><h4>También para estudiantes</h4><p>Herramientas para aplicar lo de la universidad a la práctica.</p></div>
-        <div class="feat-box"><div class="ic">🤖</div><h4>IA integrada</h4><p>Clasificación automática, reportes con IA, alertas inteligentes.</p></div>
-      </div>
+
+    <div style="text-align:center;margin-top:32px">
+      <a class="btn btn-primary" href="recursos.html">Ver todos los recursos →</a>
     </div>
   </div>
 </section>
 
-<!-- GRATIS -->
+<!-- ══════════════════════════════════════════════
+     SECCIÓN 6: PLANTILLAS GRATIS
+══════════════════════════════════════════════ -->
 <section id="gratis">
   <div class="wrap">
-    <h2 class="section-title">Plantillas gratis <span style="color:var(--ok)">para tu negocio</span> 🎁</h2>
-    <p class="section-sub">Herramientas de Excel listas para usar, sin costo. Descárgalas desde Google Drive — sin registro.</p>
+    <h2 class="section-title">Plantillas gratis para tu negocio 🎁</h2>
+    <p class="section-sub">Herramientas de Excel listas para usar, sin costo. Sin registro — descarga directa.</p>
     <div class="free-grid">
       <div class="free-item reveal"><div class="ic">💵</div><h4>Caja Diaria</h4><p>Ingresos, gastos y saldo del día. Mejor día automático.</p></div>
-      <div class="free-item reveal"><div class="ic">🛒</div><h4>Inventario Express</h4><p>Semáforo Reponer / OK. Sabe qué comprar hoy en segundos.</p></div>
-      <div class="free-item reveal"><div class="ic">📒</div><h4>Control de Fiados</h4><p>Quién te debe, cuánto y desde cuándo. Estado en colores.</p></div>
+      <div class="free-item reveal"><div class="ic">🛒</div><h4>Inventario Express</h4><p>Semáforo Reponer / OK. Sabe qué comprar hoy.</p></div>
+      <div class="free-item reveal"><div class="ic">📒</div><h4>Control de Fiados</h4><p>Quién te debe, cuánto y desde cuándo.</p></div>
+      <div class="free-item reveal"><div class="ic">🍔</div><h4>Food Cost</h4><p>Costo de recetas y margen de cada producto.</p></div>
     </div>
-    <div style="text-align:center;margin-top:26px">
-      <a class="btn btn-primary" href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" style="font-size:15px;padding:13px 28px">
-        ⬇️ Ver todas las plantillas gratis →
-      </a>
-      <p style="color:var(--muted);font-size:13px;margin-top:10px">Y más plantillas llegando pronto.</p>
-    </div>
-  </div>
-</section>
-
-<!-- NOVEDADES IA -->
-<section>
-  <div class="wrap">
-    <h2 class="section-title">Novedades de IA</h2>
-    <p class="section-sub">Lo que pasa en inteligencia artificial, explicado sin tecnicismos y aplicado a negocios reales.</p>
-    <div id="newsList" class="posts"></div>
     <div style="text-align:center;margin-top:24px">
-      <a class="btn btn-ghost" href="novedades.html">Ver todas las novedades →</a>
+      <a class="btn btn-primary" href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" style="font-size:15px;padding:13px 28px">
+        ⬇️ Descargar todas las plantillas →
+      </a>
     </div>
   </div>
 </section>
 
-<!-- SERVICIOS -->
+<!-- ══════════════════════════════════════════════
+     SECCIÓN 7: SERVICIOS
+══════════════════════════════════════════════ -->
 <section id="servicios" style="background:linear-gradient(180deg,#06071a,#04040f)">
   <div class="wrap">
-    <span class="kicker">Trabajo directo conmigo · 1 a 1</span>
+    <span class="kicker" style="display:block;text-align:center;margin-bottom:16px">Trabajo directo conmigo · 1 a 1</span>
     <h2 class="section-title">¿Cómo puedo <span style="background:linear-gradient(120deg,var(--cyan),var(--neon2));-webkit-background-clip:text;background-clip:text;color:transparent">ayudarte?</span></h2>
-    <p class="section-sub">Desde una llamada rápida hasta construir el sistema que tu negocio necesita — con IA integrada desde el primer día.</p>
+    <p class="section-sub">Desde una llamada rápida para desbloquearte, hasta construir el sistema completo que tu negocio necesita.</p>
 
     <div class="sesiones-grid">
 
-      <!-- Express -->
       <div class="sesion-card reveal">
         <div class="sesion-precio">$15 <span>USD</span></div>
         <h3>Llamada Express</h3>
         <div class="sesion-dur">⏱ 30 minutos · Videollamada</div>
-        <p>Una sesión enfocada para desbloquearte: qué IA usar, si tu idea tiene sentido o cómo empezar con automatización.</p>
+        <p>¿Por dónde empiezo con IA? ¿Esta herramienta sirve para mi caso? ¿Cómo resuelvo esto puntual? Una llamada enfocada para desbloquearte.</p>
         <ul class="sesion-inc">
           <li>Pregunta puntual sobre IA o automatización</li>
-          <li>Setup rápido de Claude, Sheets o cualquier herramienta</li>
+          <li>Setup rápido de Claude o cualquier herramienta</li>
           <li>Validar si un proyecto o idea es viable</li>
         </ul>
         <a class="btn btn-ghost" href="servicios.html" style="margin-top:auto;text-align:center">Ver detalles y reservar →</a>
       </div>
 
-      <!-- Sesión de Trabajo -->
       <div class="sesion-card feat reveal">
         <div class="sesion-badge">Más popular</div>
         <div class="sesion-precio">$75 <span>USD</span></div>
         <h3>Sesión de Trabajo</h3>
         <div class="sesion-dur">⏱ 60 minutos · Videollamada</div>
-        <p>Revisamos tu negocio, definimos qué automatizar primero y qué herramientas usar. Salís con un plan claro y accionable.</p>
+        <p>Revisamos tu negocio, definimos qué automatizar y qué herramientas usar. Terminas con un plan claro y los primeros pasos listos.</p>
         <ul class="sesion-inc">
-          <li>Diagnóstico de tu operación actual</li>
+          <li>Diagnóstico de tu operación o proceso actual</li>
           <li>Selección de herramientas IA para tu caso</li>
-          <li>Plan de automatización paso a paso</li>
+          <li>Plan concreto de automatización paso a paso</li>
           <li>Desatascarte en algo que no avanza</li>
         </ul>
         <a class="btn btn-primary" href="servicios.html" style="margin-top:auto;text-align:center">Reservar sesión →</a>
@@ -272,24 +485,40 @@
     <!-- Proyectos a la medida -->
     <div class="cta-final reveal" style="margin-top:38px">
       <h2>¿Necesitas que lo construya para ti?</h2>
-      <p>Dashboards con IA, Google Sheets automatizado, apps web con login, sistemas a la medida. Dime tu idea y te respondo con una cotización en menos de 24 horas.</p>
+      <p>Google Sheets con IA, dashboards, apps web con login, agentes de automatización. Cuéntame tu idea y te respondo con cotización en 24 horas.</p>
       <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
         <a class="btn btn-primary" href="contacto.html">Cuéntame tu proyecto →</a>
-        <a class="btn btn-ghost" href="https://wa.me/50259226328?text=Hola%20Jonathan%2C%20vi%20tu%20p%C3%A1gina%20y%20me%20interesa%20hablar%20de%20un%20proyecto" target="_blank">💬 WhatsApp directo</a>
+        <a class="btn btn-ghost" href="/wa" target="_blank">💬 WhatsApp</a>
       </div>
     </div>
 
   </div>
 </section>
 
+<!-- ══════════════════════════════════════════════
+     SECCIÓN 8: NOVEDADES IA
+══════════════════════════════════════════════ -->
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Novedades de IA</h2>
+    <p class="section-sub">Lo que pasa en inteligencia artificial, explicado sin tecnicismos y aplicado al trabajo real.</p>
+    <div id="newsList" class="posts"></div>
+    <div style="text-align:center;margin-top:24px">
+      <a class="btn btn-ghost" href="novedades.html">Ver todas las novedades →</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
   <div class="wrap">
-    <div>© <span id="y"></span> Mente en Automático · IA &amp; Eficiencia</div>
+    <div>© <span id="y"></span> Jonathan Bautista · Mente en Automático · Guatemala 🇬🇹</div>
     <div>
       <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a> ·
-      <a href="mailto:menteautomatica26@gmail.com">Correo</a> ·
+      <a href="recursos.html">Recursos</a> ·
       <a href="novedades.html">Novedades</a> ·
-      <a href="servicios.html">Servicios</a>
+      <a href="servicios.html">Servicios</a> ·
+      <a href="mailto:menteautomatica26@gmail.com">Correo</a>
     </div>
   </div>
 </footer>

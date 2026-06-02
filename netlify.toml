@@ -9,3 +9,19 @@
     X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy = "strict-origin-when-cross-origin"
+
+# ── Redireccionamientos ──────────────────────────────
+[[redirects]]
+  from = "/wa"
+  to = "https://wa.me/50259226328?text=Hola%20Jonathan%2C%20vi%20tu%20p%C3%A1gina%20y%20me%20interesa%20hablar%20contigo"
+  status = 302
+
+[[redirects]]
+  from = "/ig"
+  to = "https://instagram.com/menteenautomatico"
+  status = 302
+
+[[redirects]]
+  from = "/cal"
+  to = "https://cal.com/menteenautomatico"
+  status = 302

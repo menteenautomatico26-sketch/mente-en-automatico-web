@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Recursos Gratuitos — Mente en Automático</title>
+<meta name="description" content="Guías, skills, plantillas y herramientas de IA — todo gratis. Claude, Claude Code, ChatGPT, Gemini y automatizaciones para tu trabajo real.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ── HERO ── */
+.recursos-hero{padding:70px 0 44px;text-align:center}
+.recursos-hero h1{font-size:clamp(28px,5vw,48px);font-weight:900;margin-bottom:12px}
+
+/* ── FILTROS ── */
+.filtros{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin:24px 0 36px}
+.filtro{background:transparent;border:1px solid var(--line);color:var(--muted);
+  padding:7px 18px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;
+  transition:.18s;font-family:inherit}
+.filtro:hover,.filtro.active{border-color:var(--neon);color:var(--cyan);background:rgba(0,191,255,.08)}
+
+/* ── SECCIÓN ── */
+.rec-section{margin-bottom:60px}
+.rec-section h2{font-size:22px;font-weight:800;margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.rec-section .rec-sub{color:var(--muted);font-size:14px;margin-bottom:22px}
+
+/* ── CARDS ── */
+.rec-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.rec-card{background:linear-gradient(180deg,var(--card),#080b22);border:1px solid var(--line);
+  border-radius:16px;padding:22px;display:flex;flex-direction:column;gap:10px;
+  transition:.2s;text-decoration:none;color:inherit}
+.rec-card:hover{transform:translateY(-3px);border-color:var(--neon);box-shadow:var(--shadow)}
+.rec-top{display:flex;align-items:flex-start;gap:14px}
+.rec-emoji{font-size:28px;flex-shrink:0;margin-top:2px}
+.rec-info{}
+.rec-cat{font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--neon);margin-bottom:4px}
+.rec-card h3{font-size:15px;font-weight:800;margin:0;line-height:1.3}
+.rec-card p{color:var(--muted);font-size:13px;line-height:1.5;flex:1;margin:0}
+.rec-footer{display:flex;align-items:center;justify-content:space-between;
+  padding-top:10px;border-top:1px solid var(--line)}
+.rec-badge{font-size:11px;font-weight:700}
+.rec-badge.free{color:var(--ok)}
+.rec-badge.soon{color:var(--warn)}
+.rec-badge.github{color:var(--cyan)}
+.rec-action{font-size:12px;color:var(--neon);font-weight:700;display:flex;align-items:center;gap:4px}
+
+/* ── FEATURED ── */
+.rec-featured{background:linear-gradient(135deg,#0a1340,#0a0a2e);border:2px solid var(--neon);
+  border-radius:22px;padding:38px;box-shadow:var(--glow);margin-bottom:50px;
+  display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center}
+.rec-featured h2{font-size:clamp(22px,3.5vw,32px);font-weight:900;margin-bottom:8px}
+.rec-featured p{color:var(--muted);font-size:15px;line-height:1.6;max-width:560px}
+.rec-featured-badge{background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;font-size:11px;font-weight:900;letter-spacing:1px;padding:5px 16px;
+  border-radius:999px;text-transform:uppercase;display:inline-block;margin-bottom:14px}
+@media(max-width:640px){.rec-featured{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span>
+    </a>
+    <nav>
+      <a href="recursos.html" style="color:var(--cyan)">📚 Recursos</a>
+      <a href="index.html#demos">Demos</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="novedades.html">Novedades</a>
+    </nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="recursos-hero">
+  <div class="wrap" style="max-width:740px">
+    <span class="kicker">Acceso gratuito · Sin registro</span>
+    <h1>Recursos para aprender<br><span style="background:linear-gradient(120deg,var(--cyan),var(--neon2));-webkit-background-clip:text;background-clip:text;color:transparent">IA desde el trabajo real</span></h1>
+    <p style="color:var(--muted);font-size:16px;line-height:1.6;margin-bottom:10px">
+      Guías, skills, plantillas y herramientas organizadas para que puedas empezar hoy —
+      sin experiencia previa, sin pagar un curso.
+    </p>
+
+    <div class="filtros">
+      <button class="filtro active" onclick="filtrar(this,'todo')">Todo</button>
+      <button class="filtro" onclick="filtrar(this,'claude')">Claude</button>
+      <button class="filtro" onclick="filtrar(this,'chatgpt')">ChatGPT</button>
+      <button class="filtro" onclick="filtrar(this,'gemini')">Gemini</button>
+      <button class="filtro" onclick="filtrar(this,'plantillas')">Plantillas</button>
+      <button class="filtro" onclick="filtrar(this,'automatizacion')">Automatización</button>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+
+    <!-- DESTACADO -->
+    <div class="rec-featured reveal">
+      <div>
+        <div class="rec-featured-badge">⭐ Recurso destacado</div>
+        <h2>Claude: De Cero a Funcional</h2>
+        <p>La guía completa para empezar a usar Claude en tu trabajo real. Chat, Claude Code, skills y MCP — explicado paso a paso para alguien que nunca ha programado.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:22px">
+          <a class="btn btn-primary" href="#claude">Ver la guía →</a>
+          <a class="btn btn-ghost" href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank">📂 Google Drive</a>
+        </div>
+      </div>
+      <div style="font-size:80px;text-align:center;line-height:1">🤖</div>
+    </div>
+
+    <!-- ── CLAUDE ── -->
+    <div class="rec-section" id="claude" data-cat="claude">
+      <h2>🤖 Claude <span style="font-size:13px;color:var(--muted);font-weight:500">— El hilo conductor de todo</span></h2>
+      <p class="rec-sub">Claude es el punto de partida. Aprende a usarlo desde el chat básico hasta Claude Code para crear sistemas completos.</p>
+      <div class="rec-grid">
+
+        <a href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" class="rec-card reveal">
+          <div class="rec-top">
+            <div class="rec-emoji">📖</div>
+            <div class="rec-info">
+              <div class="rec-cat">Claude · Guía</div>
+              <h3>Guía de inicio: Claude Chat</h3>
+            </div>
+          </div>
+          <p>Qué es, cómo funciona, para qué usarlo y los primeros prompts que cambian cómo trabajas.</p>
+          <div class="rec-footer">
+            <span class="rec-badge free">✓ Gratis</span>
+            <span class="rec-action">Descargar →</span>
+          </div>
+        </a>
+
+        <a href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" class="rec-card reveal">
+          <div class="rec-top">
+            <div class="rec-emoji">💻</div>
+            <div class="rec-info">
+              <div class="rec-cat">Claude Code</div>
+              <h3>Guía de Claude Code para principiantes</h3>
+            </div>
+          </div>
+          <p>Instalación, primeros comandos y cómo usar Claude Code para construir sistemas sin saber programar.</p>
+          <div class="rec-footer">
+            <span class="rec-badge free">✓ Gratis</span>
+            <span class="rec-action">Descargar →</span>
+          </div>
+        </a>
+
+        <a href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" class="rec-card reveal">
+          <div class="rec-top">
+            <div class="rec-emoji">🧩</div>
+            <div class="rec-info">
+              <div class="rec-cat">Claude · MCP</div>
+              <h3>Qué son los MCP y cómo configurarlos</h3>
+            </div>
+          </div>
+          <p>Model Context Protocol: qué son, para qué sirven y los más útiles para empezar (Supabase, Google Drive, GitHub).</p>
+          <div class="rec-footer">
+            <span class="rec-badge free">✓ Gratis</span>
+            <span class="rec-action">Ver guía →</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ── CLAUDE CODE SKILLS ── -->
+    <div class="rec-section" id="code" data-cat="claude">
+      <h2>⚡ Skills para Claude Code <span style="font-size:13px;color:var(--muted);font-weight:500">— Desde GitHub</span></h2>
+      <p class="rec-sub">Los skills son capacidades adicionales que le agregas a Claude Code. Acá explico qué son y los más útiles.</p>
+      <div class="rec-grid">
+
+        <a href="https://github.com/anthropics/claude-code" target="_blank" class="rec-card reveal">
+          <div class="rec-top">
+            <div class="rec-emoji">📦</div>
+            <div class="rec-info">
+              <div class="rec-cat">Skills · Guía</div>
+              <h3>Qué son los skills y cómo funcionan</h3>
+            </div>
+          </div>
+          <p>Explicación práctica: qué hace un skill, cómo instalarlo y los parámetros básicos. Sin jerga innecesaria.</p>
+          <div class="rec-footer">
+            <span class="rec-badge github">⌥ GitHub</span>
+            <span class="rec-action">Ver →</span>
+          </div>
+        </a>
+
+        <a href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" class="rec-card reveal">
+          <div class="rec-top">
+            <div class="rec-emoji">🔧</div>
+            <div class="rec-info">
+              <div class="rec-cat">Skills · Colección</div>
+              <h3>Los mejores skills del repositorio oficial</h3>
+            </div>
+          </div>
+          <p>Selección curada de los skills más útiles para trabajo, estudio y automatización.</p>
+          <div class="rec-footer">
+            <span class="rec-badge free">✓ Gratis</span>
+            <span class="rec-action">Ver lista →</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ── CHATGPT ── -->
+    <div class="rec-section" id="chatgpt" data-cat="chatgpt">
+      <h2>💬 ChatGPT <span style="font-size:13px;color:var(--muted);font-weight:500">— Cuándo y cómo usarlo</span></h2>
+      <p class="rec-sub">ChatGPT sigue siendo una herramienta poderosa. Acá explico para qué lo uso yo y cuándo prefiero Claude.</p>
+      <div class="rec-grid">
+
+        <a href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" class="rec-card reveal">
+          <div class="rec-top">
+            <div class="rec-emoji">🆚</div>
+            <div class="rec-info">
+              <div class="rec-cat">ChatGPT vs Claude</div>
+              <h3>Cuándo usar cada uno (guía honesta)</h3>
+            </div>
+          </div>
+          <p>Comparativa real después de usar ambos todos los días en logística y operaciones. Sin marketing.</p>
+          <div class="rec-footer">
+            <span class="rec-badge free">✓ Gratis</span>
+            <span class="rec-action">Leer →</span>
+          </div>
+        </a>
+
+        <a href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" class="rec-card reveal">
+          <div class="rec-top">
+            <div class="rec-emoji">💡</div>
+            <div class="rec-info">
+              <div class="rec-cat">ChatGPT · Prompts</div>
+              <h3>10 prompts de trabajo que uso cada semana</h3>
+            </div>
+          </div>
+          <p>Resumir correos, analizar datos, generar reportes y más. Listos para copiar y adaptar a tu trabajo.</p>
+          <div class="rec-footer">
+            <span class="rec-badge free">✓ Gratis</span>
+            <span class="rec-action">Descargar →</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ── GEMINI ── -->
+    <div class="rec-section" id="gemini" data-cat="gemini">
+      <h2>✨ Gemini <span style="font-size:13px;color:var(--muted);font-weight:500">— Para estudio e investigación</span></h2>
+      <p class="rec-sub">Gemini brilla para analizar documentos largos, investigar y conectar con el ecosistema de Google.</p>
+      <div class="rec-grid">
+
+        <a href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" class="rec-card reveal">
+          <div class="rec-top">
+            <div class="rec-emoji">🎓</div>
+            <div class="rec-info">
+              <div class="rec-cat">Gemini · Estudiantes</div>
+              <h3>Gemini para la universidad: guía práctica</h3>
+            </div>
+          </div>
+          <p>Cómo usar Gemini para investigar, resumir documentos y mejorar trabajos académicos sin hacer trampa.</p>
+          <div class="rec-footer">
+            <span class="rec-badge free">✓ Gratis</span>
+            <span class="rec-action">Leer →</span>
+          </div>
+        </a>
+
+        <a href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" class="rec-card reveal">
+          <div class="rec-top">
+            <div class="rec-emoji">📄</div>
+            <div class="rec-info">
+              <div class="rec-cat">Gemini · NotebookLM</div>
+              <h3>NotebookLM: análisis de documentos con IA</h3>
+            </div>
+          </div>
+          <p>La herramienta de Google para subir PDFs y hacer preguntas sobre ellos. Ideal para estudio e investigación.</p>
+          <div class="rec-footer">
+            <span class="rec-badge free">✓ Gratis</span>
+            <span class="rec-action">Ver guía →</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ── PLANTILLAS ── -->
+    <div class="rec-section" id="plantillas" data-cat="plantillas">
+      <h2>📊 Plantillas Excel <span style="font-size:13px;color:var(--muted);font-weight:500">— Descarga directa</span></h2>
+      <p class="rec-sub">Herramientas listas para usar en tu negocio. Sin registro, sin email — solo descargar y usar.</p>
+      <div class="rec-grid">
+
+        <a href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" class="rec-card reveal">
+          <div class="rec-top"><div class="rec-emoji">💵</div><div class="rec-info"><div class="rec-cat">Excel · Finanzas</div><h3>Caja Diaria</h3></div></div>
+          <p>Ingresos, gastos y saldo del día. Calcula solo el mejor día del mes.</p>
+          <div class="rec-footer"><span class="rec-badge free">✓ Gratis</span><span class="rec-action">Descargar →</span></div>
+        </a>
+
+        <a href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" class="rec-card reveal">
+          <div class="rec-top"><div class="rec-emoji">🛒</div><div class="rec-info"><div class="rec-cat">Excel · Inventario</div><h3>Inventario Express con Semáforo</h3></div></div>
+          <p>Semáforo Reponer / OK / Crítico. Sabe exactamente qué comprar hoy.</p>
+          <div class="rec-footer"><span class="rec-badge free">✓ Gratis</span><span class="rec-action">Descargar →</span></div>
+        </a>
+
+        <a href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" class="rec-card reveal">
+          <div class="rec-top"><div class="rec-emoji">📒</div><div class="rec-info"><div class="rec-cat">Excel · Crédito</div><h3>Control de Fiados</h3></div></div>
+          <p>Quién te debe, cuánto y desde cuándo. Estado en colores para actuar rápido.</p>
+          <div class="rec-footer"><span class="rec-badge free">✓ Gratis</span><span class="rec-action">Descargar →</span></div>
+        </a>
+
+        <a href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" class="rec-card reveal">
+          <div class="rec-top"><div class="rec-emoji">🧮</div><div class="rec-info"><div class="rec-cat">Excel · MRP</div><h3>MRP Básico de Compras</h3></div></div>
+          <p>Qué comprar, cuánto y cuándo. Punto de reorden y días de inventario calculados solos.</p>
+          <div class="rec-footer"><span class="rec-badge free">✓ Gratis</span><span class="rec-action">Descargar →</span></div>
+        </a>
+
+      </div>
+    </div>
+
+    <!-- ── AUTOMATIZACIONES ── -->
+    <div class="rec-section" id="automatizaciones" data-cat="automatizacion">
+      <h2>⚡ Automatizaciones <span style="font-size:13px;color:var(--muted);font-weight:500">— Trabajo que se hace solo</span></h2>
+      <p class="rec-sub">Herramientas para que tus tareas repetitivas se ejecuten solas. Apps Script, n8n y más.</p>
+      <div class="rec-grid">
+
+        <a href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" class="rec-card reveal">
+          <div class="rec-top"><div class="rec-emoji">📋</div><div class="rec-info"><div class="rec-cat">Apps Script</div><h3>Google Apps Script: automatiza Sheets sin código</h3></div></div>
+          <p>Cómo copiar, configurar y ejecutar scripts que envían emails, generan reportes y procesan datos solos.</p>
+          <div class="rec-footer"><span class="rec-badge free">✓ Gratis</span><span class="rec-action">Ver guía →</span></div>
+        </a>
+
+        <a href="https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi" target="_blank" class="rec-card reveal">
+          <div class="rec-top"><div class="rec-emoji">🔗</div><div class="rec-info"><div class="rec-cat">n8n · Make</div><h3>Flujos de automatización para principiantes</h3></div></div>
+          <p>Conecta apps sin código. Cuando pasa X → hace Y automáticamente. Ejemplos reales de negocios.</p>
+          <div class="rec-footer"><span class="rec-badge soon">⏳ Próximamente</span><span class="rec-action">Notificarme →</span></div>
+        </a>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section style="background:linear-gradient(180deg,#06071a,#04040f);padding-bottom:70px">
+  <div class="wrap">
+    <div class="cta-final reveal">
+      <h2>¿Quieres aprender más rápido?</h2>
+      <p>Una sesión 1:1 conmigo puede ahorrarte semanas de prueba y error. Te muestro exactamente qué herramientas usar para tu caso.</p>
+      <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+        <a class="btn btn-primary" href="servicios.html">Ver sesiones disponibles →</a>
+        <a class="btn btn-ghost" href="https://instagram.com/menteenautomatico" target="_blank">Seguir en Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="y"></span> Jonathan Bautista · Mente en Automático · Guatemala 🇬🇹</div>
+    <div>
+      <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a> ·
+      <a href="index.html">Inicio</a> ·
+      <a href="novedades.html">Novedades</a> ·
+      <a href="servicios.html">Servicios</a>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+document.getElementById("y").textContent = new Date().getFullYear();
+
+function filtrar(btn, cat) {
+  document.querySelectorAll('.filtro').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.rec-section').forEach(s => {
+    if (cat === 'todo' || s.dataset.cat === cat) {
+      s.style.display = '';
+    } else {
+      s.style.display = 'none';
+    }
+  });
+}
+</script>
+</body>
+</html>
