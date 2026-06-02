@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Guía 01 — Claude de Cero: Tu Primera Semana | Mente en Automático</title>
+<meta name="description" content="La guía completa para empezar con Claude desde cero. Cuenta gratis, primeros prompts, Claude Code y plan de 7 días. Por Jonathan Bautista.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ── GUÍA LAYOUT ── */
+.guia-hero{padding:80px 0 50px;text-align:center;position:relative}
+.guia-num{display:inline-block;background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.guia-hero h1{font-size:clamp(28px,5vw,50px);font-weight:900;line-height:1.1;margin-bottom:14px}
+.guia-hero .sub{color:var(--muted);font-size:clamp(15px,2vw,18px);max-width:620px;margin:0 auto 28px;line-height:1.6}
+.guia-meta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.guia-badge{background:var(--card);border:1px solid var(--line);color:var(--muted);
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:999px;display:flex;align-items:center;gap:5px}
+
+/* ── ÍNDICE ── */
+.indice{background:linear-gradient(135deg,#0a1340,#0a0a2e);border:1px solid var(--line);
+  border-radius:20px;padding:28px 32px;max-width:680px;margin:0 auto 48px}
+.indice h3{font-size:14px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  color:var(--neon);margin-bottom:16px}
+.indice ol{padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.indice li a{color:var(--ink);font-size:14px;text-decoration:none;transition:.15s}
+.indice li a:hover{color:var(--cyan)}
+
+/* ── SECCIONES DE GUÍA ── */
+.guia-wrap{max-width:780px;margin:0 auto;padding:0 20px}
+.guia-section{margin-bottom:56px;scroll-margin-top:80px}
+.seccion-tag{display:inline-flex;align-items:center;gap:7px;
+  font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--neon);margin-bottom:12px}
+.guia-section h2{font-size:clamp(22px,3.5vw,32px);font-weight:900;margin-bottom:10px;line-height:1.2}
+.guia-section .intro{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:24px}
+
+/* ── CARDS DE DIFERENCIAS ── */
+.diff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:20px 0}
+.diff-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.diff-card .ic{font-size:24px;margin-bottom:10px}
+.diff-card h4{font-size:14px;font-weight:800;margin-bottom:4px;color:var(--cyan)}
+.diff-card p{color:var(--muted);font-size:13px;line-height:1.5}
+
+/* ── PASOS ── */
+.pasos{display:flex;flex-direction:column;gap:12px;margin:20px 0}
+.paso{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:18px;align-items:flex-start}
+.paso-num{width:36px;height:36px;flex-shrink:0;border-radius:50%;
+  background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;font-weight:900;font-size:15px;
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--glow)}
+.paso-body h4{font-size:14px;font-weight:800;margin-bottom:3px}
+.paso-body p{color:var(--muted);font-size:13.5px;line-height:1.5}
+
+/* ── PROMPTS ── */
+.prompt-card{background:linear-gradient(135deg,#060f22,#05091a);
+  border:1.5px solid rgba(0,191,255,.3);border-radius:16px;
+  padding:22px 24px;margin:16px 0}
+.prompt-label{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  color:var(--neon);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.prompt-text{font-family:'Courier New',monospace;font-size:13px;color:#b8d4ff;
+  line-height:1.7;background:rgba(0,0,0,.3);border-radius:10px;
+  padding:14px 16px;white-space:pre-wrap;word-break:break-word;margin-bottom:12px}
+.prompt-uso{color:var(--muted);font-size:12.5px;font-style:italic}
+.copy-btn{background:rgba(0,191,255,.1);border:1px solid rgba(0,191,255,.3);
+  color:var(--cyan);font-size:12px;font-weight:700;padding:6px 14px;
+  border-radius:999px;cursor:pointer;transition:.15s;font-family:inherit}
+.copy-btn:hover{background:rgba(0,191,255,.2)}
+
+/* ── MALO VS BUENO ── */
+.mvb{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.mvb-col{border-radius:14px;padding:16px}
+.mvb-col.malo{background:rgba(255,93,108,.06);border:1px solid rgba(255,93,108,.2)}
+.mvb-col.bueno{background:rgba(57,217,138,.06);border:1px solid rgba(57,217,138,.2)}
+.mvb-label{font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.mvb-col.malo .mvb-label{color:#ff5d6c}
+.mvb-col.bueno .mvb-label{color:var(--ok)}
+.mvb-col p{font-size:13px;color:var(--muted);line-height:1.5}
+@media(max-width:500px){.mvb{grid-template-columns:1fr}}
+
+/* ── PLAN 7 DÍAS ── */
+.dias-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px;margin:20px 0}
+.dia{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.dia-num{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  color:var(--neon);margin-bottom:6px}
+.dia h4{font-size:14px;font-weight:800;margin-bottom:4px}
+.dia p{color:var(--muted);font-size:12.5px;line-height:1.4}
+
+/* ── CALLOUT ── */
+.callout{display:flex;gap:14px;background:rgba(0,191,255,.06);border:1px solid rgba(0,191,255,.2);
+  border-radius:14px;padding:18px;margin:20px 0;align-items:flex-start}
+.callout-ic{font-size:22px;flex-shrink:0}
+.callout p{color:var(--muted);font-size:14px;line-height:1.6;margin:0}
+.callout strong{color:var(--ink)}
+
+/* ── SEPARADOR ── */
+.sep{border:none;border-top:1px solid var(--line);margin:48px 0}
+
+/* ── NAVEGACIÓN ENTRE GUÍAS ── */
+.guia-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:56px}
+.guia-nav a{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:20px;text-decoration:none;color:inherit;transition:.2s;display:flex;flex-direction:column;gap:4px}
+.guia-nav a:hover{border-color:var(--neon);transform:translateY(-3px)}
+.gnav-dir{font-size:11px;color:var(--muted);font-weight:700}
+.gnav-tit{font-size:15px;font-weight:800;color:var(--ink)}
+.gnav-right{text-align:right}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span>
+    </a>
+    <nav>
+      <a href="recursos.html">← Recursos</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="novedades.html">Novedades</a>
+    </nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="guia-hero">
+  <div class="wrap" style="max-width:780px">
+    <div class="guia-num">Guía 01 · Gratis</div>
+    <h1>Claude de Cero:<br><span style="background:linear-gradient(120deg,var(--cyan),var(--neon2));-webkit-background-clip:text;background-clip:text;color:transparent">Tu Primera Semana con IA</span></h1>
+    <p class="sub">Para cualquier persona que quiera empezar a usar IA en su trabajo o estudios — sin experiencia, sin programar, sin pagar un curso.</p>
+    <div class="guia-meta">
+      <span class="guia-badge">⏱ 15 min de lectura</span>
+      <span class="guia-badge">🎓 Nivel principiante</span>
+      <span class="guia-badge">✓ 100% gratis</span>
+      <span class="guia-badge">🔄 Actualizada junio 2026</span>
+    </div>
+  </div>
+</section>
+
+<div class="guia-wrap">
+
+  <!-- ÍNDICE -->
+  <div class="indice reveal">
+    <h3>📋 Contenido de esta guía</h3>
+    <ol>
+      <li><a href="#que-es">¿Qué es Claude y por qué es diferente?</a></li>
+      <li><a href="#cuenta">Crear tu cuenta en 5 minutos</a></li>
+      <li><a href="#prompts">Tus primeros 5 prompts que cambian todo</a></li>
+      <li><a href="#secreto">El secreto para escribir buenos prompts</a></li>
+      <li><a href="#code">Claude Code: el siguiente nivel</a></li>
+      <li><a href="#plan">Plan de 7 días para dominarlo</a></li>
+    </ol>
+  </div>
+
+  <!-- SECCIÓN 1 -->
+  <div class="guia-section" id="que-es">
+    <div class="seccion-tag">🤖 Sección 1</div>
+    <h2>¿Qué es Claude y por qué es diferente?</h2>
+    <p class="intro">Claude es una inteligencia artificial creada por Anthropic. En términos simples: es un asistente muy inteligente que puedes consultar en cualquier momento por chat. Pero hay razones específicas por las que lo uso a diario en lugar de otras IAs.</p>
+
+    <div class="diff-grid">
+      <div class="diff-card reveal">
+        <div class="ic">🇪🇸</div>
+        <h4>Mejor en español</h4>
+        <p>Respuestas más naturales en español latinoamericano. Sin traducciones raras ni frases genéricas.</p>
+      </div>
+      <div class="diff-card reveal">
+        <div class="ic">🧠</div>
+        <h4>Razona mejor</h4>
+        <p>En problemas complejos y análisis de múltiples pasos, Claude es más riguroso y comete menos errores lógicos.</p>
+      </div>
+      <div class="diff-card reveal">
+        <div class="ic">📄</div>
+        <h4>Documentos largos</h4>
+        <p>Puede leer y analizar textos muy largos sin perder el contexto. Contratos, reportes, libros completos.</p>
+      </div>
+      <div class="diff-card reveal">
+        <div class="ic">💻</div>
+        <h4>Claude Code</h4>
+        <p>Puede controlar tu computadora, crear archivos y construir sistemas completos. Nadie más hace eso.</p>
+      </div>
+      <div class="diff-card reveal">
+        <div class="ic">🎯</div>
+        <h4>Menos alucinaciones</h4>
+        <p>Inventa menos cosas. Para análisis de trabajo donde los números importan, es más confiable.</p>
+      </div>
+      <div class="diff-card reveal">
+        <div class="ic">💸</div>
+        <h4>Plan gratis real</h4>
+        <p>El plan gratuito alcanza para aprender y para uso diario moderado. No te limita desde el primer día.</p>
+      </div>
+    </div>
+
+    <div class="callout reveal">
+      <div class="callout-ic">💡</div>
+      <p><strong>¿Cuánto cuesta?</strong> El plan gratis en claude.ai es suficiente para esta guía completa y para empezar a usarlo en tu trabajo. El plan Pro ($20/mes) lo necesitas solo si lo usas intensivamente o quieres Claude Code sin límites.</p>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- SECCIÓN 2 -->
+  <div class="guia-section" id="cuenta">
+    <div class="seccion-tag">🔑 Sección 2</div>
+    <h2>Crear tu cuenta en 5 minutos</h2>
+    <p class="intro">Sin tarjeta de crédito. Sin descargar nada. Solo un navegador.</p>
+
+    <div class="pasos">
+      <div class="paso reveal">
+        <div class="paso-num">1</div>
+        <div class="paso-body">
+          <h4>Ve a claude.ai</h4>
+          <p>Abre tu navegador y escribe <strong style="color:var(--cyan)">claude.ai</strong> — es el sitio oficial de Anthropic.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">2</div>
+        <div class="paso-body">
+          <h4>Haz clic en "Sign up"</h4>
+          <p>Usa tu cuenta de Google para hacerlo en 1 clic, o crea una cuenta con tu email.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">3</div>
+        <div class="paso-body">
+          <h4>Verifica tu teléfono</h4>
+          <p>Te mandan un código SMS de verificación. Es un paso de seguridad obligatorio.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">4</div>
+        <div class="paso-body">
+          <h4>Elige el plan gratis</h4>
+          <p>Cuando te pregunten sobre planes, elige <strong>Free</strong>. Puedes actualizar después si lo necesitas.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">5</div>
+        <div class="paso-body">
+          <h4>¡Listo! Estás dentro</h4>
+          <p>Verás una pantalla de chat. El campo de texto abajo es donde escribes tus preguntas.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout reveal">
+      <div class="callout-ic">⚠️</div>
+      <p><strong>Importante:</strong> Cada conversación nueva empieza en blanco. Claude no recuerda conversaciones anteriores a menos que uses la función "Projects". Lo vemos en la Guía 02.</p>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- SECCIÓN 3 -->
+  <div class="guia-section" id="prompts">
+    <div class="seccion-tag">💬 Sección 3</div>
+    <h2>Tus primeros 5 prompts que cambian todo</h2>
+    <p class="intro">Copia estos prompts, pégalos en Claude y reemplaza lo que está entre <strong style="color:var(--cyan)">[corchetes]</strong> con tus datos reales. Empieza con el primero y pruébalos uno a uno.</p>
+
+    <div class="prompt-card reveal">
+      <div class="prompt-label">📝 Prompt 1 — Resumir información</div>
+      <div class="prompt-text">Tengo este texto y necesito entenderlo rápido: [pega tu texto aquí].
+
+Dame:
+1) Los 3 puntos más importantes
+2) Si hay alguna acción que deba tomar
+3) Un resumen en máximo 5 líneas</div>
+      <p class="prompt-uso">✅ Úsalo para: correos largos, contratos, artículos, reportes que nadie tiene tiempo de leer</p>
+      <button class="copy-btn" onclick="copiar(this, 'Tengo este texto y necesito entenderlo rápido: [pega tu texto aquí].\n\nDame:\n1) Los 3 puntos más importantes\n2) Si hay alguna acción que deba tomar\n3) Un resumen en máximo 5 líneas')">📋 Copiar prompt</button>
+    </div>
+
+    <div class="prompt-card reveal">
+      <div class="prompt-label">📧 Prompt 2 — Redactar correo profesional</div>
+      <div class="prompt-text">Ayúdame a redactar un correo profesional para [destinatario].
+El objetivo es [qué quieres lograr].
+El tono debe ser [formal/amigable/directo].
+Incluye [punto importante 1] y [punto importante 2].
+Máximo 150 palabras.</div>
+      <p class="prompt-uso">✅ Úsalo para: correos difíciles, negociaciones, solicitudes, seguimientos</p>
+      <button class="copy-btn" onclick="copiar(this, 'Ayúdame a redactar un correo profesional para [destinatario].\nEl objetivo es [qué quieres lograr].\nEl tono debe ser [formal/amigable/directo].\nIncluye [punto importante 1] y [punto importante 2].\nMáximo 150 palabras.')">📋 Copiar prompt</button>
+    </div>
+
+    <div class="prompt-card reveal">
+      <div class="prompt-label">📊 Prompt 3 — Analizar datos</div>
+      <div class="prompt-text">Tengo estos datos de [tema]: [pega tus datos o describe la situación].
+
+Analízalos y dime:
+- Los 3 hallazgos más importantes
+- Si hay algo preocupante
+- Qué recomendarías hacer</div>
+      <p class="prompt-uso">✅ Úsalo para: ventas, inventario, asistencia, cualquier tabla de números</p>
+      <button class="copy-btn" onclick="copiar(this, 'Tengo estos datos de [tema]: [pega tus datos].\n\nAnalízalos y dime:\n- Los 3 hallazgos más importantes\n- Si hay algo preocupante\n- Qué recomendarías hacer')">📋 Copiar prompt</button>
+    </div>
+
+    <div class="prompt-card reveal">
+      <div class="prompt-label">💡 Prompt 4 — Organizar ideas</div>
+      <div class="prompt-text">Tengo estas ideas sueltas sobre [tema]: [lista tus ideas].
+
+Ayúdame a organizarlas de forma coherente y agrégale estructura.
+Si falta algo importante, añádelo.</div>
+      <p class="prompt-uso">✅ Úsalo para: presentaciones, proyectos, planes de trabajo, propuestas</p>
+      <button class="copy-btn" onclick="copiar(this, 'Tengo estas ideas sueltas sobre [tema]: [lista tus ideas].\n\nAyúdame a organizarlas de forma coherente y agrégale estructura.\nSi falta algo importante, añádelo.')">📋 Copiar prompt</button>
+    </div>
+
+    <div class="prompt-card reveal">
+      <div class="prompt-label">🔧 Prompt 5 — Resolver problemas</div>
+      <div class="prompt-text">Tengo este problema: [describe el problema].
+He intentado [lo que ya intentaste].
+
+Dame 3 soluciones posibles, ordenadas de la más simple a la más compleja, con pros y contras de cada una.</div>
+      <p class="prompt-uso">✅ Úsalo para: cualquier decisión difícil, bloqueos de trabajo, situaciones complejas</p>
+      <button class="copy-btn" onclick="copiar(this, 'Tengo este problema: [describe el problema].\nHe intentado [lo que ya intentaste].\n\nDame 3 soluciones posibles, ordenadas de la más simple a la más compleja, con pros y contras de cada una.')">📋 Copiar prompt</button>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- SECCIÓN 4 -->
+  <div class="guia-section" id="secreto">
+    <div class="seccion-tag">🎯 Sección 4</div>
+    <h2>El secreto para escribir buenos prompts</h2>
+    <p class="intro">La diferencia entre una respuesta mediocre y una respuesta útil está en cómo preguntas. Esta es la regla más importante:</p>
+
+    <div class="mvb reveal">
+      <div class="mvb-col malo">
+        <div class="mvb-label">✗ Así NO</div>
+        <p>"Ayúdame con mi inventario"</p>
+      </div>
+      <div class="mvb-col bueno">
+        <div class="mvb-label">✓ Así SÍ</div>
+        <p>"Tengo un inventario de 50 productos. El stock mínimo es [X]. Aquí están los datos actuales: [datos]. Dime cuáles están en riesgo de quedarse sin stock esta semana y en qué orden debo reabastecer."</p>
+      </div>
+    </div>
+
+    <div class="diff-grid" style="margin-top:24px">
+      <div class="diff-card reveal">
+        <div class="ic">🗺️</div>
+        <h4>1. Da contexto</h4>
+        <p>Dile quién eres y qué problema tienes. Cuanto más sabe de tu situación, mejor te ayuda.</p>
+      </div>
+      <div class="diff-card reveal">
+        <div class="ic">🎯</div>
+        <h4>2. Sé específico</h4>
+        <p>No "algo sobre ventas" — "las ventas de los últimos 3 meses comparadas con el mismo período del año anterior".</p>
+      </div>
+      <div class="diff-card reveal">
+        <div class="ic">📐</div>
+        <h4>3. Define el formato</h4>
+        <p>¿Quieres una lista, una tabla, un párrafo, código? Díselo explícitamente.</p>
+      </div>
+      <div class="diff-card reveal">
+        <div class="ic">🔄</div>
+        <h4>4. Itera</h4>
+        <p>Si la respuesta no es perfecta, dile "hazlo más corto" o "enfócate más en X". Refinar es normal.</p>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- SECCIÓN 5 -->
+  <div class="guia-section" id="code">
+    <div class="seccion-tag">💻 Sección 5</div>
+    <h2>Claude Code: el siguiente nivel</h2>
+    <p class="intro">Claude Code es completamente diferente al chat. No responde mensajes — actúa directamente en tu computadora. Lo uso para construir sistemas completos.</p>
+
+    <div class="diff-grid">
+      <div class="diff-card reveal"><div class="ic">📁</div><h4>Crea archivos</h4><p>Genera documentos, hojas de cálculo, carpetas y estructuras de proyecto completas.</p></div>
+      <div class="diff-card reveal"><div class="ic">🌐</div><h4>Construye apps web</h4><p>Sistemas con base de datos, login, dashboards. Sin que sepas programar.</p></div>
+      <div class="diff-card reveal"><div class="ic">🖱️</div><h4>Controla el navegador</h4><p>Puede navegar por sitios, hacer clics, llenar formularios automáticamente.</p></div>
+      <div class="diff-card reveal"><div class="ic">🔗</div><h4>Se conecta a servicios</h4><p>Google Drive, Supabase, GitHub y muchos más mediante MCPs.</p></div>
+    </div>
+
+    <div class="callout reveal" style="margin-top:24px">
+      <div class="callout-ic">🚀</div>
+      <p><strong>Para empezar con Claude Code necesitas:</strong><br>
+      1. Instalar Node.js — nodejs.org (5 minutos, gratis)<br>
+      2. Abrir una terminal (CMD en Windows o Terminal en Mac)<br>
+      3. Escribir: <code style="background:var(--card);padding:2px 8px;border-radius:5px;color:var(--cyan)">npx @anthropic-ai/claude-code</code><br>
+      4. Listo — empieza a pedir lo que necesitas en español</p>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- SECCIÓN 6 — PLAN 7 DÍAS -->
+  <div class="guia-section" id="plan">
+    <div class="seccion-tag">📅 Sección 6</div>
+    <h2>Plan de 7 días para dominarlo</h2>
+    <p class="intro">No necesitas hacer todo en un día. Este plan te lleva de "nunca lo he usado" a "lo uso todos los días" en una semana.</p>
+
+    <div class="dias-grid">
+      <div class="dia reveal">
+        <div class="dia-num">Día 1</div>
+        <h4>Cuenta y primeros prompts</h4>
+        <p>Crea tu cuenta y prueba los 5 prompts de esta guía con información real tuya.</p>
+      </div>
+      <div class="dia reveal">
+        <div class="dia-num">Día 2</div>
+        <h4>Tarea real de trabajo</h4>
+        <p>Úsalo para una tarea real hoy: un correo, un análisis, un reporte que tienes pendiente.</p>
+      </div>
+      <div class="dia reveal">
+        <div class="dia-num">Día 3</div>
+        <h4>Prueba Projects</h4>
+        <p>Crea un "Project" en Claude y dale contexto permanente sobre tu trabajo o empresa.</p>
+      </div>
+      <div class="dia reveal">
+        <div class="dia-num">Día 4</div>
+        <h4>Compara resultados</h4>
+        <p>Haz la misma tarea manualmente y con Claude. ¿Cuánto tiempo ahorraste?</p>
+      </div>
+      <div class="dia reveal">
+        <div class="dia-num">Día 5</div>
+        <h4>Identifica 3 tareas</h4>
+        <p>Anota 3 tareas de tu trabajo que podrías delegarle a Claude cada semana.</p>
+      </div>
+      <div class="dia reveal">
+        <div class="dia-num">Día 6</div>
+        <h4>Prompts más complejos</h4>
+        <p>Prueba la Guía 02 — los 10 prompts avanzados para trabajo real.</p>
+      </div>
+      <div class="dia reveal">
+        <div class="dia-num">Día 7</div>
+        <h4>Reflexión y próximos pasos</h4>
+        <p>¿Qué funcionó? ¿Qué quieres aprender ahora? Decide si explorar Claude Code.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVEGACIÓN -->
+  <div class="guia-nav reveal">
+    <a href="recursos.html">
+      <span class="gnav-dir">← Volver</span>
+      <span class="gnav-tit">Todos los recursos</span>
+    </a>
+    <a href="guia-02-prompts.html" class="gnav-right">
+      <span class="gnav-dir">Siguiente →</span>
+      <span class="gnav-tit">Guía 02: 10 Prompts diarios</span>
+    </a>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-final reveal" style="margin:48px 0">
+    <h2>¿Quieres avanzar más rápido?</h2>
+    <p>En una sesión 1:1 te muestro exactamente cómo usar Claude para TU trabajo específico — sin teoría, directo al grano.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-primary" href="servicios.html">Ver sesiones disponibles →</a>
+      <a class="btn btn-ghost" href="recursos.html">Ver más guías</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="y"></span> Jonathan Bautista · Mente en Automático · Guatemala 🇬🇹</div>
+    <div>
+      <a href="recursos.html">Recursos</a> ·
+      <a href="index.html">Inicio</a> ·
+      <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+document.getElementById("y").textContent = new Date().getFullYear();
+
+function copiar(btn, texto) {
+  navigator.clipboard.writeText(texto).then(() => {
+    btn.textContent = '✅ Copiado';
+    setTimeout(() => btn.textContent = '📋 Copiar prompt', 2000);
+  });
+}
+</script>
+</body>
+</html>
