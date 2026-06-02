@@ -3,34 +3,111 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>¡Gracias! Recibí tu idea — Mente en Automático</title>
+<title>¡Lo recibí! — Mente en Automático</title>
+<meta name="description" content="Tu mensaje llegó. Te respondo en menos de 24 horas.">
 <link rel="icon" href="icon.jpg">
 <link rel="stylesheet" href="styles.css">
+<style>
+.ty-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:80px 20px 40px;position:relative;z-index:1}
+.ty-box{max-width:620px;width:100%;text-align:center}
+.ty-icon{font-size:72px;line-height:1;margin-bottom:24px;
+  animation:pop .5s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes pop{from{transform:scale(0) rotate(-20deg);opacity:0}to{transform:scale(1) rotate(0);opacity:1}}
+.ty-kicker{display:inline-block;background:rgba(57,217,138,.12);border:1px solid rgba(57,217,138,.35);
+  color:#39d98a;font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 16px;border-radius:999px;margin-bottom:20px}
+.ty-box h1{font-size:clamp(30px,5vw,50px);font-weight:900;line-height:1.1;margin-bottom:14px}
+.ty-box .sub{color:var(--muted);font-size:clamp(15px,2vw,18px);line-height:1.6;margin-bottom:36px}
+
+.ty-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+  gap:14px;margin:0 auto 36px;text-align:left}
+.ty-step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px}
+.ty-step .num{width:30px;height:30px;border-radius:50%;
+  background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;font-weight:900;font-size:14px;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:var(--glow);margin-bottom:10px}
+.ty-step h4{font-size:14px;font-weight:800;margin-bottom:4px}
+.ty-step p{color:var(--muted);font-size:13px;line-height:1.4}
+
+.ty-cta{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+.ty-note{color:var(--muted);font-size:13px;line-height:1.5}
+.ty-note strong{color:var(--ink)}
+</style>
 </head>
 <body>
 <canvas id="particles"></canvas>
-<header class="nav"><div class="wrap">
-  <a class="brand" href="index.html"><img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
-    <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span></a>
-</div></header>
 
-<section class="hero">
-  <div class="wrap" style="max-width:620px">
-    <span class="kicker">Mensaje recibido</span>
-    <h1>¡Gracias! <span>Ya recibí tu idea</span> 🚀</h1>
-    <p class="sub">Te respondo en menos de 24 horas con preguntas o directamente con una propuesta. Revisa tu correo (incluyendo spam).</p>
-    <div class="cta" style="margin-top:28px">
-      <a class="btn btn-primary" href="index.html">Volver al inicio</a>
-      <a class="btn btn-ghost" href="https://instagram.com/menteenautomatico" target="_blank">Seguirme en Instagram</a>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span>
+    </a>
+  </div>
+</header>
+
+<div class="ty-wrap">
+  <div class="ty-box">
+
+    <div class="ty-icon">🚀</div>
+    <div class="ty-kicker">Mensaje recibido</div>
+
+    <h1>¡Lo tengo! <span style="background:linear-gradient(120deg,var(--cyan),var(--neon2));-webkit-background-clip:text;background-clip:text;color:transparent">Gracias por escribir</span></h1>
+
+    <p class="sub">
+      Revisaré tu proyecto con calma y te responderé en las próximas
+      <strong style="color:var(--ink)">24 horas</strong>.
+      Revisa tu correo — incluyendo la carpeta de spam.
+    </p>
+
+    <div class="ty-steps">
+      <div class="ty-step">
+        <div class="num">1</div>
+        <h4>Revisa tu correo</h4>
+        <p>Te escribo directamente al email que dejaste con mi respuesta o propuesta.</p>
+      </div>
+      <div class="ty-step">
+        <div class="num">2</div>
+        <h4>Coordinamos una llamada</h4>
+        <p>Si tiene sentido, agendamos 30 minutos para hablar de tu proyecto en detalle.</p>
+      </div>
+      <div class="ty-step">
+        <div class="num">3</div>
+        <h4>Arrancamos</h4>
+        <p>Con todo claro, empezamos a construir lo que necesitas.</p>
+      </div>
+    </div>
+
+    <div class="ty-cta">
+      <a class="btn btn-primary" href="index.html">← Volver al inicio</a>
+      <a class="btn btn-ghost" href="https://instagram.com/menteenautomatico" target="_blank">
+        📱 Seguirme en Instagram
+      </a>
+    </div>
+
+    <p class="ty-note">
+      ¿Necesitas algo urgente? Escríbeme directamente por
+      <a href="/wa" target="_blank" style="color:var(--cyan)">WhatsApp</a> o
+      <a href="https://ig.me/m/menteenautomatico" target="_blank" style="color:var(--cyan)">Instagram DM</a>.
+    </p>
+
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="y"></span> Jonathan Bautista · Mente en Automático</div>
+    <div>
+      <a href="index.html">Inicio</a> ·
+      <a href="recursos.html">Recursos</a> ·
+      <a href="servicios.html">Servicios</a>
     </div>
   </div>
-</section>
+</footer>
 
-<footer><div class="wrap">
-  <div>© <span id="y"></span> Mente en Automático</div>
-  <div><a href="index.html">Inicio</a> · <a href="tienda.html">Tienda</a></div>
-</div></footer>
 <script src="app.js"></script>
-<script>document.getElementById("y").textContent=new Date().getFullYear();</script>
+<script>document.getElementById("y").textContent = new Date().getFullYear();</script>
 </body>
 </html>
