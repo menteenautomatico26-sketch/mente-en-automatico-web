@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Boutique Nova — San Miguel Petapa, Guatemala</title>
+<meta name="description" content="Boutique Nova en San Miguel Petapa. Ropa y accesorios para mujer. Vestidos, blusas, zapatos y bolsos. Envíos a toda Guatemala. Tallas S–XL.">
+<link rel="icon" href="icon.jpg">
+<style>
+:root{
+  --bg:#0d0509; --card:#1a0a10; --card2:#220d14; --line:#2e1018;
+  --rose:#c2185b; --rose2:#e91e8c; --rosedk:#880e4f;
+  --blush:#fce4ec; --ink:#fdf0f4; --muted:#b88a9a;
+  --black:#1a1a1a; --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+a{color:var(--rose2);text-decoration:none}
+img{max-width:100%}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+
+/* ── DEMO BANNER ── */
+.demo-banner{background:linear-gradient(135deg,#1a3a2a,#0d2a1a);border-bottom:2px solid #39d98a;
+  padding:14px 20px;text-align:center;position:sticky;top:0;z-index:50}
+.demo-banner p{font-size:13.5px;color:#e0ffe8}
+.demo-banner strong{color:#39d98a}
+.demo-banner a{color:#39d98a;font-weight:800;text-decoration:underline}
+
+/* ── NAV ── */
+.nav{background:rgba(8,3,6,.97);border-bottom:1px solid var(--line);padding:0;position:sticky;top:53px;z-index:40;backdrop-filter:blur(10px)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:18px;color:var(--ink)}
+.brand-icon{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--rosedk),var(--rose));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.nav-links{display:flex;gap:22px;font-size:14.5px}
+.nav-links a{color:var(--muted);transition:.15s}
+.nav-links a:hover{color:var(--rose2)}
+.wa-nav{background:#25d366;color:#fff;padding:9px 18px;border-radius:999px;font-weight:700;font-size:13.5px;display:flex;align-items:center;gap:7px;text-decoration:none}
+@media(max-width:640px){.nav-links{display:none}}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:999px;font-weight:700;font-size:14.5px;border:1.5px solid transparent;transition:.18s;text-decoration:none;cursor:pointer}
+.btn-primary{background:linear-gradient(135deg,var(--rosedk),var(--rose));color:#fff;box-shadow:0 4px 20px rgba(194,24,91,.3)}
+.btn-primary:hover{filter:brightness(1.12);transform:translateY(-2px)}
+.btn-ghost{border-color:#3d1525;color:var(--ink)}
+.btn-ghost:hover{border-color:var(--rose2);color:var(--rose2)}
+.btn-green{background:#25d366;color:#fff}
+.btn-green:hover{filter:brightness(1.08);transform:translateY(-2px)}
+.btn-ig{background:linear-gradient(135deg,#833ab4,#fd1d1d,#f77737);color:#fff}
+.btn-ig:hover{filter:brightness(1.1);transform:translateY(-2px)}
+
+/* ── HERO ── */
+.hero{padding:80px 0 70px;background:linear-gradient(160deg,#08020a,#180510);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-100px;right:-100px;width:550px;height:550px;background:radial-gradient(circle,rgba(194,24,91,.1),transparent 70%);pointer-events:none}
+.hero .kicker{font-size:12px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase;color:var(--rose2);margin-bottom:14px;display:block}
+.hero h1{font-size:clamp(30px,5vw,56px);font-weight:900;line-height:1.05;margin-bottom:16px}
+.hero h1 span{background:linear-gradient(135deg,var(--rose),var(--rose2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero .sub{color:var(--muted);font-size:clamp(15px,2vw,17px);max-width:520px;margin-bottom:28px;line-height:1.65}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-info{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+.hero-info span{font-size:13px;color:var(--muted);background:#1e0810;padding:6px 14px;border-radius:999px;border:1px solid var(--line)}
+
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;border:1px solid var(--line);border-radius:16px;overflow:hidden;margin:40px 0;background:var(--card)}
+.stat{padding:22px;text-align:center;border-right:1px solid var(--line)}
+.stat:last-child{border-right:none}
+.stat .n{font-size:30px;font-weight:900;color:var(--rose2)}
+.stat .l{font-size:12px;color:var(--muted);margin-top:4px}
+@media(max-width:500px){.stats{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:none}.stat:nth-child(3){border-top:1px solid var(--line)}.stat:nth-child(4){border-top:1px solid var(--line)}}
+
+/* ── CATEGORÍAS ── */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:28px 0}
+.cat-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px;transition:.2s;position:relative;overflow:hidden;text-align:center}
+.cat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--rosedk),var(--rose2))}
+.cat-card:hover{border-color:var(--rose);transform:translateY(-3px);box-shadow:0 10px 30px rgba(194,24,91,.15)}
+.cat-card .ic{font-size:38px;margin-bottom:12px}
+.cat-card h3{font-size:16px;font-weight:800;margin-bottom:6px;color:var(--ink)}
+.cat-card p{font-size:13px;color:var(--muted);line-height:1.5}
+.tallas-badge{display:inline-flex;gap:6px;margin-top:10px;flex-wrap:wrap;justify-content:center}
+.talla{background:rgba(194,24,91,.15);border:1px solid rgba(194,24,91,.3);color:var(--rose2);font-size:11px;font-weight:800;padding:3px 9px;border-radius:6px}
+
+/* ── PRODUCTOS DESTACADOS ── */
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin:28px 0}
+.prod-card{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.2s}
+.prod-card:hover{transform:translateY(-4px);border-color:var(--rose);box-shadow:0 12px 32px rgba(194,24,91,.15)}
+.prod-img{height:180px;background:linear-gradient(135deg,#2a0a18,#380e20);display:flex;align-items:center;justify-content:center;font-size:56px;position:relative}
+.prod-img .badge-new{position:absolute;top:12px;left:12px;background:var(--rose);color:#fff;font-size:10px;font-weight:900;padding:4px 10px;border-radius:999px;text-transform:uppercase;letter-spacing:1px}
+.prod-info{padding:18px}
+.prod-info h4{font-size:14.5px;font-weight:800;color:var(--ink);margin-bottom:4px}
+.prod-info .precio{font-size:18px;font-weight:900;color:var(--rose2);margin-top:6px}
+.prod-info .talla-disp{font-size:12px;color:var(--muted);margin-top:4px}
+
+/* ── ENVÍOS ── */
+.envio-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin:28px 0}
+.envio-item{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;text-align:center;transition:.2s}
+.envio-item:hover{border-color:var(--rose)}
+.envio-item .ic{font-size:36px;margin-bottom:10px}
+.envio-item h4{font-size:14px;font-weight:800;color:var(--ink);margin-bottom:6px}
+.envio-item p{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* ── INSTAGRAM PROMO ── */
+.ig-promo{background:linear-gradient(135deg,rgba(131,58,180,.2),rgba(253,29,29,.15),rgba(247,119,55,.1));border:1px solid rgba(194,24,91,.3);border-radius:20px;padding:36px;text-align:center;margin:32px 0}
+.ig-promo .ig-icon{font-size:52px;margin-bottom:14px}
+.ig-promo h3{font-size:22px;font-weight:900;margin-bottom:8px}
+.ig-promo p{color:var(--muted);font-size:14.5px;margin-bottom:20px;max-width:420px;margin-left:auto;margin-right:auto}
+
+/* ── UBICACIÓN ── */
+.ubicacion-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;margin:28px 0}
+@media(max-width:640px){.ubicacion-grid{grid-template-columns:1fr}}
+.info-card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:28px}
+.info-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:18px}
+.info-row:last-child{margin-bottom:0}
+.info-row .ic{font-size:20px;flex-shrink:0;width:30px}
+.info-row .txt .label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--rose2);font-weight:800;margin-bottom:2px}
+.info-row .txt .val{font-size:14.5px;color:var(--ink)}
+.map-placeholder{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--muted)}
+
+/* ── CTA FINAL ── */
+.cta-final{background:linear-gradient(135deg,rgba(194,24,91,.12),rgba(233,30,140,.05));border:1.5px solid rgba(194,24,91,.3);border-radius:20px;padding:48px;text-align:center;margin:50px 0}
+.cta-final h2{font-size:clamp(22px,3.5vw,36px);font-weight:900;margin-bottom:12px}
+.cta-final p{color:var(--muted);font-size:15px;margin-bottom:28px;max-width:480px;margin-left:auto;margin-right:auto}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ── SECTION TITLES ── */
+section{padding:60px 0}
+.s-title{font-size:clamp(22px,3vw,30px);font-weight:900;margin-bottom:8px}
+.s-sub{color:var(--muted);font-size:14.5px}
+
+/* ── FOOTER ── */
+footer{background:#060105;border-top:1px solid var(--line);padding:30px 0}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+footer p{font-size:13px;color:var(--muted)}
+footer a{color:#39d98a}
+
+/* ── STICKY CTA BOTTOM ── */
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#1a3a2a,#0d2a1a);border-top:1.5px solid #39d98a;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;z-index:60;flex-wrap:wrap}
+.sticky-cta p{font-size:13.5px;color:#e0ffe8}
+.sticky-cta strong{color:#39d98a}
+.sticky-cta a.pub-btn{background:#39d98a;color:#04210f;padding:10px 22px;border-radius:999px;font-weight:800;font-size:13.5px;flex-shrink:0;text-decoration:none;white-space:nowrap}
+</style>
+</head>
+<body>
+
+<!-- DEMO BANNER -->
+<div class="demo-banner">
+  <p>🎁 <strong>DEMO GRATUITA</strong> — Así se vería la página web de Boutique Nova. Hecha por <strong>Jonathan Bautista</strong> · <a href="https://wa.me/50259226328?text=Hola%20Jonathan%2C%20vi%20la%20demo%20de%20Boutique%20Nova%20y%20me%20interesa%20una%20p%C3%A1gina%20web" target="_blank">¿Le interesa publicarla? → WhatsApp</a></p>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap">
+    <div class="brand">
+      <div class="brand-icon">👗</div>
+      <div>
+        <div>Boutique Nova</div>
+        <div style="font-size:11px;font-weight:500;color:var(--muted)">San Miguel Petapa, Guatemala</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#catalogo">Catálogo</a>
+      <a href="#coleccion">Colección</a>
+      <a href="#envios">Envíos</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <a class="wa-nav" href="https://wa.me/50259226328?text=Hola%2C%20quiero%20ver%20el%20cat%C3%A1logo%20de%20Boutique%20Nova" target="_blank">💬 Ver catálogo</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker">✨ Moda Femenina · San Miguel Petapa</span>
+    <h1>Ropa que te hace<br><span>brillar</span> cada día</h1>
+    <p class="sub">Vestidos, blusas, accesorios y zapatos para la mujer guatemalteca moderna. Tallas S a XL disponibles. Envíos a toda Guatemala con entrega rápida.</p>
+    <div class="hero-btns">
+      <a class="btn btn-primary" href="https://wa.me/50259226328?text=Hola%2C%20quiero%20ver%20el%20cat%C3%A1logo%20de%20Boutique%20Nova" target="_blank">💬 Ver catálogo por WhatsApp</a>
+      <a class="btn btn-ig" href="https://instagram.com/boutiquenova_gt" target="_blank">📸 @boutiquenova_gt</a>
+    </div>
+    <div class="hero-info">
+      <span>📍 San Miguel Petapa</span>
+      <span>🚚 Envíos a toda Guatemala</span>
+      <span>👗 Tallas S · M · L · XL</span>
+      <span>📸 @boutiquenova_gt</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="n">+500</div><div class="l">Prendas en catálogo</div></div>
+    <div class="stat"><div class="n">S–XL</div><div class="l">Todas las tallas</div></div>
+    <div class="stat"><div class="n">🇬🇹</div><div class="l">Envíos a toda Guatemala</div></div>
+    <div class="stat"><div class="n">+1k</div><div class="l">Clientas felices</div></div>
+  </div>
+</div>
+
+<!-- CATÁLOGO / CATEGORÍAS -->
+<section id="catalogo">
+  <div class="wrap">
+    <h2 class="s-title">Nuestras Categorías</h2>
+    <p class="s-sub">Encuentra tu estilo entre nuestra variada selección de ropa y accesorios.</p>
+    <div class="cat-grid">
+      <div class="cat-card">
+        <div class="ic">👗</div>
+        <h3>Vestidos</h3>
+        <p>Vestidos casuales, de fiesta, cocteleros y de día. Para toda ocasión y estilo.</p>
+        <div class="tallas-badge">
+          <span class="talla">S</span><span class="talla">M</span><span class="talla">L</span><span class="talla">XL</span>
+        </div>
+      </div>
+      <div class="cat-card">
+        <div class="ic">👚</div>
+        <h3>Blusas y Tops</h3>
+        <p>Blusas elegantes, tops casuales, camisas de moda y bodys para el día a día.</p>
+        <div class="tallas-badge">
+          <span class="talla">S</span><span class="talla">M</span><span class="talla">L</span><span class="talla">XL</span>
+        </div>
+      </div>
+      <div class="cat-card">
+        <div class="ic">👜</div>
+        <h3>Accesorios</h3>
+        <p>Bolsos, carteras, cinturones, aretes, collares y pulseras para completar tu look.</p>
+        <div class="tallas-badge">
+          <span class="talla">Talla única</span>
+        </div>
+      </div>
+      <div class="cat-card">
+        <div class="ic">👠</div>
+        <h3>Zapatos y Sandalias</h3>
+        <p>Tacones, sandalias planas, flats y botines. Variedad de estilos para cada ocasión.</p>
+        <div class="tallas-badge">
+          <span class="talla">35</span><span class="talla">36</span><span class="talla">37</span><span class="talla">38</span><span class="talla">39</span><span class="talla">40</span>
+        </div>
+      </div>
+      <div class="cat-card">
+        <div class="ic">👖</div>
+        <h3>Pantalones y Faldas</h3>
+        <p>Jeans, pantalones de vestir, leggings, faldas midi y minifaldas en todos los estilos.</p>
+        <div class="tallas-badge">
+          <span class="talla">S</span><span class="talla">M</span><span class="talla">L</span><span class="talla">XL</span>
+        </div>
+      </div>
+      <div class="cat-card">
+        <div class="ic">✨</div>
+        <h3>Ropa de Fiesta</h3>
+        <p>Vestidos de gala, de quinceañera, de boda y para eventos especiales. ¡Brilla en cada ocasión!</p>
+        <div class="tallas-badge">
+          <span class="talla">S</span><span class="talla">M</span><span class="talla">L</span><span class="talla">XL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLECCIÓN DESTACADA -->
+<section id="coleccion" style="background:#140608;padding:60px 0">
+  <div class="wrap">
+    <h2 class="s-title">Colección Destacada</h2>
+    <p class="s-sub" style="margin-bottom:28px">Las prendas más amadas por nuestras clientas esta temporada.</p>
+    <div class="prod-grid">
+      <div class="prod-card">
+        <div class="prod-img">
+          👗
+          <span class="badge-new">Nuevo</span>
+        </div>
+        <div class="prod-info">
+          <h4>Vestido Floral Midi</h4>
+          <div class="talla-disp">Disponible: S · M · L · XL</div>
+          <div class="precio">Q175</div>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img">👚</div>
+        <div class="prod-info">
+          <h4>Blusa Bordada Artesanal</h4>
+          <div class="talla-disp">Disponible: S · M · L · XL</div>
+          <div class="precio">Q95</div>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img">
+          👜
+          <span class="badge-new">Nuevo</span>
+        </div>
+        <div class="prod-info">
+          <h4>Bolso de Cuero Caramelo</h4>
+          <div class="talla-disp">Talla única · Negro y caramelo</div>
+          <div class="precio">Q220</div>
+        </div>
+      </div>
+      <div class="prod-card">
+        <div class="prod-img">👠</div>
+        <div class="prod-info">
+          <h4>Sandalia de Tacón Bajo</h4>
+          <div class="talla-disp">Disponible: 35 al 40</div>
+          <div class="precio">Q145</div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:10px">
+      <a class="btn btn-ig" href="https://instagram.com/boutiquenova_gt" target="_blank">📸 Ver catálogo completo en Instagram</a>
+    </div>
+  </div>
+</section>
+
+<!-- INSTAGRAM PROMO -->
+<section style="padding:40px 0">
+  <div class="wrap">
+    <div class="ig-promo">
+      <div class="ig-icon">📸</div>
+      <h3>Síguenos en Instagram</h3>
+      <p>Nuevas prendas cada semana. Mira los outfits, videos de prueba y todas las novedades de la temporada en nuestro Instagram.</p>
+      <a class="btn btn-ig" href="https://instagram.com/boutiquenova_gt" target="_blank">Seguir @boutiquenova_gt</a>
+    </div>
+  </div>
+</section>
+
+<!-- ENVÍOS -->
+<section id="envios" style="background:#140608;padding:60px 0">
+  <div class="wrap">
+    <h2 class="s-title">Envíos a Toda Guatemala</h2>
+    <p class="s-sub" style="margin-bottom:24px">Comprás desde donde estás, te lo llevamos a tu puerta.</p>
+    <div class="envio-grid">
+      <div class="envio-item">
+        <div class="ic">🚚</div>
+        <h4>Envío Nacional</h4>
+        <p>Enviamos a todos los departamentos de Guatemala con empresas de mensajería confiables.</p>
+      </div>
+      <div class="envio-item">
+        <div class="ic">📦</div>
+        <h4>Empaque Especial</h4>
+        <p>Cada prenda llega protegida en empaque de regalo con papel de seda. ¡Lista para obsequiar!</p>
+      </div>
+      <div class="envio-item">
+        <div class="ic">💳</div>
+        <h4>Pago Seguro</h4>
+        <p>Transferencia bancaria, depósito o pago contra entrega disponible en Guatemala City y alrededores.</p>
+      </div>
+      <div class="envio-item">
+        <div class="ic">🔄</div>
+        <h4>Cambios de Talla</h4>
+        <p>Si la talla no quedó perfecta, hacemos cambio dentro de 7 días. Tu satisfacción es primero.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- UBICACIÓN / CONTACTO -->
+<section id="contacto">
+  <div class="wrap">
+    <h2 class="s-title">Encuéntranos</h2>
+    <p class="s-sub" style="margin-bottom:24px">Visítanos en tienda o compra desde casa por WhatsApp.</p>
+    <div class="ubicacion-grid">
+      <div class="info-card">
+        <div class="info-row">
+          <div class="ic">📍</div>
+          <div class="txt">
+            <div class="label">Dirección</div>
+            <div class="val">8a Calle 5-12, Local 3<br>San Miguel Petapa, Guatemala</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="ic">⏰</div>
+          <div class="txt">
+            <div class="label">Horario de Tienda</div>
+            <div class="val">Lunes a Sábado: 9:00am – 7:00pm<br>Domingo: 10:00am – 4:00pm</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="ic">💬</div>
+          <div class="txt">
+            <div class="label">WhatsApp Pedidos</div>
+            <div class="val"><a href="https://wa.me/50259226328?text=Hola%2C%20quiero%20ver%20el%20cat%C3%A1logo%20de%20Boutique%20Nova%20y%20hacer%20un%20pedido" target="_blank" style="color:var(--rose2)">Pedir por WhatsApp</a></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="ic">📸</div>
+          <div class="txt">
+            <div class="label">Instagram</div>
+            <div class="val"><a href="https://instagram.com/boutiquenova_gt" target="_blank" style="color:var(--rose2)">@boutiquenova_gt</a></div>
+          </div>
+        </div>
+      </div>
+      <div class="map-placeholder">
+        <div style="font-size:48px">📍</div>
+        <p style="font-size:14px;text-align:center;color:var(--muted)">Mapa de Google Maps<br>se integra aquí</p>
+        <a class="btn btn-ghost" href="https://maps.google.com/?q=Boutique+San+Miguel+Petapa+Guatemala" target="_blank" style="font-size:13px;margin-top:8px">Ver en Google Maps →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section style="background:#140608;padding:60px 0">
+  <div class="wrap">
+    <div class="cta-final">
+      <h2>¿Te gustó algo de la colección?</h2>
+      <p>Escríbenos al WhatsApp y te enviamos el catálogo completo con precios, tallas disponibles y opciones de envío.</p>
+      <div class="cta-btns">
+        <a class="btn btn-primary" href="https://wa.me/50259226328?text=Hola%20Boutique%20Nova%2C%20me%20interesa%20ver%20el%20cat%C3%A1logo%20completo%20y%20hacer%20un%20pedido" target="_blank">💬 Pedir por WhatsApp</a>
+        <a class="btn btn-ig" href="https://instagram.com/boutiquenova_gt" target="_blank">📸 Instagram</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Boutique Nova · San Miguel Petapa, Guatemala</p>
+    <p style="font-size:12px">Página diseñada por <a href="https://wa.me/50259226328">Jonathan · Mente en Automático</a></p>
+  </div>
+</footer>
+
+<!-- STICKY CTA ABAJO -->
+<div class="sticky-cta">
+  <p>👗 <strong>Boutique Nova</strong> · Esta es una demo gratuita</p>
+  <a class="pub-btn" href="https://wa.me/50259226328?text=Hola%20Jonathan%2C%20soy%20due%C3%B1a%20de%20Boutique%20Nova%20y%20quiero%20publicar%20mi%20p%C3%A1gina%20web%20por%20%24149" target="_blank">Publicarla por $149 USD →</a>
+</div>
+
+</body>
+</html>

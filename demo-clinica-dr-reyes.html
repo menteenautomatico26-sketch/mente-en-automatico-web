@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Clínica Dr. Reyes — Zona 11, Guatemala City</title>
+<meta name="description" content="Clínica y Consultorio Dr. Reyes en Zona 11, Guatemala City. Medicina general, pediatría, control de presión y diabetes. Citas por WhatsApp. Lunes a sábado.">
+<link rel="icon" href="icon.jpg">
+<style>
+:root{
+  --bg:#f4f8fd; --card:#ffffff; --line:#dce8f5;
+  --blue:#1565c0; --blue2:#1976d2; --bluedk:#0d47a1;
+  --bluelight:#e3f0fd; --ink:#0d1f3c; --muted:#5a7a9a;
+  --teal:#00838f; --green:#2e7d32;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+img{max-width:100%}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+
+/* ── DEMO BANNER ── */
+.demo-banner{background:linear-gradient(135deg,#1a3a2a,#0d2a1a);border-bottom:2px solid #39d98a;
+  padding:14px 20px;text-align:center;position:sticky;top:0;z-index:50}
+.demo-banner p{font-size:13.5px;color:#e0ffe8}
+.demo-banner strong{color:#39d98a}
+.demo-banner a{color:#39d98a;font-weight:800;text-decoration:underline}
+
+/* ── NAV ── */
+.nav{background:rgba(255,255,255,.98);border-bottom:2px solid var(--line);padding:0;position:sticky;top:53px;z-index:40;backdrop-filter:blur(10px);box-shadow:0 2px 16px rgba(21,101,192,.08)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:17px;color:var(--ink)}
+.brand-icon{width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,var(--bluedk),var(--blue));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;box-shadow:0 4px 14px rgba(21,101,192,.25)}
+.nav-links{display:flex;gap:22px;font-size:14.5px}
+.nav-links a{color:var(--muted);transition:.15s}
+.nav-links a:hover{color:var(--blue)}
+.wa-nav{background:#25d366;color:#fff;padding:9px 18px;border-radius:999px;font-weight:700;font-size:13.5px;display:flex;align-items:center;gap:7px;text-decoration:none}
+@media(max-width:640px){.nav-links{display:none}}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:999px;font-weight:700;font-size:14.5px;border:1.5px solid transparent;transition:.18s;text-decoration:none;cursor:pointer}
+.btn-primary{background:linear-gradient(135deg,var(--bluedk),var(--blue));color:#fff;box-shadow:0 4px 20px rgba(21,101,192,.28)}
+.btn-primary:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.btn-ghost{border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn-green{background:#25d366;color:#fff;box-shadow:0 4px 18px rgba(37,211,102,.2)}
+.btn-green:hover{filter:brightness(1.08);transform:translateY(-2px)}
+.btn-teal{background:linear-gradient(135deg,#00696f,#00838f);color:#fff}
+.btn-teal:hover{filter:brightness(1.1);transform:translateY(-2px)}
+
+/* ── HERO ── */
+.hero{padding:70px 0 60px;background:linear-gradient(160deg,#e8f2fd,#f4f8fd);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-80px;right:-60px;width:480px;height:480px;background:radial-gradient(circle,rgba(21,101,192,.08),transparent 70%);pointer-events:none}
+.hero .kicker{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:14px;display:block}
+.hero h1{font-size:clamp(28px,4.5vw,50px);font-weight:900;line-height:1.05;margin-bottom:16px;color:var(--ink)}
+.hero h1 span{color:var(--blue)}
+.hero .sub{color:var(--muted);font-size:clamp(15px,2vw,17px);max-width:540px;margin-bottom:28px;line-height:1.65}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-info{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+.hero-info span{font-size:13px;color:var(--muted);background:#fff;padding:6px 14px;border-radius:999px;border:1px solid var(--line);box-shadow:0 2px 8px rgba(21,101,192,.06)}
+
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;border:2px solid var(--line);border-radius:16px;overflow:hidden;margin:40px 0;background:#fff;box-shadow:0 4px 20px rgba(21,101,192,.06)}
+.stat{padding:24px;text-align:center;border-right:1px solid var(--line)}
+.stat:last-child{border-right:none}
+.stat .n{font-size:30px;font-weight:900;color:var(--blue)}
+.stat .l{font-size:12px;color:var(--muted);margin-top:4px}
+@media(max-width:500px){.stats{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:none}.stat:nth-child(3){border-top:1px solid var(--line)}.stat:nth-child(4){border-top:1px solid var(--line)}}
+
+/* ── ESPECIALIDADES ── */
+.esp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:28px 0}
+.esp-card{background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:24px;transition:.2s;box-shadow:0 2px 12px rgba(21,101,192,.05)}
+.esp-card:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:0 8px 28px rgba(21,101,192,.12)}
+.esp-card .ic{font-size:34px;margin-bottom:12px}
+.esp-card h3{font-size:15px;font-weight:800;margin-bottom:6px;color:var(--ink)}
+.esp-card p{font-size:13px;color:var(--muted);line-height:1.55}
+.esp-card .disponible{font-size:12px;color:var(--green);font-weight:700;margin-top:10px}
+
+/* ── DOCTOR CARD ── */
+.doctor-section{background:linear-gradient(135deg,#0d47a1,#1565c0);color:#fff;border-radius:20px;padding:36px;margin:32px 0;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:center}
+@media(max-width:580px){.doctor-section{grid-template-columns:1fr;text-align:center}}
+.doctor-avatar{width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:48px;border:3px solid rgba(255,255,255,.3);flex-shrink:0}
+.doctor-info h3{font-size:22px;font-weight:900;margin-bottom:4px}
+.doctor-info .titulo{font-size:14px;opacity:.85;margin-bottom:10px}
+.doctor-info p{font-size:14px;opacity:.82;line-height:1.6;max-width:480px}
+.cert-tags{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.cert-tag{background:rgba(255,255,255,.15);color:#fff;font-size:11px;font-weight:700;padding:4px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.2)}
+
+/* ── PRECIOS ── */
+.precios-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:28px 0}
+.precio-item{background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:22px;display:flex;align-items:center;gap:16px;transition:.2s;box-shadow:0 2px 10px rgba(21,101,192,.05)}
+.precio-item:hover{border-color:var(--blue);box-shadow:0 6px 22px rgba(21,101,192,.1)}
+.precio-item .ic{font-size:30px;flex-shrink:0}
+.precio-item h4{font-size:14.5px;font-weight:800;color:var(--ink);margin-bottom:2px}
+.precio-item p{font-size:13px;color:var(--muted);line-height:1.4}
+.precio-item .precio{font-size:20px;font-weight:900;color:var(--blue);margin-left:auto;flex-shrink:0}
+
+/* ── HORARIOS ── */
+.horario-table{width:100%;border-collapse:collapse;margin:24px 0;border-radius:14px;overflow:hidden;box-shadow:0 4px 18px rgba(21,101,192,.08)}
+.horario-table th{background:linear-gradient(135deg,var(--bluedk),var(--blue));color:#fff;padding:14px 18px;text-align:left;font-size:13px;font-weight:800}
+.horario-table td{padding:13px 18px;font-size:14px;border-bottom:1px solid var(--line);color:var(--ink);background:#fff}
+.horario-table tr:last-child td{border-bottom:none}
+.horario-table tr:hover td{background:var(--bluelight)}
+.open{color:var(--green);font-weight:700}
+.closed{color:#e53935;font-weight:700}
+
+/* ── PROCESO CITA ── */
+.proceso-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin:28px 0}
+.paso{background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:24px;text-align:center;transition:.2s;box-shadow:0 2px 10px rgba(21,101,192,.05)}
+.paso:hover{border-color:var(--blue);transform:translateY(-2px)}
+.paso .num{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--bluedk),var(--blue));color:#fff;font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+.paso h4{font-size:14.5px;font-weight:800;color:var(--ink);margin-bottom:6px}
+.paso p{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* ── UBICACIÓN ── */
+.ubicacion-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;margin:28px 0}
+@media(max-width:640px){.ubicacion-grid{grid-template-columns:1fr}}
+.info-card{background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:0 4px 18px rgba(21,101,192,.07)}
+.info-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:18px}
+.info-row:last-child{margin-bottom:0}
+.info-row .ic{font-size:20px;flex-shrink:0;width:30px}
+.info-row .txt .label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--blue);font-weight:800;margin-bottom:2px}
+.info-row .txt .val{font-size:14.5px;color:var(--ink)}
+.map-placeholder{background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--muted);box-shadow:0 4px 18px rgba(21,101,192,.07)}
+
+/* ── CTA FINAL ── */
+.cta-final{background:linear-gradient(135deg,rgba(21,101,192,.1),rgba(21,101,192,.04));border:1.5px solid rgba(21,101,192,.2);border-radius:20px;padding:48px;text-align:center;margin:50px 0}
+.cta-final h2{font-size:clamp(22px,3.5vw,34px);font-weight:900;margin-bottom:12px;color:var(--ink)}
+.cta-final p{color:var(--muted);font-size:15px;margin-bottom:28px;max-width:500px;margin-left:auto;margin-right:auto}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ── SECCIÓN DARK ── */
+.sec-dark{background:#0d1f3c;color:#e8f2fd;padding:60px 0}
+.sec-dark .s-title{color:#e8f2fd}
+.sec-dark .s-sub{color:#7a9abf}
+
+/* ── SECTION TITLES ── */
+section{padding:60px 0}
+.s-title{font-size:clamp(22px,3vw,30px);font-weight:900;margin-bottom:8px;color:var(--ink)}
+.s-sub{color:var(--muted);font-size:14.5px}
+
+/* ── FOOTER ── */
+footer{background:#0d1f3c;border-top:2px solid #1e3a5c;padding:30px 0}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+footer p{font-size:13px;color:rgba(255,255,255,.45)}
+footer a{color:#39d98a}
+
+/* ── STICKY CTA BOTTOM ── */
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#1a3a2a,#0d2a1a);border-top:1.5px solid #39d98a;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;z-index:60;flex-wrap:wrap}
+.sticky-cta p{font-size:13.5px;color:#e0ffe8}
+.sticky-cta strong{color:#39d98a}
+.sticky-cta a.pub-btn{background:#39d98a;color:#04210f;padding:10px 22px;border-radius:999px;font-weight:800;font-size:13.5px;flex-shrink:0;text-decoration:none;white-space:nowrap}
+</style>
+</head>
+<body>
+
+<!-- DEMO BANNER -->
+<div class="demo-banner">
+  <p>🎁 <strong>DEMO GRATUITA</strong> — Así se vería la página web de Clínica Dr. Reyes. Hecha por <strong>Jonathan Bautista</strong> · <a href="https://wa.me/50259226328?text=Hola%20Jonathan%2C%20vi%20la%20demo%20de%20Cl%C3%ADnica%20Dr.%20Reyes%20y%20me%20interesa%20una%20p%C3%A1gina%20web" target="_blank">¿Le interesa publicarla? → WhatsApp</a></p>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap">
+    <div class="brand">
+      <div class="brand-icon">🩺</div>
+      <div>
+        <div>Clínica Dr. Reyes</div>
+        <div style="font-size:11px;font-weight:500;color:var(--muted)">Zona 11, Guatemala City</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#especialidades">Especialidades</a>
+      <a href="#citas">Citas</a>
+      <a href="#precios">Precios</a>
+      <a href="#ubicacion">Ubicación</a>
+    </div>
+    <a class="wa-nav" href="https://wa.me/50223334455?text=Hola%2C%20quisiera%20agendar%20una%20cita%20en%20Cl%C3%ADnica%20Dr.%20Reyes" target="_blank">💬 Agendar cita</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker">🏥 Medicina General y Familiar · Zona 11</span>
+    <h1>Su salud en manos<br>de <span>expertos</span></h1>
+    <p class="sub">Atención médica de calidad para toda la familia. Medicina general, pediatría, control de enfermedades crónicas y medicina preventiva. Consultas disponibles con o sin cita previa.</p>
+    <div class="hero-btns">
+      <a class="btn btn-green" href="https://wa.me/50223334455?text=Hola%2C%20quisiera%20agendar%20una%20cita%20en%20Cl%C3%ADnica%20Dr.%20Reyes%2C%20Zona%2011" target="_blank">💬 Agendar cita ahora</a>
+      <a class="btn btn-ghost" href="#especialidades">Ver especialidades →</a>
+    </div>
+    <div class="hero-info">
+      <span>📍 Zona 11, Guatemala City</span>
+      <span>⏰ Lun–Sáb disponibles</span>
+      <span>👨‍👩‍👧 Medicina familiar</span>
+      <span>📞 2333-4455</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="n">+10</div><div class="l">Años de experiencia</div></div>
+    <div class="stat"><div class="n">+3,000</div><div class="l">Pacientes atendidos</div></div>
+    <div class="stat"><div class="n">6</div><div class="l">Especialidades médicas</div></div>
+    <div class="stat"><div class="n">Lun–Sáb</div><div class="l">Consultas disponibles</div></div>
+  </div>
+</div>
+
+<!-- ESPECIALIDADES -->
+<section id="especialidades">
+  <div class="wrap">
+    <h2 class="s-title">Nuestras Especialidades</h2>
+    <p class="s-sub">Atención integral para toda la familia, desde bebés hasta adultos mayores.</p>
+    <div class="esp-grid">
+      <div class="esp-card">
+        <div class="ic">🩺</div>
+        <h3>Medicina General</h3>
+        <p>Consulta general para adultos. Diagnóstico, tratamiento y seguimiento de enfermedades comunes y agudas.</p>
+        <div class="disponible">✅ Lunes a Viernes</div>
+      </div>
+      <div class="esp-card">
+        <div class="ic">👶</div>
+        <h3>Pediatría</h3>
+        <p>Atención médica especializada para bebés, niños y adolescentes. Control de crecimiento y vacunas.</p>
+        <div class="disponible">✅ Martes y Jueves</div>
+      </div>
+      <div class="esp-card">
+        <div class="ic">❤️</div>
+        <h3>Control de Presión Arterial</h3>
+        <p>Seguimiento y tratamiento de hipertensión. Control periódico, ajuste de medicación y orientación.</p>
+        <div class="disponible">✅ Todos los días</div>
+      </div>
+      <div class="esp-card">
+        <div class="ic">🩸</div>
+        <h3>Control de Diabetes</h3>
+        <p>Manejo de diabetes tipo 1 y 2. Control de glucosa, dieta, medicación y prevención de complicaciones.</p>
+        <div class="disponible">✅ Todos los días</div>
+      </div>
+      <div class="esp-card">
+        <div class="ic">🌡️</div>
+        <h3>Medicina Preventiva</h3>
+        <p>Chequeos anuales, vacunas del adulto, papanicolaou, análisis de laboratorio y consejos de salud.</p>
+        <div class="disponible">✅ Lunes a Sábado</div>
+      </div>
+      <div class="esp-card">
+        <div class="ic">🤒</div>
+        <h3>Urgencias Menores</h3>
+        <p>Atención de heridas, quemaduras leves, fiebre, infecciones y padecimientos agudos sin cita.</p>
+        <div class="disponible">✅ Urgencias sin cita</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTOR -->
+<section style="background:var(--bluelight);padding:60px 0">
+  <div class="wrap">
+    <h2 class="s-title">Conozca al Dr. Reyes</h2>
+    <p class="s-sub" style="margin-bottom:24px">Más de 10 años de experiencia al servicio de las familias guatemaltecas.</p>
+    <div class="doctor-section">
+      <div class="doctor-avatar">👨‍⚕️</div>
+      <div class="doctor-info">
+        <h3>Dr. Roberto Reyes Salguero</h3>
+        <div class="titulo">Médico y Cirujano · USAC · Especialidad en Medicina Familiar</div>
+        <p>Graduado de la Universidad de San Carlos de Guatemala con más de una década de práctica clínica en Guatemala City. Comprometido con la atención humana, cálida y accesible para toda la familia.</p>
+        <div class="cert-tags">
+          <span class="cert-tag">Médico y Cirujano</span>
+          <span class="cert-tag">USAC</span>
+          <span class="cert-tag">Medicina Familiar</span>
+          <span class="cert-tag">Colegiado Activo</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRECIOS -->
+<section id="precios">
+  <div class="wrap">
+    <h2 class="s-title">Precios de Consulta</h2>
+    <p class="s-sub" style="margin-bottom:24px">Precios accesibles para que su salud no tenga que esperar.</p>
+    <div class="precios-grid">
+      <div class="precio-item">
+        <div class="ic">🩺</div>
+        <div>
+          <h4>Consulta General</h4>
+          <p>Adultos · Sin cita previa disponible</p>
+        </div>
+        <div class="precio">Q150</div>
+      </div>
+      <div class="precio-item">
+        <div class="ic">👶</div>
+        <div>
+          <h4>Consulta Pediátrica</h4>
+          <p>Bebés y niños · Cita recomendada</p>
+        </div>
+        <div class="precio">Q175</div>
+      </div>
+      <div class="precio-item">
+        <div class="ic">❤️</div>
+        <div>
+          <h4>Control Crónico</h4>
+          <p>Presión / Diabetes · Seguimiento mensual</p>
+        </div>
+        <div class="precio">Q125</div>
+      </div>
+      <div class="precio-item">
+        <div class="ic">✅</div>
+        <div>
+          <h4>Chequeo Preventivo</h4>
+          <p>Adultos · Examen físico completo</p>
+        </div>
+        <div class="precio">Q200</div>
+      </div>
+      <div class="precio-item">
+        <div class="ic">🌡️</div>
+        <div>
+          <h4>Urgencia Menor</h4>
+          <p>Sin cita · Atención inmediata</p>
+        </div>
+        <div class="precio">Q150</div>
+      </div>
+      <div class="precio-item">
+        <div class="ic">📋</div>
+        <div>
+          <h4>Receta Médica</h4>
+          <p>Renovación de receta de medicación crónica</p>
+        </div>
+        <div class="precio">Q75</div>
+      </div>
+    </div>
+    <p style="font-size:13px;color:var(--muted);text-align:center;margin-top:8px">* Laboratorios y exámenes complementarios tienen costo adicional. Consulte disponibilidad.</p>
+  </div>
+</section>
+
+<!-- HORARIOS Y PROCESO DE CITA -->
+<section id="citas" style="background:var(--bluelight);padding:60px 0">
+  <div class="wrap">
+    <h2 class="s-title">Horarios de Consulta</h2>
+    <p class="s-sub" style="margin-bottom:24px">Disponibles para atenderle en horarios convenientes para su familia.</p>
+    <table class="horario-table">
+      <thead>
+        <tr><th>Día</th><th>Horario</th><th>Servicio</th><th>Estado</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Lunes a Viernes</td><td>8:00am – 5:00pm</td><td>Consulta general, pediatría, crónicos</td><td class="open">● Abierto</td></tr>
+        <tr><td>Sábado</td><td>8:00am – 12:00pm</td><td>Consulta general y urgencias</td><td class="open">● Abierto</td></tr>
+        <tr><td>Domingo</td><td>Cerrado</td><td>—</td><td class="closed">● Cerrado</td></tr>
+      </tbody>
+    </table>
+
+    <h2 class="s-title" style="margin-top:48px">¿Cómo agendar su cita?</h2>
+    <p class="s-sub" style="margin-bottom:0">Simple y rápido — en 3 pasos.</p>
+    <div class="proceso-grid" style="margin-top:24px">
+      <div class="paso">
+        <div class="num">1</div>
+        <h4>Escríbanos al WhatsApp</h4>
+        <p>Cuéntenos el motivo de su consulta y le sugerimos el horario más conveniente.</p>
+      </div>
+      <div class="paso">
+        <div class="num">2</div>
+        <h4>Confirmamos su cita</h4>
+        <p>Le confirmamos fecha y hora disponible. Le enviamos recordatorio el día anterior.</p>
+      </div>
+      <div class="paso">
+        <div class="num">3</div>
+        <h4>Llegue a la clínica</h4>
+        <p>Preséntese 10 minutos antes. Sin papeleos complicados, solo traiga su DPI.</p>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:28px">
+      <a class="btn btn-green" href="https://wa.me/50223334455?text=Hola%20Dr.%20Reyes%2C%20quisiera%20agendar%20una%20cita%20m%C3%A9dica" target="_blank">💬 Agendar mi cita ahora</a>
+    </div>
+  </div>
+</section>
+
+<!-- UBICACIÓN -->
+<section id="ubicacion">
+  <div class="wrap">
+    <h2 class="s-title">¿Dónde estamos?</h2>
+    <p class="s-sub" style="margin-bottom:24px">Clínica ubicada en Zona 11, de fácil acceso desde toda la ciudad.</p>
+    <div class="ubicacion-grid">
+      <div class="info-card">
+        <div class="info-row">
+          <div class="ic">📍</div>
+          <div class="txt">
+            <div class="label">Dirección</div>
+            <div class="val">12 Avenida 21-45, Colonia Roosevelt<br>Zona 11, Guatemala City</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="ic">⏰</div>
+          <div class="txt">
+            <div class="label">Horario de Consultas</div>
+            <div class="val">Lun–Vie: 8:00am – 5:00pm<br>Sábado: 8:00am – 12:00pm<br>Domingo: Cerrado</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="ic">☎️</div>
+          <div class="txt">
+            <div class="label">Teléfono</div>
+            <div class="val"><a href="tel:23334455" style="color:var(--blue)">2333-4455</a></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="ic">💬</div>
+          <div class="txt">
+            <div class="label">WhatsApp Citas</div>
+            <div class="val"><a href="https://wa.me/50223334455?text=Hola%2C%20quiero%20agendar%20una%20cita%20m%C3%A9dica" target="_blank" style="color:var(--blue)">Escribir al 2333-4455</a></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="ic">🚌</div>
+          <div class="txt">
+            <div class="label">Cómo llegar</div>
+            <div class="val">A 2 cuadras del Hospital Roosevelt. Fácil acceso en bus o vehículo.</div>
+          </div>
+        </div>
+      </div>
+      <div class="map-placeholder">
+        <div style="font-size:48px">📍</div>
+        <p style="font-size:14px;text-align:center;color:var(--muted)">Mapa de Google Maps<br>se integra aquí</p>
+        <a class="btn btn-ghost" href="https://maps.google.com/?q=Zona+11+Guatemala+City+Clinica" target="_blank" style="font-size:13px;margin-top:8px">Ver en Google Maps →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section style="background:var(--bluelight);padding:60px 0">
+  <div class="wrap">
+    <div class="cta-final">
+      <h2>¿Necesita una consulta médica?</h2>
+      <p>No espere más para atender su salud. Agendamos su cita hoy mismo y le atendemos con puntualidad y profesionalismo.</p>
+      <div class="cta-btns">
+        <a class="btn btn-primary" href="https://wa.me/50223334455?text=Hola%20Dr.%20Reyes%2C%20quisiera%20agendar%20una%20cita%20m%C3%A9dica%20en%20Zona%2011" target="_blank">💬 Agendar cita por WhatsApp</a>
+        <a class="btn btn-ghost" href="tel:23334455">📞 Llamar: 2333-4455</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Clínica y Consultorio Dr. Reyes · Zona 11, Guatemala City</p>
+    <p style="font-size:12px">Página diseñada por <a href="https://wa.me/50259226328">Jonathan · Mente en Automático</a></p>
+  </div>
+</footer>
+
+<!-- STICKY CTA ABAJO -->
+<div class="sticky-cta">
+  <p>🩺 <strong>Clínica Dr. Reyes</strong> · Esta es una demo gratuita</p>
+  <a class="pub-btn" href="https://wa.me/50259226328?text=Hola%20Jonathan%2C%20soy%20del%20consultorio%20Dr.%20Reyes%20y%20quiero%20publicar%20mi%20p%C3%A1gina%20web%20por%20%24149" target="_blank">Publicarla por $149 USD →</a>
+</div>
+
+</body>
+</html>
