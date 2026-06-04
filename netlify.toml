@@ -25,3 +25,13 @@
   from = "/cal"
   to = "https://cal.com/menteenautomatico"
   status = 302
+
+[[redirects]]
+  from = "/wa-web"
+  to = "https://wa.me/50259226328?text=Hola%20Jonathan%2C%20quiero%20cotizar%20una%20p%C3%A1gina%20web%20para%20mi%20negocio.%20%C2%BFMe%20puedes%20ayudar%3F"
+  status = 302
+
+[[redirects]]
+  from = "/guia-web"
+  to = "/guia-clientes-locales.html"
+  status = 302

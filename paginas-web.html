@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Páginas Web para Negocios Locales — Mente en Automático</title>
+<meta name="description" content="Tu negocio necesita presencia online. En 7 días tienes una página web profesional, lista para aparecer en Google y recibir clientes. Desde $149 USD.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ── HERO ── */
+.pw-hero{padding:80px 0 60px;text-align:center}
+.pw-hero .kicker{margin-bottom:20px;display:block}
+.pw-hero h1{font-size:clamp(30px,5.5vw,58px);font-weight:900;line-height:1.05;margin-bottom:18px;letter-spacing:-1px}
+.pw-hero .sub{color:var(--muted);font-size:clamp(15px,2.2vw,19px);max-width:620px;margin:0 auto 32px;line-height:1.65}
+
+/* ── STAT STRIP ── */
+.stat-strip{display:flex;gap:0;border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:60px}
+.stat-strip .s{flex:1;padding:22px 16px;text-align:center;border-right:1px solid var(--line)}
+.stat-strip .s:last-child{border-right:none}
+.stat-strip .s .n{font-size:clamp(26px,3.5vw,40px);font-weight:900;color:var(--cyan);line-height:1}
+.stat-strip .s .l{font-size:12px;color:var(--muted);margin-top:4px}
+@media(max-width:600px){.stat-strip{flex-direction:column}.stat-strip .s{border-right:none;border-bottom:1px solid var(--line)}.stat-strip .s:last-child{border-bottom:none}}
+
+/* ── DILEMA ── */
+.dilema2{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:20px;overflow:hidden;max-width:860px;margin:0 auto}
+.dilema2 .col{padding:36px 32px}
+.dilema2 .col.sin{background:linear-gradient(145deg,#1a0808,#0f0606);border:1px solid #3a1515}
+.dilema2 .col.con{background:linear-gradient(145deg,#041a10,#040f0e);border:1px solid #154033;margin-left:-1px}
+.dilema2 .lbl{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:4px 14px;border-radius:999px;display:inline-block;margin-bottom:14px}
+.dilema2 .col.sin .lbl{color:#ff6b78;background:rgba(255,93,108,.1);border:1px solid rgba(255,93,108,.3)}
+.dilema2 .col.con .lbl{color:var(--ok);background:rgba(57,217,138,.1);border:1px solid rgba(57,217,138,.3)}
+.dilema2 h3{font-size:18px;font-weight:800;margin-bottom:14px}
+.dilema2 .col.sin h3{color:#ff8a94}
+.dilema2 .col.con h3{color:#5de8a5}
+.dilema2 ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px}
+.dilema2 li{font-size:13.5px;color:var(--muted);padding-left:22px;position:relative;line-height:1.4}
+.dilema2 .col.sin li::before{content:"✗";position:absolute;left:0;color:#ff5d6c;font-weight:900}
+.dilema2 .col.con li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:900}
+@media(max-width:640px){.dilema2{grid-template-columns:1fr}.dilema2 .col.con{margin-left:0;margin-top:-1px}}
+
+/* ── CALCULADORA ── */
+.calc-card{background:linear-gradient(180deg,var(--card),#080b22);border:1px solid var(--line);border-radius:22px;padding:38px;max-width:700px;margin:0 auto}
+.calc-card h3{font-size:22px;font-weight:900;margin-bottom:6px}
+.calc-card .desc{color:var(--muted);font-size:14px;margin-bottom:28px}
+.calc-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+@media(max-width:580px){.calc-row{grid-template-columns:1fr}}
+.calc-label{font-size:13px;font-weight:700;color:var(--cyan);margin-bottom:7px;display:block}
+.calc-input{width:100%;background:#080b22;border:1.5px solid var(--line);border-radius:10px;padding:11px 14px;font-size:15px;color:var(--ink);font-family:inherit;outline:none;transition:.18s;box-sizing:border-box}
+.calc-input:focus{border-color:var(--neon);box-shadow:0 0 0 3px rgba(0,191,255,.1)}
+.calc-result{background:linear-gradient(135deg,rgba(0,191,255,.08),rgba(0,191,255,.04));border:1.5px solid rgba(0,191,255,.2);border-radius:14px;padding:22px;text-align:center;margin-top:8px}
+.calc-result .monto{font-size:clamp(36px,5vw,52px);font-weight:900;color:var(--cyan);line-height:1}
+.calc-result .detalle{color:var(--muted);font-size:13px;margin-top:8px}
+
+/* ── PAQUETES ── */
+.paq-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px}
+.paq{background:linear-gradient(180deg,var(--card),#080b22);border:1.5px solid var(--line);border-radius:22px;padding:30px;display:flex;flex-direction:column;position:relative;transition:.2s}
+.paq:hover{border-color:var(--neon);box-shadow:var(--glow)}
+.paq.popular{border-color:var(--neon);box-shadow:var(--glow)}
+.paq-badge{position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;font-size:10px;font-weight:900;letter-spacing:1px;padding:4px 18px;border-radius:0 0 12px 12px;text-transform:uppercase;white-space:nowrap}
+.paq-name{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+.paq-price{font-size:clamp(36px,4vw,48px);font-weight:900;color:var(--cyan);line-height:1;margin-bottom:6px}
+.paq-price sup{font-size:18px;vertical-align:top;margin-top:10px}
+.paq-price span{font-size:14px;color:var(--muted);font-weight:500}
+.paq-time{font-size:12px;color:var(--muted);margin-bottom:16px;background:rgba(0,191,255,.07);border:1px solid var(--line);border-radius:999px;padding:4px 12px;display:inline-block}
+.paq-desc{color:var(--muted);font-size:13.5px;margin-bottom:18px;line-height:1.6;flex:0}
+.paq-items{list-style:none;padding:0;margin:0 0 24px;display:flex;flex-direction:column;gap:8px;flex:1}
+.paq-items li{font-size:13px;color:#cdd9f5;padding-left:20px;position:relative;line-height:1.4}
+.paq-items li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:900}
+.paq-items li.no{color:var(--muted)}
+.paq-items li.no::before{content:"—";color:var(--muted);font-weight:400}
+
+/* ── PROCESO ── */
+.proceso-steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;counter-reset:paso}
+.paso{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;text-align:center;counter-increment:paso}
+.paso-num{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;box-shadow:var(--glow)}
+.paso h4{font-size:14px;font-weight:800;margin-bottom:5px}
+.paso p{color:var(--muted);font-size:12.5px;line-height:1.45}
+
+/* ── EJEMPLOS / PREVIEW ── */
+.preview-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px}
+.preview-card{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}
+.preview-bar{background:#1b2350;padding:10px 14px;display:flex;gap:6px;align-items:center}
+.preview-bar span{width:10px;height:10px;border-radius:50%}
+.preview-bar .r{background:#ff5f56}
+.preview-bar .y{background:#febc2e}
+.preview-bar .g{background:#27c93f}
+.preview-bar .url{font-size:11px;color:var(--muted);margin-left:8px}
+.preview-body{padding:20px;min-height:160px}
+.preview-body .biz-name{font-size:18px;font-weight:900;color:var(--ink);margin-bottom:4px}
+.preview-body .biz-type{font-size:11px;color:var(--neon);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px}
+.preview-body .biz-desc{font-size:12.5px;color:var(--muted);margin-bottom:14px;line-height:1.5}
+.preview-body .biz-btns{display:flex;gap:8px}
+.preview-body .biz-btn{font-size:11px;padding:7px 14px;border-radius:999px;font-weight:700;border:none;cursor:pointer}
+.preview-body .biz-btn.primary{background:var(--neon);color:#001226}
+.preview-body .biz-btn.ghost{background:transparent;border:1px solid var(--line);color:var(--ink)}
+.preview-body .biz-info{display:flex;gap:12px;margin-top:12px;flex-wrap:wrap}
+.preview-body .biz-info span{font-size:11px;color:var(--muted);background:rgba(255,255,255,.04);padding:4px 10px;border-radius:999px}
+
+/* ── FAQ ── */
+.faq-list{max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq-item{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.faq-q{padding:18px 22px;font-size:15px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;user-select:none}
+.faq-q:hover{color:var(--cyan)}
+.faq-q .arr{transition:.2s;color:var(--muted);flex-shrink:0}
+.faq-item.open .faq-q .arr{transform:rotate(180deg);color:var(--cyan)}
+.faq-a{max-height:0;overflow:hidden;transition:.25s}
+.faq-item.open .faq-a{max-height:400px}
+.faq-a p{padding:0 22px 18px;color:var(--muted);font-size:14px;line-height:1.65;margin:0}
+
+/* ── FORM ── */
+.fw-card{background:linear-gradient(180deg,var(--card),#080b22);border:1px solid var(--line);border-radius:22px;padding:36px;max-width:680px;margin:0 auto}
+.fg{margin-bottom:20px}
+.fg label{display:block;font-size:13px;font-weight:700;color:var(--cyan);margin-bottom:7px}
+.fg input,.fg select,.fg textarea{width:100%;background:#080b22;border:1.5px solid var(--line);border-radius:10px;padding:12px 15px;font-size:14.5px;color:var(--ink);font-family:inherit;outline:none;transition:.18s;box-sizing:border-box}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--neon);box-shadow:0 0 0 3px rgba(0,191,255,.1)}
+.fg textarea{min-height:110px;resize:vertical}
+.fg select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300bfff' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.fg select option{background:#080b22}
+
+/* ── FLOATING WA BUTTON ── */
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:100;background:#25d366;border-radius:50%;width:58px;height:58px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);text-decoration:none;transition:.2s;font-size:26px}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.6)}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<a class="wa-float" href="/wa-web" target="_blank" title="Escribir por WhatsApp">💬</a>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span>
+    </a>
+    <nav>
+      <a href="index.html">Inicio</a>
+      <a href="#paquetes">Paquetes</a>
+      <a href="#ejemplos">Ejemplos</a>
+      <a href="#contacto">Cotizar</a>
+      <a href="servicios.html">Más servicios</a>
+    </nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="pw-hero">
+  <div class="wrap" style="max-width:820px">
+    <span class="kicker">🌐 Páginas Web para Negocios Locales · Guatemala</span>
+    <h1>¿Tu negocio no aparece<br>en Google? <span>En 7 días,</span><br>lo cambiamos.</h1>
+    <p class="sub">Páginas web profesionales, rápidas y optimizadas para móvil — para restaurantes, tiendas, salones, ferreterías y cualquier negocio local que necesite presencia online.</p>
+    <div class="cta">
+      <a class="btn btn-primary" href="#contacto" style="font-size:16px;padding:15px 32px">Cotizar mi página →</a>
+      <a class="btn btn-ghost" href="/wa-web" target="_blank">💬 WhatsApp directo</a>
+    </div>
+
+    <!-- STAT STRIP -->
+    <div class="stat-strip reveal" style="margin-top:48px">
+      <div class="s">
+        <div class="n">7 días</div>
+        <div class="l">Entrega garantizada</div>
+      </div>
+      <div class="s">
+        <div class="n">$149</div>
+        <div class="l">Desde este precio</div>
+      </div>
+      <div class="s">
+        <div class="n">100%</div>
+        <div class="l">Optimizada para móvil</div>
+      </div>
+      <div class="s">
+        <div class="n">24h</div>
+        <div class="l">Respuesta de cotización</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DILEMA: SIN WEB vs CON WEB -->
+<section style="padding-top:10px;padding-bottom:60px;background:linear-gradient(180deg,#06071a,#04040f)">
+  <div class="wrap">
+    <span class="kicker" style="display:block;text-align:center;margin-bottom:16px">La realidad de 2026</span>
+    <h2 class="section-title" style="margin-bottom:8px">¿Qué le pasa a tu negocio sin página web?</h2>
+    <p class="section-sub">En 2026, cuando alguien busca un restaurante, una ferretería o un salón de belleza, lo primero que hace es buscar en Google. Si no apareces, no existes.</p>
+
+    <div class="dilema2 reveal">
+      <div class="col sin">
+        <div class="lbl">Sin página web</div>
+        <h3>Invisible para los clientes que buscan online</h3>
+        <ul>
+          <li>Tus competidores aparecen, tú no</li>
+          <li>Pierdes clientes que buscan en Google</li>
+          <li>No tienes forma de mostrar tu trabajo</li>
+          <li>Difícil encontrar tu horario y dirección</li>
+          <li>Pareces menos profesional que la competencia</li>
+          <li>Dependes solo del boca a boca</li>
+        </ul>
+      </div>
+      <div class="col con">
+        <div class="lbl">Con página web</div>
+        <h3>Tus clientes te encuentran en Google 24/7</h3>
+        <ul>
+          <li>Apareces cuando buscan tu tipo de negocio</li>
+          <li>Tu horario, ubicación y menú siempre disponibles</li>
+          <li>Galería de fotos de tu local y productos</li>
+          <li>Botón para llamarte o escribirte en WhatsApp</li>
+          <li>Reseñas y confianza desde el primer contacto</li>
+          <li>Trabajando para ti incluso cuando duermes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CALCULADORA: ¿CUÁNTO PIERDES? -->
+<section>
+  <div class="wrap">
+    <span class="kicker" style="display:block;text-align:center;margin-bottom:16px">Calculadora rápida</span>
+    <h2 class="section-title">¿Cuántos clientes pierdes por no tener web?</h2>
+    <p class="section-sub">Llena los datos de tu negocio y calcula cuánto podrías estar dejando de ganar.</p>
+
+    <div class="calc-card reveal">
+      <h3>Tu calculadora de clientes perdidos</h3>
+      <p class="desc">Basado en que el 40% de los clientes busca negocios como el tuyo en Google antes de ir.</p>
+
+      <div class="calc-row">
+        <div>
+          <span class="calc-label">¿Cuántos clientes entran por día?</span>
+          <input class="calc-input" type="number" id="cliDia" placeholder="Ej: 30" min="1" oninput="calcular()">
+        </div>
+        <div>
+          <span class="calc-label">¿Cuánto gasta cada cliente en promedio? (Q)</span>
+          <input class="calc-input" type="number" id="ticketPromedio" placeholder="Ej: 50" min="1" oninput="calcular()">
+        </div>
+      </div>
+
+      <div class="calc-result" id="calcResult" style="display:none">
+        <div style="font-size:13px;color:var(--muted);margin-bottom:6px">Clientes que podrías estar atrayendo con web (mensual)</div>
+        <div class="monto" id="clientesMes">0</div>
+        <div class="detalle" id="calcDetalle">completar los campos para ver el resultado</div>
+        <div style="margin-top:16px">
+          <a class="btn btn-primary" href="#contacto">Quiero esos clientes →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EJEMPLOS: QUÉ INCLUYE TU PÁGINA -->
+<section id="ejemplos" style="background:linear-gradient(180deg,#06071a,#04040f)">
+  <div class="wrap">
+    <span class="kicker" style="display:block;text-align:center;margin-bottom:16px">Ejemplos de lo que construimos</span>
+    <h2 class="section-title">Así se vería tu negocio en internet</h2>
+    <p class="section-sub">Páginas rápidas, modernas y optimizadas para que los clientes te encuentren y te contacten desde el primer segundo.</p>
+
+    <div class="preview-grid">
+
+      <div class="preview-card reveal">
+        <div class="preview-bar">
+          <span class="r"></span><span class="y"></span><span class="g"></span>
+          <span class="url">turestaurante.com</span>
+        </div>
+        <div class="preview-body">
+          <div class="biz-name">Restaurante Don Pepe</div>
+          <div class="biz-type">🍽️ Comida guatemalteca · Mixco</div>
+          <div class="biz-desc">Churrasco, pepián, kaq'ik y los mejores caldos de la zona. Abierto de lunes a domingo.</div>
+          <div class="biz-btns">
+            <button class="biz-btn primary">📞 Llamar</button>
+            <button class="biz-btn ghost">Ver menú</button>
+          </div>
+          <div class="biz-info">
+            <span>📍 Mixco, Guatemala</span>
+            <span>⏰ 7am – 8pm</span>
+            <span>⭐ 4.8</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-card reveal">
+        <div class="preview-bar">
+          <span class="r"></span><span class="y"></span><span class="g"></span>
+          <span class="url">ferreteriasantos.com</span>
+        </div>
+        <div class="preview-body">
+          <div class="biz-name">Ferretería Santos</div>
+          <div class="biz-type">🔧 Materiales y herramientas · Zona 6</div>
+          <div class="biz-desc">Todo en materiales de construcción, plomería y electricidad. Envío a domicilio disponible.</div>
+          <div class="biz-btns">
+            <button class="biz-btn primary">💬 WhatsApp</button>
+            <button class="biz-btn ghost">Catálogo</button>
+          </div>
+          <div class="biz-info">
+            <span>📍 Zona 6, Capital</span>
+            <span>⏰ 8am – 6pm</span>
+            <span>🚚 Entrega a domicilio</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="preview-card reveal">
+        <div class="preview-bar">
+          <span class="r"></span><span class="y"></span><span class="g"></span>
+          <span class="url">salonbellezagaby.com</span>
+        </div>
+        <div class="preview-body">
+          <div class="biz-name">Salón Belleza Gaby</div>
+          <div class="biz-type">💇 Cabello · Uñas · Cejas · Villa Nueva</div>
+          <div class="biz-desc">Cortes, tintes, tratamientos y manicure profesional. Citas por WhatsApp — disponibilidad en tiempo real.</div>
+          <div class="biz-btns">
+            <button class="biz-btn primary">📅 Agendar cita</button>
+            <button class="biz-btn ghost">Ver trabajos</button>
+          </div>
+          <div class="biz-info">
+            <span>📍 Villa Nueva</span>
+            <span>⏰ Lun–Sáb 9am–7pm</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <p style="text-align:center;color:var(--muted);font-size:13.5px;margin-top:24px">
+      ¿Tu negocio es diferente? Construimos páginas para <em>cualquier tipo de negocio local</em> — cuéntame el tuyo.
+    </p>
+  </div>
+</section>
+
+<!-- PAQUETES -->
+<section id="paquetes">
+  <div class="wrap">
+    <span class="kicker" style="display:block;text-align:center;margin-bottom:16px">Elige tu paquete</span>
+    <h2 class="section-title">Precios claros, sin sorpresas</h2>
+    <p class="section-sub">Todos los paquetes incluyen diseño profesional, optimización para móvil y entrega en tiempo record.</p>
+
+    <div class="paq-grid">
+
+      <!-- BÁSICO -->
+      <div class="paq reveal">
+        <div class="paq-name">Básico</div>
+        <div class="paq-price"><sup>$</sup>149<span> USD</span></div>
+        <div class="paq-time">⚡ Entrega en 7 días</div>
+        <p class="paq-desc">Para negocios que necesitan presencia online ya. Página de aterrizaje profesional y lista para recibir clientes.</p>
+        <ul class="paq-items">
+          <li>1 página completa (inicio, servicios, contacto)</li>
+          <li>Diseño profesional con tus colores y logo</li>
+          <li>Optimizada para móvil (100%)</li>
+          <li>Formulario de contacto funcional</li>
+          <li>Botón de WhatsApp con clic directo</li>
+          <li>Mapa de Google Maps integrado</li>
+          <li>Horario y datos de la empresa</li>
+          <li class="no">Galería de fotos múltiple</li>
+          <li class="no">Blog o actualizaciones</li>
+          <li class="no">Sistema de citas</li>
+        </ul>
+        <button class="btn btn-ghost" onclick="cotizar('Básico $149')" style="width:100%">Cotizar paquete Básico →</button>
+      </div>
+
+      <!-- NEGOCIO -->
+      <div class="paq popular reveal">
+        <div class="paq-badge">Más popular</div>
+        <div class="paq-name">Negocio</div>
+        <div class="paq-price"><sup>$</sup>299<span> USD</span></div>
+        <div class="paq-time">⚡ Entrega en 10 días</div>
+        <p class="paq-desc">Para negocios que quieren mostrar todo su trabajo con galerías, menú/catálogo y múltiples secciones.</p>
+        <ul class="paq-items">
+          <li>Hasta 5 páginas o secciones</li>
+          <li>Diseño personalizado completo</li>
+          <li>Optimizada para móvil (100%)</li>
+          <li>Galería de fotos de tu local y productos</li>
+          <li>Menú o catálogo de productos/servicios</li>
+          <li>Formulario + WhatsApp flotante</li>
+          <li>Redes sociales integradas</li>
+          <li>Google Maps + horario detallado</li>
+          <li>Optimización básica de SEO (Google)</li>
+          <li class="no">Sistema de citas o reservas</li>
+        </ul>
+        <button class="btn btn-primary" onclick="cotizar('Negocio $299')" style="width:100%">Cotizar paquete Negocio →</button>
+      </div>
+
+      <!-- COMPLETO -->
+      <div class="paq reveal">
+        <div class="paq-name">Completo</div>
+        <div class="paq-price"><sup>$</sup>499<span> USD</span></div>
+        <div class="paq-time">⚡ Entrega en 14 días</div>
+        <p class="paq-desc">La solución completa para negocios que quieren crecer online con funcionalidades avanzadas y presencia fuerte.</p>
+        <ul class="paq-items">
+          <li>Todo lo del paquete Negocio</li>
+          <li>Sistema de citas o reservas online</li>
+          <li>Blog o sección de novedades</li>
+          <li>Galería de videos</li>
+          <li>SEO optimizado para aparecer en Google</li>
+          <li>Google Analytics configurado</li>
+          <li>1 mes de mantenimiento incluido</li>
+          <li>Capacitación para actualizar el contenido</li>
+        </ul>
+        <button class="btn btn-ghost" onclick="cotizar('Completo $499')" style="width:100%">Cotizar paquete Completo →</button>
+      </div>
+
+    </div>
+
+    <p style="text-align:center;color:var(--muted);font-size:13.5px;margin-top:28px">
+      ¿No sabes cuál elegir? <a href="/wa-web" target="_blank" style="color:var(--cyan)">Escríbeme por WhatsApp</a> y te ayudo a elegir el adecuado para tu negocio.
+    </p>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section style="background:linear-gradient(180deg,#06071a,#04040f)">
+  <div class="wrap">
+    <h2 class="section-title">¿Cómo funciona el proceso?</h2>
+    <p class="section-sub">Sin complicaciones. Del primer mensaje a la página publicada en menos de 2 semanas.</p>
+
+    <div class="proceso-steps">
+      <div class="paso reveal">
+        <div class="paso-num">1</div>
+        <h4>Me cuentas tu negocio</h4>
+        <p>Por WhatsApp o el formulario. Tipo de negocio, qué quieres mostrar, colores y logo si tienes.</p>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">2</div>
+        <h4>Cotización en 24 horas</h4>
+        <p>Te mando una propuesta con el paquete recomendado, precio final y tiempo de entrega.</p>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">3</div>
+        <h4>Confirmas y pagamos</h4>
+        <p>50% para comenzar. PayPal, Binance Pay o transferencia. Inicio inmediato al confirmar.</p>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">4</div>
+        <h4>Diseño y revisión</h4>
+        <p>Te muestro el primer borrador en 3-5 días. Tienes 2 rondas de cambios incluidas.</p>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">5</div>
+        <h4>¡Tu página está viva!</h4>
+        <p>Publicamos, te enseño cómo usarla y pagas el 50% restante. Listo para recibir clientes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section>
+  <div class="wrap">
+    <h2 class="section-title">Preguntas frecuentes</h2>
+    <p class="section-sub">Lo que los dueños de negocio siempre preguntan antes de empezar.</p>
+
+    <div class="faq-list">
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ¿Necesito saber algo de tecnología para tener página web?
+          <span class="arr">▼</span>
+        </div>
+        <div class="faq-a">
+          <p>No. Te entrego la página lista para usar y te enseño lo básico: cómo actualizar tu horario, subir fotos y ver cuánta gente visita tu página. Sin tecnicismos, en menos de 30 minutos lo dominas.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ¿Cuánto cuesta mantener la página cada mes?
+          <span class="arr">▼</span>
+        </div>
+        <div class="faq-a">
+          <p>El costo de hosting (donde vive tu página) es de aproximadamente $10-15 USD al mes, pagado directamente al servicio de hosting. Eso es todo — no hay costos ocultos ni mensualidades hacia mí, a menos que contrates mantenimiento adicional.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ¿Incluye dominio (.com)?
+          <span class="arr">▼</span>
+        </div>
+        <div class="faq-a">
+          <p>El dominio (.com, .gt, etc.) se compra aparte y cuesta alrededor de $12-20 USD por año. Te ayudo a elegirlo y configurarlo. Si tienes prisa o quieres evaluar primero, podemos lanzar con una URL gratuita (tuempresa.netlify.app) mientras decides el dominio definitivo.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ¿En verdad estará lista en 7 días?
+          <span class="arr">▼</span>
+        </div>
+        <div class="faq-a">
+          <p>Sí, en la mayoría de los casos el paquete Básico está listo en 5-7 días desde que confirmas. Lo que más retrasa el proceso es esperar a que el cliente mande las fotos y textos — si los tienes listos desde el día 1, vamos más rápido todavía.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ¿Qué pasa si no me gusta el diseño?
+          <span class="arr">▼</span>
+        </div>
+        <div class="faq-a">
+          <p>Todos los paquetes incluyen 2 rondas de cambios. Te muestro un primer borrador y me dices qué ajustar — colores, orden de secciones, textos, fotos. Si después de las 2 rondas sigues disconforme, conversamos una solución justa.</p>
+        </div>
+      </div>
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ¿Puedo pedirte algo diferente a los paquetes?
+          <span class="arr">▼</span>
+        </div>
+        <div class="faq-a">
+          <p>Claro. Si necesitas algo más específico — una tienda online, un sistema de pedidos, una app para tu negocio — cuéntame y hago una cotización a la medida. También tengo experiencia en dashboards, inventarios y automatizaciones para negocios.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- FORMULARIO DE COTIZACIÓN -->
+<section id="contacto" style="background:linear-gradient(180deg,#06071a,#04040f)">
+  <div class="wrap">
+    <span class="kicker" style="display:block;text-align:center;margin-bottom:16px">Paso 1 de 2</span>
+    <h2 class="section-title">Cotiza tu página web gratis</h2>
+    <p class="section-sub">Cuéntame tu negocio y en menos de 24 horas tienes una propuesta en tu WhatsApp o correo.</p>
+
+    <div class="fw-card reveal">
+      <form name="cotiza-web" method="POST" data-netlify="true"
+            netlify-honeypot="bot-field" action="/gracias-proyecto.html">
+        <input type="hidden" name="form-name" value="cotiza-web">
+        <p style="display:none"><input name="bot-field"></p>
+
+        <div class="fg">
+          <label>Nombre *</label>
+          <input type="text" name="nombre" placeholder="Ej. Carlos Méndez" required>
+        </div>
+
+        <div class="fg">
+          <label>¿Qué tipo de negocio tienes? *</label>
+          <select name="tipo_negocio" required>
+            <option value="" disabled selected>Selecciona tu tipo de negocio</option>
+            <option>Restaurante / Comedor / Cafetería</option>
+            <option>Tienda / Abarrotes / Minimarket</option>
+            <option>Ferretería / Materiales</option>
+            <option>Salón de belleza / Barbería</option>
+            <option>Taller mecánico / Servicio técnico</option>
+            <option>Clínica / Consultorio médico</option>
+            <option>Gimnasio / Centro deportivo</option>
+            <option>Farmacia / Botánica</option>
+            <option>Escuela / Academia</option>
+            <option>Servicios profesionales (abogado, contador, etc.)</option>
+            <option>Otro tipo de negocio</option>
+          </select>
+        </div>
+
+        <div class="fg">
+          <label>WhatsApp (para enviarte la cotización rápido) *</label>
+          <input type="tel" name="whatsapp" placeholder="Ej. +502 5555 1234" required>
+        </div>
+
+        <div class="fg">
+          <label>Correo electrónico</label>
+          <input type="email" name="correo" placeholder="tucorreo@ejemplo.com">
+        </div>
+
+        <div class="fg">
+          <label>Paquete que te interesa</label>
+          <select name="paquete" id="paqueteSelect">
+            <option value="" disabled selected>Selecciona o cuéntame tu idea</option>
+            <option>Básico ($149) — 1 página, 7 días</option>
+            <option>Negocio ($299) — hasta 5 páginas, 10 días</option>
+            <option>Completo ($499) — con citas, blog y SEO</option>
+            <option>No sé aún — quiero una recomendación</option>
+          </select>
+        </div>
+
+        <div class="fg">
+          <label>¿Algo especial que deba saber de tu negocio?</label>
+          <textarea name="detalles" placeholder="Ej: Tengo restaurante de comida típica, quiero mostrar el menú con fotos y que la gente pueda pedir por WhatsApp..."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%;padding:16px;font-size:16px">
+          Enviar mi cotización →
+        </button>
+        <p style="color:var(--muted);font-size:13px;text-align:center;margin-top:12px">
+          Sin compromiso · Respondo en menos de 24 horas · 100% gratis cotizar
+        </p>
+      </form>
+    </div>
+
+    <div style="text-align:center;margin-top:28px">
+      <p style="color:var(--muted);font-size:14.5px">¿Prefieres hablar ahora mismo?</p>
+      <a class="btn btn-primary" href="/wa-web" target="_blank" style="margin-top:10px;display:inline-flex;gap:8px;align-items:center">
+        <span>💬</span> Escribir por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="y"></span> Jonathan Bautista · Mente en Automático · Guatemala 🇬🇹</div>
+    <div>
+      <a href="index.html">Inicio</a> ·
+      <a href="servicios.html">Servicios</a> ·
+      <a href="tienda.html">Sistemas</a> ·
+      <a href="mailto:menteautomatica26@gmail.com">Correo</a>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+document.getElementById("y").textContent = new Date().getFullYear();
+
+function calcular() {
+  const dias = parseFloat(document.getElementById("cliDia").value) || 0;
+  const ticket = parseFloat(document.getElementById("ticketPromedio").value) || 0;
+  if (!dias || !ticket) { document.getElementById("calcResult").style.display = "none"; return; }
+  const clientesMes = Math.round(dias * 0.4 * 30);
+  const ingreso = clientesMes * ticket;
+  document.getElementById("calcResult").style.display = "block";
+  document.getElementById("clientesMes").textContent = clientesMes + " clientes";
+  document.getElementById("calcDetalle").textContent =
+    "= Q" + ingreso.toLocaleString("es-GT") + " / mes en ingresos adicionales potenciales";
+}
+
+function cotizar(paquete) {
+  const sel = document.getElementById("paqueteSelect");
+  for (let i = 0; i < sel.options.length; i++) {
+    if (sel.options[i].text.includes(paquete.split(" ")[0])) {
+      sel.selectedIndex = i;
+      break;
+    }
+  }
+  document.getElementById("contacto").scrollIntoView({ behavior: "smooth" });
+}
+
+function toggleFaq(btn) {
+  const item = btn.closest(".faq-item");
+  const isOpen = item.classList.contains("open");
+  document.querySelectorAll(".faq-item.open").forEach(el => el.classList.remove("open"));
+  if (!isOpen) item.classList.add("open");
+}
+</script>
+</body>
+</html>

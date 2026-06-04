@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cómo conseguir clientes ofreciendo páginas web a negocios locales — Guía gratis</title>
+<meta name="description" content="Método paso a paso para encontrar negocios sin página web en Google Maps, acercarte a ellos y cerrar tu primer proyecto de $150–500 USD.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ── GUIA LAYOUT ── */
+.guia-hero{padding:80px 0 50px;text-align:center}
+.guia-hero h1{font-size:clamp(28px,5vw,52px);font-weight:900;line-height:1.1;margin-bottom:16px}
+.guia-hero .sub{color:var(--muted);font-size:clamp(15px,2vw,18px);max-width:620px;margin:0 auto 28px;line-height:1.65}
+
+.guia-content{max-width:740px;margin:0 auto;padding:0 20px}
+
+/* ── CALLOUT BOXES ── */
+.callout{border-radius:14px;padding:20px 24px;margin:24px 0}
+.callout.tip{background:rgba(0,191,255,.07);border:1px solid rgba(0,191,255,.25)}
+.callout.warn{background:rgba(255,209,102,.07);border:1px solid rgba(255,209,102,.25)}
+.callout.success{background:rgba(57,217,138,.07);border:1px solid rgba(57,217,138,.25)}
+.callout.key{background:rgba(255,93,108,.07);border:1px solid rgba(255,93,108,.25)}
+.callout-title{font-size:12px;font-weight:900;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.callout.tip .callout-title{color:var(--cyan)}
+.callout.warn .callout-title{color:var(--warn)}
+.callout.success .callout-title{color:var(--ok)}
+.callout.key .callout-title{color:#ff5d6c}
+.callout p{font-size:14px;color:var(--muted);line-height:1.7;margin:0}
+
+/* ── STEPS ── */
+.step-section{margin:48px 0}
+.step-number{display:inline-flex;align-items:center;gap:12px;margin-bottom:16px}
+.step-num-badge{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;font-weight:900;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:var(--glow)}
+.step-num-label{font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+.step-section h2{font-size:clamp(22px,3.5vw,30px);font-weight:900;margin-bottom:12px;line-height:1.2}
+.step-section p{color:var(--muted);font-size:15px;line-height:1.75;margin-bottom:14px}
+
+/* ── CÓDIGO / SCRIPT ── */
+.script-box{background:#080b22;border:1px solid var(--line);border-radius:14px;padding:24px;margin:16px 0;position:relative}
+.script-box .script-label{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon);margin-bottom:12px}
+.script-box p,.script-box .linea{font-size:14px;color:#cdd9f5;line-height:1.75;margin:0}
+.script-box .linea{margin-bottom:4px}
+.script-box .copy-btn{position:absolute;top:16px;right:16px;background:rgba(0,191,255,.1);border:1px solid rgba(0,191,255,.25);color:var(--cyan);font-size:11px;font-weight:700;padding:5px 12px;border-radius:999px;cursor:pointer;transition:.15s}
+.script-box .copy-btn:hover{background:rgba(0,191,255,.2)}
+
+/* ── CHECKLIST ── */
+.checklist{list-style:none;padding:0;margin:16px 0;display:flex;flex-direction:column;gap:10px}
+.checklist li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;color:var(--muted);line-height:1.5}
+.checklist li::before{content:"☐";flex-shrink:0;color:var(--neon);font-size:17px;cursor:pointer}
+.checklist li.done::before{content:"☑";color:var(--ok)}
+
+/* ── TABLA ── */
+.precio-table{width:100%;border-collapse:collapse;margin:16px 0}
+.precio-table th,.precio-table td{text-align:left;padding:12px 16px;font-size:13.5px;border-bottom:1px solid var(--line)}
+.precio-table th{font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--muted);background:var(--card)}
+.precio-table td:last-child{color:var(--cyan);font-weight:700}
+.precio-table tr:last-child td{border-bottom:none}
+
+/* ── OBJECTION GRID ── */
+.objection-grid{display:flex;flex-direction:column;gap:14px;margin:16px 0}
+.objection-item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px}
+.objection-item .q{font-size:14px;font-weight:700;color:#ff8a94;margin-bottom:8px}
+.objection-item .q::before{content:"🙅 "";}
+.objection-item .a{font-size:14px;color:var(--muted);line-height:1.65}
+.objection-item .a::before{content:"✅ ";color:var(--ok)}
+
+/* ── TOC ── */
+.toc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;margin-bottom:40px}
+.toc h4{font-size:12px;font-weight:900;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.toc ol{padding-left:20px;margin:0;display:flex;flex-direction:column;gap:8px}
+.toc li{font-size:14px}
+.toc a{color:var(--cyan);text-decoration:none}
+.toc a:hover{text-decoration:underline}
+
+/* ── CTA INTERLUDE ── */
+.cta-interlude{background:linear-gradient(135deg,rgba(0,191,255,.08),rgba(0,191,255,.04));border:1.5px solid rgba(0,191,255,.2);border-radius:18px;padding:32px;text-align:center;margin:40px 0}
+.cta-interlude h3{font-size:22px;font-weight:900;margin-bottom:10px}
+.cta-interlude p{color:var(--muted);font-size:14.5px;margin-bottom:20px;line-height:1.6}
+
+/* ── FLOATING WA ── */
+.wa-float{position:fixed;bottom:28px;right:28px;z-index:100;background:#25d366;border-radius:50%;width:58px;height:58px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);text-decoration:none;transition:.2s;font-size:26px}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.6)}
+
+/* ── PROGRESS BAR ── */
+.reading-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--neon),var(--neon2));z-index:200;width:0%;transition:.1s}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<div class="reading-bar" id="readingBar"></div>
+<a class="wa-float" href="/wa-web" target="_blank" title="¿Tienes preguntas? Escríbeme">💬</a>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span>
+    </a>
+    <nav>
+      <a href="recursos.html">Recursos</a>
+      <a href="paginas-web.html">Páginas Web</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="novedades.html">Novedades</a>
+    </nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="guia-hero">
+  <div class="wrap" style="max-width:780px">
+    <span class="kicker">Guía práctica · 100% gratis · Aplica hoy mismo</span>
+    <h1>Cómo encontrar negocios sin página web<br>y cobrar tus <span>primeros $150–500 USD</span></h1>
+    <p class="sub">El método exacto para identificar negocios locales sin presencia online, acercarte a ellos con confianza y cerrar proyectos de diseño web — sin experiencia previa, sin portafolio, sin agencia.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-primary" href="#paso-1">Empezar la guía →</a>
+      <a class="btn btn-ghost" href="paginas-web.html">Ver mis servicios de web</a>
+    </div>
+
+    <div style="margin-top:32px;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;color:var(--muted);font-size:13px">
+      <span>⏱ Lectura: ~12 minutos</span>
+      <span>🎯 Dificultad: Principiante</span>
+      <span>💰 Potencial: $150–500 por proyecto</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTENIDO PRINCIPAL -->
+<div class="guia-content">
+
+  <!-- TOC -->
+  <div class="toc reveal">
+    <h4>Contenido de esta guía</h4>
+    <ol>
+      <li><a href="#paso-1">Por qué esto funciona en 2026</a></li>
+      <li><a href="#paso-2">Cómo encontrar negocios sin web (Google Maps)</a></li>
+      <li><a href="#paso-3">Cómo acercarte: el primer mensaje</a></li>
+      <li><a href="#paso-4">Qué ofrecer y cómo cotizar</a></li>
+      <li><a href="#paso-5">Cómo manejar las objeciones más comunes</a></li>
+      <li><a href="#paso-6">Cómo cobrar y entregar</a></li>
+      <li><a href="#cierre">Siguientes pasos</a></li>
+    </ol>
+  </div>
+
+  <!-- PASO 1 -->
+  <div class="step-section reveal" id="paso-1">
+    <div class="step-number">
+      <div class="step-num-badge">1</div>
+      <div class="step-num-label">El contexto</div>
+    </div>
+    <h2>Por qué esto funciona en 2026</h2>
+    <p>En Guatemala — y en toda Latinoamérica — hay miles de negocios locales funcionando sin ninguna presencia en internet. Restaurantes, ferreterías, salones de belleza, talleres mecánicos, pulperías, clínicas pequeñas.</p>
+    <p>Estos negocios llevan años operando con el boca a boca. Pero hoy, cuando alguien nuevo llega a un barrio y busca "dónde comer" o "ferretería cerca", solo encuentra a los que tienen página web o perfil en Google Maps.</p>
+
+    <div class="callout tip">
+      <div class="callout-title">🔑 El dato clave</div>
+      <p>Según estudios de Google para Latinoamérica, el <strong>76% de los consumidores</strong> buscan online antes de visitar un negocio local. Si tu negocio no aparece, estás regalando esos clientes a la competencia.</p>
+    </div>
+
+    <p>Acá está la oportunidad: <strong>puedes ser la persona que le da presencia digital a esos negocios</strong>. No necesitas ser programador. Con herramientas modernas (y con IA como Claude), puedes construir páginas web profesionales en 3-7 días que valen $150-500 USD para el dueño de negocio.</p>
+
+    <div class="callout success">
+      <div class="callout-title">✅ Para quién es esta guía</div>
+      <p>Para cualquiera que quiera una forma concreta de generar ingresos. No importa si eres estudiante, freelancer, o solo quieres un ingreso extra. Lo único que necesitas es acceso a internet, ganas de trabajar y seguir este proceso.</p>
+    </div>
+  </div>
+
+  <!-- PASO 2 -->
+  <div class="step-section reveal" id="paso-2">
+    <div class="step-number">
+      <div class="step-num-badge">2</div>
+      <div class="step-num-label">Prospección</div>
+    </div>
+    <h2>Cómo encontrar negocios sin página web</h2>
+    <p>La fuente más potente y gratuita es <strong>Google Maps</strong>. Millones de negocios están registrados ahí pero sin página web — es tu lista de prospectos lista para usar.</p>
+
+    <h3 style="font-size:18px;margin:24px 0 12px;color:var(--ink)">Método Google Maps — paso a paso:</h3>
+
+    <ul class="checklist" id="checkListMaps">
+      <li onclick="this.classList.toggle('done')">Abre Google Maps en tu computadora o teléfono</li>
+      <li onclick="this.classList.toggle('done')">Busca el tipo de negocio + tu ciudad: <em>"restaurantes Villa Nueva"</em>, <em>"ferreterías Mixco"</em>, <em>"salones de belleza zona 1"</em></li>
+      <li onclick="this.classList.toggle('done')">Haz clic en cada resultado y busca si tiene el campo "Sitio web"</li>
+      <li onclick="this.classList.toggle('done')">Si NO tiene sitio web listado → ese es tu prospecto</li>
+      <li onclick="this.classList.toggle('done')">Guarda su nombre, teléfono y/o WhatsApp en una hoja de Excel o Google Sheets</li>
+      <li onclick="this.classList.toggle('done')">Apunta también cuántas reseñas tiene (más reseñas = negocio activo = mejor prospecto)</li>
+    </ul>
+
+    <div class="callout tip">
+      <div class="callout-title">💡 Tip de búsqueda</div>
+      <p>Los mejores prospectos son negocios con <strong>10+ reseñas positivas</strong> pero sin página web. Eso te dice que tienen clientes activos y que el negocio está vivo — solo le falta presencia digital.</p>
+    </div>
+
+    <h3 style="font-size:18px;margin:24px 0 12px;color:var(--ink)">Otras fuentes de prospectos:</h3>
+    <p style="margin-bottom:10px"><strong>Facebook Marketplace y grupos locales:</strong> Busca en grupos de tu ciudad (compra/venta, vecinos, emprendedores). Los negocios que publican en grupos sin tener página web son prospectos perfectos.</p>
+    <p style="margin-bottom:10px"><strong>Rótulos y volantes físicos:</strong> Mientras caminas por tu colonia, fíjate en los negocios que tienen rótulo pero sin URL ni redes sociales. Fotografíalo para acordarte.</p>
+    <p><strong>Instagram con pocos seguidores:</strong> Negocios con perfil de Instagram pero sin página web y con menos de 500 seguidores. Tienen intención digital pero necesitan una base más sólida.</p>
+
+    <div class="callout warn">
+      <div class="callout-title">📌 Meta realista</div>
+      <p>Dedica 1 hora a este ejercicio. Deberías tener <strong>fácilmente 20-30 prospectos</strong> en tu hoja. Con esa lista, si contactas a todos y conviertes solo el 10%, son 2-3 clientes — suficiente para superar $300-600 USD.</p>
+    </div>
+  </div>
+
+  <!-- PASO 3 -->
+  <div class="step-section reveal" id="paso-3">
+    <div class="step-number">
+      <div class="step-num-badge">3</div>
+      <div class="step-num-label">Primer contacto</div>
+    </div>
+    <h2>Cómo acercarte: el primer mensaje</h2>
+    <p>La mayoría de personas fallan aquí porque mandan mensajes muy largos, muy "vendedores" o muy técnicos. El dueño de un pequeño negocio no quiere leer un ensayo — quiere saber si tú lo puedes ayudar, rápido.</p>
+
+    <p>El mejor canal es <strong>WhatsApp</strong>. La mayoría de negocios locales tienen número de WhatsApp visible en Google Maps o en su rótulo.</p>
+
+    <h3 style="font-size:18px;margin:24px 0 12px;color:var(--ink)">Mensaje inicial (copia y adapta):</h3>
+
+    <div class="script-box">
+      <div class="script-label">📱 WhatsApp — Mensaje de contacto inicial</div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+      <div class="linea">Hola, ¿habla con el dueño de [Nombre del negocio]?</div>
+      <br>
+      <div class="linea">Me llamo [Tu nombre]. Vi su negocio en Google Maps y me di cuenta que no tienen página web todavía.</div>
+      <br>
+      <div class="linea">Me dedico a hacer páginas web para negocios locales — diseño profesional, listo en 7 días, desde $149 USD.</div>
+      <br>
+      <div class="linea">¿Le interesaría saber más o ver ejemplos de lo que hago?</div>
+    </div>
+
+    <div class="callout tip">
+      <div class="callout-title">💡 Por qué funciona este mensaje</div>
+      <p>Es corto (se lee en 10 segundos), muestra que hiciste una investigación básica, da el precio desde el primer momento (sin misterio), y termina con una pregunta fácil de responder. No hay compromiso implícito — solo "¿le interesa saber más?"</p>
+    </div>
+
+    <h3 style="font-size:18px;margin:24px 0 12px;color:var(--ink)">Si visitas el negocio en persona:</h3>
+
+    <div class="script-box">
+      <div class="script-label">🗣️ Script presencial — Para decirlo de viva voz</div>
+      <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+      <div class="linea">"Buenos días / tardes. Perdone que le interrumpa — soy diseñador web y trabajo con negocios locales en el área."</div>
+      <br>
+      <div class="linea">"Noté que su negocio no tiene página web. Hoy eso puede costarle clientes, porque mucha gente busca en Google antes de venir a un lugar nuevo."</div>
+      <br>
+      <div class="linea">"Yo les hago la página en 7 días, desde $149 USD. ¿Le puedo dejar mi número para que me llame cuando tenga un momento?"</div>
+    </div>
+
+    <div class="callout warn">
+      <div class="callout-title">⚠️ Qué NO hacer</div>
+      <p>No mandes un mensaje de 200 palabras. No uses palabras técnicas como "SEO", "landing page" o "responsive". No digas "soy experto" si estás empezando — di "me dedico a esto" o "trabajo con negocios como el tuyo". La honestidad genera confianza.</p>
+    </div>
+  </div>
+
+  <!-- CTA INTERLUDE -->
+  <div class="cta-interlude reveal">
+    <h3>¿Prefieres que yo lo haga por ti?</h3>
+    <p>Si tienes un negocio y no quieres aprender diseño web — sino simplemente tener una página profesional funcionando — yo me encargo de todo. Entrega en 7 días, desde $149 USD.</p>
+    <a class="btn btn-primary" href="paginas-web.html">Ver mis paquetes de páginas web →</a>
+  </div>
+
+  <!-- PASO 4 -->
+  <div class="step-section reveal" id="paso-4">
+    <div class="step-number">
+      <div class="step-num-badge">4</div>
+      <div class="step-num-label">Cotización</div>
+    </div>
+    <h2>Qué ofrecer y cómo cotizar</h2>
+    <p>Cuando el negocio responde positivamente, el siguiente paso es una conversación rápida (5-10 minutos por WhatsApp o llamada) para entender qué necesitan. Con esa información, mandas una cotización simple y clara.</p>
+
+    <h3 style="font-size:18px;margin:24px 0 12px;color:var(--ink)">Preguntas para entender el proyecto:</h3>
+
+    <div class="script-box">
+      <div class="script-label">❓ Preguntas de diagnóstico</div>
+      <div class="linea">1. ¿Qué tipo de negocio tienen? (restaurante, tienda, servicio...)</div>
+      <div class="linea">2. ¿Qué quieren que la gente pueda hacer en la página? (ver menú, contactarlos, reservar, comprar...)</div>
+      <div class="linea">3. ¿Tienen logo y fotos del negocio?</div>
+      <div class="linea">4. ¿Tienen dominio (.com) o quieren que los ayude con eso?</div>
+      <div class="linea">5. ¿Para cuándo la necesitan?</div>
+    </div>
+
+    <h3 style="font-size:18px;margin:24px 0 12px;color:var(--ink)">Tabla de precios sugerida:</h3>
+
+    <table class="precio-table">
+      <thead>
+        <tr>
+          <th>Paquete</th>
+          <th>Qué incluye</th>
+          <th>Tiempo</th>
+          <th>Precio</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Básico</strong></td>
+          <td>1 página, contacto, WhatsApp, mapa</td>
+          <td>5-7 días</td>
+          <td>$149 USD</td>
+        </tr>
+        <tr>
+          <td><strong>Negocio</strong></td>
+          <td>3-5 páginas, galería, menú/catálogo</td>
+          <td>8-10 días</td>
+          <td>$299 USD</td>
+        </tr>
+        <tr>
+          <td><strong>Completo</strong></td>
+          <td>Todo + citas online, blog, SEO</td>
+          <td>12-14 días</td>
+          <td>$499 USD</td>
+        </tr>
+        <tr>
+          <td><strong>Mantenimiento</strong></td>
+          <td>Actualizaciones mensuales</td>
+          <td>Mensual</td>
+          <td>$25-50/mes</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout success">
+      <div class="callout-title">💡 El mantenimiento mensual es oro</div>
+      <p>Si logras 5 clientes de mantenimiento a $30/mes cada uno, eso son $150/mes de ingreso recurrente sin hacer nada nuevo. Ofréce siempre el mantenimiento como add-on — muchos negocios lo aceptan porque no quieren encargarse solos.</p>
+    </div>
+
+    <h3 style="font-size:18px;margin:24px 0 12px;color:var(--ink)">¿Cómo construyes las páginas?</h3>
+    <p>Si no sabes programar, tienes varias opciones:</p>
+    <p><strong>Con Claude Code (recomendado):</strong> Describe el negocio a Claude y él construye el HTML/CSS completo. Esta misma página web de Mente en Automático fue construida así. Es rápido, profesional y personalizable.</p>
+    <p><strong>Con Wordpress + Elementor:</strong> Arrastrar y soltar, sin código. Tiene curva de aprendizaje pero es muy potente para clientes que quieren actualizar solos.</p>
+    <p><strong>Con Webflow o Carrd:</strong> Para páginas simples y rápidas. Ideal para el paquete Básico.</p>
+
+    <div class="callout tip">
+      <div class="callout-title">🤖 Atajo con IA</div>
+      <p>Abre Claude o ChatGPT y escribe: <em>"Construye una página web para una ferretería llamada Ferretería Santos en Ciudad de Guatemala. Debe tener sección de inicio con descripción, lista de productos/servicios, información de contacto, mapa y botón de WhatsApp. Usa diseño oscuro profesional en HTML y CSS."</em> Tendrás un punto de partida en minutos.</p>
+    </div>
+  </div>
+
+  <!-- PASO 5 -->
+  <div class="step-section reveal" id="paso-5">
+    <div class="step-number">
+      <div class="step-num-badge">5</div>
+      <div class="step-num-label">Objeciones</div>
+    </div>
+    <h2>Cómo manejar las objeciones más comunes</h2>
+    <p>Esto es lo que más asusta a la gente que empieza. Pero la mayoría de objeciones tienen respuestas simples. Aquí las más frecuentes:</p>
+
+    <div class="objection-grid">
+      <div class="objection-item reveal">
+        <div class="q">"Es muy caro para mi negocio"</div>
+        <div class="a">Entiendo. Pero ponga así: si la página le trae 3 clientes nuevos por mes que gastan Q200 cada uno, en 2 meses ya pagó la página y el resto es ganancia. ¿Le parece si empezamos con el paquete básico de $149 para probarlo?</div>
+      </div>
+      <div class="objection-item reveal">
+        <div class="q">"Yo tengo Facebook, con eso me basta"</div>
+        <div class="a">Facebook ayuda a que sus clientes actuales le escriban, pero no aparece cuando alguien nuevo busca en Google. La página web es lo que le hace aparecer en "restaurantes cerca de mí" o "ferreterías en Mixco". Son clientes que usted no tiene hoy.</div>
+      </div>
+      <div class="objection-item reveal">
+        <div class="q">"No tengo tiempo para aprender a manejar una página"</div>
+        <div class="a">No tiene que aprender nada. Yo le entrego todo funcionando y con el contenido ya puesto. Si quiere cambiar algo después — un precio, una foto — me escribe y yo lo hago. También tengo un plan mensual para eso.</div>
+      </div>
+      <div class="objection-item reveal">
+        <div class="q">"¿Cómo sé que eres de confianza? No te conozco"</div>
+        <div class="a">Completamente válido. Puedo mostrarle ejemplos de páginas que he hecho (o demostrar mi trabajo). También podemos hacer el trato así: me paga el 50% al inicio, le muestro el borrador en 3-4 días, y si le gusta paga el resto. Si no le gusta, no pierde nada y le devuelvo el adelanto.</div>
+      </div>
+      <div class="objection-item reveal">
+        <div class="q">"No tengo fotos ni logo para la página"</div>
+        <div class="a">No es problema. Para las fotos, hoy mismo podemos tomar buenas fotos con su teléfono — le enseño qué fotografiar. Para el logo, puedo hacer uno simple con IA en menos de 30 minutos, o usamos solo texto estilizado que queda muy bien.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PASO 6 -->
+  <div class="step-section reveal" id="paso-6">
+    <div class="step-number">
+      <div class="step-num-badge">6</div>
+      <div class="step-num-label">Cierre y entrega</div>
+    </div>
+    <h2>Cómo cobrar y entregar el proyecto</h2>
+
+    <h3 style="font-size:18px;margin:24px 0 12px;color:var(--ink)">Forma de pago recomendada:</h3>
+    <p><strong>50% al confirmar el proyecto</strong> → empiezas a trabajar <br>
+    <strong>50% al entregar</strong> → cuando el cliente aprueba el diseño</p>
+    <p>Medios de pago: PayPal, Binance Pay (para Guatemala es muy fácil), transferencia bancaria local, efectivo si es cliente local.</p>
+
+    <h3 style="font-size:18px;margin:24px 0 12px;color:var(--ink)">Lo que necesitas pedirle al cliente:</h3>
+    <ul class="checklist" id="checkListEntrega">
+      <li onclick="this.classList.toggle('done')">Nombre exacto del negocio</li>
+      <li onclick="this.classList.toggle('done')">Descripción de sus productos o servicios</li>
+      <li onclick="this.classList.toggle('done')">Horario de atención</li>
+      <li onclick="this.classList.toggle('done')">Dirección exacta (para Google Maps)</li>
+      <li onclick="this.classList.toggle('done')">Número de teléfono / WhatsApp</li>
+      <li onclick="this.classList.toggle('done')">2-5 fotos del local y productos (con el teléfono está bien)</li>
+      <li onclick="this.classList.toggle('done')">Logo (si tienen) o colores preferidos</li>
+      <li onclick="this.classList.toggle('done')">Ejemplos de páginas que les gustan (opcional pero muy útil)</li>
+    </ul>
+
+    <div class="callout success">
+      <div class="callout-title">✅ Proceso de entrega</div>
+      <p>Día 1-3: construyes la página con toda la información. Día 4: mandas el enlace de borrador al cliente para revisión. Día 5-6: aplicas los cambios que pida (máximo 2 rondas). Día 7: publicas la versión final, cobras el 50% restante y entregás las credenciales de acceso.</p>
+    </div>
+
+    <h3 style="font-size:18px;margin:24px 0 12px;color:var(--ink)">Hosting y dominio (dónde vivir la página):</h3>
+    <p>Para empezar rápido y barato, usa <strong>Netlify</strong> (gratis para páginas estáticas) y cómprale el dominio en Namecheap o Google Domains (~$12-20 USD/año). El cliente paga el dominio directamente, tú lo configuras por él como parte del servicio.</p>
+  </div>
+
+  <!-- CIERRE -->
+  <div class="step-section reveal" id="cierre">
+    <div class="step-number">
+      <div class="step-num-badge">🎯</div>
+      <div class="step-num-label">Siguiente paso</div>
+    </div>
+    <h2>El plan para tus primeros $500</h2>
+
+    <p>Aquí está el plan concreto para ejecutar en los próximos 7 días:</p>
+
+    <ul class="checklist" id="checkListPlan">
+      <li onclick="this.classList.toggle('done')"><strong>Hoy (1 hora):</strong> Busca en Google Maps 20 negocios sin web en tu área. Guarda nombre y teléfono en una hoja.</li>
+      <li onclick="this.classList.toggle('done')"><strong>Hoy o mañana:</strong> Manda el mensaje de contacto a los 20 negocios. Espera respuestas.</li>
+      <li onclick="this.classList.toggle('done')"><strong>Esta semana:</strong> Con los que respondan positivamente, agenda una llamada corta de 10 minutos para entender qué necesitan.</li>
+      <li onclick="this.classList.toggle('done')"><strong>Esta semana:</strong> Manda cotizaciones a quienes estén interesados. Pide el 50% de adelanto para empezar.</li>
+      <li onclick="this.classList.toggle('done')"><strong>Semana 1-2:</strong> Construye la primera página (con Claude Code o las herramientas que elijas).</li>
+      <li onclick="this.classList.toggle('done')"><strong>Semana 2:</strong> Entrega, cobra el 50% restante. Repite con el próximo cliente.</li>
+    </ul>
+
+    <div class="callout key">
+      <div class="callout-title">🚨 La regla de los números</div>
+      <p>De cada 20 mensajes enviados → 8-10 responderán → 3-5 tendrán interés real → 1-2 pagarán. Para conseguir 2 clientes, necesitas contactar a 20 negocios. Para conseguir 5 clientes, contacta a 50. Es simple, pero requiere que hagas el trabajo de prospectar.</p>
+    </div>
+  </div>
+
+  <!-- CTA FINAL -->
+  <div class="cta-interlude reveal" style="margin-bottom:60px">
+    <h3>¿Quieres saltar la parte técnica?</h3>
+    <p>Si tienes un negocio y quieres una página web sin aprender a programar — o si quieres ver ejemplos de lo que construyo para cobrar a tus clientes — estoy para ayudarte.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-primary" href="paginas-web.html">Ver mis paquetes de web →</a>
+      <a class="btn btn-ghost" href="/wa-web" target="_blank">💬 Consulta por WhatsApp</a>
+    </div>
+  </div>
+
+</div><!-- /guia-content -->
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="y"></span> Jonathan Bautista · Mente en Automático · Guatemala 🇬🇹</div>
+    <div>
+      <a href="index.html">Inicio</a> ·
+      <a href="recursos.html">Recursos</a> ·
+      <a href="paginas-web.html">Páginas Web</a> ·
+      <a href="servicios.html">Servicios</a>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+document.getElementById("y").textContent = new Date().getFullYear();
+
+function copyScript(btn) {
+  const box = btn.closest(".script-box");
+  const lines = Array.from(box.querySelectorAll(".linea")).map(l => l.textContent.trim()).filter(Boolean);
+  navigator.clipboard.writeText(lines.join("\n")).then(() => {
+    btn.textContent = "¡Copiado!";
+    setTimeout(() => btn.textContent = "Copiar", 2000);
+  });
+}
+
+window.addEventListener("scroll", () => {
+  const bar = document.getElementById("readingBar");
+  const el = document.documentElement;
+  const pct = (el.scrollTop / (el.scrollHeight - el.clientHeight)) * 100;
+  bar.style.width = Math.min(pct, 100) + "%";
+});
+</script>
+</body>
+</html>

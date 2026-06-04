@@ -7,6 +7,7 @@
 const CONFIG = {
   instagram: "menteenautomatico",
   email: "menteautomatica26@gmail.com",
+  whatsapp: "50259226328",                // → wa.me/50259226328
   paypalMe: "bautistajonathan701",        // → paypal.me/bautistajonathan701
   paypalEmail: "bautistajonathan701@gmail.com",
   driveGratis: "https://drive.google.com/drive/folders/1lcK1UlWkmmhX8HSX0Itmu1ydFhoz7tdi",
@@ -155,6 +156,12 @@ const PACKS = [
 
 /* NOVEDADES --------------------------------------------------------------- */
 const NEWS = [
+  {
+    id: "n5", tag: "Nuevo", date: "2026-06-04",
+    title: "Páginas web para negocios locales — desde $149 USD en 7 días",
+    body: "Nuevo servicio: diseño web profesional para restaurantes, tiendas, talleres, salones y cualquier negocio local que aún no tiene presencia online. Entrega garantizada en 7 días. Incluye diseño para móvil, botón de WhatsApp, Google Maps y formulario de contacto.",
+    cta: { label: "Ver paquetes →", href: "paginas-web.html" }
+  },
   {
     id: "n4", tag: "Nuevo", date: "2026-05-31",
     title: "6 sistemas Google Sheets que trabajan solos",

@@ -109,10 +109,22 @@
 .free-item .ic{font-size:26px}
 .free-item h4{font-size:15px}
 .free-item p{color:var(--muted);font-size:13px;flex:1}
+
+/* ── WEB BANNER ── */
+.web-banner{background:linear-gradient(135deg,rgba(0,191,255,.08) 0%,rgba(0,100,200,.06) 100%);border:1.5px solid rgba(0,191,255,.25);border-radius:22px;padding:38px;display:grid;grid-template-columns:1fr auto;gap:28px;align-items:center}
+.web-banner h3{font-size:clamp(20px,3vw,28px);font-weight:900;margin-bottom:10px;line-height:1.2}
+.web-banner p{color:var(--muted);font-size:14.5px;line-height:1.65;margin-bottom:16px}
+.web-banner .tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+.web-banner .tag{font-size:11.5px;background:rgba(0,191,255,.07);border:1px solid rgba(0,191,255,.2);color:var(--cyan);padding:4px 12px;border-radius:999px}
+.web-banner .ctas{display:flex;gap:10px;flex-wrap:wrap}
+.web-banner-icon{font-size:clamp(52px,8vw,80px);text-align:center;flex-shrink:0}
+@media(max-width:640px){.web-banner{grid-template-columns:1fr}.web-banner-icon{display:none}}
 </style>
 </head>
 <body>
 <canvas id="particles"></canvas>
+
+<a class="wa-float" href="/wa" target="_blank" title="WhatsApp directo">💬</a>
 
 <header class="nav">
   <div class="wrap">
@@ -123,6 +135,7 @@
     <nav>
       <a href="recursos.html">📚 Recursos</a>
       <a href="#demos">Demos</a>
+      <a href="paginas-web.html">🌐 Páginas Web</a>
       <a href="servicios.html">Servicios</a>
       <a href="novedades.html">Novedades</a>
     </nav>
@@ -412,6 +425,14 @@
         <div class="boveda-badge">✦ Gratis</div>
       </a>
 
+      <a href="guia-clientes-locales.html" class="boveda-card reveal" style="border-color:rgba(0,191,255,.2)">
+        <div class="boveda-cat" style="color:var(--cyan);background:rgba(0,191,255,.1);border:1px solid rgba(0,191,255,.25)">Guía · Ingresos</div>
+        <div class="boveda-ic">💰</div>
+        <h3>Conseguir clientes con páginas web</h3>
+        <p>Método paso a paso para encontrar negocios sin web en Google Maps, acercarte y cobrar $150–500 por proyecto.</p>
+        <div class="boveda-badge">✦ Gratis · Guía completa</div>
+      </a>
+
     </div>
 
     <div style="text-align:center;margin-top:32px">
@@ -496,6 +517,33 @@
 </section>
 
 <!-- ══════════════════════════════════════════════
+     SECCIÓN 7B: PÁGINAS WEB PARA NEGOCIOS
+══════════════════════════════════════════════ -->
+<section style="padding-top:0;padding-bottom:60px">
+  <div class="wrap">
+    <div class="web-banner reveal">
+      <div>
+        <span class="kicker" style="margin-bottom:12px;display:block">Nuevo servicio · Negocios locales</span>
+        <h3>¿Tu negocio no tiene página web?<br>En 7 días la tienes lista.</h3>
+        <p>Diseño profesional, optimizada para móvil, con WhatsApp integrado y lista para aparecer en Google. Para restaurantes, tiendas, talleres, salones y cualquier negocio local en Guatemala.</p>
+        <div class="tags">
+          <span class="tag">⚡ Entrega en 7 días</span>
+          <span class="tag">📱 100% para móvil</span>
+          <span class="tag">💬 WhatsApp integrado</span>
+          <span class="tag">📍 Google Maps</span>
+          <span class="tag">Desde $149 USD</span>
+        </div>
+        <div class="ctas">
+          <a class="btn btn-primary" href="paginas-web.html">Ver paquetes y cotizar →</a>
+          <a class="btn btn-ghost" href="/wa-web" target="_blank">💬 WhatsApp</a>
+        </div>
+      </div>
+      <div class="web-banner-icon">🌐</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════
      SECCIÓN 8: NOVEDADES IA
 ══════════════════════════════════════════════ -->
 <section>
@@ -516,8 +564,9 @@
     <div>
       <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a> ·
       <a href="recursos.html">Recursos</a> ·
-      <a href="novedades.html">Novedades</a> ·
+      <a href="paginas-web.html">Páginas Web</a> ·
       <a href="servicios.html">Servicios</a> ·
+      <a href="novedades.html">Novedades</a> ·
       <a href="mailto:menteautomatica26@gmail.com">Correo</a>
     </div>
   </div>
