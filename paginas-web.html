@@ -118,6 +118,45 @@
 .fg select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%2300bfff' d='M6 8L1 3h10z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
 .fg select option{background:#080b22}
 
+/* ── DEMOS EN VIVO ── */
+.demos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px;margin-top:28px}
+.demo-link-card{background:linear-gradient(180deg,var(--card),#080b22);border:1px solid var(--line);border-radius:18px;overflow:hidden;text-decoration:none;color:inherit;transition:.2s;display:flex;flex-direction:column}
+.demo-link-card:hover{border-color:var(--neon);transform:translateY(-4px);box-shadow:var(--shadow)}
+.demo-link-head{padding:18px 20px 14px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.demo-link-ic{font-size:28px;width:48px;height:48px;background:rgba(0,191,255,.08);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.demo-link-meta .tipo{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon);margin-bottom:3px}
+.demo-link-meta .nombre{font-size:15px;font-weight:800;color:var(--ink)}
+.demo-link-body{padding:14px 20px 18px;flex:1;display:flex;flex-direction:column;gap:8px}
+.demo-link-body p{font-size:13px;color:var(--muted);line-height:1.5;flex:1}
+.demo-link-body .ver{font-size:12.5px;font-weight:700;color:var(--neon);display:flex;align-items:center;gap:5px}
+.demo-live-badge{font-size:10px;font-weight:800;background:rgba(57,217,138,.1);border:1px solid rgba(57,217,138,.3);color:var(--ok);padding:2px 10px;border-radius:999px;letter-spacing:.5px;display:inline-block;margin-bottom:4px}
+
+/* ── SERVICIOS ADICIONALES ── */
+.add-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:28px}
+.add-card{background:linear-gradient(180deg,var(--card),#080b22);border:1px solid var(--line);border-radius:18px;padding:26px;transition:.2s}
+.add-card:hover{border-color:var(--neon);box-shadow:var(--glow)}
+.add-card .add-ic{font-size:32px;margin-bottom:12px}
+.add-card .add-price{font-size:22px;font-weight:900;color:var(--cyan);margin:10px 0 4px}
+.add-card .add-price span{font-size:13px;color:var(--muted);font-weight:400}
+.add-card h3{font-size:16px;font-weight:800;margin-bottom:6px}
+.add-card p{font-size:13px;color:var(--muted);line-height:1.55;margin-bottom:14px}
+.add-card ul{list-style:none;padding:0;margin:0 0 18px;display:flex;flex-direction:column;gap:6px}
+.add-card ul li{font-size:12.5px;color:#cdd9f5;padding-left:18px;position:relative;line-height:1.35}
+.add-card ul li::before{content:"✓";position:absolute;left:0;color:var(--ok);font-weight:800}
+
+/* ── PACK DESTACADO ── */
+.pack-destac{background:linear-gradient(135deg,rgba(0,191,255,.1),rgba(0,191,255,.04));border:2px solid rgba(0,191,255,.35);border-radius:20px;padding:30px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;margin-top:28px}
+@media(max-width:580px){.pack-destac{grid-template-columns:1fr}}
+.pack-destac-info .pack-tag{font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase;color:var(--neon);background:rgba(0,191,255,.1);border:1px solid rgba(0,191,255,.25);padding:3px 12px;border-radius:999px;display:inline-block;margin-bottom:10px}
+.pack-destac-info h3{font-size:clamp(18px,2.5vw,24px);font-weight:900;margin-bottom:8px}
+.pack-destac-info p{color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:12px}
+.pack-destac-info .items{display:flex;flex-wrap:wrap;gap:8px}
+.pack-destac-info .item{font-size:12px;background:rgba(0,191,255,.07);border:1px solid rgba(0,191,255,.15);color:var(--cyan);padding:4px 12px;border-radius:999px}
+.pack-destac-price{text-align:center;flex-shrink:0}
+.pack-destac-price .old{font-size:16px;color:var(--muted);text-decoration:line-through;margin-bottom:2px}
+.pack-destac-price .new{font-size:clamp(36px,4vw,48px);font-weight:900;color:var(--cyan);line-height:1}
+.pack-destac-price .save{font-size:12px;color:var(--ok);font-weight:700;margin-bottom:12px}
+
 /* ── FLOATING WA BUTTON ── */
 .wa-float{position:fixed;bottom:28px;right:28px;z-index:100;background:#25d366;border-radius:50%;width:58px;height:58px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(37,211,102,.4);text-decoration:none;transition:.2s;font-size:26px}
 .wa-float:hover{transform:scale(1.1);box-shadow:0 6px 28px rgba(37,211,102,.6)}
@@ -248,81 +287,109 @@
   </div>
 </section>
 
-<!-- EJEMPLOS: QUÉ INCLUYE TU PÁGINA -->
+<!-- DEMOS EN VIVO -->
 <section id="ejemplos" style="background:linear-gradient(180deg,#06071a,#04040f)">
   <div class="wrap">
-    <span class="kicker" style="display:block;text-align:center;margin-bottom:16px">Ejemplos de lo que construimos</span>
-    <h2 class="section-title">Así se vería tu negocio en internet</h2>
-    <p class="section-sub">Páginas rápidas, modernas y optimizadas para que los clientes te encuentren y te contacten desde el primer segundo.</p>
+    <span class="kicker" style="display:block;text-align:center;margin-bottom:16px">Portfolio real · Demos interactivas</span>
+    <h2 class="section-title">Páginas reales que ya construí</h2>
+    <p class="section-sub">Estas no son imágenes — son páginas web completas y funcionales. Haz clic en cualquiera y navégala como si fuera tuya.</p>
 
-    <div class="preview-grid">
+    <div class="demos-grid">
 
-      <div class="preview-card reveal">
-        <div class="preview-bar">
-          <span class="r"></span><span class="y"></span><span class="g"></span>
-          <span class="url">turestaurante.com</span>
-        </div>
-        <div class="preview-body">
-          <div class="biz-name">Restaurante Don Pepe</div>
-          <div class="biz-type">🍽️ Comida guatemalteca · Mixco</div>
-          <div class="biz-desc">Churrasco, pepián, kaq'ik y los mejores caldos de la zona. Abierto de lunes a domingo.</div>
-          <div class="biz-btns">
-            <button class="biz-btn primary">📞 Llamar</button>
-            <button class="biz-btn ghost">Ver menú</button>
-          </div>
-          <div class="biz-info">
-            <span>📍 Mixco, Guatemala</span>
-            <span>⏰ 7am – 8pm</span>
-            <span>⭐ 4.8</span>
+      <a href="demo-ferreteria-del-sur.html" target="_blank" class="demo-link-card reveal">
+        <div class="demo-link-head">
+          <div class="demo-link-ic">🔧</div>
+          <div class="demo-link-meta">
+            <div class="demo-live-badge">EN VIVO</div>
+            <div class="tipo">Ferretería</div>
+            <div class="nombre">Ferretería del Sur</div>
           </div>
         </div>
-      </div>
+        <div class="demo-link-body">
+          <p>San Miguel Petapa. Productos, entregas a domicilio, sección de contacto y ubicación.</p>
+          <div class="ver">Ver demo completo →</div>
+        </div>
+      </a>
 
-      <div class="preview-card reveal">
-        <div class="preview-bar">
-          <span class="r"></span><span class="y"></span><span class="g"></span>
-          <span class="url">ferreteriasantos.com</span>
-        </div>
-        <div class="preview-body">
-          <div class="biz-name">Ferretería Santos</div>
-          <div class="biz-type">🔧 Materiales y herramientas · Zona 6</div>
-          <div class="biz-desc">Todo en materiales de construcción, plomería y electricidad. Envío a domicilio disponible.</div>
-          <div class="biz-btns">
-            <button class="biz-btn primary">💬 WhatsApp</button>
-            <button class="biz-btn ghost">Catálogo</button>
-          </div>
-          <div class="biz-info">
-            <span>📍 Zona 6, Capital</span>
-            <span>⏰ 8am – 6pm</span>
-            <span>🚚 Entrega a domicilio</span>
+      <a href="demo-salon-sefashion.html" target="_blank" class="demo-link-card reveal">
+        <div class="demo-link-head">
+          <div class="demo-link-ic">💇</div>
+          <div class="demo-link-meta">
+            <div class="demo-live-badge">EN VIVO</div>
+            <div class="tipo">Salón de Belleza</div>
+            <div class="nombre">Se Fashion Salon</div>
           </div>
         </div>
-      </div>
+        <div class="demo-link-body">
+          <p>Guatemala City. Servicios con precios, galería de trabajos y agenda de citas por WhatsApp.</p>
+          <div class="ver">Ver demo completo →</div>
+        </div>
+      </a>
 
-      <div class="preview-card reveal">
-        <div class="preview-bar">
-          <span class="r"></span><span class="y"></span><span class="g"></span>
-          <span class="url">salonbellezagaby.com</span>
-        </div>
-        <div class="preview-body">
-          <div class="biz-name">Salón Belleza Gaby</div>
-          <div class="biz-type">💇 Cabello · Uñas · Cejas · Villa Nueva</div>
-          <div class="biz-desc">Cortes, tintes, tratamientos y manicure profesional. Citas por WhatsApp — disponibilidad en tiempo real.</div>
-          <div class="biz-btns">
-            <button class="biz-btn primary">📅 Agendar cita</button>
-            <button class="biz-btn ghost">Ver trabajos</button>
-          </div>
-          <div class="biz-info">
-            <span>📍 Villa Nueva</span>
-            <span>⏰ Lun–Sáb 9am–7pm</span>
+      <a href="demo-taller-3hermanos.html" target="_blank" class="demo-link-card reveal">
+        <div class="demo-link-head">
+          <div class="demo-link-ic">🚗</div>
+          <div class="demo-link-meta">
+            <div class="demo-live-badge">EN VIVO</div>
+            <div class="tipo">Taller Mecánico</div>
+            <div class="nombre">Taller 3 Hermanos</div>
           </div>
         </div>
-      </div>
+        <div class="demo-link-body">
+          <p>Guatemala. Servicios automotrices, diagnóstico computarizado, garantías y ubicación.</p>
+          <div class="ver">Ver demo completo →</div>
+        </div>
+      </a>
+
+      <a href="demo-comedor-dona-marta.html" target="_blank" class="demo-link-card reveal">
+        <div class="demo-link-head">
+          <div class="demo-link-ic">🍽️</div>
+          <div class="demo-link-meta">
+            <div class="demo-live-badge">EN VIVO</div>
+            <div class="tipo">Comedor / Restaurante</div>
+            <div class="nombre">Comedor Doña Marta</div>
+          </div>
+        </div>
+        <div class="demo-link-body">
+          <p>Zona 3. Menú del día, comida típica guatemalteca, precios y horarios.</p>
+          <div class="ver">Ver demo completo →</div>
+        </div>
+      </a>
+
+      <a href="demo-gym-titanes.html" target="_blank" class="demo-link-card reveal">
+        <div class="demo-link-head">
+          <div class="demo-link-ic">💪</div>
+          <div class="demo-link-meta">
+            <div class="demo-live-badge">EN VIVO</div>
+            <div class="tipo">Gimnasio</div>
+            <div class="nombre">Gym Titanes</div>
+          </div>
+        </div>
+        <div class="demo-link-body">
+          <p>Mixco. Membresías, clases, horarios y botón de inscripción por WhatsApp.</p>
+          <div class="ver">Ver demo completo →</div>
+        </div>
+      </a>
+
+      <a href="demo-clinica-dr-reyes.html" target="_blank" class="demo-link-card reveal">
+        <div class="demo-link-head">
+          <div class="demo-link-ic">🏥</div>
+          <div class="demo-link-meta">
+            <div class="demo-live-badge">EN VIVO</div>
+            <div class="tipo">Clínica Médica</div>
+            <div class="nombre">Clínica Dr. Reyes</div>
+          </div>
+        </div>
+        <div class="demo-link-body">
+          <p>Zona 11. Especialidades, precios de consulta, horarios y agenda de citas.</p>
+          <div class="ver">Ver demo completo →</div>
+        </div>
+      </a>
 
     </div>
 
     <p style="text-align:center;color:var(--muted);font-size:13.5px;margin-top:24px">
-      ¿Tu negocio es diferente? Construimos páginas para <em>cualquier tipo de negocio local</em> — cuéntame el tuyo.
+      ¿Tu negocio no está en la lista? <a href="/wa-web" target="_blank" style="color:var(--cyan)">Escríbeme</a> y te hago una demo gratis antes de cotizarte.
     </p>
   </div>
 </section>
@@ -442,6 +509,101 @@
   </div>
 </section>
 
+<!-- SERVICIOS ADICIONALES -->
+<section style="background:linear-gradient(180deg,#06071a,#04040f)">
+  <div class="wrap">
+    <span class="kicker" style="display:block;text-align:center;margin-bottom:16px">Más que solo páginas web</span>
+    <h2 class="section-title">Otros servicios para tu presencia digital</h2>
+    <p class="section-sub">Complementa tu página web con estos servicios que multiplican los clientes que te encuentran online.</p>
+
+    <div class="add-grid">
+
+      <div class="add-card reveal">
+        <div class="add-ic">📍</div>
+        <h3>Google My Business</h3>
+        <div class="add-price">$75 <span>USD · pago único</span></div>
+        <p>Aparece cuando alguien busca "ferretería cerca" o "restaurante en Mixco" en Google Maps. Es gratis aparecer — pero configurarlo bien marca la diferencia.</p>
+        <ul>
+          <li>Perfil completo y verificado en Google</li>
+          <li>Fotos profesionales subidas</li>
+          <li>Horarios, categorías y descripción</li>
+          <li>Botón de WhatsApp directo desde Maps</li>
+        </ul>
+        <a class="btn btn-ghost" href="/wa-web" target="_blank" style="width:100%;text-align:center">Cotizar →</a>
+      </div>
+
+      <div class="add-card reveal">
+        <div class="add-ic">💬</div>
+        <h3>WhatsApp Business Profesional</h3>
+        <div class="add-price">$50 <span>USD · pago único</span></div>
+        <p>Transforma tu WhatsApp personal en un canal de ventas profesional con respuestas automáticas, catálogo de productos y mensaje de bienvenida.</p>
+        <ul>
+          <li>Mensaje de bienvenida automático</li>
+          <li>Respuestas rápidas configuradas</li>
+          <li>Catálogo de productos/servicios</li>
+          <li>Horario de ausencia automático</li>
+        </ul>
+        <a class="btn btn-ghost" href="/wa-web" target="_blank" style="width:100%;text-align:center">Cotizar →</a>
+      </div>
+
+      <div class="add-card reveal">
+        <div class="add-ic">🎨</div>
+        <h3>Logo Profesional con IA</h3>
+        <div class="add-price">$49 <span>USD · pago único</span></div>
+        <p>¿No tienes logo? En menos de 24 horas tienes 3 opciones de logo profesional generado con IA, listo para usar en tu web, rótulo y redes sociales.</p>
+        <ul>
+          <li>3 propuestas de logo para elegir</li>
+          <li>Versiones en color y en blanco/negro</li>
+          <li>Archivos en PNG y SVG (alta resolución)</li>
+          <li>1 ronda de ajustes incluida</li>
+        </ul>
+        <a class="btn btn-ghost" href="/wa-web" target="_blank" style="width:100%;text-align:center">Cotizar →</a>
+      </div>
+
+      <div class="add-card reveal">
+        <div class="add-ic">📸</div>
+        <h3>Pack Redes Sociales</h3>
+        <div class="add-price">$79 <span>USD / mes</span></div>
+        <p>12 posts diseñados y listos para publicar en Instagram y Facebook. Coherentes con tu marca, con texto incluido. Tú solo apruebas y publicas.</p>
+        <ul>
+          <li>12 publicaciones mensuales diseñadas</li>
+          <li>Textos y hashtags incluidos</li>
+          <li>Historias y carruseles</li>
+          <li>Coherentes con el diseño de tu web</li>
+        </ul>
+        <a class="btn btn-ghost" href="/wa-web" target="_blank" style="width:100%;text-align:center">Cotizar →</a>
+      </div>
+
+    </div>
+
+    <!-- BUNDLE DESTACADO -->
+    <div class="pack-destac reveal">
+      <div class="pack-destac-info">
+        <div class="pack-tag">🔥 PAQUETE MÁS COMPLETO</div>
+        <h3>Pack Presencia Digital Total</h3>
+        <p>Página web + Google My Business + WhatsApp Business profesional + Logo. Todo lo que un negocio local necesita para aparecer online y convertir clientes — de una sola vez.</p>
+        <div class="items">
+          <span class="item">🌐 Página web Negocio</span>
+          <span class="item">📍 Google My Business</span>
+          <span class="item">💬 WhatsApp Business</span>
+          <span class="item">🎨 Logo profesional</span>
+        </div>
+        <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn btn-primary" href="#contacto">Quiero el pack completo →</a>
+          <a class="btn btn-ghost" href="/wa-web" target="_blank">💬 WhatsApp</a>
+        </div>
+      </div>
+      <div class="pack-destac-price">
+        <div class="old">$472 USD por separado</div>
+        <div class="new">$349</div>
+        <div class="save">Ahorras $123 USD</div>
+        <div style="font-size:12px;color:var(--muted)">Entrega completa en 14 días</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 <!-- FAQ -->
 <section>
   <div class="wrap">
@@ -449,6 +611,16 @@
     <p class="section-sub">Lo que los dueños de negocio siempre preguntan antes de empezar.</p>
 
     <div class="faq-list">
+
+      <div class="faq-item reveal">
+        <div class="faq-q" onclick="toggleFaq(this)">
+          ¿Por qué $149? ¿Qué incluye exactamente ese precio?
+          <span class="arr">▼</span>
+        </div>
+        <div class="faq-a">
+          <p>El paquete Básico de $149 incluye: diseño completo de 1 página (sección de inicio, servicios, contacto y ubicación), optimización 100% para móvil, formulario de contacto funcional, botón de WhatsApp con clic directo, mapa de Google Maps integrado, tu horario y datos del negocio. Además, te configuro el hosting gratuito (Netlify) y te ayudo con el dominio si lo necesitas. El precio es bajo porque uso herramientas modernas que me permiten construir más rápido — y ese ahorro de tiempo te lo paso a ti. Para comparar: una agencia tradicional cobra $500–2,000 por el mismo resultado. También porque me interesa construir portafolio con negocios locales de Guatemala.</p>
+        </div>
+      </div>
 
       <div class="faq-item reveal">
         <div class="faq-q" onclick="toggleFaq(this)">
