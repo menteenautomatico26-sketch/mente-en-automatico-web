@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Farmacia San José — Villa Nueva, Guatemala</title>
+<meta name="description" content="Farmacia San José en Villa Nueva, Guatemala. Medicamentos genéricos y de marca, primeros auxilios, delivery a domicilio, doctor en farmacia. Abiertos todos los días 7am–9pm.">
+<link rel="icon" href="icon.jpg">
+<style>
+:root{
+  --bg:#f0f8ff; --card:#ffffff; --line:#d0e4f5;
+  --blue:#0066cc; --blue2:#1a7fe0; --bluedk:#004a99;
+  --ink:#0a2540; --muted:#5a7a9a; --light:#e8f4ff;
+  --radius:14px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:"Segoe UI",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+a{color:var(--blue);text-decoration:none}
+img{max-width:100%}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+
+/* ── DEMO BANNER ── */
+.demo-banner{background:linear-gradient(135deg,#1a3a2a,#0d2a1a);border-bottom:2px solid #39d98a;
+  padding:14px 20px;text-align:center;position:sticky;top:0;z-index:50}
+.demo-banner p{font-size:13.5px;color:#e0ffe8}
+.demo-banner strong{color:#39d98a}
+.demo-banner a{color:#39d98a;font-weight:800;text-decoration:underline}
+
+/* ── NAV ── */
+.nav{background:rgba(255,255,255,.97);border-bottom:2px solid var(--line);padding:0;position:sticky;top:53px;z-index:40;backdrop-filter:blur(10px);box-shadow:0 2px 12px rgba(0,102,204,.08)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:900;font-size:18px;color:var(--ink)}
+.brand-icon{width:42px;height:42px;border-radius:10px;background:linear-gradient(135deg,var(--blue),var(--blue2));display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.nav-links{display:flex;gap:22px;font-size:14.5px}
+.nav-links a{color:var(--muted);transition:.15s}
+.nav-links a:hover{color:var(--blue)}
+.wa-nav{background:#25d366;color:#fff;padding:9px 18px;border-radius:999px;font-weight:700;font-size:13.5px;display:flex;align-items:center;gap:7px;text-decoration:none}
+@media(max-width:640px){.nav-links{display:none}}
+
+/* ── BUTTONS ── */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;border-radius:999px;font-weight:700;font-size:14.5px;border:1.5px solid transparent;transition:.18s;text-decoration:none;cursor:pointer}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--blue2));color:#fff;box-shadow:0 4px 18px rgba(0,102,204,.25)}
+.btn-primary:hover{filter:brightness(1.1);transform:translateY(-2px)}
+.btn-ghost{border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn-green{background:#25d366;color:#fff;box-shadow:0 4px 18px rgba(37,211,102,.25)}
+.btn-green:hover{filter:brightness(1.08);transform:translateY(-2px)}
+
+/* ── HERO ── */
+.hero{padding:70px 0 60px;background:linear-gradient(160deg,#e8f4ff,#f0f8ff)}
+.hero .kicker{font-size:12px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--blue);margin-bottom:14px;display:block}
+.hero h1{font-size:clamp(28px,5vw,52px);font-weight:900;line-height:1.05;margin-bottom:16px;color:var(--ink)}
+.hero h1 span{color:var(--blue)}
+.hero .sub{color:var(--muted);font-size:clamp(15px,2vw,17px);max-width:520px;margin-bottom:28px;line-height:1.65}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.hero-info{display:flex;gap:14px;margin-top:28px;flex-wrap:wrap}
+.hero-info span{font-size:13px;color:var(--muted);background:#fff;padding:6px 14px;border-radius:999px;border:1px solid var(--line);box-shadow:0 2px 8px rgba(0,102,204,.06)}
+
+/* ── ALERT BADGE ── */
+.alert-badge{background:linear-gradient(135deg,var(--blue),var(--bluedk));color:#fff;padding:18px 24px;border-radius:16px;margin:36px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;box-shadow:0 6px 24px rgba(0,102,204,.2)}
+.alert-badge .txt strong{font-size:17px;display:block;margin-bottom:2px}
+.alert-badge .txt span{font-size:14px;opacity:.88}
+.alert-badge .badge-icon{font-size:42px;flex-shrink:0}
+
+/* ── STATS ── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:0;border:2px solid var(--line);border-radius:16px;overflow:hidden;margin:40px 0;background:#fff;box-shadow:0 4px 20px rgba(0,102,204,.07)}
+.stat{padding:22px;text-align:center;border-right:1px solid var(--line)}
+.stat:last-child{border-right:none}
+.stat .n{font-size:30px;font-weight:900;color:var(--blue)}
+.stat .l{font-size:12px;color:var(--muted);margin-top:4px}
+@media(max-width:500px){.stats{grid-template-columns:1fr 1fr}.stat:nth-child(2){border-right:none}.stat:nth-child(3){border-top:1px solid var(--line)}.stat:nth-child(4){border-top:1px solid var(--line)}}
+
+/* ── SERVICIOS GRID ── */
+.serv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin:28px 0}
+.serv-card{background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:24px;transition:.2s;box-shadow:0 2px 12px rgba(0,102,204,.05)}
+.serv-card:hover{border-color:var(--blue);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,102,204,.12)}
+.serv-card .ic{font-size:34px;margin-bottom:12px}
+.serv-card h3{font-size:15px;font-weight:800;margin-bottom:6px;color:var(--ink)}
+.serv-card p{font-size:13px;color:var(--muted);line-height:1.55}
+
+/* ── DELIVERY SECTION ── */
+.delivery-box{background:linear-gradient(135deg,#e8f4ff,#f5faff);border:2px solid var(--line);border-radius:20px;padding:36px;margin:32px 0;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center}
+@media(max-width:580px){.delivery-box{grid-template-columns:1fr}}
+.delivery-box h3{font-size:22px;font-weight:900;color:var(--ink);margin-bottom:8px}
+.delivery-box p{color:var(--muted);font-size:14.5px;line-height:1.6}
+.delivery-icon{font-size:64px;text-align:center}
+
+/* ── CATEGORÍAS ── */
+.cat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:28px 0}
+.cat-item{background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:20px;display:flex;gap:14px;align-items:flex-start;transition:.2s;box-shadow:0 2px 10px rgba(0,102,204,.05)}
+.cat-item:hover{border-color:var(--blue);box-shadow:0 6px 22px rgba(0,102,204,.1)}
+.cat-item .ic{font-size:28px;flex-shrink:0}
+.cat-item h4{font-size:14.5px;font-weight:800;margin-bottom:4px;color:var(--ink)}
+.cat-item p{font-size:13px;color:var(--muted);line-height:1.5}
+
+/* ── UBICACIÓN ── */
+.ubicacion-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;margin:28px 0}
+@media(max-width:640px){.ubicacion-grid{grid-template-columns:1fr}}
+.info-card{background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);padding:28px;box-shadow:0 4px 18px rgba(0,102,204,.07)}
+.info-row{display:flex;gap:12px;align-items:flex-start;margin-bottom:18px}
+.info-row:last-child{margin-bottom:0}
+.info-row .ic{font-size:20px;flex-shrink:0;width:30px}
+.info-row .txt .label{font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--blue);font-weight:800;margin-bottom:2px}
+.info-row .txt .val{font-size:14.5px;color:var(--ink)}
+.map-placeholder{background:#fff;border:1.5px solid var(--line);border-radius:var(--radius);height:280px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--muted);box-shadow:0 4px 18px rgba(0,102,204,.07)}
+
+/* ── CTA FINAL ── */
+.cta-final{background:linear-gradient(135deg,rgba(0,102,204,.08),rgba(0,102,204,.03));border:1.5px solid rgba(0,102,204,.2);border-radius:20px;padding:42px;text-align:center;margin:50px 0}
+.cta-final h2{font-size:clamp(22px,3.5vw,32px);font-weight:900;margin-bottom:12px;color:var(--ink)}
+.cta-final p{color:var(--muted);font-size:15px;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto}
+.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+
+/* ── SECTION TITLES ── */
+section{padding:60px 0}
+.s-title{font-size:clamp(22px,3vw,30px);font-weight:900;margin-bottom:8px;color:var(--ink)}
+.s-sub{color:var(--muted);font-size:14.5px}
+
+/* ── DOCTOR BADGE ── */
+.doctor-badge{background:linear-gradient(135deg,#004a99,#0066cc);color:#fff;border-radius:16px;padding:28px 32px;margin:28px 0;display:flex;align-items:center;gap:20px;flex-wrap:wrap}
+.doctor-badge .ic{font-size:50px;flex-shrink:0}
+.doctor-badge h4{font-size:19px;font-weight:900;margin-bottom:6px}
+.doctor-badge p{font-size:14px;opacity:.88;line-height:1.55}
+
+/* ── FOOTER ── */
+footer{background:#0a2540;border-top:2px solid var(--line);padding:30px 0}
+footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+footer p{font-size:13px;color:rgba(255,255,255,.5)}
+footer a{color:#39d98a}
+
+/* ── STICKY CTA BOTTOM ── */
+.sticky-cta{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#1a3a2a,#0d2a1a);border-top:1.5px solid #39d98a;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:14px;z-index:60;flex-wrap:wrap}
+.sticky-cta p{font-size:13.5px;color:#e0ffe8}
+.sticky-cta strong{color:#39d98a}
+.sticky-cta a.pub-btn{background:#39d98a;color:#04210f;padding:10px 22px;border-radius:999px;font-weight:800;font-size:13.5px;flex-shrink:0;text-decoration:none;white-space:nowrap}
+</style>
+</head>
+<body>
+
+<!-- DEMO BANNER -->
+<div class="demo-banner">
+  <p>🎁 <strong>DEMO GRATUITA</strong> — Así se vería la página web de Farmacia San José. Hecha por <strong>Jonathan Bautista</strong> · <a href="https://wa.me/50259226328?text=Hola%20Jonathan%2C%20vi%20la%20demo%20de%20Farmacia%20San%20Jos%C3%A9%20y%20me%20interesa%20una%20p%C3%A1gina%20web" target="_blank">¿Le interesa publicarla? → WhatsApp</a></p>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="wrap">
+    <div class="brand">
+      <div class="brand-icon">💊</div>
+      <div>
+        <div>Farmacia San José</div>
+        <div style="font-size:11px;font-weight:500;color:var(--muted)">Villa Nueva, Guatemala</div>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#productos">Productos</a>
+      <a href="#delivery">Delivery</a>
+      <a href="#ubicacion">Ubicación</a>
+    </div>
+    <a class="wa-nav" href="https://wa.me/50233445566" target="_blank">💬 3344-5566</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <span class="kicker">💊 Farmacia y Droguería · Villa Nueva</span>
+    <h1>Tu salud, nuestra<br>prioridad <span>24/7</span></h1>
+    <p class="sub">Medicamentos genéricos y de marca a los mejores precios. Doctor en farmacia, delivery a domicilio y atención todos los días del año en Villa Nueva.</p>
+    <div class="hero-btns">
+      <a class="btn btn-green" href="https://wa.me/50233445566?text=Hola%2C%20necesito%20hacer%20un%20pedido%20en%20Farmacia%20San%20Jos%C3%A9" target="_blank">💬 Pedir por WhatsApp</a>
+      <a class="btn btn-ghost" href="#servicios">Ver servicios →</a>
+    </div>
+    <div class="hero-info">
+      <span>📍 Villa Nueva, Guatemala</span>
+      <span>⏰ 7am–9pm todos los días</span>
+      <span>🚚 Delivery a domicilio</span>
+      <span>👨‍⚕️ Doctor en farmacia</span>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="wrap">
+  <div class="stats">
+    <div class="stat"><div class="n">+2,000</div><div class="l">Productos disponibles</div></div>
+    <div class="stat"><div class="n">7am</div><div class="l">Abrimos cada día</div></div>
+    <div class="stat"><div class="n">✅</div><div class="l">Doctor en farmacia</div></div>
+    <div class="stat"><div class="n">🚚</div><div class="l">Delivery Villa Nueva</div></div>
+  </div>
+</div>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="wrap">
+    <h2 class="s-title">Nuestros Servicios</h2>
+    <p class="s-sub">Más que una farmacia — somos tu aliado de salud en Villa Nueva.</p>
+    <div class="serv-grid">
+      <div class="serv-card">
+        <div class="ic">💊</div>
+        <h3>Medicamentos Genéricos</h3>
+        <p>Los mismos principios activos que las marcas, a precios accesibles. Ahorra hasta un 70% en tu receta.</p>
+      </div>
+      <div class="serv-card">
+        <div class="ic">🩹</div>
+        <h3>Primeros Auxilios</h3>
+        <p>Vendajes, antisépticos, sueros, jeringas y todo para atender emergencias menores en casa.</p>
+      </div>
+      <div class="serv-card">
+        <div class="ic">🚚</div>
+        <h3>Delivery a Domicilio</h3>
+        <p>Te llevamos tus medicamentos a casa dentro de Villa Nueva. Rápido, seguro y sin salir.</p>
+      </div>
+      <div class="serv-card">
+        <div class="ic">👨‍⚕️</div>
+        <h3>Doctor en Farmacia</h3>
+        <p>Consulta rápida con médico general. Sin cita. De lunes a viernes en nuestras instalaciones.</p>
+      </div>
+      <div class="serv-card">
+        <div class="ic">🩺</div>
+        <h3>Toma de Presión</h3>
+        <p>Control de presión arterial y glucosa gratis con cualquier compra. Cuida tu salud con nosotros.</p>
+      </div>
+      <div class="serv-card">
+        <div class="ic">📋</div>
+        <h3>Surtido de Recetas</h3>
+        <p>Traemos tu receta o la gestionamos. Si no tenemos el medicamento, lo pedimos en 24 horas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTOR BADGE -->
+<section id="productos" style="background:#e8f4ff;padding:60px 0">
+  <div class="wrap">
+    <div class="doctor-badge">
+      <div class="ic">🩺</div>
+      <div>
+        <h4>Doctor en Farmacia — Lunes a Viernes</h4>
+        <p>Consulta general disponible de lunes a viernes de 9:00am a 5:00pm. Sin cita previa. Ideal para diagnósticos rápidos, renovación de recetas y orientación médica. Precio accesible para toda la familia.</p>
+      </div>
+    </div>
+
+    <h2 class="s-title" style="margin-top:40px">Categorías de Productos</h2>
+    <p class="s-sub" style="margin-bottom:0">Contamos con todo lo que tu familia necesita para mantenerse saludable.</p>
+    <div class="cat-grid" style="margin-top:24px">
+      <div class="cat-item">
+        <div class="ic">💉</div>
+        <div>
+          <h4>Antibióticos y Antiinflamatorios</h4>
+          <p>Genéricos y de marca. Entrega con o sin receta según indicaciones legales.</p>
+        </div>
+      </div>
+      <div class="cat-item">
+        <div class="ic">🩻</div>
+        <div>
+          <h4>Vitaminas y Suplementos</h4>
+          <p>Vitamina C, D3, B12, zinc, omega 3, calcio y multivitamínicos para toda la familia.</p>
+        </div>
+      </div>
+      <div class="cat-item">
+        <div class="ic">👶</div>
+        <div>
+          <h4>Pediatría</h4>
+          <p>Medicamentos para bebés y niños, sueros de rehidratación, vitaminas infantiles y pañales.</p>
+        </div>
+      </div>
+      <div class="cat-item">
+        <div class="ic">❤️</div>
+        <div>
+          <h4>Crónicas: Presión y Diabetes</h4>
+          <p>Medicamentos de uso crónico. Surtido mensual con descuento para pacientes frecuentes.</p>
+        </div>
+      </div>
+      <div class="cat-item">
+        <div class="ic">🌿</div>
+        <div>
+          <h4>Productos Naturales</h4>
+          <p>Tés medicinales, tincturas, remedios naturales y homeopáticos de calidad comprobada.</p>
+        </div>
+      </div>
+      <div class="cat-item">
+        <div class="ic">✨</div>
+        <div>
+          <h4>Cuidado Personal</h4>
+          <p>Protector solar, cremas, jabones dermatológicos, alcohol gel y artículos de higiene.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DELIVERY -->
+<section id="delivery">
+  <div class="wrap">
+    <h2 class="s-title">Delivery a Domicilio</h2>
+    <p class="s-sub" style="margin-bottom:0">Sin salir de casa, recibe tus medicamentos.</p>
+    <div class="delivery-box">
+      <div>
+        <h3>¿Necesitas medicamentos?<br>Te los llevamos</h3>
+        <p style="margin-top:10px">Escríbenos al WhatsApp con tu receta o el nombre del medicamento, tu dirección en Villa Nueva y te lo enviamos en menos de una hora. Cobertura en toda Villa Nueva y colonias aledañas.</p>
+        <div style="margin-top:20px;display:flex;gap:12px;flex-wrap:wrap">
+          <a class="btn btn-green" href="https://wa.me/50233445566?text=Hola%2C%20quisiera%20hacer%20un%20pedido%20de%20medicamentos%20para%20delivery%20de%20Farmacia%20San%20Jos%C3%A9" target="_blank">💬 Pedir delivery ahora</a>
+        </div>
+        <div style="margin-top:16px;font-size:13px;color:var(--muted)">✅ Cobertura: Villa Nueva · ✅ Pago contra entrega · ✅ Pedidos desde Q30</div>
+      </div>
+      <div class="delivery-icon">🚚</div>
+    </div>
+  </div>
+</section>
+
+<!-- UBICACIÓN -->
+<section id="ubicacion" style="background:#e8f4ff;padding:60px 0">
+  <div class="wrap">
+    <h2 class="s-title">¿Dónde estamos?</h2>
+    <p class="s-sub" style="margin-bottom:24px">Visítenos o escríbanos antes de llegar para verificar disponibilidad.</p>
+    <div class="ubicacion-grid">
+      <div class="info-card">
+        <div class="info-row">
+          <div class="ic">📍</div>
+          <div class="txt">
+            <div class="label">Dirección</div>
+            <div class="val">4a Calle 6-18, Colonia Enriqueta<br>Villa Nueva, Guatemala</div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="ic">⏰</div>
+          <div class="txt">
+            <div class="label">Horario</div>
+            <div class="val">Todos los días: 7:00am – 9:00pm<br><span style="color:#0066cc;font-weight:700">Abierto 365 días al año</span></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="ic">☎️</div>
+          <div class="txt">
+            <div class="label">Teléfono</div>
+            <div class="val"><a href="tel:33445566" style="color:var(--blue)">3344-5566</a></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="ic">💬</div>
+          <div class="txt">
+            <div class="label">WhatsApp Pedidos</div>
+            <div class="val"><a href="https://wa.me/50233445566" target="_blank" style="color:var(--blue)">Escribir al 3344-5566</a></div>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="ic">👨‍⚕️</div>
+          <div class="txt">
+            <div class="label">Doctor en Farmacia</div>
+            <div class="val">Lun–Vie: 9:00am – 5:00pm</div>
+          </div>
+        </div>
+      </div>
+      <div class="map-placeholder">
+        <div style="font-size:48px">📍</div>
+        <p style="font-size:14px;text-align:center;color:var(--muted)">Mapa de Google Maps<br>se integra aquí</p>
+        <a class="btn btn-ghost" href="https://maps.google.com/?q=Farmacia+Villa+Nueva+Guatemala" target="_blank" style="font-size:13px;margin-top:8px">Ver en Google Maps →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA CONTACTO -->
+<section id="contacto" style="padding:60px 0">
+  <div class="wrap">
+    <div class="cta-final">
+      <h2>¿Necesita medicamentos ahora?</h2>
+      <p>Escríbanos al WhatsApp con su receta o el nombre del medicamento. Le respondemos de inmediato.</p>
+      <div class="cta-btns">
+        <a class="btn btn-green" href="https://wa.me/50233445566?text=Hola%2C%20necesito%20medicamentos%20en%20Farmacia%20San%20Jos%C3%A9" target="_blank">💬 WhatsApp: 3344-5566</a>
+        <a class="btn btn-ghost" href="tel:33445566">📞 Llamar: 3344-5566</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Farmacia San José · Villa Nueva, Guatemala</p>
+    <p style="font-size:12px">Página diseñada por <a href="https://wa.me/50259226328">Jonathan · Mente en Automático</a></p>
+  </div>
+</footer>
+
+<!-- STICKY CTA ABAJO -->
+<div class="sticky-cta">
+  <p>💊 <strong>Farmacia San José</strong> · Esta es una demo gratuita</p>
+  <a class="pub-btn" href="https://wa.me/50259226328?text=Hola%20Jonathan%2C%20soy%20de%20Farmacia%20San%20Jos%C3%A9%20y%20quiero%20publicar%20mi%20p%C3%A1gina%20web%20por%20%24149" target="_blank">Publicarla por $149 USD →</a>
+</div>
+
+</body>
+</html>
