@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Script de Ventas — Páginas Web | Mente en Automático</title>
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+:root{--green:#00c851;--red:#ff4444;--yellow:#ffbb33;--orange:#ff6d00}
+
+.progress-bar{position:fixed;top:0;left:0;height:3px;background:var(--neon);z-index:200;transition:width .1s}
+
+.script-wrap{max-width:820px;margin:0 auto;padding:0 20px 80px}
+
+.phase{background:linear-gradient(180deg,var(--card),#080b22);border:1px solid var(--line);border-radius:16px;margin-bottom:28px;overflow:hidden}
+.phase-header{padding:20px 26px;display:flex;align-items:center;gap:14px;cursor:pointer;user-select:none}
+.phase-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px;flex-shrink:0}
+.phase-header h3{margin:0;font-size:17px}
+.phase-header small{color:var(--muted);font-size:13px;font-weight:400;display:block;margin-top:2px}
+.phase-body{padding:0 26px 26px;display:none}
+.phase-body.open{display:block}
+
+.script-block{background:#0a0d24;border-radius:12px;padding:18px 20px;margin:14px 0;position:relative}
+.script-label{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+.script-text{font-size:15px;line-height:1.7;color:var(--ink)}
+.script-text em{color:var(--cyan);font-style:normal;font-weight:700}
+.script-text strong{color:var(--neon)}
+
+.copy-btn{position:absolute;top:12px;right:12px;background:transparent;border:1px solid var(--line);color:var(--muted);border-radius:6px;padding:4px 10px;font-size:12px;cursor:pointer;transition:.15s}
+.copy-btn:hover{border-color:var(--neon);color:var(--neon)}
+.copy-btn.ok{border-color:var(--green);color:var(--green)}
+
+.tip{background:rgba(0,191,255,.07);border:1px solid rgba(0,191,255,.2);border-radius:10px;padding:14px 18px;margin:14px 0;font-size:14px;color:var(--cyan)}
+.tip::before{content:"💡 ";font-style:normal}
+
+.warn{background:rgba(255,68,68,.07);border:1px solid rgba(255,68,68,.2);border-radius:10px;padding:14px 18px;margin:14px 0;font-size:14px;color:#ff8a8a}
+.warn::before{content:"⚠️ "}
+
+.objection-card{background:#080b22;border:1px solid var(--line);border-radius:12px;margin:12px 0;overflow:hidden}
+.objection-q{padding:14px 18px;font-weight:700;font-size:14px;color:var(--yellow);cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.objection-a{padding:0 18px;max-height:0;overflow:hidden;transition:max-height .3s,padding .3s}
+.objection-a.open{max-height:400px;padding:4px 18px 16px}
+.objection-a p{font-size:14px;color:var(--muted);margin:0 0 10px}
+.objection-a .rebuttal{font-size:14px;color:var(--ink);font-style:italic;background:#0a0d24;border-radius:8px;padding:12px 14px;margin-top:8px}
+
+.hook-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0}
+@media(max-width:600px){.hook-grid{grid-template-columns:1fr}}
+.hook-card{background:#0a0d24;border-radius:12px;padding:18px}
+.hook-card h4{margin:0 0 8px;font-size:15px;color:var(--neon)}
+.hook-card p{margin:0;font-size:13px;color:var(--muted)}
+.hook-badge{display:inline-block;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;padding:2px 8px;border-radius:20px;margin-bottom:8px}
+.badge-green{background:rgba(0,200,81,.15);color:var(--green);border:1px solid rgba(0,200,81,.3)}
+.badge-red{background:rgba(255,68,68,.15);color:#ff8a8a;border:1px solid rgba(255,68,68,.3)}
+.badge-blue{background:rgba(0,191,255,.15);color:var(--cyan);border:1px solid rgba(0,191,255,.3)}
+.badge-orange{background:rgba(255,109,0,.15);color:var(--orange);border:1px solid rgba(255,109,0,.3)}
+
+.step-row{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px solid var(--line)}
+.step-row:last-child{border-bottom:none}
+.step-ic{font-size:26px;flex-shrink:0;width:40px;text-align:center}
+.step-text h4{margin:0 0 4px;font-size:15px}
+.step-text p{margin:0;font-size:13px;color:var(--muted)}
+
+.metric-row{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0}
+.metric{flex:1;min-width:140px;background:#0a0d24;border-radius:12px;padding:16px;text-align:center}
+.metric-val{font-size:28px;font-weight:900;color:var(--neon)}
+.metric-label{font-size:12px;color:var(--muted);margin-top:4px}
+
+.channel-row{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0}
+.ch{flex:1;min-width:140px;border-radius:10px;padding:14px;text-align:center}
+.ch-wa{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25)}
+.ch-ig{background:rgba(225,30,140,.1);border:1px solid rgba(225,30,140,.25)}
+.ch-em{background:rgba(0,191,255,.1);border:1px solid rgba(0,191,255,.2)}
+.ch-pres{background:rgba(255,187,51,.1);border:1px solid rgba(255,187,51,.25)}
+.ch h4{margin:0 0 4px;font-size:14px}
+.ch p{margin:0;font-size:12px;color:var(--muted)}
+.ch-badge{font-size:11px;font-weight:700;margin-bottom:8px;display:block}
+
+.nav-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.nav-tab{padding:8px 18px;border-radius:20px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;font-size:13px;font-family:inherit;transition:.15s}
+.nav-tab.active,.nav-tab:hover{border-color:var(--neon);color:var(--neon);background:rgba(0,191,255,.08)}
+</style>
+</head>
+<body>
+<div class="progress-bar" id="pb"></div>
+<canvas id="particles"></canvas>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span>
+    </a>
+    <nav>
+      <a href="paginas-web.html">🌐 Páginas Web</a>
+      <a href="tienda.html">Sistemas</a>
+      <a href="guia-clientes-locales.html">Guía Prospectos</a>
+    </nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="hero" style="padding:80px 0 40px">
+  <div class="wrap" style="max-width:820px">
+    <span class="kicker">Script · Ganchos · Objeciones · Seguimiento</span>
+    <h1>Tu guía completa de <span>ventas de páginas web</span></h1>
+    <p class="sub">El sistema paso a paso para contactar negocios locales, mostrar la demo y cerrar la venta — con los ganchos exactos que funcionan en Guatemala.</p>
+    <div class="metric-row">
+      <div class="metric"><div class="metric-val">7</div><div class="metric-label">días por proyecto</div></div>
+      <div class="metric"><div class="metric-val">$149</div><div class="metric-label">precio entrada</div></div>
+      <div class="metric"><div class="metric-val">7</div><div class="metric-label">ventas = $1,000</div></div>
+      <div class="metric"><div class="metric-val">5</div><div class="metric-label">tipos de negocio</div></div>
+    </div>
+  </div>
+</section>
+
+<div class="script-wrap">
+
+  <!-- MENTALIDAD -->
+  <div class="phase reveal">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="phase-num" style="background:rgba(0,191,255,.15);color:var(--neon)">🧠</div>
+      <div>
+        <h3>Mentalidad correcta antes de contactar</h3>
+        <small>Lee esto primero — cambia todo lo demás</small>
+      </div>
+      <span style="margin-left:auto;color:var(--muted);font-size:20px">▾</span>
+    </div>
+    <div class="phase-body open">
+      <div class="hook-grid">
+        <div class="hook-card">
+          <span class="hook-badge badge-green">Verdad</span>
+          <h4>No estás vendiendo — estás mostrando</h4>
+          <p>Ya hiciste la demo. Solo la estás compartiendo. Eso elimina la presión de "convencer".</p>
+        </div>
+        <div class="hook-card">
+          <span class="hook-badge badge-blue">Marco mental</span>
+          <h4>Tú tienes algo que ellos necesitan</h4>
+          <p>No les estás pidiendo un favor. Les estás ofreciendo clientes que en este momento no llegan a ellos.</p>
+        </div>
+        <div class="hook-card">
+          <span class="hook-badge badge-orange">Clave</span>
+          <h4>El 90% rechazará — y está bien</h4>
+          <p>De cada 10 contactos, espera 1-2 ventas. Eso es normal. Necesitas volumen, no perfección.</p>
+        </div>
+        <div class="hook-card">
+          <span class="hook-badge badge-red">Evitar</span>
+          <h4>No pidas permiso para mostrar</h4>
+          <p>"¿Te puedo mandar algo?" da salida fácil. Mejor: "Hice algo para ti, ya lo puedo compartir."</p>
+        </div>
+      </div>
+      <div class="tip">La demo YA EXISTE. Tú no estás prometiendo algo — estás mostrando algo real que pueden ver ahora mismo. Eso es tu mayor ventaja.</div>
+    </div>
+  </div>
+
+  <!-- CANALES -->
+  <div class="phase reveal">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="phase-num" style="background:rgba(0,200,81,.15);color:var(--green)">📡</div>
+      <div>
+        <h3>Por qué canal contactar a cada negocio</h3>
+        <small>Prioriza bien — no todos responden igual</small>
+      </div>
+      <span style="margin-left:auto;color:var(--muted);font-size:20px">▾</span>
+    </div>
+    <div class="phase-body">
+      <div class="channel-row">
+        <div class="ch ch-wa">
+          <span class="ch-badge" style="color:#25d366">WhatsApp ⭐ PRIMERO</span>
+          <h4>Respuesta en minutos</h4>
+          <p>Mejor para: comedores, talleres, tiendas, farmacias. Casi todos tienen número visible.</p>
+        </div>
+        <div class="ch ch-ig">
+          <span class="ch-badge" style="color:#e91e8c">Instagram / FB DM</span>
+          <h4>Bueno para boutiques</h4>
+          <p>Si tienen redes activas, escribir por DM funciona bien. Incluye enlace a la demo.</p>
+        </div>
+        <div class="ch ch-em">
+          <span class="ch-badge" style="color:var(--cyan)">Correo electrónico</span>
+          <h4>Para clínicas / formales</h4>
+          <p>Tono más profesional. Usa los borradores que ya tienes listos en Gmail.</p>
+        </div>
+        <div class="ch ch-pres">
+          <span class="ch-badge" style="color:var(--yellow)">En persona</span>
+          <h4>Alta tasa de cierre</h4>
+          <p>Si el negocio queda cerca. Llevas el demo en tu celular. Pides hablar con el dueño.</p>
+        </div>
+      </div>
+      <div class="tip">Para negocios locales en Guatemala, WhatsApp tiene una tasa de apertura de ~95%. El correo llega a quizás 20%. Siempre empieza por WhatsApp si puedes.</div>
+    </div>
+  </div>
+
+  <!-- PASO 1: PRIMER CONTACTO -->
+  <div class="phase reveal">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="phase-num" style="background:rgba(0,200,81,.15);color:var(--green)">1</div>
+      <div>
+        <h3>Paso 1 — El primer mensaje (el gancho)</h3>
+        <small>Los primeros 10 segundos deciden todo</small>
+      </div>
+      <span style="margin-left:auto;color:var(--muted);font-size:20px">▾</span>
+    </div>
+    <div class="phase-body">
+
+      <p style="color:var(--muted);font-size:14px">El primer mensaje tiene un solo objetivo: que abran el link de la demo. No expliques todo — genera curiosidad.</p>
+
+      <h4 style="color:var(--cyan);margin-top:20px">💬 WhatsApp — Versión ultra corta (recomendada)</h4>
+      <div class="script-block">
+        <span class="script-label" style="color:var(--green)">Script WA — Restaurante / Comedor</span>
+        <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+        <div class="script-text">
+          Hola [<em>nombre</em>], vi [<em>nombre del negocio</em>] y quería mostrarte algo.<br><br>
+          Hice una demo de cómo se vería como página web — ya funciona, puedes verla ahora:<br>
+          <strong>https://menteenautomatico.netlify.app/demo-comedor-dona-marta.html</strong><br><br>
+          ¿Qué te parece?
+        </div>
+      </div>
+
+      <div class="script-block">
+        <span class="script-label" style="color:var(--green)">Script WA — Taller mecánico</span>
+        <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+        <div class="script-text">
+          Buenas [<em>nombre</em>], vi [<em>nombre del taller</em>]. Te prepararé algo directo:<br><br>
+          Hice una demo de cómo se vería tu taller en Google. Ya está lista para que la veas:<br>
+          <strong>https://menteenautomatico.netlify.app/demo-taller-3hermanos.html</strong><br><br>
+          Sin costo verla. ¿Qué te parece?
+        </div>
+      </div>
+
+      <div class="script-block">
+        <span class="script-label" style="color:var(--green)">Script WA — Boutique / Tienda ropa</span>
+        <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+        <div class="script-text">
+          Hola [<em>nombre</em>] 👋, vi tu boutique [<em>nombre</em>] y me animé a hacerte algo.<br><br>
+          Preparé una demo de cómo se vería tu tienda con página web — ya está hecha:<br>
+          <strong>https://menteenautomatico.netlify.app/demo-boutique-nova.html</strong><br><br>
+          Es gratis verla. ¿La revisas?
+        </div>
+      </div>
+
+      <div class="script-block">
+        <span class="script-label" style="color:var(--green)">Script WA — Clínica / Consultorio</span>
+        <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+        <div class="script-text">
+          Buenos días, [<em>Dr./Dra.</em>]. Preparé una demo de cómo se vería [<em>nombre de la clínica</em>] con página web profesional.<br><br>
+          Puede revisarla aquí:<br>
+          <strong>https://menteenautomatico.netlify.app/demo-clinica-dr-reyes.html</strong><br><br>
+          Sin compromiso. ¿Qué le parece?
+        </div>
+      </div>
+
+      <div class="tip">
+        Regla de oro: <strong>el primer mensaje no pide permiso, entrega valor</strong>. No digas "¿puedo mostrarte algo?" — solo manda el link. Ya están mirando la demo antes de decidir si quieren hablar.
+      </div>
+
+      <div class="warn">
+        Nunca empieces con: "Hola, soy Jonathan y me dedico a hacer páginas web y quería ofrecerte..." — suena a spam. Empieza siempre por el NEGOCIO DE ELLOS, no por ti.
+      </div>
+
+      <h4 style="color:var(--cyan);margin-top:24px">📧 Correo — Si no tienes WhatsApp</h4>
+      <div class="script-block">
+        <span class="script-label" style="color:var(--cyan)">Asunto del correo (elige uno)</span>
+        <div class="script-text">
+          • "Hice una demo de tu página web — puedes verla ahora"<br>
+          • "Así se vería [nombre del negocio] en Google"<br>
+          • "[nombre del negocio] — tu demo de página web lista"<br>
+          • "Encontré tu negocio y quería mostrarte algo"
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- PASO 2: SEGUIMIENTO -->
+  <div class="phase reveal">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="phase-num" style="background:rgba(255,187,51,.15);color:var(--yellow)">2</div>
+      <div>
+        <h3>Paso 2 — Seguimiento si no responden</h3>
+        <small>El 80% de las ventas suceden en el seguimiento</small>
+      </div>
+      <span style="margin-left:auto;color:var(--muted);font-size:20px">▾</span>
+    </div>
+    <div class="phase-body">
+
+      <div class="step-row">
+        <div class="step-ic">⏰</div>
+        <div class="step-text">
+          <h4>Día 1 — Primer mensaje (el gancho)</h4>
+          <p>Manda el mensaje con el link a la demo. No agregues nada más.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-ic">🔔</div>
+        <div class="step-text">
+          <h4>Día 3 — Recordatorio suave</h4>
+          <p>Si no respondió, manda un segundo mensaje corto.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-ic">🎯</div>
+        <div class="step-text">
+          <h4>Día 7 — Último intento con gancho diferente</h4>
+          <p>Cambia el ángulo. Menciona un beneficio concreto o urgencia.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-ic">✅</div>
+        <div class="step-text">
+          <h4>Después de día 7 — Archivo y sigue adelante</h4>
+          <p>Si no hay respuesta después de 3 intentos, sigue con el próximo prospecto. No persigas.</p>
+        </div>
+      </div>
+
+      <div class="script-block" style="margin-top:20px">
+        <span class="script-label" style="color:var(--yellow)">Día 3 — Recordatorio</span>
+        <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+        <div class="script-text">
+          Hola de nuevo [<em>nombre</em>], solo quería saber si pudiste ver la demo que te mandé.<br><br>
+          Aquí la tienes de nuevo: <strong>[link]</strong><br><br>
+          Son 2 minutos y es gratis verla. 👀
+        </div>
+      </div>
+
+      <div class="script-block">
+        <span class="script-label" style="color:var(--yellow)">Día 7 — Gancho de pérdida</span>
+        <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+        <div class="script-text">
+          [<em>Nombre</em>], último mensaje de mi parte.<br><br>
+          Solo te digo esto: en este momento hay personas buscando en Google "[<em>tipo de negocio</em>] en [<em>zona/ciudad</em>]". Si tu negocio no aparece, esos clientes van a quien sí aparece.<br><br>
+          Si en algún momento quieres hablar, aquí quedo: <a href="https://wa.me/50259226328" style="color:var(--cyan)">wa.me/50259226328</a>
+        </div>
+      </div>
+
+      <div class="tip">El mensaje del Día 7 usa el principio de <strong>pérdida</strong> — las personas responden más a perder algo que a ganar algo. No estás vendiendo una página web, estás diciéndoles que están perdiendo clientes HOY.</div>
+    </div>
+  </div>
+
+  <!-- PASO 3: CONVERSACIÓN -->
+  <div class="phase reveal">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="phase-num" style="background:rgba(0,191,255,.15);color:var(--neon)">3</div>
+      <div>
+        <h3>Paso 3 — Cuando responden: la conversación</h3>
+        <small>Cómo guiar sin presionar</small>
+      </div>
+      <span style="margin-left:auto;color:var(--muted);font-size:20px">▾</span>
+    </div>
+    <div class="phase-body">
+
+      <p style="color:var(--muted);font-size:14px">Cuando alguien responde positivo, tu trabajo es hacer preguntas — no hablar tú. La persona que hace las preguntas controla la conversación.</p>
+
+      <div class="script-block">
+        <span class="script-label" style="color:var(--neon)">Si dicen "sí me interesa" o "¿cuánto cuesta?"</span>
+        <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+        <div class="script-text">
+          Me alegra 😊<br><br>
+          Antes de darte el precio exacto, cuéntame un poco:<br>
+          ¿Qué es lo más importante que necesitas que haga tu página? ¿Que la gente te encuentre en Google, que puedan ver tus servicios, que puedan hacer pedidos, o algo más específico?
+        </div>
+      </div>
+
+      <div class="tip">Preguntar ANTES de dar el precio te da dos ventajas: 1) Entiendes qué necesita, 2) Cuando das el precio, ya sabe exactamente qué recibirá — y parece más justo.</div>
+
+      <div class="script-block">
+        <span class="script-label" style="color:var(--neon)">Después de que responden qué necesitan</span>
+        <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+        <div class="script-text">
+          Perfecto, para lo que describes el paquete básico te queda ideal.<br><br>
+          Incluye: página completa lista en 7 días, tu catálogo de [<em>servicios/productos</em>], botón de WhatsApp directo, apareces en Google, funciona en celular, y dominio + hosting incluidos el primer año.<br><br>
+          Todo eso: <strong>$149</strong>.<br><br>
+          Si quieres que te personalice la demo con tu nombre real y tus servicios antes de decidir, lo hago sin costo. ¿Lo hacemos?
+        </div>
+      </div>
+
+      <div class="script-block">
+        <span class="script-label" style="color:var(--neon)">El cierre — oferta de personalizar la demo</span>
+        <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+        <div class="script-text">
+          ¿Sabes qué? Para que lo veas más claro, te personalizo la demo con el nombre real de tu negocio y tus servicios — gratis, sin compromiso.<br><br>
+          La ves, y si te convence seguimos. Si no, no pasa nada.<br><br>
+          ¿Me confirmas: el nombre del negocio, qué servicios ofreces y si tienes logo o foto del local?
+        </div>
+      </div>
+
+      <div class="tip">Ofrecer personalizar la demo gratis es un cierre suave que casi nadie rechaza. Una vez que ven <em>su</em> negocio en la demo, la tasa de conversión sube muchísimo.</div>
+    </div>
+  </div>
+
+  <!-- GANCHOS -->
+  <div class="phase reveal">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="phase-num" style="background:rgba(255,109,0,.15);color:var(--orange)">🎣</div>
+      <div>
+        <h3>Ganchos psicológicos que funcionan</h3>
+        <small>Los 5 motivadores clave para negocios locales</small>
+      </div>
+      <span style="margin-left:auto;color:var(--muted);font-size:20px">▾</span>
+    </div>
+    <div class="phase-body">
+
+      <div class="hook-grid">
+        <div class="hook-card">
+          <span class="hook-badge badge-red">Pérdida</span>
+          <h4>"Estás perdiendo clientes ahora mismo"</h4>
+          <p>Personas que buscan en Google y no te encuentran van a tu competencia. Este gancho activa el miedo a perder — el motivador más fuerte que existe.</p>
+        </div>
+        <div class="hook-card">
+          <span class="hook-badge badge-green">Prueba social</span>
+          <h4>"Ya tengo demos funcionando"</h4>
+          <p>Muestra las demos existentes. No es una promesa — es algo real que pueden ver. Reduce el riesgo percibido a cero.</p>
+        </div>
+        <div class="hook-card">
+          <span class="hook-badge badge-blue">Autoridad</span>
+          <h4>"Aparecer en Google da confianza"</h4>
+          <p>Las personas confían más en negocios que tienen web. Es señal de profesionalismo. Sus competidores con web parecen más serios.</p>
+        </div>
+        <div class="hook-card">
+          <span class="hook-badge badge-orange">Urgencia real</span>
+          <h4>"Tu competencia ya está en Google"</h4>
+          <p>Busca en Google el tipo de negocio + zona y muéstrale quién aparece. Si no es él, es su competencia. Urgencia natural, sin inventar.</p>
+        </div>
+      </div>
+
+      <div class="script-block" style="margin-top:20px">
+        <span class="script-label" style="color:var(--orange)">Gancho de competencia (el más poderoso)</span>
+        <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+        <div class="script-text">
+          Busca ahora en Google: "<em>[tipo de negocio] en [zona/ciudad]</em>".<br><br>
+          ¿Cuántos negocios aparecen antes que el tuyo? ¿Ves el problema?<br><br>
+          Cada vez que alguien hace esa búsqueda, tus clientes potenciales van a quien sí aparece. Con una página, tú apareces también.
+        </div>
+      </div>
+
+      <div class="script-block">
+        <span class="script-label" style="color:var(--orange)">Gancho de horario (para negocios con horas limitadas)</span>
+        <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+        <div class="script-text">
+          Tu página web trabaja mientras tú duermes.<br><br>
+          A las 11pm alguien busca "[<em>tu servicio</em>]" — tú estás cerrado, tu celular apagado. Pero tu página está ahí, mostrando tus servicios, tu número, tu horario. El cliente anota y llama mañana.<br><br>
+          Eso no lo da el Facebook ni el Instagram.
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- OBJECIONES -->
+  <div class="phase reveal">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="phase-num" style="background:rgba(255,68,68,.15);color:#ff8a8a">🛡️</div>
+      <div>
+        <h3>Manejo de objeciones</h3>
+        <small>Las 7 más comunes y cómo responderlas</small>
+      </div>
+      <span style="margin-left:auto;color:var(--muted);font-size:20px">▾</span>
+    </div>
+    <div class="phase-body">
+
+      <div class="objection-card">
+        <div class="objection-q" onclick="toggleObj(this)">
+          "Ya tengo Facebook / Instagram" <span>▾</span>
+        </div>
+        <div class="objection-a">
+          <p>Reconoce el punto primero, luego explica la diferencia clave.</p>
+          <div class="rebuttal">"Sí, y eso está bien. Las redes son para personas que ya te conocen — tus seguidores. Pero Google es para personas que todavía no saben que existes. Son clientes nuevos buscando activamente lo que tú ofreces. Una página web te pone frente a esas personas. Son dos cosas distintas, y las dos hacen falta."</div>
+        </div>
+      </div>
+
+      <div class="objection-card">
+        <div class="objection-q" onclick="toggleObj(this)">
+          "Está muy caro" / "No tengo presupuesto ahora" <span>▾</span>
+        </div>
+        <div class="objection-a">
+          <p>Reencuadra el precio en términos de clientes, no de gasto.</p>
+          <div class="rebuttal">"Entiendo. Pero pensemos así: si la página te trae 1 cliente nuevo al mes que gasta Q300, en 2 meses ya recuperaste la inversión. De ahí en adelante es ganancia pura. Y la página sigue trabajando por años. ¿Cuánto vale para ti un cliente nuevo?"</div>
+        </div>
+      </div>
+
+      <div class="objection-card">
+        <div class="objection-q" onclick="toggleObj(this)">
+          "No sé si mis clientes usan internet" <span>▾</span>
+        </div>
+        <div class="objection-a">
+          <p>Usa el dato concreto de búsquedas en Google.</p>
+          <div class="rebuttal">"Eso lo podemos resolver fácil. Busca ahora mismo en Google '[tu tipo de negocio] en [tu zona]'. ¿Aparecen resultados? Eso significa que hay personas buscando. Si tú no apareces, esos clientes van a alguien más — no es que no busquen, es que no te encuentran."</div>
+        </div>
+      </div>
+
+      <div class="objection-card">
+        <div class="objection-q" onclick="toggleObj(this)">
+          "Déjame pensarlo" / "Te aviso" <span>▾</span>
+        </div>
+        <div class="objection-a">
+          <p>Descubre qué duda específica hay antes de despedirte.</p>
+          <div class="rebuttal">"Claro, con mucho gusto. Antes de que te vayas, ¿hay algo específico que no quedó claro o que te genera duda? Prefiero que te quedes con toda la información para que puedas decidir bien."</div>
+        </div>
+      </div>
+
+      <div class="objection-card">
+        <div class="objection-q" onclick="toggleObj(this)">
+          "¿Y si no me trae clientes?" <span>▾</span>
+        </div>
+        <div class="objection-a">
+          <p>Sé honesto — no exageres, pero explica el proceso real.</p>
+          <div class="rebuttal">"Esa es una pregunta válida. La página por sí sola no es magia — necesita que las personas la encuentren. Por eso la optimizo para Google (SEO básico): que cuando busquen tu tipo de negocio en tu zona, aparezcas entre los resultados. No garantizo el primer lugar — nadie lo puede garantizar honestamente — pero sí que vas a aparecer donde no apareces hoy."</div>
+        </div>
+      </div>
+
+      <div class="objection-card">
+        <div class="objection-q" onclick="toggleObj(this)">
+          "Yo mismo la puedo hacer gratis con Wix" <span>▾</span>
+        </div>
+        <div class="objection-a">
+          <p>Valida la opción, luego explica el valor del tiempo y resultado.</p>
+          <div class="rebuttal">"Sí, técnicamente se puede. Pero Wix tiene limitaciones para SEO, y el tiempo que inviertes aprendiendo y construyendo — ¿cuánto vale ese tiempo para ti? Yo la tengo lista en 7 días, optimizada, y tú te enfocas en atender tu negocio. Además, ya puedes ver el resultado antes de pagar — esa demo que viste, así quedaría."</div>
+        </div>
+      </div>
+
+      <div class="objection-card">
+        <div class="objection-q" onclick="toggleObj(this)">
+          "¿Y después del primer año qué pasa?" <span>▾</span>
+        </div>
+        <div class="objection-a">
+          <p>Sé transparente con los costos de renovación.</p>
+          <div class="rebuttal">"Buena pregunta. El dominio (tu nombre .com) tiene un costo anual de renovación — entre $15 y $20 dólares dependiendo del dominio. El hosting puede ser entre $30 y $50 al año, o puedo mantenerte yo el sitio por $25 al mes si prefieres no preocuparte. Pero el primer año todo está incluido en los $149."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CIERRE -->
+  <div class="phase reveal">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="phase-num" style="background:rgba(0,200,81,.15);color:var(--green)">💰</div>
+      <div>
+        <h3>Paso 4 — Cerrar la venta y cobrar</h3>
+        <small>El momento del sí — qué decir exactamente</small>
+      </div>
+      <span style="margin-left:auto;color:var(--muted);font-size:20px">▾</span>
+    </div>
+    <div class="phase-body">
+
+      <div class="script-block">
+        <span class="script-label" style="color:var(--green)">Cuando dicen "sí, me interesa"</span>
+        <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+        <div class="script-text">
+          Perfecto. Para arrancar necesito dos cosas:<br><br>
+          1. Un adelanto del 50% para comenzar — <strong>$74.50</strong> — por PayPal a <strong>paypal.me/bautistajonathan701</strong> o Tigo Money al <strong>5922-6328</strong>.<br>
+          2. La info del negocio: nombre, logo si tienen, servicios, horarios, y número de WhatsApp.<br><br>
+          En cuanto confirmo el pago empezamos. En 7 días tienes tu página lista para revisar. El resto lo pagas al ver y aprobar. ¿Cómo prefieres pagar?
+        </div>
+      </div>
+
+      <div class="tip">Pedir el 50% de adelanto es lo correcto: protege tu tiempo, y compromete al cliente. Si no quieren dar adelanto, generalmente tampoco van a pagar al final.</div>
+
+      <div class="script-block">
+        <span class="script-label" style="color:var(--green)">Si preguntan si pueden pagar todo al final</span>
+        <button class="copy-btn" onclick="copyScript(this)">Copiar</button>
+        <div class="script-text">
+          Entiendo, pero mi política es 50% para empezar. Es para asegurarme de que vamos en serio y cubrir los costos del dominio y hosting que compro desde el día 1.<br><br>
+          Lo que sí puedo hacer es arrancar hoy mismo en cuanto confirmas el pago — y tienes la demo personalizada lista en 48 horas para que veas cómo va.
+        </div>
+      </div>
+
+      <h4 style="color:var(--cyan);margin-top:24px">📊 Tu meta de $1,000</h4>
+      <div class="metric-row">
+        <div class="metric"><div class="metric-val">7</div><div class="metric-label">ventas × $149</div></div>
+        <div class="metric"><div class="metric-val">4</div><div class="metric-label">ventas × $299</div></div>
+        <div class="metric"><div class="metric-val">2</div><div class="metric-label">ventas × $499</div></div>
+        <div class="metric" style="border:1px solid var(--green)"><div class="metric-val" style="color:var(--green)">$1,000</div><div class="metric-label">meta en cualquier combo</div></div>
+      </div>
+
+      <div class="tip">No necesitas cerrar 7 ventas básicas. Una venta del paquete Completo ($499) + dos del Negocio ($299) ya te da $1,097. Apunta a vender el paquete correcto para cada cliente.</div>
+    </div>
+  </div>
+
+  <!-- DEMOS DISPONIBLES -->
+  <div class="phase reveal">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="phase-num" style="background:rgba(0,191,255,.15);color:var(--neon)">🔗</div>
+      <div>
+        <h3>Tus demos disponibles</h3>
+        <small>Links listos para copiar y enviar</small>
+      </div>
+      <span style="margin-left:auto;color:var(--muted);font-size:20px">▾</span>
+    </div>
+    <div class="phase-body">
+
+      <div class="script-block">
+        <span class="script-label" style="color:var(--neon)">Links de demos — copiar según el negocio</span>
+        <button class="copy-btn" onclick="copyScript(this)">Copiar todos</button>
+        <div class="script-text">
+          🍽️ <strong>Comedor / Restaurante:</strong><br>
+          https://menteenautomatico.netlify.app/demo-comedor-dona-marta.html<br><br>
+          💊 <strong>Farmacia / Botica:</strong><br>
+          https://menteenautomatico.netlify.app/demo-farmacia-san-jose.html<br><br>
+          🏋️ <strong>Gimnasio / CrossFit:</strong><br>
+          https://menteenautomatico.netlify.app/demo-gym-titanes.html<br><br>
+          👗 <strong>Boutique / Tienda ropa:</strong><br>
+          https://menteenautomatico.netlify.app/demo-boutique-nova.html<br><br>
+          🏥 <strong>Clínica / Consultorio:</strong><br>
+          https://menteenautomatico.netlify.app/demo-clinica-dr-reyes.html<br><br>
+          🔧 <strong>Ferretería:</strong><br>
+          https://menteenautomatico.netlify.app/demo-ferreteria-del-sur.html<br><br>
+          💈 <strong>Salón de belleza:</strong><br>
+          https://menteenautomatico.netlify.app/demo-salon-sefashion.html<br><br>
+          🔩 <strong>Taller mecánico:</strong><br>
+          https://menteenautomatico.netlify.app/demo-taller-3hermanos.html
+        </div>
+      </div>
+
+      <div class="tip">Cuando mandes el link, el prospecto puede ver una página web profesional de un negocio IGUAL al suyo. Eso es 10 veces más poderoso que describirle lo que podrías hacer.</div>
+    </div>
+  </div>
+
+  <!-- RUTINA DIARIA -->
+  <div class="phase reveal">
+    <div class="phase-header" onclick="togglePhase(this)">
+      <div class="phase-num" style="background:rgba(255,187,51,.15);color:var(--yellow)">📅</div>
+      <div>
+        <h3>Rutina diaria para llegar a $1,000</h3>
+        <small>El sistema simple que funciona por volumen</small>
+      </div>
+      <span style="margin-left:auto;color:var(--muted);font-size:20px">▾</span>
+    </div>
+    <div class="phase-body">
+
+      <div class="step-row">
+        <div class="step-ic">☀️</div>
+        <div class="step-text">
+          <h4>Mañana — Prospección (30 min)</h4>
+          <p>Busca 5-10 negocios en Google Maps de la zona. Anota los que no tienen web. Prepara los mensajes.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-ic">📤</div>
+        <div class="step-text">
+          <h4>Media mañana — Envío (20 min)</h4>
+          <p>Manda 5-10 mensajes con las demos correspondientes. No personalizas demasiado — velocidad sobre perfección.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-ic">💬</div>
+        <div class="step-text">
+          <h4>Tarde — Respuestas (cuando lleguen)</h4>
+          <p>Responde a quienes contestaron. Aplica el script de conversación. Ofrece personalizar la demo.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-ic">🔔</div>
+        <div class="step-text">
+          <h4>Cada 3 días — Seguimiento</h4>
+          <p>Revisa quién no respondió de los últimos días. Manda el recordatorio suave. En día 7, el gancho de pérdida.</p>
+        </div>
+      </div>
+      <div class="step-row">
+        <div class="step-ic">📊</div>
+        <div class="step-text">
+          <h4>Viernes — Revisión semanal</h4>
+          <p>¿Cuántos contactos? ¿Cuántas respuestas? ¿Cuántas ventas? Ajusta si la tasa de respuesta es muy baja.</p>
+        </div>
+      </div>
+
+      <div class="script-block" style="margin-top:16px">
+        <span class="script-label" style="color:var(--yellow)">Meta de volumen semanal</span>
+        <div class="script-text">
+          📤 <strong>50 contactos/semana</strong> → ~10% responden interesados → 5 conversaciones → 1-2 ventas<br><br>
+          En 4 semanas a ese ritmo: <strong>4-8 ventas = $596 – $1,192</strong><br><br>
+          Meta realista con demos personalizadas: <strong>cierre de 2 ventas/semana</strong>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="y"></span> Mente en Automático · IA &amp; Eficiencia</div>
+    <div>
+      <a href="paginas-web.html">Páginas Web</a> ·
+      <a href="guia-clientes-locales.html">Guía de Prospectos</a> ·
+      <a href="index.html">Inicio</a>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+document.getElementById("y").textContent = new Date().getFullYear();
+
+window.addEventListener("scroll", () => {
+  const s = document.documentElement;
+  const pct = (s.scrollTop / (s.scrollHeight - s.clientHeight)) * 100;
+  document.getElementById("pb").style.width = pct + "%";
+});
+
+function togglePhase(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector("span:last-child");
+  const isOpen = body.classList.contains("open");
+  body.classList.toggle("open");
+  arrow.textContent = isOpen ? "▾" : "▴";
+}
+
+function toggleObj(header) {
+  const body = header.nextElementSibling;
+  const arrow = header.querySelector("span");
+  body.classList.toggle("open");
+  arrow.textContent = body.classList.contains("open") ? "▴" : "▾";
+}
+
+function copyScript(btn) {
+  const text = btn.closest(".script-block").querySelector(".script-text").innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = "✓ Copiado";
+    btn.classList.add("ok");
+    setTimeout(() => { btn.textContent = "Copiar"; btn.classList.remove("ok"); }, 2000);
+  });
+}
+</script>
+</body>
+</html>
