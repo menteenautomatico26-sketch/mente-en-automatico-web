@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Búsqueda en Tiempo Real con Perplexity MCP + Razonamiento con Sequential Thinking | Mente en Automático</title>
+<meta name="description" content="Guía completa de Perplexity MCP y Sequential Thinking MCP para Claude Code: búsqueda con fuentes verificadas y razonamiento estructurado paso a paso. Con guion de TikTok.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+.guia-hero{padding:80px 0 50px;text-align:center;position:relative}
+.guia-num{display:inline-block;background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.guia-hero h1{font-size:clamp(28px,5vw,50px);font-weight:900;line-height:1.1;margin-bottom:14px}
+.guia-hero .sub{color:var(--muted);font-size:clamp(15px,2vw,18px);max-width:620px;margin:0 auto 28px;line-height:1.6}
+.guia-meta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.guia-badge{background:var(--card);border:1px solid var(--line);color:var(--muted);
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:999px;display:flex;align-items:center;gap:5px}
+.indice{background:linear-gradient(135deg,#0a1340,#0a0a2e);border:1px solid var(--line);
+  border-radius:20px;padding:28px 32px;max-width:680px;margin:0 auto 48px}
+.indice h3{font-size:14px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon);margin-bottom:16px}
+.indice ol{padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.indice li a{color:var(--ink);font-size:14px;text-decoration:none;transition:.15s}
+.indice li a:hover{color:var(--cyan)}
+.guia-wrap{max-width:780px;margin:0 auto;padding:0 20px}
+.guia-section{margin-bottom:56px;scroll-margin-top:80px}
+.seccion-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--neon);margin-bottom:12px}
+.guia-section h2{font-size:clamp(22px,3.5vw,32px);font-weight:900;margin-bottom:10px;line-height:1.2}
+.guia-section .intro{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:24px}
+.pasos{display:flex;flex-direction:column;gap:12px;margin:20px 0}
+.paso{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:18px;align-items:flex-start}
+.paso-num{width:36px;height:36px;flex-shrink:0;border-radius:50%;
+  background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;font-weight:900;font-size:15px;
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--glow)}
+.paso-body h4{font-size:14px;font-weight:800;margin-bottom:3px}
+.paso-body p{color:var(--muted);font-size:13.5px;line-height:1.5}
+.code-block{background:#030c1a;border:1.5px solid rgba(0,191,255,.25);border-radius:14px;
+  padding:20px 22px;margin:16px 0;font-family:'Courier New',monospace}
+.code-label{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  color:var(--neon);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.code-line{font-size:13px;color:#7dd3fc;line-height:1.8}
+.code-comment{color:#4b6c8a;font-style:italic;font-size:12px}
+.callout{display:flex;gap:14px;background:rgba(0,191,255,.06);border:1px solid rgba(0,191,255,.2);
+  border-radius:14px;padding:18px;margin:20px 0;align-items:flex-start}
+.callout-ic{font-size:22px;flex-shrink:0}
+.callout p{color:var(--muted);font-size:14px;line-height:1.6;margin:0}
+.callout strong{color:var(--ink)}
+.mvb{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0}
+.mvb-col{border-radius:14px;padding:16px}
+.mvb-col.malo{background:rgba(255,93,108,.06);border:1px solid rgba(255,93,108,.2)}
+.mvb-col.bueno{background:rgba(57,217,138,.06);border:1px solid rgba(57,217,138,.2)}
+.mvb-label{font-size:10px;font-weight:900;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px}
+.mvb-col.malo .mvb-label{color:#ff5d6c}
+.mvb-col.bueno .mvb-label{color:var(--ok)}
+.mvb-col p{font-size:13px;color:var(--muted);line-height:1.5}
+@media(max-width:500px){.mvb{grid-template-columns:1fr}}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin:20px 0}
+.feature{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.feature .ic{font-size:22px;margin-bottom:8px}
+.feature h4{font-size:14px;font-weight:800;margin-bottom:4px;color:var(--cyan)}
+.feature p{color:var(--muted);font-size:13px;line-height:1.5}
+.tiktok-section{background:linear-gradient(135deg,#160820,#0d0520);
+  border:2px solid rgba(255,0,80,.3);border-radius:22px;padding:36px;margin:48px 0}
+.tiktok-badge{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,0,80,.15);border:1px solid rgba(255,0,80,.3);
+  color:#ff5080;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.tiktok-section h2{font-size:clamp(20px,3vw,28px);font-weight:900;margin-bottom:8px}
+.tiktok-section .sub{color:var(--muted);font-size:14px;margin-bottom:28px;line-height:1.6}
+.escena{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:20px;margin-bottom:14px}
+.escena-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.escena-num{background:rgba(255,0,80,.2);color:#ff5080;font-size:11px;font-weight:900;
+  padding:3px 10px;border-radius:999px;letter-spacing:1px}
+.escena-tiempo{color:var(--muted);font-size:12px;font-weight:700}
+.escena-titulo{font-size:13px;font-weight:800;color:var(--ink);margin-left:auto}
+.escena-campo{margin-bottom:10px}
+.escena-campo label{display:block;font-size:10px;font-weight:800;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--neon);margin-bottom:4px}
+.escena-campo p{color:var(--muted);font-size:13.5px;line-height:1.6;margin:0;
+  background:rgba(0,0,0,.3);border-radius:8px;padding:10px 14px}
+.escena-campo .pantalla-txt{color:#ffd700;font-style:italic}
+.escena-campo .voz-txt{color:#e2e8f0}
+.sep{border:none;border-top:1px solid var(--line);margin:48px 0}
+.pdf-bar{display:flex;align-items:center;justify-content:space-between;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:18px 24px;margin-bottom:40px;flex-wrap:wrap;gap:14px}
+.pdf-bar p{color:var(--muted);font-size:13.5px;margin:0;line-height:1.5}
+.pdf-bar strong{color:var(--ink)}
+.btn-pdf{background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;font-size:13px;font-weight:900;padding:10px 22px;
+  border-radius:999px;border:none;cursor:pointer;font-family:inherit;
+  display:flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none}
+.btn-pdf:hover{opacity:.9;transform:translateY(-1px)}
+.guia-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:56px}
+.guia-nav a{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:20px;text-decoration:none;color:inherit;transition:.2s;display:flex;flex-direction:column;gap:4px}
+.guia-nav a:hover{border-color:var(--neon);transform:translateY(-3px)}
+.gnav-dir{font-size:11px;color:var(--muted);font-weight:700}
+.gnav-tit{font-size:15px;font-weight:800;color:var(--ink)}
+.gnav-right{text-align:right}
+@media print{
+  canvas,header.nav,footer,.pdf-bar,.guia-nav,.cta-final,.menu-btn{display:none!important}
+  body{background:#fff!important;color:#111!important}
+  .guia-hero,.guia-wrap{padding:0!important;max-width:100%!important}
+  .guia-section,.indice,.escena,.tiktok-section,.feature,.paso,.callout,.code-block,.mvb-col{
+    border:1px solid #ddd!important;background:#fff!important;
+    box-shadow:none!important;color:#111!important;break-inside:avoid}
+  .guia-section h2,.guia-num,.seccion-tag,.tiktok-badge{color:#111!important;background:none!important;
+    -webkit-text-fill-color:#111!important}
+  .guia-section .intro,.feature p,.paso-body p,.callout p,.escena-campo p,.mvb-col p{color:#444!important}
+  .code-line{color:#1a56db!important}
+  h1 span{-webkit-text-fill-color:#0055cc!important;background:none!important}
+  a{color:#0055cc!important}
+  @page{margin:1.5cm;size:A4}
+}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span>
+    </a>
+    <nav>
+      <a href="recursos.html">← Recursos</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="novedades.html">Novedades</a>
+    </nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="guia-hero">
+  <div class="wrap" style="max-width:780px">
+    <div class="guia-num">MCP · Guía 04 · Gratis</div>
+    <h1>Búsqueda en Tiempo Real<br><span style="background:linear-gradient(120deg,var(--cyan),var(--neon2));-webkit-background-clip:text;background-clip:text;color:transparent">+ Razonamiento Estructurado</span></h1>
+    <p class="sub">Perplexity MCP + Sequential Thinking MCP: información actualizada con citas verificadas y un Claude que piensa paso a paso antes de responder.</p>
+    <div class="guia-meta">
+      <span class="guia-badge">⏱ 11 min de lectura</span>
+      <span class="guia-badge">🔮 Perplexity + 🧩 Seq. Thinking</span>
+      <span class="guia-badge">🔑 API Perplexity</span>
+      <span class="guia-badge">🔄 Actualizada 2025</span>
+    </div>
+  </div>
+</section>
+
+<div class="guia-wrap">
+
+  <div class="pdf-bar reveal">
+    <p><strong>📥 Descarga esta guía en PDF</strong><br>Instalación de ambos MCPs, casos de uso y guion de TikTok — todo en un PDF.</p>
+    <button class="btn-pdf" onclick="window.print()">📄 Descargar PDF</button>
+  </div>
+
+  <div class="indice reveal">
+    <h3>📋 Contenido de esta guía</h3>
+    <ol>
+      <li><a href="#problema">El problema: Claude vive en el pasado</a></li>
+      <li><a href="#perplexity">Perplexity MCP — Búsqueda con razonamiento</a></li>
+      <li><a href="#sequential">Sequential Thinking MCP — Razona paso a paso</a></li>
+      <li><a href="#combo">El combo definitivo: los dos juntos</a></li>
+      <li><a href="#tiktok">🎬 Guion de TikTok listo para grabar</a></li>
+    </ol>
+  </div>
+
+  <div class="guia-section" id="problema">
+    <div class="seccion-tag">❓ Sección 1</div>
+    <h2>El problema: Claude vive en el pasado</h2>
+    <p class="intro">Claude es increíblemente capaz, pero tiene dos limitaciones conocidas: su conocimiento tiene fecha de corte (no sabe qué pasó esta semana), y en problemas muy complejos a veces "salta" a conclusiones sin razonar bien. Estos dos MCPs resuelven exactamente eso.</p>
+
+    <div class="mvb">
+      <div class="mvb-col malo reveal">
+        <div class="mvb-label">Sin estos MCPs</div>
+        <p>"¿Cuál es el precio actual de [producto]?" → Claude inventa o dice que no sabe<br><br>"Analiza este problema complejo" → Respuesta directa sin mostrar el razonamiento</p>
+      </div>
+      <div class="mvb-col bueno reveal">
+        <div class="mvb-label">Con Perplexity + Sequential Thinking</div>
+        <p>"¿Cuál es el precio actual de [producto]?" → Busca en tiempo real, da el precio con fuente<br><br>"Analiza este problema complejo" → Razona paso a paso, muestra su proceso, puede corregirse</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="guia-section" id="perplexity">
+    <div class="seccion-tag">🔮 Sección 2</div>
+    <h2>Perplexity MCP — Búsqueda con razonamiento en tiempo real</h2>
+    <p class="intro">Perplexity no es solo un buscador — es un motor que sintetiza múltiples fuentes con razonamiento propio. Cuando se lo das a Claude, obtiene información actualizada con citas verificadas en lugar de respuestas genéricas de su entrenamiento.</p>
+
+    <div class="feature-grid">
+      <div class="feature reveal">
+        <div class="ic">⚡</div>
+        <h4>Tiempo real</h4>
+        <p>Noticias de hoy, precios actuales, lanzamientos recientes. No más respuestas desactualizadas.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="ic">📚</div>
+        <h4>Fuentes verificadas</h4>
+        <p>Cada respuesta incluye las fuentes. Puedes verificar la información directamente.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="ic">🔬</div>
+        <h4>Papers académicos</h4>
+        <p>Accede a documentación técnica, papers y artículos científicos recientes.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="ic">📊</div>
+        <h4>Sonar Pro</h4>
+        <p>El modelo sonar-pro de Perplexity da respuestas más completas y con mayor contexto para temas complejos.</p>
+      </div>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:800;margin:24px 0 14px">Instalación de Perplexity MCP</h3>
+
+    <div class="pasos">
+      <div class="paso reveal">
+        <div class="paso-num">1</div>
+        <div class="paso-body">
+          <h4>Obtén tu API key de Perplexity</h4>
+          <p>Ve a <strong>pplx.ai</strong> → crea una cuenta → en el panel de control encuentra la sección API → genera tu API key. El plan de pago comienza desde $5/mes con buen volumen de consultas.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">2</div>
+        <div class="paso-body">
+          <h4>Instala el MCP con tu API key</h4>
+          <div class="code-block" style="margin:10px 0">
+            <div class="code-label">💻 Terminal</div>
+            <div class="code-line">claude mcp add perplexity-search \</div>
+            <div class="code-line">&nbsp;&nbsp;--env PERPLEXITY_API_KEY=tu_key_aqui \</div>
+            <div class="code-line">&nbsp;&nbsp;-- npx -y server-perplexity-ask</div>
+          </div>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">3</div>
+        <div class="paso-body">
+          <h4>Reinicia Claude Code y prueba</h4>
+          <p>Escríbele: <em style="color:var(--cyan)">"¿Qué novedades importantes salieron sobre IA esta semana?"</em> Si te responde con eventos recientes con fuentes, está funcionando.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:800;margin:24px 0 14px">Prompts recomendados con Perplexity activo</h3>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="code-block reveal">
+        <div class="code-label">📰 Noticias del sector</div>
+        <div class="code-line">"Busca las 5 noticias más importantes sobre IA generativa de los últimos 7 días. Dame un resumen de cada una con la fuente."</div>
+      </div>
+      <div class="code-block reveal">
+        <div class="code-label">🏆 Análisis de competidores</div>
+        <div class="code-line">"Busca información actualizada sobre los precios y características de [competidor]. Necesito una comparativa con lo que ofrece [mi producto]."</div>
+      </div>
+      <div class="code-block reveal">
+        <div class="code-label">📖 Investigación técnica</div>
+        <div class="code-line">"Encuentra los papers más citados sobre [tema técnico] publicados en 2025. Dame los títulos, autores, dónde están publicados y el hallazgo principal de cada uno."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guia-section" id="sequential">
+    <div class="seccion-tag">🧩 Sección 3</div>
+    <h2>Sequential Thinking MCP — Razona paso a paso</h2>
+    <p class="intro">Sequential Thinking implementa un protocolo de razonamiento dinámico: Claude articula su proceso mental en pasos numerados y revisables, puede volver atrás y corregir conclusiones incorrectas, y explora hipótesis alternativas. Es el MCP más subestimado de todos — y el que más impacto tiene en la calidad de las respuestas.</p>
+
+    <div class="callout reveal">
+      <span class="callout-ic">🧠</span>
+      <p><strong>¿Cuándo marca la diferencia?</strong> En problemas con múltiples pasos, decisiones técnicas con trade-offs, debugging complejo, planificación de proyectos, y cualquier análisis donde el "por qué" importa tanto como el "qué".</p>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:800;margin:24px 0 14px">Instalación (sin API key — completamente gratis)</h3>
+
+    <div class="code-block reveal">
+      <div class="code-label">💻 Terminal — 1 solo comando</div>
+      <div class="code-line">claude mcp add sequential-thinking npx @modelcontextprotocol/server-sequential-thinking</div>
+    </div>
+
+    <div class="callout reveal">
+      <span class="callout-ic">✅</span>
+      <p><strong>Sin API key. Sin pago. Sin configuración adicional.</strong> Reinstala Claude Code y estará disponible. Es el MCP con mejor relación instalación/impacto de todos los que existen.</p>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:800;margin:24px 0 14px">Cómo activarlo en tus prompts</h3>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <div class="code-block reveal">
+        <div class="code-label">🔍 Debugging paso a paso</div>
+        <div class="code-line">"Piensa paso a paso: este código produce el error [X]. Analiza cada función involucrada, identifica dónde falla y por qué antes de proponer la solución."</div>
+      </div>
+      <div class="code-block reveal">
+        <div class="code-label">🏗️ Decisión de arquitectura</div>
+        <div class="code-line">"Analiza en detalle los pros y contras de usar [opción A] vs [opción B] para [mi caso de uso]. Considera escalabilidad, costo, mantenimiento y curva de aprendizaje del equipo."</div>
+      </div>
+      <div class="code-block reveal">
+        <div class="code-label">📋 Planificación de proyecto</div>
+        <div class="code-line">"Desglosa paso a paso cómo construiría [funcionalidad X]. Identifica dependencias, posibles bloqueos y el orden óptimo de implementación."</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guia-section" id="combo">
+    <div class="seccion-tag">🚀 Sección 4</div>
+    <h2>El combo definitivo: los dos juntos</h2>
+    <p class="intro">La combinación más poderosa: Perplexity da información actualizada y con fuentes, mientras Sequential Thinking hace que Claude procese esa información de forma rigurosa y estructurada antes de darte la respuesta final.</p>
+
+    <div class="pasos">
+      <div class="paso reveal">
+        <div class="paso-num">1</div>
+        <div class="paso-body">
+          <h4>Investigación técnica profunda</h4>
+          <p>Pídele que busque información reciente sobre un tema técnico (Perplexity) y luego que la analice paso a paso para darte una recomendación fundamentada (Sequential Thinking).</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">2</div>
+        <div class="paso-body">
+          <h4>Análisis de tendencias de mercado</h4>
+          <p>Busca los últimos movimientos de tu sector con Perplexity y pídele que razone estratégicamente sobre las implicaciones para tu negocio, paso a paso.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">3</div>
+        <div class="paso-body">
+          <h4>Fact-checking riguroso</h4>
+          <p>Verifica afirmaciones o datos con Perplexity y pídele que evalúe la calidad y credibilidad de las fuentes usando razonamiento explícito.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-block reveal">
+      <div class="code-label">⚡ Prompt combo — Perplexity + Sequential Thinking</div>
+      <div class="code-line">"Busca información actualizada sobre el estado actual de [tema X] en 2025.</div>
+      <div class="code-line"> Luego, piensa paso a paso qué implicaciones tiene esto para alguien que trabaja en [mi contexto].</div>
+      <div class="code-line"> Cita las fuentes de la información que uses y muestra tu razonamiento explícitamente."</div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="tiktok-section" id="tiktok">
+    <div class="tiktok-badge">🎬 TikTok Script</div>
+    <h2>Guion listo para grabar en CapCut</h2>
+    <p class="sub">Duración estimada: <strong>90 segundos</strong> · Formato: Vertical 9:16 · Ángulo: "Le di a Claude internet + cerebro mejorado"</p>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 1</span>
+        <span class="escena-tiempo">0:00 – 0:05</span>
+        <span class="escena-titulo">HOOK</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Tú frente a la cámara, expresión de "no lo puedo creer". Rápido corte a pantalla donde Claude responde con fuentes y razonamiento visible.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>"Le di a Claude internet Y cerebro mejorado 🧠⚡"</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Activé dos plugins que cambiaron completamente cómo Claude piensa y busca información."</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 2</span>
+        <span class="escena-tiempo">0:05 – 0:25</span>
+        <span class="escena-titulo">DEMO PERPLEXITY</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Grabación de pantalla: le preguntas a Claude algo que normalmente no sabría (noticias recientes, precio actual de algo). Claude responde con la info actualizada Y cita las fuentes.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>"Le pregunté algo de esta semana... 📅" → Claude responde con fecha actual y fuentes ✅</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Primero: Perplexity MCP. Le conecto a Claude la capacidad de buscar en internet en tiempo real — con fuentes verificadas. Mira: le pregunto algo de esta semana y me da la respuesta con las fuentes incluidas. Sin inventarse nada."</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 3</span>
+        <span class="escena-tiempo">0:25 – 0:50</span>
+        <span class="escena-titulo">DEMO SEQUENTIAL THINKING</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Grabación de pantalla: le pides a Claude que analice un problema complejo "paso a paso". Se ve cómo Claude muestra su razonamiento numerado (Paso 1... Paso 2... Paso 3...) antes de dar la respuesta.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>"Sequential Thinking: Claude pensando en voz alta 🧩" → Se ve el razonamiento paso a paso en pantalla</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Segundo: Sequential Thinking MCP. Este es el más subestimado. Le hace que Claude piense en voz alta — muestra exactamente cómo llegó a la respuesta, puede corregirse a sí mismo, y explora alternativas antes de darte la conclusión final."</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 4</span>
+        <span class="escena-tiempo">0:50 – 1:05</span>
+        <span class="escena-titulo">COMBO + CTA</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Diagrama animado simple: Perplexity (búsqueda) + Sequential Thinking (razonamiento) = Claude mejorado. Luego señalas el link en bio.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>"Perplexity = info real 🔮 · Sequential Thinking = razonamiento 🧩 · Juntos = Claude 10×" → "Instalación completa ⬆️ link en bio"</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Perplexity para información real y actual. Sequential Thinking para que razone bien. Los dos juntos transforman a Claude. Sequential Thinking es gratis — sin API key. La guía con la instalación completa está en el link de bio."</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:20px">
+      <span class="callout-ic">🎵</span>
+      <p><strong>Tip de edición en CapCut:</strong> El "wow moment" de este video es la escena 3 donde se ve el razonamiento paso a paso. Usa zoom progresivo en el texto de los pasos de Claude. Para Sequential Thinking, muestra un problema que de verdad se beneficia del razonamiento explícito — no algo trivial. Eso hace creíble el valor real del MCP.</p>
+    </div>
+  </div>
+
+  <div class="guia-nav reveal">
+    <a href="guia-mcp-03-github.html">
+      <span class="gnav-dir">← Anterior</span>
+      <span class="gnav-tit">MCP 03: GitHub + DevOps con IA</span>
+    </a>
+    <a href="guia-mcp-01-intro.html" class="gnav-right">
+      <span class="gnav-dir">← Volver al inicio</span>
+      <span class="gnav-tit">Los 5 MCPs: Guía completa</span>
+    </a>
+  </div>
+
+  <div class="cta-final reveal" style="margin:48px 0">
+    <h2>¿Quieres dominar estos MCPs en tu flujo?</h2>
+    <p>En una sesión 1:1 te configuro Perplexity y Sequential Thinking, y te muestro cómo sacarles el máximo provecho en investigación, análisis y toma de decisiones con IA.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-primary" href="servicios.html">Ver sesiones disponibles →</a>
+      <a class="btn btn-ghost" href="recursos.html">Ver más guías</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="y"></span> Jonathan Bautista · Mente en Automático · Guatemala 🇬🇹</div>
+    <div>
+      <a href="recursos.html">Recursos</a> ·
+      <a href="index.html">Inicio</a> ·
+      <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+</body>
+</html>

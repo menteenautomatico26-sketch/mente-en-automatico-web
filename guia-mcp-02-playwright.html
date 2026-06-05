@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Playwright MCP: Automatiza tu Navegador con IA | Mente en Automático</title>
+<meta name="description" content="Guía completa de Playwright MCP para Claude Code: instalación, casos de uso reales y cómo automatizar cualquier web sin escribir código. Con guion de TikTok incluido.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+.guia-hero{padding:80px 0 50px;text-align:center;position:relative}
+.guia-num{display:inline-block;background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.guia-hero h1{font-size:clamp(28px,5vw,50px);font-weight:900;line-height:1.1;margin-bottom:14px}
+.guia-hero .sub{color:var(--muted);font-size:clamp(15px,2vw,18px);max-width:620px;margin:0 auto 28px;line-height:1.6}
+.guia-meta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.guia-badge{background:var(--card);border:1px solid var(--line);color:var(--muted);
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:999px;display:flex;align-items:center;gap:5px}
+.indice{background:linear-gradient(135deg,#0a1340,#0a0a2e);border:1px solid var(--line);
+  border-radius:20px;padding:28px 32px;max-width:680px;margin:0 auto 48px}
+.indice h3{font-size:14px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon);margin-bottom:16px}
+.indice ol{padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.indice li a{color:var(--ink);font-size:14px;text-decoration:none;transition:.15s}
+.indice li a:hover{color:var(--cyan)}
+.guia-wrap{max-width:780px;margin:0 auto;padding:0 20px}
+.guia-section{margin-bottom:56px;scroll-margin-top:80px}
+.seccion-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--neon);margin-bottom:12px}
+.guia-section h2{font-size:clamp(22px,3.5vw,32px);font-weight:900;margin-bottom:10px;line-height:1.2}
+.guia-section .intro{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:24px}
+.pasos{display:flex;flex-direction:column;gap:12px;margin:20px 0}
+.paso{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:18px;align-items:flex-start}
+.paso-num{width:36px;height:36px;flex-shrink:0;border-radius:50%;
+  background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;font-weight:900;font-size:15px;
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--glow)}
+.paso-body h4{font-size:14px;font-weight:800;margin-bottom:3px}
+.paso-body p{color:var(--muted);font-size:13.5px;line-height:1.5}
+.code-block{background:#030c1a;border:1.5px solid rgba(0,191,255,.25);border-radius:14px;
+  padding:20px 22px;margin:16px 0;font-family:'Courier New',monospace;position:relative}
+.code-label{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  color:var(--neon);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.code-line{font-size:13px;color:#7dd3fc;line-height:1.8}
+.code-comment{color:#4b6c8a;font-style:italic;font-size:12px}
+.callout{display:flex;gap:14px;background:rgba(0,191,255,.06);border:1px solid rgba(0,191,255,.2);
+  border-radius:14px;padding:18px;margin:20px 0;align-items:flex-start}
+.callout-ic{font-size:22px;flex-shrink:0}
+.callout p{color:var(--muted);font-size:14px;line-height:1.6;margin:0}
+.callout strong{color:var(--ink)}
+.casos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin:20px 0}
+.caso{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.caso .ic{font-size:22px;margin-bottom:8px}
+.caso h4{font-size:14px;font-weight:800;margin-bottom:4px;color:var(--cyan)}
+.caso p{color:var(--muted);font-size:13px;line-height:1.5}
+.tiktok-section{background:linear-gradient(135deg,#160820,#0d0520);
+  border:2px solid rgba(255,0,80,.3);border-radius:22px;padding:36px;margin:48px 0}
+.tiktok-badge{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,0,80,.15);border:1px solid rgba(255,0,80,.3);
+  color:#ff5080;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.tiktok-section h2{font-size:clamp(20px,3vw,28px);font-weight:900;margin-bottom:8px}
+.tiktok-section .sub{color:var(--muted);font-size:14px;margin-bottom:28px;line-height:1.6}
+.escena{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:20px;margin-bottom:14px}
+.escena-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.escena-num{background:rgba(255,0,80,.2);color:#ff5080;font-size:11px;font-weight:900;
+  padding:3px 10px;border-radius:999px;letter-spacing:1px}
+.escena-tiempo{color:var(--muted);font-size:12px;font-weight:700}
+.escena-titulo{font-size:13px;font-weight:800;color:var(--ink);margin-left:auto}
+.escena-campo{margin-bottom:10px}
+.escena-campo label{display:block;font-size:10px;font-weight:800;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--neon);margin-bottom:4px}
+.escena-campo p{color:var(--muted);font-size:13.5px;line-height:1.6;margin:0;
+  background:rgba(0,0,0,.3);border-radius:8px;padding:10px 14px}
+.escena-campo .pantalla-txt{color:#ffd700;font-style:italic}
+.escena-campo .voz-txt{color:#e2e8f0}
+.sep{border:none;border-top:1px solid var(--line);margin:48px 0}
+.pdf-bar{display:flex;align-items:center;justify-content:space-between;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:18px 24px;margin-bottom:40px;flex-wrap:wrap;gap:14px}
+.pdf-bar p{color:var(--muted);font-size:13.5px;margin:0;line-height:1.5}
+.pdf-bar strong{color:var(--ink)}
+.btn-pdf{background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;font-size:13px;font-weight:900;padding:10px 22px;
+  border-radius:999px;border:none;cursor:pointer;font-family:inherit;
+  display:flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none}
+.btn-pdf:hover{opacity:.9;transform:translateY(-1px)}
+.guia-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:56px}
+.guia-nav a{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:20px;text-decoration:none;color:inherit;transition:.2s;display:flex;flex-direction:column;gap:4px}
+.guia-nav a:hover{border-color:var(--neon);transform:translateY(-3px)}
+.gnav-dir{font-size:11px;color:var(--muted);font-weight:700}
+.gnav-tit{font-size:15px;font-weight:800;color:var(--ink)}
+.gnav-right{text-align:right}
+@media print{
+  canvas,header.nav,footer,.pdf-bar,.guia-nav,.cta-final,.menu-btn{display:none!important}
+  body{background:#fff!important;color:#111!important}
+  .guia-hero,.guia-wrap{padding:0!important;max-width:100%!important}
+  .guia-section,.indice,.escena,.tiktok-section,.caso,.paso,.callout,.code-block{
+    border:1px solid #ddd!important;background:#fff!important;
+    box-shadow:none!important;color:#111!important;break-inside:avoid}
+  .guia-section h2,.guia-num,.seccion-tag,.tiktok-badge{color:#111!important;background:none!important;
+    -webkit-text-fill-color:#111!important}
+  .guia-section .intro,.caso p,.paso-body p,.callout p,.escena-campo p{color:#444!important}
+  .code-line{color:#1a56db!important}
+  h1 span{-webkit-text-fill-color:#0055cc!important;background:none!important}
+  a{color:#0055cc!important}
+  @page{margin:1.5cm;size:A4}
+}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span>
+    </a>
+    <nav>
+      <a href="recursos.html">← Recursos</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="novedades.html">Novedades</a>
+    </nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="guia-hero">
+  <div class="wrap" style="max-width:780px">
+    <div class="guia-num">MCP · Guía 02 · Gratis</div>
+    <h1>Playwright MCP:<br><span style="background:linear-gradient(120deg,var(--cyan),var(--neon2));-webkit-background-clip:text;background-clip:text;color:transparent">Automatiza Cualquier Web con IA</span></h1>
+    <p class="sub">Convierte a Claude Code en un agente de navegador completo. Desde scraping de webs dinámicas hasta testing automático — sin escribir una línea de código de automatización.</p>
+    <div class="guia-meta">
+      <span class="guia-badge">⏱ 10 min de lectura</span>
+      <span class="guia-badge">🎭 Playwright MCP</span>
+      <span class="guia-badge">✓ Sin API key</span>
+      <span class="guia-badge">🔄 Actualizada 2025</span>
+    </div>
+  </div>
+</section>
+
+<div class="guia-wrap">
+
+  <div class="pdf-bar reveal">
+    <p><strong>📥 Descarga esta guía en PDF</strong><br>Comandos de instalación, casos de uso y guion de TikTok — todo en un archivo.</p>
+    <button class="btn-pdf" onclick="window.print()">📄 Descargar PDF</button>
+  </div>
+
+  <div class="indice reveal">
+    <h3>📋 Contenido de esta guía</h3>
+    <ol>
+      <li><a href="#que-es">¿Qué es Playwright MCP y cómo funciona?</a></li>
+      <li><a href="#instalar">Instalación paso a paso</a></li>
+      <li><a href="#casos">5 casos de uso reales</a></li>
+      <li><a href="#ejemplos">Ejemplos de prompts para Claude</a></li>
+      <li><a href="#tiktok">🎬 Guion de TikTok listo para grabar</a></li>
+    </ol>
+  </div>
+
+  <div class="guia-section" id="que-es">
+    <div class="seccion-tag">🎭 Sección 1</div>
+    <h2>¿Qué es Playwright MCP y cómo funciona?</h2>
+    <p class="intro">Playwright MCP convierte a Claude Code en un agente que puede abrir páginas web, hacer clic en botones, rellenar formularios, extraer información y tomar capturas de pantalla — todo de forma autónoma.</p>
+    <p style="color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:20px">La diferencia técnica clave: en lugar de usar capturas de pantalla (como hacen otros agentes de IA), Playwright opera sobre el <strong style="color:var(--ink)">árbol de accesibilidad del navegador</strong> — una representación estructurada de todos los elementos de la página. Esto lo hace más preciso, más rápido y compatible con cualquier modelo de IA sin necesidad de visión artificial.</p>
+
+    <div class="callout reveal">
+      <span class="callout-ic">🎭</span>
+      <p><strong>Analogía:</strong> Si el HTML de una web es como los cimientos de un edificio, Playwright lee el plano del edificio completo — cada puerta, cada botón, cada formulario — y puede interactuar con cualquier elemento de forma directa y precisa.</p>
+    </div>
+
+    <div style="margin-top:24px">
+      <h3 style="font-size:16px;font-weight:800;margin-bottom:14px">Navegadores compatibles</h3>
+      <div class="casos-grid">
+        <div class="caso reveal"><div class="ic">🔵</div><h4>Google Chrome</h4><p>El más usado. Soporte completo para todas las funciones de Playwright MCP.</p></div>
+        <div class="caso reveal"><div class="ic">🦊</div><h4>Firefox</h4><p>Ideal para testing cross-browser. Compatible al 100%.</p></div>
+        <div class="caso reveal"><div class="ic">🧭</div><h4>Safari (WebKit)</h4><p>Para probar comportamiento en iOS y macOS de forma consistente.</p></div>
+        <div class="caso reveal"><div class="ic">🌐</div><h4>Microsoft Edge</h4><p>Basado en Chromium. Mismo soporte que Chrome.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guia-section" id="instalar">
+    <div class="seccion-tag">⚡ Sección 2</div>
+    <h2>Instalación paso a paso</h2>
+    <p class="intro">Playwright MCP no requiere API key — solo Node.js 18+. La instalación completa toma menos de 2 minutos.</p>
+
+    <div class="pasos">
+      <div class="paso reveal">
+        <div class="paso-num">1</div>
+        <div class="paso-body">
+          <h4>Verifica Node.js</h4>
+          <p>Abre tu terminal y escribe <code style="background:rgba(0,191,255,.1);padding:2px 8px;border-radius:6px;color:var(--cyan)">node --version</code>. Necesitas v18 o superior. Si no lo tienes, descárgalo gratis en <strong>nodejs.org</strong>.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">2</div>
+        <div class="paso-body">
+          <h4>Instala con el comando oficial</h4>
+          <div class="code-block" style="margin:10px 0">
+            <div class="code-label">💻 Terminal</div>
+            <div class="code-line">claude mcp add playwright npx @playwright/mcp@latest</div>
+          </div>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">3</div>
+        <div class="paso-body">
+          <h4>Reinicia Claude Code</h4>
+          <p>Cierra completamente Claude Code y vuelve a abrirlo. El MCP se registra automáticamente al reiniciar.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">4</div>
+        <div class="paso-body">
+          <h4>Prueba que funciona</h4>
+          <p>Escríbele a Claude: <em style="color:var(--cyan)">"Abre google.com en el navegador y dime el título de la página"</em>. Si responde con el título correcto, está funcionando.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout reveal">
+      <span class="callout-ic">💡</span>
+      <p><strong>Pro tip:</strong> Para ejecutar sin ventana visible (ideal en servidores o automatizaciones en background), puedes configurar el modo headless. Agrega <code style="background:rgba(0,191,255,.1);padding:2px 6px;border-radius:4px;color:var(--cyan)">--headless</code> como argumento en la configuración JSON del MCP.</p>
+    </div>
+  </div>
+
+  <div class="guia-section" id="casos">
+    <div class="seccion-tag">🚀 Sección 3</div>
+    <h2>5 casos de uso reales</h2>
+    <p class="intro">Estos son los usos más valiosos de Playwright MCP en un flujo de trabajo real — sin necesidad de saber programar automatizaciones.</p>
+
+    <div class="pasos">
+      <div class="paso reveal">
+        <div class="paso-num">1</div>
+        <div class="paso-body">
+          <h4>Scraping de webs dinámicas (SPAs)</h4>
+          <p>Muchos sitios cargan el contenido con JavaScript después del HTML inicial. Playwright puede esperar a que cargue y extraer la información correcta. Ideal para webs de e-commerce, noticias o plataformas con login.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">2</div>
+        <div class="paso-body">
+          <h4>Testing automático de aplicaciones web</h4>
+          <p>Claude puede recorrer tu web automáticamente: hacer clic en todos los botones, probar formularios, verificar que no haya errores. Un QA tester virtual que trabaja 24/7.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">3</div>
+        <div class="paso-body">
+          <h4>Rellenar formularios y automatizar flujos</h4>
+          <p>¿Tienes que rellenar el mismo formulario muchas veces? Claude con Playwright puede hacerlo automáticamente. Registros, pedidos, actualizaciones de datos en portales — todo en piloto automático.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">4</div>
+        <div class="paso-body">
+          <h4>Monitorización de cambios en páginas</h4>
+          <p>Visita una página de forma recurrente y alerta cuando cambia algo: precio de un producto, disponibilidad de tickets, actualizaciones en documentación técnica, cambios en webs de competidores.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">5</div>
+        <div class="paso-body">
+          <h4>Captura y análisis visual de webs</h4>
+          <p>Toma capturas de pantalla automáticas de cualquier página para documentación, comparativas de diseño o para generar reportes visuales de cómo se ve tu producto en distintos navegadores.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guia-section" id="ejemplos">
+    <div class="seccion-tag">💬 Sección 4</div>
+    <h2>Ejemplos de prompts para Claude</h2>
+    <p class="intro">Una vez instalado Playwright MCP, puedes pedirle a Claude cosas como estas directamente en el chat:</p>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="code-block reveal">
+        <div class="code-label">🔍 Scraping básico</div>
+        <div class="code-line">"Ve a [URL] y extráeme todos los títulos y precios de los productos que aparecen en la página principal."</div>
+      </div>
+      <div class="code-block reveal">
+        <div class="code-label">📋 Formularios automáticos</div>
+        <div class="code-line">"Entra a [URL del formulario] y rellénalo con estos datos: [nombre, email, mensaje]. Luego dime si se envió correctamente."</div>
+      </div>
+      <div class="code-block reveal">
+        <div class="code-label">📸 Captura de pantalla</div>
+        <div class="code-line">"Toma una captura de pantalla de [URL] en desktop (1920px) y en móvil (390px) para comparar el diseño responsive."</div>
+      </div>
+      <div class="code-block reveal">
+        <div class="code-label">🔄 Monitoreo de precios</div>
+        <div class="code-line">"Ve a [URL del producto] y dime el precio actual. Necesito saber si cambió respecto a este precio de referencia: $49.99"</div>
+      </div>
+      <div class="code-block reveal">
+        <div class="code-label">🧪 Testing de funcionalidad</div>
+        <div class="code-line">"Prueba el formulario de contacto de mi web [URL]: rellena todos los campos con datos de prueba, envíalo y dime si aparece el mensaje de confirmación."</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="tiktok-section" id="tiktok">
+    <div class="tiktok-badge">🎬 TikTok Script</div>
+    <h2>Guion listo para grabar en CapCut</h2>
+    <p class="sub">Duración estimada: <strong>80 segundos</strong> · Formato: Vertical 9:16 · Gancho: demostración en pantalla</p>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 1</span>
+        <span class="escena-tiempo">0:00 – 0:05</span>
+        <span class="escena-titulo">HOOK</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Grabación de pantalla: Claude recibiendo el prompt "Entra a Amazon y dime el precio de [producto]". El navegador se abre solo.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>"Le pedí a Claude que navegara la web por mí 🤯"</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Mira lo que pasa cuando le pido a Claude que navegue la web por mí."</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 2</span>
+        <span class="escena-tiempo">0:05 – 0:18</span>
+        <span class="escena-titulo">DEMO</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Grabación de pantalla en tiempo real: el navegador se abre, navega a la URL, extrae la información, Claude responde con los datos.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>"El navegador se abre solo ✅ · Extrae la info ✅ · Me da los datos ✅"</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Mira: el navegador se abre, va directo a la página, extrae la información y me la trae. Sin que yo toque nada."</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 3</span>
+        <span class="escena-tiempo">0:18 – 0:32</span>
+        <span class="escena-titulo">EXPLICACIÓN</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Tú en cámara. Puede cortar a slides con texto de los 3 casos de uso.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>"Playwright MCP → Claude con navegador 🎭"</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Esto se llama Playwright MCP — un plugin que le da a Claude un navegador real. Puede hacer scraping, rellenar formularios, hacer testing de tu web, monitorear precios... todo en automático."</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 4</span>
+        <span class="escena-tiempo">0:32 – 0:50</span>
+        <span class="escena-titulo">CASOS DE USO</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Lista animada. Cada item aparece con check verde. Fondo oscuro, tipografía grande.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>✅ Scraping de cualquier web<br>✅ Rellenar formularios automático<br>✅ Testing de tu web<br>✅ Monitorear precios o cambios<br>✅ Sin escribir código</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Scraping de cualquier web — incluso las que usan JavaScript. Formularios automáticos. Testing de tu producto. Monitoreo de precios. Todo con un solo comando de instalación. Sin pagar nada."</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 5</span>
+        <span class="escena-tiempo">0:50 – 1:00</span>
+        <span class="escena-titulo">INSTALACIÓN + CTA</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Comando de instalación en pantalla, tipografía grande y legible. Luego señalas el link en bio.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>"claude mcp add playwright npx @playwright/mcp@latest" → "Guía completa ⬆️ link en bio"</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"El comando de instalación es este. Lo ejecutas, reinicias Claude Code y listo. La guía completa con más ejemplos está en el link de bio."</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:20px">
+      <span class="callout-ic">🎵</span>
+      <p><strong>Tip de edición en CapCut:</strong> La clave de este video es la demo en pantalla (escena 2). Grábala en alta resolución, acelera si es muy lenta (1.5x), y añade zoom en los momentos donde el navegador hace algo visible. El gancho es el "wow moment" de ver el navegador moverse solo.</p>
+    </div>
+  </div>
+
+  <div class="guia-nav reveal">
+    <a href="guia-mcp-01-intro.html">
+      <span class="gnav-dir">← Anterior</span>
+      <span class="gnav-tit">MCP 01: Los 5 imprescindibles</span>
+    </a>
+    <a href="guia-mcp-03-github.html" class="gnav-right">
+      <span class="gnav-dir">Siguiente →</span>
+      <span class="gnav-tit">MCP 03: GitHub + DevOps con IA</span>
+    </a>
+  </div>
+
+  <div class="cta-final reveal" style="margin:48px 0">
+    <h2>¿Quieres implementar automatizaciones web?</h2>
+    <p>En una sesión 1:1 te muestro cómo construir tus propios flujos de scraping y automatización con Playwright MCP y Claude Code.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-primary" href="servicios.html">Ver sesiones disponibles →</a>
+      <a class="btn btn-ghost" href="recursos.html">Ver más guías</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="y"></span> Jonathan Bautista · Mente en Automático · Guatemala 🇬🇹</div>
+    <div>
+      <a href="recursos.html">Recursos</a> ·
+      <a href="index.html">Inicio</a> ·
+      <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GitHub MCP: Controla tus Repositorios con Claude | Mente en Automático</title>
+<meta name="description" content="Guía completa de GitHub MCP para Claude Code: gestión de repositorios, code review automático, issues y pull requests — todo con IA. Con guion de TikTok.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+.guia-hero{padding:80px 0 50px;text-align:center;position:relative}
+.guia-num{display:inline-block;background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.guia-hero h1{font-size:clamp(28px,5vw,50px);font-weight:900;line-height:1.1;margin-bottom:14px}
+.guia-hero .sub{color:var(--muted);font-size:clamp(15px,2vw,18px);max-width:620px;margin:0 auto 28px;line-height:1.6}
+.guia-meta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.guia-badge{background:var(--card);border:1px solid var(--line);color:var(--muted);
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:999px;display:flex;align-items:center;gap:5px}
+.indice{background:linear-gradient(135deg,#0a1340,#0a0a2e);border:1px solid var(--line);
+  border-radius:20px;padding:28px 32px;max-width:680px;margin:0 auto 48px}
+.indice h3{font-size:14px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon);margin-bottom:16px}
+.indice ol{padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.indice li a{color:var(--ink);font-size:14px;text-decoration:none;transition:.15s}
+.indice li a:hover{color:var(--cyan)}
+.guia-wrap{max-width:780px;margin:0 auto;padding:0 20px}
+.guia-section{margin-bottom:56px;scroll-margin-top:80px}
+.seccion-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;
+  letter-spacing:1.5px;text-transform:uppercase;color:var(--neon);margin-bottom:12px}
+.guia-section h2{font-size:clamp(22px,3.5vw,32px);font-weight:900;margin-bottom:10px;line-height:1.2}
+.guia-section .intro{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:24px}
+.pasos{display:flex;flex-direction:column;gap:12px;margin:20px 0}
+.paso{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:18px;align-items:flex-start}
+.paso-num{width:36px;height:36px;flex-shrink:0;border-radius:50%;
+  background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;font-weight:900;font-size:15px;
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--glow)}
+.paso-body h4{font-size:14px;font-weight:800;margin-bottom:3px}
+.paso-body p{color:var(--muted);font-size:13.5px;line-height:1.5}
+.code-block{background:#030c1a;border:1.5px solid rgba(0,191,255,.25);border-radius:14px;
+  padding:20px 22px;margin:16px 0;font-family:'Courier New',monospace}
+.code-label{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  color:var(--neon);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.code-line{font-size:13px;color:#7dd3fc;line-height:1.8}
+.code-comment{color:#4b6c8a;font-style:italic;font-size:12px}
+.callout{display:flex;gap:14px;background:rgba(0,191,255,.06);border:1px solid rgba(0,191,255,.2);
+  border-radius:14px;padding:18px;margin:20px 0;align-items:flex-start}
+.callout-ic{font-size:22px;flex-shrink:0}
+.callout p{color:var(--muted);font-size:14px;line-height:1.6;margin:0}
+.callout strong{color:var(--ink)}
+.callout-warn{background:rgba(255,165,0,.06);border-color:rgba(255,165,0,.3)}
+.callout-warn p{color:var(--muted)}
+.feature-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;margin:20px 0}
+.feature{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.feature .ic{font-size:22px;margin-bottom:8px}
+.feature h4{font-size:14px;font-weight:800;margin-bottom:4px;color:var(--cyan)}
+.feature p{color:var(--muted);font-size:13px;line-height:1.5}
+.tiktok-section{background:linear-gradient(135deg,#160820,#0d0520);
+  border:2px solid rgba(255,0,80,.3);border-radius:22px;padding:36px;margin:48px 0}
+.tiktok-badge{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,0,80,.15);border:1px solid rgba(255,0,80,.3);
+  color:#ff5080;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.tiktok-section h2{font-size:clamp(20px,3vw,28px);font-weight:900;margin-bottom:8px}
+.tiktok-section .sub{color:var(--muted);font-size:14px;margin-bottom:28px;line-height:1.6}
+.escena{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:20px;margin-bottom:14px}
+.escena-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.escena-num{background:rgba(255,0,80,.2);color:#ff5080;font-size:11px;font-weight:900;
+  padding:3px 10px;border-radius:999px;letter-spacing:1px}
+.escena-tiempo{color:var(--muted);font-size:12px;font-weight:700}
+.escena-titulo{font-size:13px;font-weight:800;color:var(--ink);margin-left:auto}
+.escena-campo{margin-bottom:10px}
+.escena-campo label{display:block;font-size:10px;font-weight:800;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--neon);margin-bottom:4px}
+.escena-campo p{color:var(--muted);font-size:13.5px;line-height:1.6;margin:0;
+  background:rgba(0,0,0,.3);border-radius:8px;padding:10px 14px}
+.escena-campo .pantalla-txt{color:#ffd700;font-style:italic}
+.escena-campo .voz-txt{color:#e2e8f0}
+.sep{border:none;border-top:1px solid var(--line);margin:48px 0}
+.pdf-bar{display:flex;align-items:center;justify-content:space-between;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:18px 24px;margin-bottom:40px;flex-wrap:wrap;gap:14px}
+.pdf-bar p{color:var(--muted);font-size:13.5px;margin:0;line-height:1.5}
+.pdf-bar strong{color:var(--ink)}
+.btn-pdf{background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;font-size:13px;font-weight:900;padding:10px 22px;
+  border-radius:999px;border:none;cursor:pointer;font-family:inherit;
+  display:flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none}
+.btn-pdf:hover{opacity:.9;transform:translateY(-1px)}
+.guia-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:56px}
+.guia-nav a{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:20px;text-decoration:none;color:inherit;transition:.2s;display:flex;flex-direction:column;gap:4px}
+.guia-nav a:hover{border-color:var(--neon);transform:translateY(-3px)}
+.gnav-dir{font-size:11px;color:var(--muted);font-weight:700}
+.gnav-tit{font-size:15px;font-weight:800;color:var(--ink)}
+.gnav-right{text-align:right}
+@media print{
+  canvas,header.nav,footer,.pdf-bar,.guia-nav,.cta-final,.menu-btn{display:none!important}
+  body{background:#fff!important;color:#111!important}
+  .guia-hero,.guia-wrap{padding:0!important;max-width:100%!important}
+  .guia-section,.indice,.escena,.tiktok-section,.feature,.paso,.callout,.code-block{
+    border:1px solid #ddd!important;background:#fff!important;
+    box-shadow:none!important;color:#111!important;break-inside:avoid}
+  .guia-section h2,.guia-num,.seccion-tag,.tiktok-badge{color:#111!important;background:none!important;
+    -webkit-text-fill-color:#111!important}
+  .guia-section .intro,.feature p,.paso-body p,.callout p,.escena-campo p{color:#444!important}
+  .code-line{color:#1a56db!important}
+  h1 span{-webkit-text-fill-color:#0055cc!important;background:none!important}
+  a{color:#0055cc!important}
+  @page{margin:1.5cm;size:A4}
+}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span>
+    </a>
+    <nav>
+      <a href="recursos.html">← Recursos</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="novedades.html">Novedades</a>
+    </nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="guia-hero">
+  <div class="wrap" style="max-width:780px">
+    <div class="guia-num">MCP · Guía 03 · Gratis</div>
+    <h1>GitHub MCP:<br><span style="background:linear-gradient(120deg,var(--cyan),var(--neon2));-webkit-background-clip:text;background-clip:text;color:transparent">DevOps e IA Juntos por Fin</span></h1>
+    <p class="sub">Gestiona repositorios, revisa código, abre issues y automatiza tu flujo de desarrollo — todo desde Claude Code sin salir del asistente.</p>
+    <div class="guia-meta">
+      <span class="guia-badge">⏱ 10 min de lectura</span>
+      <span class="guia-badge">🐙 GitHub MCP</span>
+      <span class="guia-badge">🔑 Token de GitHub</span>
+      <span class="guia-badge">🔄 Actualizada 2025</span>
+    </div>
+  </div>
+</section>
+
+<div class="guia-wrap">
+
+  <div class="pdf-bar reveal">
+    <p><strong>📥 Descarga esta guía en PDF</strong><br>Instalación, configuración del token, comandos y guion de TikTok — todo en un archivo.</p>
+    <button class="btn-pdf" onclick="window.print()">📄 Descargar PDF</button>
+  </div>
+
+  <div class="indice reveal">
+    <h3>📋 Contenido de esta guía</h3>
+    <ol>
+      <li><a href="#que-es">¿Qué puede hacer GitHub MCP?</a></li>
+      <li><a href="#token">Crear tu Personal Access Token de GitHub</a></li>
+      <li><a href="#instalar">Instalación y configuración</a></li>
+      <li><a href="#flujos">Flujos de trabajo reales con ejemplos</a></li>
+      <li><a href="#tiktok">🎬 Guion de TikTok listo para grabar</a></li>
+    </ol>
+  </div>
+
+  <div class="guia-section" id="que-es">
+    <div class="seccion-tag">🐙 Sección 1</div>
+    <h2>¿Qué puede hacer GitHub MCP?</h2>
+    <p class="intro">GitHub MCP es el plugin oficial de GitHub para Claude Code. Le da acceso completo a tus repositorios: puede leer código, crear archivos, gestionar issues, revisar pull requests y mucho más — todo sin abrir el navegador.</p>
+
+    <div class="feature-grid">
+      <div class="feature reveal">
+        <div class="ic">📁</div>
+        <h4>Leer y crear archivos</h4>
+        <p>Accede al código de cualquier repositorio (propio o público), crea archivos nuevos, hace commits y gestiona branches.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="ic">🐛</div>
+        <h4>Gestionar issues</h4>
+        <p>Crea, actualiza, comenta y cierra issues. Categoriza bugs automáticamente y asígnalos al equipo correcto.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="ic">🔀</div>
+        <h4>Revisar Pull Requests</h4>
+        <p>Analiza el código de un PR completo, sugiere mejoras, detecta bugs y genera comentarios de revisión.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="ic">🔍</div>
+        <h4>Buscar en el código</h4>
+        <p>Busca patrones, funciones o lógica específica en cualquier repositorio público de GitHub.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="ic">🚀</div>
+        <h4>Releases y changelogs</h4>
+        <p>Genera notas de versión automáticamente a partir de los commits y PRs mergeados desde el último release.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="ic">📊</div>
+        <h4>GitHub Projects</h4>
+        <p>Accede a milestones, etiquetas y proyectos. Consulta el estado del roadmap sin salir del terminal.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="guia-section" id="token">
+    <div class="seccion-tag">🔑 Sección 2</div>
+    <h2>Crear tu Personal Access Token de GitHub</h2>
+    <p class="intro">Necesitas un token para que Claude pueda autenticarse con GitHub. Se genera en 2 minutos desde la configuración de tu cuenta.</p>
+
+    <div class="callout-warn callout reveal">
+      <span class="callout-ic">⚠️</span>
+      <p><strong>Seguridad importante:</strong> Tu token es como una contraseña. Nunca lo compartas, nunca lo subas a GitHub (ni siquiera en un archivo .env). Guárdalo en un lugar seguro como un gestor de contraseñas. Si se compromete, revócalo inmediatamente desde GitHub Settings.</p>
+    </div>
+
+    <div class="pasos">
+      <div class="paso reveal">
+        <div class="paso-num">1</div>
+        <div class="paso-body">
+          <h4>Ve a GitHub Settings</h4>
+          <p>Entra a tu cuenta de GitHub → haz clic en tu foto de perfil (arriba a la derecha) → <strong>Settings</strong>.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">2</div>
+        <div class="paso-body">
+          <h4>Accede a Developer Settings</h4>
+          <p>En el menú lateral izquierdo, baja hasta el final y haz clic en <strong>Developer settings</strong>.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">3</div>
+        <div class="paso-body">
+          <h4>Crea un token clásico</h4>
+          <p>Haz clic en <strong>Personal access tokens → Tokens (classic) → Generate new token (classic)</strong>. Ponle un nombre descriptivo como "Claude MCP".</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">4</div>
+        <div class="paso-body">
+          <h4>Selecciona los permisos necesarios</h4>
+          <p>Para uso general con Claude, marca: <code style="background:rgba(0,191,255,.1);padding:2px 8px;border-radius:6px;color:var(--cyan)">repo</code> (acceso completo a repos privados) y <code style="background:rgba(0,191,255,.1);padding:2px 8px;border-radius:6px;color:var(--cyan)">read:org</code>. Si solo usas repos públicos, marca solo <code style="background:rgba(0,191,255,.1);padding:2px 8px;border-radius:6px;color:var(--cyan)">public_repo</code>.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">5</div>
+        <div class="paso-body">
+          <h4>Copia y guarda el token</h4>
+          <p>GitHub te muestra el token <strong>una sola vez</strong>. Cópialo y guárdalo en un lugar seguro antes de cerrar la página.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="guia-section" id="instalar">
+    <div class="seccion-tag">⚡ Sección 3</div>
+    <h2>Instalación y configuración</h2>
+    <p class="intro">Con tu token listo, la instalación es un único comando en tu terminal.</p>
+
+    <div class="code-block reveal">
+      <div class="code-label">💻 Comando de instalación</div>
+      <div class="code-line">claude mcp add github npx @github/github-mcp-server</div>
+      <div class="code-comment" style="margin-top:8px"># Claude te pedirá el GITHUB_PERSONAL_ACCESS_TOKEN durante la configuración</div>
+    </div>
+
+    <p style="color:var(--muted);font-size:14px;line-height:1.6;margin:16px 0">Si prefieres configurarlo manualmente, aquí está el JSON completo para agregar a tu configuración de Claude Code:</p>
+
+    <div class="code-block reveal">
+      <div class="code-label">⚙️ Configuración JSON (alternativa)</div>
+      <div class="code-line">{</div>
+      <div class="code-line">&nbsp;&nbsp;"mcpServers": {</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;"github": {</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"command": "npx",</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"args": ["@github/github-mcp-server"],</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"env": {</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"GITHUB_PERSONAL_ACCESS_TOKEN": "tu_token_aqui"</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+      <div class="code-line">&nbsp;&nbsp;}</div>
+      <div class="code-line">}</div>
+    </div>
+
+    <div class="callout reveal">
+      <span class="callout-ic">✅</span>
+      <p><strong>Verifica que funciona:</strong> Reinicia Claude Code y escríbele: <em style="color:var(--cyan)">"Dime cuáles son mis repositorios más recientes en GitHub"</em>. Si te lista los repos, está configurado correctamente.</p>
+    </div>
+  </div>
+
+  <div class="guia-section" id="flujos">
+    <div class="seccion-tag">🚀 Sección 4</div>
+    <h2>Flujos de trabajo reales con ejemplos</h2>
+    <p class="intro">Estas son las combinaciones de prompts más útiles para tu trabajo diario con GitHub MCP activo.</p>
+
+    <div style="display:flex;flex-direction:column;gap:14px">
+      <div class="code-block reveal">
+        <div class="code-label">🔍 Code Review automático</div>
+        <div class="code-line">"Revisa el PR #42 del repositorio [mi-repo]. Identifica posibles bugs, problemas de seguridad y sugiere mejoras. Sé específico y directo."</div>
+      </div>
+      <div class="code-block reveal">
+        <div class="code-label">🐛 Gestión de issues</div>
+        <div class="code-line">"Revisa los issues abiertos de [mi-repo] y categorízalos por: bug crítico, mejora de UX, deuda técnica o nueva funcionalidad. Lista los 3 más urgentes."</div>
+      </div>
+      <div class="code-block reveal">
+        <div class="code-label">📝 Generar changelog</div>
+        <div class="code-line">"Analiza todos los commits y PRs mergeados en [mi-repo] desde el tag v1.2.0 hasta hoy. Genera unas notas de versión claras para los usuarios."</div>
+      </div>
+      <div class="code-block reveal">
+        <div class="code-label">📖 Documentación automática</div>
+        <div class="code-line">"Lee el archivo [src/api/routes.js] de [mi-repo] y genera un README.md que documente todos los endpoints: método, URL, parámetros y ejemplo de respuesta."</div>
+      </div>
+      <div class="code-block reveal">
+        <div class="code-label">🔎 Análisis de repositorios públicos</div>
+        <div class="code-line">"Busca en GitHub proyectos open source que usen [tecnología X] para [caso de uso Y]. Dame los 5 más relevantes con una descripción de su arquitectura."</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="tiktok-section" id="tiktok">
+    <div class="tiktok-badge">🎬 TikTok Script</div>
+    <h2>Guion listo para grabar en CapCut</h2>
+    <p class="sub">Duración estimada: <strong>85 segundos</strong> · Formato: Vertical 9:16 · Ángulo: "Code review que encontró bugs reales"</p>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 1</span>
+        <span class="escena-tiempo">0:00 – 0:05</span>
+        <span class="escena-titulo">HOOK</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Grabación de pantalla: Claude recibiendo el prompt "Revisa el PR #15 y dime si hay bugs". La respuesta empieza a aparecer.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>"Claude revisó mi código y encontró 3 bugs que yo no vi 😳"</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Le pedí a Claude que revisara mi último pull request. Lo que encontró me dejó sin palabras."</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 2</span>
+        <span class="escena-tiempo">0:05 – 0:22</span>
+        <span class="escena-titulo">DEMO</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Grabación de pantalla: Claude listando los bugs encontrados en el PR con explicaciones específicas. Zoom en los bugs más visibles.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>"Bug 1: Variable sin validar → crash posible" / "Bug 2: SQL injection si..." / "Bug 3: Manejo de errores faltante"</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Encontró una variable sin validar que podía crashear la app, un problema potencial de seguridad en la query, y un caso de manejo de errores que me había olvidado. Todo en 10 segundos."</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 3</span>
+        <span class="escena-tiempo">0:22 – 0:38</span>
+        <span class="escena-titulo">EXPLICACIÓN</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Tú en cámara. Cortar a diagrama simple: Claude ↔ GitHub.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>"GitHub MCP = Claude con acceso directo a tu código 🐙"</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Esto es posible gracias al GitHub MCP — un plugin que conecta Claude directamente con tus repositorios. Puede leer tu código, gestionar issues, revisar PRs y generar documentación. Todo sin abrir el navegador."</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 4</span>
+        <span class="escena-tiempo">0:38 – 0:56</span>
+        <span class="escena-titulo">CASOS DE USO</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Lista animada. Cada item aparece con ícono. Cortes rápidos de 2 segundos cada uno.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>🔍 Code review automático<br>🐛 Gestión de issues con IA<br>📝 Changelogs en segundos<br>📖 Documentación automática<br>🔎 Busca en cualquier repo público</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Code review automático. Clasificación de issues. Changelogs generados desde los commits. Documentación automática del código. Y puede buscar patrones en cualquier repositorio público de GitHub."</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 5</span>
+        <span class="escena-tiempo">0:56 – 1:05</span>
+        <span class="escena-titulo">INSTALACIÓN + CTA</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Comando de instalación en pantalla grande. Luego señalas el link en bio.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>"claude mcp add github npx @github/github-mcp-server" → "Guía completa ⬆️ link en bio"</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Solo necesitas un token de GitHub y este comando. En la guía del link de bio te explico cómo conseguir el token en 2 minutos."</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:20px">
+      <span class="callout-ic">🎵</span>
+      <p><strong>Tip de edición en CapCut:</strong> El gancho de este video son los bugs reales. Si puedes mostrar código de un proyecto tuyo (sin datos sensibles), el video será mucho más creíble. Usa texto en pantalla grande para destacar cada bug cuando Claude lo menciona. Ritmo rápido, cortes cada 2-3 segundos.</p>
+    </div>
+  </div>
+
+  <div class="guia-nav reveal">
+    <a href="guia-mcp-02-playwright.html">
+      <span class="gnav-dir">← Anterior</span>
+      <span class="gnav-tit">MCP 02: Playwright — Automatiza la web</span>
+    </a>
+    <a href="guia-mcp-04-busqueda.html" class="gnav-right">
+      <span class="gnav-dir">Siguiente →</span>
+      <span class="gnav-tit">MCP 04: Búsqueda en tiempo real</span>
+    </a>
+  </div>
+
+  <div class="cta-final reveal" style="margin:48px 0">
+    <h2>¿Quieres configurar GitHub MCP en tu flujo?</h2>
+    <p>En una sesión 1:1 te configuro GitHub MCP y te enseño a integrarlo en tu flujo de desarrollo diario para revisar código, gestionar issues y documentar en piloto automático.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-primary" href="servicios.html">Ver sesiones disponibles →</a>
+      <a class="btn btn-ghost" href="recursos.html">Ver más guías</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="y"></span> Jonathan Bautista · Mente en Automático · Guatemala 🇬🇹</div>
+    <div>
+      <a href="recursos.html">Recursos</a> ·
+      <a href="index.html">Inicio</a> ·
+      <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>document.getElementById("y").textContent = new Date().getFullYear();</script>
+</body>
+</html>

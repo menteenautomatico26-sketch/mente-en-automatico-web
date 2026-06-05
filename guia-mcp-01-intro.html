@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MCPs para Claude Code: La Guía Completa 2025 | Mente en Automático</title>
+<meta name="description" content="Qué son los MCPs, por qué transforman tu flujo con Claude Code y los 5 más imprescindibles. Guía práctica con guion de TikTok incluido. Por Jonathan Bautista.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ── GUÍA LAYOUT ── */
+.guia-hero{padding:80px 0 50px;text-align:center;position:relative}
+.guia-num{display:inline-block;background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.guia-hero h1{font-size:clamp(28px,5vw,50px);font-weight:900;line-height:1.1;margin-bottom:14px}
+.guia-hero .sub{color:var(--muted);font-size:clamp(15px,2vw,18px);max-width:620px;margin:0 auto 28px;line-height:1.6}
+.guia-meta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.guia-badge{background:var(--card);border:1px solid var(--line);color:var(--muted);
+  font-size:12px;font-weight:600;padding:5px 14px;border-radius:999px;display:flex;align-items:center;gap:5px}
+
+/* ── ÍNDICE ── */
+.indice{background:linear-gradient(135deg,#0a1340,#0a0a2e);border:1px solid var(--line);
+  border-radius:20px;padding:28px 32px;max-width:680px;margin:0 auto 48px}
+.indice h3{font-size:14px;font-weight:800;letter-spacing:1px;text-transform:uppercase;
+  color:var(--neon);margin-bottom:16px}
+.indice ol{padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.indice li a{color:var(--ink);font-size:14px;text-decoration:none;transition:.15s}
+.indice li a:hover{color:var(--cyan)}
+
+/* ── SECCIONES ── */
+.guia-wrap{max-width:780px;margin:0 auto;padding:0 20px}
+.guia-section{margin-bottom:56px;scroll-margin-top:80px}
+.seccion-tag{display:inline-flex;align-items:center;gap:7px;
+  font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--neon);margin-bottom:12px}
+.guia-section h2{font-size:clamp(22px,3.5vw,32px);font-weight:900;margin-bottom:10px;line-height:1.2}
+.guia-section .intro{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:24px}
+
+/* ── CARDS ── */
+.diff-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:20px 0}
+.diff-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.diff-card .ic{font-size:24px;margin-bottom:10px}
+.diff-card h4{font-size:14px;font-weight:800;margin-bottom:4px;color:var(--cyan)}
+.diff-card p{color:var(--muted);font-size:13px;line-height:1.5}
+
+/* ── PASOS ── */
+.pasos{display:flex;flex-direction:column;gap:12px;margin:20px 0}
+.paso{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);
+  border-radius:14px;padding:18px;align-items:flex-start}
+.paso-num{width:36px;height:36px;flex-shrink:0;border-radius:50%;
+  background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;font-weight:900;font-size:15px;
+  display:flex;align-items:center;justify-content:center;box-shadow:var(--glow)}
+.paso-body h4{font-size:14px;font-weight:800;margin-bottom:3px}
+.paso-body p{color:var(--muted);font-size:13.5px;line-height:1.5}
+
+/* ── CÓDIGO ── */
+.code-block{background:#030c1a;border:1.5px solid rgba(0,191,255,.25);border-radius:14px;
+  padding:20px 22px;margin:16px 0;font-family:'Courier New',monospace;position:relative}
+.code-label{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  color:var(--neon);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.code-line{font-size:13px;color:#7dd3fc;line-height:1.8}
+.code-comment{color:#4b6c8a;font-style:italic}
+.copy-btn{background:rgba(0,191,255,.1);border:1px solid rgba(0,191,255,.3);
+  color:var(--cyan);font-size:12px;font-weight:700;padding:6px 14px;
+  border-radius:999px;cursor:pointer;transition:.15s;font-family:inherit}
+.copy-btn:hover{background:rgba(0,191,255,.2)}
+
+/* ── CALLOUT ── */
+.callout{display:flex;gap:14px;background:rgba(0,191,255,.06);border:1px solid rgba(0,191,255,.2);
+  border-radius:14px;padding:18px;margin:20px 0;align-items:flex-start}
+.callout-ic{font-size:22px;flex-shrink:0}
+.callout p{color:var(--muted);font-size:14px;line-height:1.6;margin:0}
+.callout strong{color:var(--ink)}
+
+/* ── TABLA MCP ── */
+.mcp-table{width:100%;border-collapse:collapse;margin:20px 0;font-size:13.5px}
+.mcp-table th{background:rgba(0,191,255,.08);border:1px solid var(--line);
+  padding:10px 14px;text-align:left;font-size:11px;font-weight:800;
+  letter-spacing:1px;text-transform:uppercase;color:var(--neon)}
+.mcp-table td{border:1px solid var(--line);padding:10px 14px;color:var(--muted);vertical-align:middle}
+.mcp-table tr:hover td{background:rgba(255,255,255,.03)}
+.tag-si{color:var(--ok);font-weight:700}
+.tag-no{color:#7dd3fc;font-weight:700}
+
+/* ── SECCIÓN TIKTOK ── */
+.tiktok-section{background:linear-gradient(135deg,#160820,#0d0520);
+  border:2px solid rgba(255,0,80,.3);border-radius:22px;padding:36px;margin:48px 0}
+.tiktok-badge{display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,0,80,.15);border:1px solid rgba(255,0,80,.3);
+  color:#ff5080;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;
+  padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.tiktok-section h2{font-size:clamp(20px,3vw,28px);font-weight:900;margin-bottom:8px}
+.tiktok-section .sub{color:var(--muted);font-size:14px;margin-bottom:28px;line-height:1.6}
+.escena{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08);
+  border-radius:14px;padding:20px;margin-bottom:14px}
+.escena-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.escena-num{background:rgba(255,0,80,.2);color:#ff5080;font-size:11px;font-weight:900;
+  padding:3px 10px;border-radius:999px;letter-spacing:1px}
+.escena-tiempo{color:var(--muted);font-size:12px;font-weight:700}
+.escena-titulo{font-size:13px;font-weight:800;color:var(--ink);margin-left:auto}
+.escena-campo{margin-bottom:10px}
+.escena-campo label{display:block;font-size:10px;font-weight:800;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--neon);margin-bottom:4px}
+.escena-campo p{color:var(--muted);font-size:13.5px;line-height:1.6;margin:0;
+  background:rgba(0,0,0,.3);border-radius:8px;padding:10px 14px}
+.escena-campo .pantalla-txt{color:#ffd700;font-style:italic}
+.escena-campo .voz-txt{color:#e2e8f0}
+
+/* ── SEPARADOR ── */
+.sep{border:none;border-top:1px solid var(--line);margin:48px 0}
+
+/* ── PDF BUTTON ── */
+.pdf-bar{display:flex;align-items:center;justify-content:space-between;
+  background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:18px 24px;margin-bottom:40px;flex-wrap:wrap;gap:14px}
+.pdf-bar p{color:var(--muted);font-size:13.5px;margin:0;line-height:1.5}
+.pdf-bar strong{color:var(--ink)}
+.btn-pdf{background:linear-gradient(135deg,var(--neon),var(--neon2));
+  color:#001226;font-size:13px;font-weight:900;padding:10px 22px;
+  border-radius:999px;border:none;cursor:pointer;font-family:inherit;
+  display:flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none}
+.btn-pdf:hover{opacity:.9;transform:translateY(-1px)}
+
+/* ── NAVEGACIÓN ── */
+.guia-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:56px}
+.guia-nav a{background:var(--card);border:1px solid var(--line);border-radius:16px;
+  padding:20px;text-decoration:none;color:inherit;transition:.2s;display:flex;flex-direction:column;gap:4px}
+.guia-nav a:hover{border-color:var(--neon);transform:translateY(-3px)}
+.gnav-dir{font-size:11px;color:var(--muted);font-weight:700}
+.gnav-tit{font-size:15px;font-weight:800;color:var(--ink)}
+.gnav-right{text-align:right}
+
+/* ── PRINT STYLES ── */
+@media print{
+  canvas,header.nav,footer,.pdf-bar,.guia-nav,.cta-final,.menu-btn{display:none!important}
+  body{background:#fff!important;color:#111!important}
+  .guia-hero,.guia-wrap{padding:0!important;max-width:100%!important}
+  .guia-section,.indice,.escena,.tiktok-section,.diff-card,.paso,.callout,.code-block{
+    border:1px solid #ddd!important;background:#fff!important;
+    box-shadow:none!important;color:#111!important;break-inside:avoid}
+  .guia-section h2,.guia-num,.seccion-tag,.tiktok-badge{color:#111!important;background:none!important;
+    -webkit-text-fill-color:#111!important}
+  .guia-section .intro,.diff-card p,.paso-body p,.callout p,.escena-campo p,
+  .mcp-table td,.mcp-table th{color:#444!important}
+  .code-line{color:#1a56db!important}
+  h1 span{-webkit-text-fill-color:#0055cc!important;background:none!important}
+  a{color:#0055cc!important}
+  @page{margin:1.5cm;size:A4}
+}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html">
+      <img class="logo-ic" src="icon.jpg" alt="Mente en Automático">
+      <span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span>
+    </a>
+    <nav>
+      <a href="recursos.html">← Recursos</a>
+      <a href="servicios.html">Servicios</a>
+      <a href="novedades.html">Novedades</a>
+    </nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="guia-hero">
+  <div class="wrap" style="max-width:780px">
+    <div class="guia-num">MCP · Guía 01 · Gratis</div>
+    <h1>MCPs para Claude Code:<br><span style="background:linear-gradient(120deg,var(--cyan),var(--neon2));-webkit-background-clip:text;background-clip:text;color:transparent">Los 5 que Cambian Todo</span></h1>
+    <p class="sub">La guía definitiva para conectar Claude Code con el mundo real: navegación web, búsqueda en tiempo real, repositorios de código y razonamiento estructurado — todo desde un solo asistente.</p>
+    <div class="guia-meta">
+      <span class="guia-badge">⏱ 12 min de lectura</span>
+      <span class="guia-badge">🧩 Nivel intermedio</span>
+      <span class="guia-badge">✓ 100% gratis</span>
+      <span class="guia-badge">🔄 Actualizada 2025</span>
+    </div>
+  </div>
+</section>
+
+<div class="guia-wrap">
+
+  <!-- PDF DOWNLOAD -->
+  <div class="pdf-bar reveal">
+    <p><strong>📥 Descarga esta guía en PDF</strong><br>Para leerla sin internet, compartirla o tenerla siempre a mano.</p>
+    <button class="btn-pdf" onclick="window.print()">📄 Descargar PDF</button>
+  </div>
+
+  <!-- ÍNDICE -->
+  <div class="indice reveal">
+    <h3>📋 Contenido de esta guía</h3>
+    <ol>
+      <li><a href="#que-son">¿Qué son los MCPs y por qué te cambian la vida?</a></li>
+      <li><a href="#como-instalar">Cómo instalar un MCP en 1 minuto</a></li>
+      <li><a href="#los-cinco">Los 5 MCPs imprescindibles</a></li>
+      <li><a href="#comparativa">Comparativa rápida y cuál empezar</a></li>
+      <li><a href="#tiktok">🎬 Guion de TikTok listo para grabar</a></li>
+    </ol>
+  </div>
+
+  <!-- SECCIÓN 1 -->
+  <div class="guia-section" id="que-son">
+    <div class="seccion-tag">🧩 Sección 1</div>
+    <h2>¿Qué son los MCPs y por qué te cambian la vida?</h2>
+    <p class="intro">Por defecto, Claude vive en una "caja": sabe muchísimo, pero no puede conectarse con el exterior. No puede navegar la web, leer tus repositorios en tiempo real ni buscar noticias de hoy. Los MCPs rompen esa caja.</p>
+
+    <p style="color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:20px">El <strong style="color:var(--ink)">Model Context Protocol (MCP)</strong> es un estándar abierto creado por Anthropic que permite a Claude conectarse con herramientas externas del mundo real: navegadores, bases de datos, APIs, servicios en la nube y mucho más. En Claude Code, los MCPs son especialmente poderosos porque convierten al asistente en un <em style="color:var(--cyan)">agente autónomo</em>.</p>
+
+    <div class="diff-grid">
+      <div class="diff-card reveal">
+        <div class="ic">🌐</div>
+        <h4>Navega la web</h4>
+        <p>Con Playwright MCP, Claude puede abrir páginas, hacer clic, rellenar formularios y extraer información de cualquier sitio.</p>
+      </div>
+      <div class="diff-card reveal">
+        <div class="ic">🔍</div>
+        <h4>Busca en tiempo real</h4>
+        <p>Con Perplexity MCP obtiene información actualizada con fuentes verificadas, no solo lo que aprendió antes de su entrenamiento.</p>
+      </div>
+      <div class="diff-card reveal">
+        <div class="ic">🐙</div>
+        <h4>Gestiona código</h4>
+        <p>GitHub MCP le da control total sobre repositorios: issues, pull requests, commits y revisión de código automática.</p>
+      </div>
+      <div class="diff-card reveal">
+        <div class="ic">🧠</div>
+        <h4>Razona mejor</h4>
+        <p>Sequential Thinking MCP hace que Claude articule su proceso mental paso a paso y pueda corregirse a sí mismo.</p>
+      </div>
+    </div>
+
+    <div class="callout reveal">
+      <span class="callout-ic">💡</span>
+      <p><strong>Analogía simple:</strong> Claude sin MCPs es como un experto encerrado en una sala sin internet. Con MCPs, ese mismo experto tiene acceso a todo: buscador, GitHub, un navegador, y herramientas de razonamiento avanzado. El experto es el mismo — las herramientas lo hacen 10× más útil.</p>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 2 -->
+  <div class="guia-section" id="como-instalar">
+    <div class="seccion-tag">⚡ Sección 2</div>
+    <h2>Cómo instalar un MCP en 1 minuto</h2>
+    <p class="intro">Todos los MCPs de esta guía se instalan con un único comando. El único requisito previo es tener <strong>Node.js 18+</strong> instalado en tu computadora.</p>
+
+    <div class="pasos">
+      <div class="paso reveal">
+        <div class="paso-num">1</div>
+        <div class="paso-body">
+          <h4>Verifica que tienes Node.js</h4>
+          <p>Abre tu terminal y escribe <code style="background:rgba(0,191,255,.1);padding:2px 8px;border-radius:6px;color:var(--cyan)">node --version</code>. Si ves algo como <code style="color:var(--ok)">v20.x.x</code>, estás listo. Si no, descárgalo gratis en nodejs.org.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">2</div>
+        <div class="paso-body">
+          <h4>Ejecuta el comando de instalación</h4>
+          <p>Cada MCP tiene su propio comando. Lo encontrarás en las secciones siguientes. El formato general es <code style="background:rgba(0,191,255,.1);padding:2px 8px;border-radius:6px;color:var(--cyan)">claude mcp add [nombre] [comando]</code>.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">3</div>
+        <div class="paso-body">
+          <h4>Reinicia Claude Code</h4>
+          <p>Cierra y vuelve a abrir Claude Code. El MCP estará disponible automáticamente. Sin configuración adicional en la mayoría de los casos.</p>
+        </div>
+      </div>
+      <div class="paso reveal">
+        <div class="paso-num">4</div>
+        <div class="paso-body">
+          <h4>Verifica que funciona</h4>
+          <p>Escríbele a Claude algo relacionado con el MCP instalado. Por ejemplo, con Playwright: "Abre google.com y dime el título de la página". Verás que ahora puede hacerlo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 3 -->
+  <div class="guia-section" id="los-cinco">
+    <div class="seccion-tag">🚀 Sección 3</div>
+    <h2>Los 5 MCPs imprescindibles</h2>
+    <p class="intro">Estos son los MCPs más útiles para quien trabaja con Claude Code a diario. Cada uno tiene su caso de uso específico — y juntos forman un arsenal completo.</p>
+
+    <!-- MCP 1 -->
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:16px" class="reveal">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <span style="font-size:28px">🎭</span>
+        <div>
+          <div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon)">MCP 01 · Microsoft Oficial</div>
+          <h3 style="font-size:18px;font-weight:900;margin:0">Playwright MCP — Automatización de navegador</h3>
+        </div>
+      </div>
+      <p style="color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:14px">Convierte a Claude Code en un agente de navegador completo. Opera sobre el árbol de accesibilidad del navegador (no capturas de pantalla), lo que lo hace preciso y compatible con cualquier modelo.</p>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:14px"><strong style="color:var(--ink)">Úsalo para:</strong> scraping de webs dinámicas, testing automático, rellenar formularios, monitorear cambios en páginas, automatizar dashboards.</p>
+      <div class="code-block">
+        <div class="code-label">💻 Comando de instalación</div>
+        <div class="code-line">claude mcp add playwright npx @playwright/mcp@latest</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <span style="background:rgba(57,217,138,.1);border:1px solid rgba(57,217,138,.3);color:var(--ok);font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">Sin API key</span>
+        <span style="background:rgba(0,191,255,.08);border:1px solid rgba(0,191,255,.2);color:var(--cyan);font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">Requiere Node.js 18+</span>
+      </div>
+    </div>
+
+    <!-- MCP 2 -->
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:16px" class="reveal">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <span style="font-size:28px">🔥</span>
+        <div>
+          <div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon)">MCP 02 · Firecrawl Oficial</div>
+          <h3 style="font-size:18px;font-weight:900;margin:0">Firecrawl MCP — Scraping y búsqueda avanzada</h3>
+        </div>
+      </div>
+      <p style="color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:14px">Convierte cualquier página web en datos limpios y estructurados (Markdown o JSON). Soporta JavaScript, paginación y extracción masiva. Ideal para investigación y análisis de competidores.</p>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:14px"><strong style="color:var(--ink)">Úsalo para:</strong> analizar webs de competidores, crear datasets, monitorear precios, extraer documentación técnica, resumir artículos o blogs automáticamente.</p>
+      <div class="code-block">
+        <div class="code-label">💻 Comando de instalación</div>
+        <div class="code-line">claude mcp add firecrawl npx firecrawl-mcp</div>
+        <div class="code-comment" style="margin-top:8px;font-size:12px"># Necesitas una API key gratis en firecrawl.dev (500 créditos gratis)</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <span style="background:rgba(255,200,50,.08);border:1px solid rgba(255,200,50,.3);color:#fbbf24;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">API key gratis</span>
+        <span style="background:rgba(0,191,255,.08);border:1px solid rgba(0,191,255,.2);color:var(--cyan);font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">Requiere Node.js 18+</span>
+      </div>
+    </div>
+
+    <!-- MCP 3 -->
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:16px" class="reveal">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <span style="font-size:28px">🔮</span>
+        <div>
+          <div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon)">MCP 03 · Perplexity Oficial</div>
+          <h3 style="font-size:18px;font-weight:900;margin:0">Perplexity MCP — Búsqueda con razonamiento en tiempo real</h3>
+        </div>
+      </div>
+      <p style="color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:14px">Conecta Claude Code con el motor de Perplexity AI: información actualizada con citas verificadas. A diferencia de una búsqueda común, sintetiza respuestas combinando múltiples fuentes con razonamiento propio.</p>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:14px"><strong style="color:var(--ink)">Úsalo para:</strong> investigación técnica con fuentes, noticias del sector IA, fact-checking, tendencias de mercado, documentación oficial y papers académicos.</p>
+      <div class="code-block">
+        <div class="code-label">💻 Comando de instalación</div>
+        <div class="code-line">claude mcp add perplexity-search --env PERPLEXITY_API_KEY=tu_key -- npx -y server-perplexity-ask</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <span style="background:rgba(255,200,50,.08);border:1px solid rgba(255,200,50,.3);color:#fbbf24;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">API key de Perplexity</span>
+        <span style="background:rgba(0,191,255,.08);border:1px solid rgba(0,191,255,.2);color:var(--cyan);font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">Requiere Node.js 18+</span>
+      </div>
+    </div>
+
+    <!-- MCP 4 -->
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:16px" class="reveal">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <span style="font-size:28px">🐙</span>
+        <div>
+          <div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon)">MCP 04 · GitHub Oficial</div>
+          <h3 style="font-size:18px;font-weight:900;margin:0">GitHub MCP — Control total de repositorios</h3>
+        </div>
+      </div>
+      <p style="color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:14px">Interactúa directamente con repositorios, issues, pull requests y GitHub Actions. La herramienta definitiva para flujos de DevOps con IA: gestiona código, revisa PRs y automatiza tareas sin salir de Claude.</p>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:14px"><strong style="color:var(--ink)">Úsalo para:</strong> code review automático, gestión de issues, documentación, changelogs, buscar patrones en repositorios open source.</p>
+      <div class="code-block">
+        <div class="code-label">💻 Comando de instalación</div>
+        <div class="code-line">claude mcp add github npx @github/github-mcp-server</div>
+        <div class="code-comment" style="margin-top:8px;font-size:12px"># Necesitas un Personal Access Token de GitHub Settings &gt; Developer Settings</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <span style="background:rgba(255,200,50,.08);border:1px solid rgba(255,200,50,.3);color:#fbbf24;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">GitHub Token</span>
+        <span style="background:rgba(0,191,255,.08);border:1px solid rgba(0,191,255,.2);color:var(--cyan);font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">Requiere Node.js 18+</span>
+      </div>
+    </div>
+
+    <!-- MCP 5 -->
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:16px" class="reveal">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+        <span style="font-size:28px">🧩</span>
+        <div>
+          <div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon)">MCP 05 · Anthropic Oficial</div>
+          <h3 style="font-size:18px;font-weight:900;margin:0">Sequential Thinking MCP — Razonamiento estructurado</h3>
+        </div>
+      </div>
+      <p style="color:var(--muted);font-size:14px;line-height:1.6;margin-bottom:14px">Implementa un protocolo de razonamiento dinámico: Claude articula su proceso mental en pasos explícitos, puede revisar conclusiones anteriores y explorar hipótesis alternativas. Ideal para problemas complejos.</p>
+      <p style="color:var(--muted);font-size:13px;margin-bottom:14px"><strong style="color:var(--ink)">Úsalo para:</strong> debugging complejo paso a paso, arquitecturas de software, problemas matemáticos, análisis de requisitos, decisiones técnicas con pros/contras explícitos.</p>
+      <div class="code-block">
+        <div class="code-label">💻 Comando de instalación</div>
+        <div class="code-line">claude mcp add sequential-thinking npx @modelcontextprotocol/server-sequential-thinking</div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px">
+        <span style="background:rgba(57,217,138,.1);border:1px solid rgba(57,217,138,.3);color:var(--ok);font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">Sin API key</span>
+        <span style="background:rgba(0,191,255,.08);border:1px solid rgba(0,191,255,.2);color:var(--cyan);font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px">Requiere Node.js 18+</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECCIÓN 4 -->
+  <div class="guia-section" id="comparativa">
+    <div class="seccion-tag">📊 Sección 4</div>
+    <h2>Comparativa rápida: ¿cuál instalar primero?</h2>
+    <p class="intro">Si estás empezando, no instales los 5 a la vez. Empieza con los que no requieren API key — son instantáneos — y añade los demás según tu caso de uso.</p>
+
+    <table class="mcp-table reveal">
+      <thead>
+        <tr>
+          <th>MCP</th>
+          <th>Categoría</th>
+          <th>API Key</th>
+          <th>Dificultad</th>
+          <th>Para empezar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong style="color:var(--ink)">🎭 Playwright</strong></td>
+          <td>Automatización web</td>
+          <td class="tag-no">No necesita</td>
+          <td>Media</td>
+          <td><span style="color:var(--ok);font-weight:700">✓ Sí</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ink)">🔥 Firecrawl</strong></td>
+          <td>Scraping avanzado</td>
+          <td class="tag-si">Gratis en web</td>
+          <td>Fácil</td>
+          <td><span style="color:var(--ok);font-weight:700">✓ Sí</span></td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ink)">🔮 Perplexity</strong></td>
+          <td>Búsqueda IA</td>
+          <td class="tag-si">Pago (pplx.ai)</td>
+          <td>Fácil</td>
+          <td>Segundo paso</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ink)">🐙 GitHub</strong></td>
+          <td>DevOps &amp; Código</td>
+          <td class="tag-si">Token GitHub</td>
+          <td>Media</td>
+          <td>Si usas GitHub</td>
+        </tr>
+        <tr>
+          <td><strong style="color:var(--ink)">🧩 Seq. Thinking</strong></td>
+          <td>Razonamiento</td>
+          <td class="tag-no">No necesita</td>
+          <td>Muy fácil</td>
+          <td><span style="color:var(--ok);font-weight:700">✓ Primero</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout reveal">
+      <span class="callout-ic">🏁</span>
+      <p><strong>Recomendación Jonathan:</strong> Empieza con <strong>Sequential Thinking</strong> (sin API key, instalación instantánea) y nota de inmediato cómo Claude razona mejor. Luego añade <strong>Playwright</strong> para automatizar la web. Una vez con eso dominado, los otros tres te abrirán casos de uso completamente nuevos.</p>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <!-- SECCIÓN TIKTOK -->
+  <div class="tiktok-section" id="tiktok">
+    <div class="tiktok-badge">🎬 TikTok Script</div>
+    <h2>Guion listo para grabar en CapCut</h2>
+    <p class="sub">Duración estimada: <strong>75 segundos</strong> · Formato: Vertical 9:16 · Nivel: Para cualquier audiencia de IA/tecnología</p>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 1</span>
+        <span class="escena-tiempo">0:00 – 0:04</span>
+        <span class="escena-titulo">HOOK</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Tú frente a la cámara, cara de sorpresa. Fondo: pantalla con terminal de Claude Code.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>"El 99% usa Claude sin esto 😱"</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"¿Sabías que Claude tiene superpoderes que casi nadie activa?"</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 2</span>
+        <span class="escena-tiempo">0:04 – 0:15</span>
+        <span class="escena-titulo">PROBLEMA</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Captura de Claude respondiendo "No tengo acceso a internet". Animación de caja cerrada.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>"Claude sin MCPs = genio encerrado en una caja"</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Por defecto, Claude no puede navegar la web, no ve tus repositorios, no busca noticias de hoy. Está atrapado en su entrenamiento."</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 3</span>
+        <span class="escena-tiempo">0:15 – 0:22</span>
+        <span class="escena-titulo">SOLUCIÓN</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Animación: caja que se abre, flechas saliendo hacia íconos de web, GitHub, búsqueda.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>"MCPs = conectores que rompen esa caja 🔓"</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Los MCPs son plugins que conectan a Claude con el mundo real. Instalas uno, reincias Claude Code, y boom — ya puede navegar, buscar y gestionar GitHub."</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 4</span>
+        <span class="escena-tiempo">0:22 – 0:55</span>
+        <span class="escena-titulo">LOS 5 MCPs</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Lista animada, cada MCP aparece con su ícono. Corte rápido entre cada uno (2-3 seg por MCP).</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla (aparece uno a uno)</label>
+        <p>🎭 Playwright → Navega la web<br>🔥 Firecrawl → Extrae datos de sitios<br>🔮 Perplexity → Busca en tiempo real<br>🐙 GitHub → Controla tu código<br>🧩 Sequential Thinking → Razona mejor</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Los cinco que necesitas: Playwright para navegar la web, Firecrawl para extraer datos, Perplexity para noticias en tiempo real, GitHub para tu código, y Sequential Thinking para que Claude piense paso a paso antes de responder."</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 5</span>
+        <span class="escena-tiempo">0:55 – 1:05</span>
+        <span class="escena-titulo">CTA</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Tú en cámara, señalando hacia arriba (donde está el link en bio).</p>
+      </div>
+      <div class="escena-campo">
+        <label>Texto en pantalla</label>
+        <p>"Guía completa con comandos de instalación GRATIS ⬆️ Link en bio"</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">"Te dejé la guía completa con todos los comandos de instalación, casos de uso y tips — totalmente gratis. El link está arriba."</p>
+      </div>
+    </div>
+
+    <div class="callout" style="margin-top:20px">
+      <span class="callout-ic">🎵</span>
+      <p><strong>Música sugerida para CapCut:</strong> "Tech Intro" o "Digital Future" (trending en TikTok tech). Velocidad de edición: media-rápida en escenas 1-3, lenta en escena 4 para que se lean los MCPs.</p>
+    </div>
+  </div>
+
+  <!-- NAVEGACIÓN -->
+  <div class="guia-nav reveal">
+    <a href="recursos.html">
+      <span class="gnav-dir">← Volver</span>
+      <span class="gnav-tit">Todos los recursos</span>
+    </a>
+    <a href="guia-mcp-02-playwright.html" class="gnav-right">
+      <span class="gnav-dir">Siguiente →</span>
+      <span class="gnav-tit">MCP 02: Playwright en profundidad</span>
+    </a>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-final reveal" style="margin:48px 0">
+    <h2>¿Quieres implementar esto en tu flujo?</h2>
+    <p>En una sesión 1:1 te configuro los MCPs que más se adaptan a tu trabajo específico — y te enseño a sacarles provecho desde el primer día.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-primary" href="servicios.html">Ver sesiones disponibles →</a>
+      <a class="btn btn-ghost" href="recursos.html">Ver más guías</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>© <span id="y"></span> Jonathan Bautista · Mente en Automático · Guatemala 🇬🇹</div>
+    <div>
+      <a href="recursos.html">Recursos</a> ·
+      <a href="index.html">Inicio</a> ·
+      <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a>
+    </div>
+  </div>
+</footer>
+
+<script src="app.js"></script>
+<script>
+document.getElementById("y").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
