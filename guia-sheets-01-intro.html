@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Google Sheets para el Trabajo Real: Las Fórmulas que Más Importan | Mente en Automático</title>
+<meta name="description" content="Aprende las fórmulas de Google Sheets que realmente usas en el trabajo: BUSCARV, SUMAR.SI, tablas dinámicas y dashboards — sin tutoriales de 2 horas. Con guion de TikTok.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+.guia-hero{padding:80px 0 50px;text-align:center}
+.guia-num{display:inline-block;background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.guia-hero h1{font-size:clamp(28px,5vw,50px);font-weight:900;line-height:1.1;margin-bottom:14px}
+.guia-hero .sub{color:var(--muted);font-size:clamp(15px,2vw,18px);max-width:620px;margin:0 auto 28px;line-height:1.6}
+.guia-meta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.guia-badge{background:var(--card);border:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:600;padding:5px 14px;border-radius:999px}
+.indice{background:linear-gradient(135deg,#0a1340,#0a0a2e);border:1px solid var(--line);border-radius:20px;padding:28px 32px;max-width:680px;margin:0 auto 48px}
+.indice h3{font-size:14px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon);margin-bottom:16px}
+.indice ol{padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.indice li a{color:var(--ink);font-size:14px;text-decoration:none;transition:.15s}
+.indice li a:hover{color:var(--cyan)}
+.guia-wrap{max-width:780px;margin:0 auto;padding:0 20px}
+.guia-section{margin-bottom:56px;scroll-margin-top:80px}
+.seccion-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--neon);margin-bottom:12px}
+.guia-section h2{font-size:clamp(22px,3.5vw,32px);font-weight:900;margin-bottom:10px;line-height:1.2}
+.guia-section .intro{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:24px}
+.formula-card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;margin-bottom:14px}
+.formula-card .nombre{font-size:13px;font-weight:900;color:var(--neon);letter-spacing:1px;text-transform:uppercase;margin-bottom:6px}
+.formula-card h4{font-size:16px;font-weight:800;margin-bottom:6px}
+.formula-card .desc{color:var(--muted);font-size:13.5px;line-height:1.6;margin-bottom:12px}
+.formula-ejemplo{background:#030c1a;border:1px solid rgba(0,191,255,.2);border-radius:10px;padding:14px 16px;font-family:'Courier New',monospace;font-size:13px;color:#7dd3fc;margin-bottom:8px}
+.formula-caso{font-size:12.5px;color:var(--muted);font-style:italic}
+.pasos{display:flex;flex-direction:column;gap:12px;margin:20px 0}
+.paso{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;align-items:flex-start}
+.paso-num{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center}
+.paso-body h4{font-size:14px;font-weight:800;margin-bottom:3px}
+.paso-body p{color:var(--muted);font-size:13.5px;line-height:1.5}
+.callout{display:flex;gap:14px;background:rgba(0,191,255,.06);border:1px solid rgba(0,191,255,.2);border-radius:14px;padding:18px;margin:20px 0;align-items:flex-start}
+.callout-ic{font-size:22px;flex-shrink:0}
+.callout p{color:var(--muted);font-size:14px;line-height:1.6;margin:0}
+.callout strong{color:var(--ink)}
+.tip-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:20px 0}
+.tip{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.tip .ic{font-size:22px;margin-bottom:8px}
+.tip h4{font-size:14px;font-weight:800;margin-bottom:4px;color:var(--cyan)}
+.tip p{color:var(--muted);font-size:13px;line-height:1.5}
+.tiktok-section{background:linear-gradient(135deg,#160820,#0d0520);border:2px solid rgba(255,0,80,.3);border-radius:22px;padding:36px;margin:48px 0}
+.tiktok-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,0,80,.15);border:1px solid rgba(255,0,80,.3);color:#ff5080;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.tiktok-section h2{font-size:clamp(20px,3vw,28px);font-weight:900;margin-bottom:8px}
+.tiktok-section .sub{color:var(--muted);font-size:14px;margin-bottom:28px;line-height:1.6}
+.escena{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px;margin-bottom:14px}
+.escena-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.escena-num{background:rgba(255,0,80,.2);color:#ff5080;font-size:11px;font-weight:900;padding:3px 10px;border-radius:999px;letter-spacing:1px}
+.escena-tiempo{color:var(--muted);font-size:12px;font-weight:700}
+.escena-titulo{font-size:13px;font-weight:800;color:var(--ink);margin-left:auto}
+.escena-campo{margin-bottom:10px}
+.escena-campo label{display:block;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--neon);margin-bottom:4px}
+.escena-campo p{color:var(--muted);font-size:13.5px;line-height:1.6;margin:0;background:rgba(0,0,0,.3);border-radius:8px;padding:10px 14px}
+.pantalla-txt{color:#ffd700;font-style:italic}
+.voz-txt{color:#e2e8f0}
+.sep{border:none;border-top:1px solid var(--line);margin:48px 0}
+.pdf-bar{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 24px;margin-bottom:40px;flex-wrap:wrap;gap:14px}
+.pdf-bar p{color:var(--muted);font-size:13.5px;margin:0}
+.pdf-bar strong{color:var(--ink)}
+.btn-pdf{background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;font-size:13px;font-weight:900;padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.btn-pdf:hover{opacity:.9}
+.guia-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:56px}
+.guia-nav a{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;text-decoration:none;color:inherit;transition:.2s;display:flex;flex-direction:column;gap:4px}
+.guia-nav a:hover{border-color:var(--neon);transform:translateY(-3px)}
+.gnav-dir{font-size:11px;color:var(--muted);font-weight:700}
+.gnav-tit{font-size:15px;font-weight:800;color:var(--ink)}
+.gnav-right{text-align:right}
+@media print{
+  canvas,header.nav,footer,.pdf-bar,.guia-nav,.cta-final,.menu-btn{display:none!important}
+  body{background:#fff!important;color:#111!important}
+  .guia-hero,.guia-wrap{padding:0!important;max-width:100%!important}
+  .guia-section,.indice,.escena,.tiktok-section,.formula-card,.paso,.callout,.tip{border:1px solid #ddd!important;background:#fff!important;box-shadow:none!important;color:#111!important;break-inside:avoid}
+  .guia-section h2,.guia-num,.seccion-tag,.tiktok-badge{color:#111!important;-webkit-text-fill-color:#111!important}
+  .formula-ejemplo{color:#1a56db!important;background:#f0f4ff!important}
+  h1 span{-webkit-text-fill-color:#0055cc!important;background:none!important}
+  @page{margin:1.5cm;size:A4}
+}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img class="logo-ic" src="icon.jpg" alt="Mente en Automático"><span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span></a>
+    <nav><a href="recursos.html">← Recursos</a><a href="servicios.html">Servicios</a><a href="novedades.html">Novedades</a></nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="guia-hero">
+  <div class="wrap" style="max-width:780px">
+    <div class="guia-num">Sheets · Guía 01 · Gratis</div>
+    <h1>Google Sheets<br><span style="background:linear-gradient(120deg,var(--cyan),var(--neon2));-webkit-background-clip:text;background-clip:text;color:transparent">Para el Trabajo Real</span></h1>
+    <p class="sub">Las fórmulas y funciones que realmente usas — sin tutoriales de 2 horas. BUSCARV, SUMAR.SI, tablas dinámicas y dashboards explicados con casos reales de trabajo.</p>
+    <div class="guia-meta">
+      <span class="guia-badge">⏱ 12 min de lectura</span>
+      <span class="guia-badge">📊 Google Sheets</span>
+      <span class="guia-badge">✓ 100% gratis</span>
+      <span class="guia-badge">🔄 2025</span>
+    </div>
+  </div>
+</section>
+
+<div class="guia-wrap">
+  <div class="pdf-bar reveal">
+    <p><strong>📥 Descarga esta guía en PDF</strong><br>Fórmulas, ejemplos y guion de TikTok en un solo archivo.</p>
+    <button class="btn-pdf" onclick="window.print()">📄 Descargar PDF</button>
+  </div>
+
+  <div class="indice reveal">
+    <h3>📋 Contenido de esta guía</h3>
+    <ol>
+      <li><a href="#por-que">¿Por qué Sheets y no Excel?</a></li>
+      <li><a href="#formulas">Las 6 fórmulas que más importan</a></li>
+      <li><a href="#dinamicas">Tablas dinámicas en 5 minutos</a></li>
+      <li><a href="#tips">Tips de productividad que nadie enseña</a></li>
+      <li><a href="#tiktok">🎬 Guion de TikTok listo para grabar</a></li>
+    </ol>
+  </div>
+
+  <div class="guia-section" id="por-que">
+    <div class="seccion-tag">📊 Sección 1</div>
+    <h2>¿Por qué Google Sheets y no Excel?</h2>
+    <p class="intro">Excel es poderoso, pero Google Sheets tiene ventajas que lo hacen mejor para el trabajo moderno — especialmente si trabajas con IA.</p>
+    <div class="tip-grid">
+      <div class="tip reveal"><div class="ic">☁️</div><h4>En la nube</h4><p>Accedes desde cualquier dispositivo. Sin "¿me mandas el archivo actualizado?"</p></div>
+      <div class="tip reveal"><div class="ic">👥</div><h4>Colaboración real</h4><p>Varias personas editando al mismo tiempo. Ves quién cambió qué y cuándo.</p></div>
+      <div class="tip reveal"><div class="ic">🤖</div><h4>Se conecta con IA</h4><p>Apps Script + Claude pueden leer, escribir y automatizar tus Sheets sin plugins de pago.</p></div>
+      <div class="tip reveal"><div class="ic">🆓</div><h4>Completamente gratis</h4><p>Con tu cuenta de Google ya tienes acceso. Sin licencias, sin suscripciones.</p></div>
+    </div>
+    <div class="callout reveal">
+      <span class="callout-ic">💡</span>
+      <p><strong>Nota importante:</strong> Si ya usas Excel en el trabajo, todo lo que aprendes aquí aplica también allá. Las fórmulas son casi idénticas. Sheets solo te da la ventaja de la nube y la integración con IA.</p>
+    </div>
+  </div>
+
+  <div class="guia-section" id="formulas">
+    <div class="seccion-tag">⚡ Sección 2</div>
+    <h2>Las 6 fórmulas que más importan</h2>
+    <p class="intro">De cientos de fórmulas disponibles, estas 6 resuelven el 80% de los problemas reales del trabajo. Apréndetelas y ya sabes más que la mayoría.</p>
+
+    <div class="formula-card reveal">
+      <div class="nombre">Fórmula 01</div>
+      <h4>BUSCARV — Busca un dato en otra tabla</h4>
+      <p class="desc">La más usada y la más temida. Busca un valor en la primera columna de un rango y devuelve lo que hay en otra columna de la misma fila. Perfecta para cruzar datos entre dos listas.</p>
+      <div class="formula-ejemplo">=BUSCARV(lo_que_buscas, rango_de_tabla, número_de_columna, FALSO)</div>
+      <div class="formula-ejemplo">=BUSCARV(A2, Precios!A:C, 2, FALSO)</div>
+      <p class="formula-caso">→ Busca el código del producto de A2 en la hoja "Precios" y devuelve el precio (columna 2)</p>
+    </div>
+
+    <div class="formula-card reveal">
+      <div class="nombre">Fórmula 02</div>
+      <h4>SUMAR.SI — Suma solo lo que cumple una condición</h4>
+      <p class="desc">Suma solo las celdas que cumplen un criterio. Ideal para sumar ventas de un vendedor específico, gastos de una categoría, o pedidos de un cliente.</p>
+      <div class="formula-ejemplo">=SUMAR.SI(rango_condición, criterio, rango_suma)</div>
+      <div class="formula-ejemplo">=SUMAR.SI(B:B, "Juan", C:C)</div>
+      <p class="formula-caso">→ Suma todo lo que hay en la columna C cuando la columna B dice "Juan"</p>
+    </div>
+
+    <div class="formula-card reveal">
+      <div class="nombre">Fórmula 03</div>
+      <h4>CONTAR.SI — Cuenta cuántas veces aparece algo</h4>
+      <p class="desc">Cuenta celdas que cumplen una condición. Cuántos pedidos pendientes, cuántos clientes de cierta zona, cuántos productos sin stock.</p>
+      <div class="formula-ejemplo">=CONTAR.SI(rango, criterio)</div>
+      <div class="formula-ejemplo">=CONTAR.SI(D:D, "Pendiente")</div>
+      <p class="formula-caso">→ Cuenta cuántas celdas en la columna D dicen "Pendiente"</p>
+    </div>
+
+    <div class="formula-card reveal">
+      <div class="nombre">Fórmula 04</div>
+      <h4>SI — Toma decisiones automáticas</h4>
+      <p class="desc">La fórmula más versátil. Si se cumple una condición, hace una cosa; si no, hace otra. Semáforos de alerta, categorías automáticas, estados dinámicos.</p>
+      <div class="formula-ejemplo">=SI(condición, valor_si_verdadero, valor_si_falso)</div>
+      <div class="formula-ejemplo">=SI(C2&lt;10, "⚠️ Reabastecer", "✅ OK")</div>
+      <p class="formula-caso">→ Si el stock es menor a 10, muestra alerta; si no, muestra OK</p>
+    </div>
+
+    <div class="formula-card reveal">
+      <div class="nombre">Fórmula 05</div>
+      <h4>TEXTO — Formatea fechas y números como quieras</h4>
+      <p class="desc">Convierte fechas y números al formato que necesitas. Imprescindible para reportes y para que los datos se vean profesionales.</p>
+      <div class="formula-ejemplo">=TEXTO(valor, formato)</div>
+      <div class="formula-ejemplo">=TEXTO(HOY(), "dd/mm/yyyy")</div>
+      <div class="formula-ejemplo">=TEXTO(A2, "#,##0.00")</div>
+      <p class="formula-caso">→ Primer ejemplo: fecha de hoy formateada · Segundo: número con separador de miles</p>
+    </div>
+
+    <div class="formula-card reveal">
+      <div class="nombre">Fórmula 06</div>
+      <h4>UNIQUE + SORT — Listas únicas y ordenadas automáticas</h4>
+      <p class="desc">UNIQUE elimina duplicados de una lista automáticamente. SORT la ordena. Combinadas, crean listas dinámicas que se actualizan solas cuando añades datos.</p>
+      <div class="formula-ejemplo">=UNIQUE(A:A)</div>
+      <div class="formula-ejemplo">=SORT(UNIQUE(A:A), 1, VERDADERO)</div>
+      <p class="formula-caso">→ Lista de todos los valores únicos de la columna A, ordenados de A a Z</p>
+    </div>
+  </div>
+
+  <div class="guia-section" id="dinamicas">
+    <div class="seccion-tag">📈 Sección 3</div>
+    <h2>Tablas dinámicas en 5 minutos</h2>
+    <p class="intro">Las tablas dinámicas resumen grandes cantidades de datos en segundos. Sin fórmulas. Sin código. Solo arrastra y suelta.</p>
+    <div class="pasos">
+      <div class="paso reveal"><div class="paso-num">1</div><div class="paso-body"><h4>Selecciona tus datos</h4><p>Haz clic en cualquier celda de tu tabla de datos. Asegúrate de que la primera fila tenga encabezados claros (Fecha, Producto, Vendedor, Monto).</p></div></div>
+      <div class="paso reveal"><div class="paso-num">2</div><div class="paso-body"><h4>Insertar → Tabla dinámica</h4><p>En el menú superior: <strong>Insertar → Tabla dinámica</strong>. Sheets te preguntará dónde colocarla — elige "Nueva hoja" para mantener todo organizado.</p></div></div>
+      <div class="paso reveal"><div class="paso-num">3</div><div class="paso-body"><h4>Arrastra campos</h4><p>En el panel derecho: arrastra "Vendedor" a <strong>Filas</strong>, arrastra "Monto" a <strong>Valores</strong> (elige SUMA). En segundos tienes las ventas totales por vendedor.</p></div></div>
+      <div class="paso reveal"><div class="paso-num">4</div><div class="paso-body"><h4>Agrega filtros y gráficas</h4><p>Arrastra "Mes" a <strong>Columnas</strong> para ver la evolución mes a mes. Selecciona la tabla → <strong>Insertar → Gráfico</strong> para visualizarlo automáticamente.</p></div></div>
+    </div>
+    <div class="callout reveal">
+      <span class="callout-ic">🚀</span>
+      <p><strong>Pro tip:</strong> Cuando añades datos nuevos a tu tabla original, haz clic derecho en la tabla dinámica → "Actualizar". Se recalcula todo en segundos. Si conectas Apps Script (guía 02), esto puede ser automático.</p>
+    </div>
+  </div>
+
+  <div class="guia-section" id="tips">
+    <div class="seccion-tag">🎯 Sección 4</div>
+    <h2>Tips de productividad que nadie enseña</h2>
+    <p class="intro">Estos atajos y trucos te ahorran horas sin aprender fórmulas complejas.</p>
+    <div class="tip-grid">
+      <div class="tip reveal"><div class="ic">⌨️</div><h4>Ctrl+Shift+L</h4><p>Activa o desactiva filtros instantáneamente en cualquier tabla.</p></div>
+      <div class="tip reveal"><div class="ic">🎨</div><h4>Formato condicional</h4><p>Formato → Formato condicional → colorea celdas automáticamente según su valor. Semáforos sin fórmulas.</p></div>
+      <div class="tip reveal"><div class="ic">🔒</div><h4>Proteger rangos</h4><p>Datos → Proteger hojas → evita que alguien (o tú mismo) modifique fórmulas importantes por accidente.</p></div>
+      <div class="tip reveal"><div class="ic">📋</div><h4>Validación de datos</h4><p>Datos → Validación → crea listas desplegables en celdas. Adiós a los errores de escritura en campos clave.</p></div>
+      <div class="tip reveal"><div class="ic">🤖</div><h4>Explorar (IA integrada)</h4><p>Clic en el ícono de estrella abajo a la derecha → la IA de Google analiza tus datos y sugiere gráficas automáticamente.</p></div>
+      <div class="tip reveal"><div class="ic">📅</div><h4>HOY() y AHORA()</h4><p>Fechas que se actualizan solas. =HOY() para la fecha actual, =AHORA() para fecha y hora. Perfectas para dashboards.</p></div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="tiktok-section" id="tiktok">
+    <div class="tiktok-badge">🎬 TikTok Script</div>
+    <h2>Guion listo para grabar en CapCut</h2>
+    <p class="sub">Duración estimada: <strong>75 segundos</strong> · Formato: Vertical 9:16 · Gancho: "El error que todos cometen en Sheets"</p>
+
+    <div class="escena">
+      <div class="escena-header"><span class="escena-num">ESCENA 1</span><span class="escena-tiempo">0:00 – 0:04</span><span class="escena-titulo">HOOK</span></div>
+      <div class="escena-campo"><label>Pantalla</label><p class="pantalla-txt">Grabación de pantalla: una tabla de Google Sheets llena de datos. Tú señalando con el cursor.</p></div>
+      <div class="escena-campo"><label>Texto en pantalla</label><p>"¿Cuántas horas pierdes haciendo esto a mano? ⏱️"</p></div>
+      <div class="escena-campo"><label>Voz</label><p class="voz-txt">"Si estás haciendo cálculos a mano en una hoja de cálculo, estás perdiendo horas que podrías automatizar en minutos."</p></div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header"><span class="escena-num">ESCENA 2</span><span class="escena-tiempo">0:04 – 0:22</span><span class="escena-titulo">BUSCARV DEMO</span></div>
+      <div class="escena-campo"><label>Pantalla</label><p class="pantalla-txt">Grabación: escribes =BUSCARV en una celda. El resultado aparece instantáneamente. Zoom en el resultado.</p></div>
+      <div class="escena-campo"><label>Texto en pantalla</label><p>"=BUSCARV → busca el precio automáticamente 🔍"</p></div>
+      <div class="escena-campo"><label>Voz</label><p class="voz-txt">"Mira esto: tengo dos tablas — una con pedidos, otra con precios. En lugar de buscar uno por uno, BUSCARV los cruza automáticamente. Todos los precios en un segundo."</p></div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header"><span class="escena-num">ESCENA 3</span><span class="escena-tiempo">0:22 – 0:45</span><span class="escena-titulo">LAS 6 FÓRMULAS</span></div>
+      <div class="escena-campo"><label>Pantalla</label><p class="pantalla-txt">Lista animada. Cada fórmula aparece con su uso en 2-3 palabras. Fondo oscuro, texto grande.</p></div>
+      <div class="escena-campo"><label>Texto en pantalla</label><p>📌 BUSCARV → cruzar datos<br>📌 SUMAR.SI → suma con filtro<br>📌 CONTAR.SI → cuenta condiciones<br>📌 SI → alertas automáticas<br>📌 TEXTO → formatos bonitos<br>📌 UNIQUE → listas sin duplicados</p></div>
+      <div class="escena-campo"><label>Voz</label><p class="voz-txt">"Las seis fórmulas que resuelven el 80% del trabajo: BUSCARV para cruzar tablas, SUMAR.SI para sumas con condición, CONTAR.SI para conteos, SI para alertas automáticas, TEXTO para formatos, y UNIQUE para listas limpias."</p></div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header"><span class="escena-num">ESCENA 4</span><span class="escena-tiempo">0:45 – 1:00</span><span class="escena-titulo">TABLA DINÁMICA + CTA</span></div>
+      <div class="escena-campo"><label>Pantalla</label><p class="pantalla-txt">Demo rápida de tabla dinámica (5 segundos). Luego tú en cámara señalando el link en bio.</p></div>
+      <div class="escena-campo"><label>Texto en pantalla</label><p>"Y las tablas dinámicas hacen esto solas 📊" → "Guía completa gratis ⬆️ link en bio"</p></div>
+      <div class="escena-campo"><label>Voz</label><p class="voz-txt">"Y con tablas dinámicas resumís toda esa data en segundos sin una sola fórmula. La guía completa con ejemplos y la siguiente guía sobre cómo automatizar todo esto con código está en el link de bio."</p></div>
+    </div>
+
+    <div class="callout" style="margin-top:20px">
+      <span class="callout-ic">🎵</span>
+      <p><strong>Tip CapCut:</strong> La clave es la demo real de BUSCARV funcionando (escena 2). Grábala en tu Sheets con datos reales (de un trabajo tuyo, sin info sensible). El "antes y después" — tabla sin cruzar vs tabla cruzada automáticamente — es el momento de mayor impacto del video.</p>
+    </div>
+  </div>
+
+  <div class="guia-nav reveal">
+    <a href="recursos.html"><span class="gnav-dir">← Volver</span><span class="gnav-tit">Todos los recursos</span></a>
+    <a href="guia-sheets-02-apps-script.html" class="gnav-right"><span class="gnav-dir">Siguiente →</span><span class="gnav-tit">Sheets 02: Apps Script sin programar</span></a>
+  </div>
+
+  <div class="cta-final reveal" style="margin:48px 0">
+    <h2>¿Quieres dominar Sheets para tu trabajo?</h2>
+    <p>En una sesión 1:1 construimos juntos tu dashboard o sistema de control en Google Sheets — adaptado a tu trabajo específico, no a ejemplos genéricos.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-primary" href="servicios.html">Ver sesiones disponibles →</a>
+      <a class="btn btn-ghost" href="recursos.html">Ver más guías</a>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap"><div>© <span id="y"></span> Jonathan Bautista · Mente en Automático · Guatemala 🇬🇹</div><div><a href="recursos.html">Recursos</a> · <a href="index.html">Inicio</a> · <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a></div></div></footer>
+<script src="app.js"></script>
+<script>document.getElementById("y").textContent=new Date().getFullYear();</script>
+</body>
+</html>

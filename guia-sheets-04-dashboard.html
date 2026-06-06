@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard de Ventas con Alertas Automáticas en Google Sheets | Mente en Automático</title>
+<meta name="description" content="Crea un dashboard de ventas en Google Sheets que se actualiza solo y envía alertas cuando algo va mal. Con formato condicional, gráficas y Apps Script.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+.guia-hero{padding:80px 0 50px;text-align:center}
+.guia-num{display:inline-block;background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.guia-hero h1{font-size:clamp(28px,5vw,50px);font-weight:900;line-height:1.1;margin-bottom:14px}
+.guia-hero .sub{color:var(--muted);font-size:clamp(15px,2vw,18px);max-width:620px;margin:0 auto 28px;line-height:1.6}
+.guia-meta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.guia-badge{background:var(--card);border:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:600;padding:5px 14px;border-radius:999px}
+.indice{background:linear-gradient(135deg,#0a1340,#0a0a2e);border:1px solid var(--line);border-radius:20px;padding:28px 32px;max-width:680px;margin:0 auto 48px}
+.indice h3{font-size:14px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon);margin-bottom:16px}
+.indice ol{padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.indice li a{color:var(--ink);font-size:14px;text-decoration:none;transition:.15s}
+.indice li a:hover{color:var(--cyan)}
+.guia-wrap{max-width:780px;margin:0 auto;padding:0 20px}
+.guia-section{margin-bottom:56px;scroll-margin-top:80px}
+.seccion-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--neon);margin-bottom:12px}
+.guia-section h2{font-size:clamp(22px,3.5vw,32px);font-weight:900;margin-bottom:10px;line-height:1.2}
+.guia-section .intro{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:24px}
+.pasos{display:flex;flex-direction:column;gap:12px;margin:20px 0}
+.paso{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;align-items:flex-start}
+.paso-num{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center}
+.paso-body h4{font-size:14px;font-weight:800;margin-bottom:3px}
+.paso-body p{color:var(--muted);font-size:13.5px;line-height:1.5}
+.code-block{background:#030c1a;border:1.5px solid rgba(0,191,255,.25);border-radius:14px;padding:20px 22px;margin:16px 0;font-family:'Courier New',monospace}
+.code-label{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--neon);margin-bottom:10px}
+.code-line{font-size:12.5px;color:#7dd3fc;line-height:1.9}
+.code-comment{color:#4b6c8a;font-style:italic;font-size:12px}
+.prompt-card{background:linear-gradient(135deg,#060f22,#05091a);border:1.5px solid rgba(0,191,255,.3);border-radius:16px;padding:22px 24px;margin:16px 0}
+.prompt-label{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--neon);margin-bottom:10px}
+.prompt-text{font-family:'Courier New',monospace;font-size:13px;color:#b8d4ff;line-height:1.7;background:rgba(0,0,0,.3);border-radius:10px;padding:14px 16px;white-space:pre-wrap;word-break:break-word;margin-bottom:12px}
+.callout{display:flex;gap:14px;background:rgba(0,191,255,.06);border:1px solid rgba(0,191,255,.2);border-radius:14px;padding:18px;margin:20px 0;align-items:flex-start}
+.callout-ic{font-size:22px;flex-shrink:0}
+.callout p{color:var(--muted);font-size:14px;line-height:1.6;margin:0}
+.callout strong{color:var(--ink)}
+.uso-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:20px 0}
+.uso{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.uso .ic{font-size:22px;margin-bottom:8px}
+.uso h4{font-size:14px;font-weight:800;margin-bottom:4px;color:var(--cyan)}
+.uso p{color:var(--muted);font-size:13px;line-height:1.5}
+.dash-preview{background:#0a1020;border:1.5px solid rgba(0,191,255,.2);border-radius:16px;overflow:hidden;margin:20px 0}
+.dash-title{background:rgba(0,191,255,.08);border-bottom:1px solid rgba(0,191,255,.15);padding:12px 18px;font-size:13px;font-weight:800;color:var(--ink)}
+.dash-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.05)}
+.dash-kpi{background:#0a1020;padding:16px;text-align:center}
+.kpi-val{font-size:24px;font-weight:900;color:var(--cyan);display:block;margin-bottom:4px}
+.kpi-val.rojo{color:#ff5050}
+.kpi-val.verde{color:#00e676}
+.kpi-lbl{font-size:11px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:1px}
+.dash-bars{padding:16px 18px}
+.bar-row{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.bar-label{font-size:12px;color:var(--muted);width:80px;flex-shrink:0;text-align:right}
+.bar-track{flex:1;background:rgba(255,255,255,.06);border-radius:999px;height:8px;overflow:hidden}
+.bar-fill{height:100%;border-radius:999px}
+.bar-fill.a{background:var(--neon);width:85%}
+.bar-fill.b{background:var(--neon2);width:62%}
+.bar-fill.c{background:var(--cyan);width:44%}
+.bar-fill.d{background:#ff5050;width:23%}
+.bar-val{font-size:12px;color:var(--ink);font-weight:700;width:50px;flex-shrink:0}
+.fc-tabla{width:100%;border-collapse:collapse;font-size:13px;margin:16px 0}
+.fc-tabla th{text-align:left;padding:8px 12px;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--line)}
+.fc-tabla td{padding:9px 12px;border-bottom:1px solid rgba(255,255,255,.04);color:var(--muted)}
+.fc-tabla td:first-child{color:var(--ink);font-weight:600}
+.fc-chip{display:inline-block;padding:2px 10px;border-radius:999px;font-size:11px;font-weight:700}
+.fc-verde{background:rgba(0,230,118,.15);color:#00e676}
+.fc-amarillo{background:rgba(255,200,0,.15);color:#ffc800}
+.fc-rojo{background:rgba(255,80,80,.15);color:#ff5050}
+.tiktok-section{background:linear-gradient(135deg,#160820,#0d0520);border:2px solid rgba(255,0,80,.3);border-radius:22px;padding:36px;margin:48px 0}
+.tiktok-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,0,80,.15);border:1px solid rgba(255,0,80,.3);color:#ff5080;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.tiktok-section h2{font-size:clamp(20px,3vw,28px);font-weight:900;margin-bottom:8px}
+.tiktok-section .sub{color:var(--muted);font-size:14px;margin-bottom:28px;line-height:1.6}
+.escena{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px;margin-bottom:14px}
+.escena-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.escena-num{background:rgba(255,0,80,.2);color:#ff5080;font-size:11px;font-weight:900;padding:3px 10px;border-radius:999px;letter-spacing:1px}
+.escena-tiempo{color:var(--muted);font-size:12px;font-weight:700}
+.escena-titulo{font-size:13px;font-weight:800;color:var(--ink);margin-left:auto}
+.escena-campo{margin-bottom:10px}
+.escena-campo label{display:block;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--neon);margin-bottom:4px}
+.escena-campo p{color:var(--muted);font-size:13.5px;line-height:1.6;margin:0;background:rgba(0,0,0,.3);border-radius:8px;padding:10px 14px}
+.pantalla-txt{color:#ffd700;font-style:italic}
+.voz-txt{color:#e2e8f0}
+.sep{border:none;border-top:1px solid var(--line);margin:48px 0}
+.pdf-bar{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 24px;margin-bottom:40px;flex-wrap:wrap;gap:14px}
+.pdf-bar p{color:var(--muted);font-size:13.5px;margin:0}
+.pdf-bar strong{color:var(--ink)}
+.btn-pdf{background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;font-size:13px;font-weight:900;padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.guia-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:56px}
+.guia-nav a{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;text-decoration:none;color:inherit;transition:.2s;display:flex;flex-direction:column;gap:4px}
+.guia-nav a:hover{border-color:var(--neon);transform:translateY(-3px)}
+.gnav-dir{font-size:11px;color:var(--muted);font-weight:700}
+.gnav-tit{font-size:15px;font-weight:800;color:var(--ink)}
+.gnav-right{text-align:right}
+@media print{
+  canvas,header.nav,footer,.pdf-bar,.guia-nav,.cta-final,.menu-btn{display:none!important}
+  body{background:#fff!important;color:#111!important}
+  .guia-section,.indice,.escena,.tiktok-section,.uso,.paso,.callout,.code-block,.prompt-card,.dash-preview{border:1px solid #ddd!important;background:#fff!important;box-shadow:none!important;color:#111!important;break-inside:avoid}
+  .guia-section h2,.guia-num,.seccion-tag,.tiktok-badge{color:#111!important;-webkit-text-fill-color:#111!important}
+  .code-line,.prompt-text{color:#1a56db!important}
+  .kpi-val,.kpi-val.verde{color:#0055cc!important}
+  .kpi-val.rojo{color:#cc0000!important}
+  h1 span{-webkit-text-fill-color:#0055cc!important;background:none!important}
+  @page{margin:1.5cm;size:A4}
+}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">⚡ Mente en Automático</a>
+    <nav class="nav-links">
+      <a href="recursos.html">Recursos</a>
+      <a href="index.html#newsletter">Newsletter</a>
+    </nav>
+    <button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="guia-hero">
+  <div class="guia-wrap">
+    <div class="guia-num">📊 Sheets Avanzado · Guía 04</div>
+    <h1>Dashboard de Ventas<br><span>con Alertas Automáticas</span></h1>
+    <p class="sub">Un panel de control que se actualiza en tiempo real, se pinta solo según resultados y te avisa por correo cuando algo va mal — todo dentro de Google Sheets.</p>
+    <div class="guia-meta">
+      <span class="guia-badge">⏱ 15 min lectura</span>
+      <span class="guia-badge">🟡 Nivel: Intermedio</span>
+      <span class="guia-badge">🛠 Sheets + Apps Script</span>
+      <span class="guia-badge">🎬 Guion TikTok incluido</span>
+    </div>
+  </div>
+</section>
+
+<div class="guia-wrap">
+  <div class="pdf-bar">
+    <p><strong>¿Quieres esta guía en PDF?</strong> Comenta "DASHBOARD" en el video de TikTok y te lo mando.</p>
+    <button class="btn-pdf" onclick="window.print()">📄 Descargar PDF</button>
+  </div>
+
+  <div class="indice">
+    <h3>📋 En esta guía</h3>
+    <ol>
+      <li><a href="#que-es">Qué es un dashboard y para qué sirve</a></li>
+      <li><a href="#kpis">Construye tus KPIs con fórmulas</a></li>
+      <li><a href="#formato">Formato condicional: que se pinte solo</a></li>
+      <li><a href="#graficas">Gráficas que se actualizan solas</a></li>
+      <li><a href="#alertas">Alertas automáticas con Apps Script</a></li>
+      <li><a href="#claude">Cómo pedirle todo esto a Claude</a></li>
+      <li><a href="#tiktok">Guion TikTok</a></li>
+    </ol>
+  </div>
+
+  <!-- SECCIÓN 1 -->
+  <section class="guia-section" id="que-es">
+    <div class="seccion-tag">📊 INTRO</div>
+    <h2>Tu negocio en una pantalla</h2>
+    <p class="intro">Un dashboard es una hoja de resumen que muestra lo más importante de un vistazo: ventas del mes, meta alcanzada, productos más vendidos, días con más ingresos. Sin abrir 20 hojas, sin hacer cálculos manuales.</p>
+
+    <div class="dash-preview">
+      <div class="dash-title">📊 Panel de Ventas — Junio 2025</div>
+      <div class="dash-kpis">
+        <div class="dash-kpi">
+          <span class="kpi-val verde">Q 18,450</span>
+          <span class="kpi-lbl">Ventas del mes</span>
+        </div>
+        <div class="dash-kpi">
+          <span class="kpi-val">84%</span>
+          <span class="kpi-lbl">Meta alcanzada</span>
+        </div>
+        <div class="dash-kpi">
+          <span class="kpi-val rojo">12</span>
+          <span class="kpi-lbl">Pedidos pendientes</span>
+        </div>
+      </div>
+      <div class="dash-bars">
+        <div class="bar-row">
+          <span class="bar-label">Semana 1</span>
+          <div class="bar-track"><div class="bar-fill a"></div></div>
+          <span class="bar-val">Q5,200</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Semana 2</span>
+          <div class="bar-track"><div class="bar-fill b"></div></div>
+          <span class="bar-val">Q4,800</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Semana 3</span>
+          <div class="bar-track"><div class="bar-fill c"></div></div>
+          <span class="bar-val">Q5,100</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">Semana 4</span>
+          <div class="bar-track"><div class="bar-fill d"></div></div>
+          <span class="bar-val">Q3,350</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="callout-ic">💡</span>
+      <p><strong>La idea:</strong> Tienes una hoja "Datos" donde registras ventas. Una hoja "Dashboard" que las lee con fórmulas y las muestra bonito. Cada vez que agregas una venta en "Datos", el dashboard se actualiza solo.</p>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- SECCIÓN 2 -->
+  <section class="guia-section" id="kpis">
+    <div class="seccion-tag">🔢 FÓRMULAS KPI</div>
+    <h2>Construye tus KPIs con fórmulas</h2>
+    <p class="intro">En tu hoja "Dashboard", estas fórmulas leen los datos y calculan lo que necesitas ver. Todas apuntan a tu hoja "Datos".</p>
+
+    <div class="code-block">
+      <div class="code-label">Fórmulas para tu Dashboard</div>
+      <div class="code-comment">// Ventas totales del mes</div>
+      <div class="code-line">=SUMAR.SI.CONJUNTO(Datos!C:C,Datos!A:A,">="&DATE(2025,6,1),Datos!A:A,"<="&DATE(2025,6,30))</div>
+      <div class="code-line">&nbsp;</div>
+      <div class="code-comment">// % de meta alcanzada (meta en celda B2)</div>
+      <div class="code-line">=TEXTO(B5/B2,"0%")</div>
+      <div class="code-line">&nbsp;</div>
+      <div class="code-comment">// Pedidos pendientes</div>
+      <div class="code-line">=CONTAR.SI(Datos!D:D,"Pendiente")</div>
+      <div class="code-line">&nbsp;</div>
+      <div class="code-comment">// Producto más vendido</div>
+      <div class="code-line">=INDICE(Datos!B:B,COINCIDIR(MAX(CONTAR.SI(Datos!B:B,Datos!B:B)),CONTAR.SI(Datos!B:B,Datos!B:B),0))</div>
+      <div class="code-line">&nbsp;</div>
+      <div class="code-comment">// Promedio diario de ventas</div>
+      <div class="code-line">=PROMEDIO.SI(Datos!A:A,">="&DATE(2025,6,1),Datos!C:C)</div>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Prompt para Claude</div>
+      <div class="prompt-text">Tengo un Google Sheet con dos hojas:
+- "Datos": columnas Fecha (A), Producto (B), Monto (C), Estado (D)
+- "Dashboard": hoja vacía donde quiero el resumen
+
+Escribe las fórmulas exactas para mostrar en Dashboard:
+1. Total vendido este mes
+2. Cantidad de ventas
+3. Producto más vendido
+4. Pedidos con estado "Pendiente"
+5. Comparación mes actual vs mes anterior (% variación)
+
+Usa las funciones de Google Sheets en español.</div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- SECCIÓN 3 -->
+  <section class="guia-section" id="formato">
+    <div class="seccion-tag">🎨 FORMATO CONDICIONAL</div>
+    <h2>Que se pinte solo según el resultado</h2>
+    <p class="intro">El formato condicional colorea celdas automáticamente: verde si vas bien, amarillo si debes acelerar, rojo si hay problema. Sin hacer nada manualmente.</p>
+
+    <div class="pasos">
+      <div class="paso">
+        <div class="paso-num">1</div>
+        <div class="paso-body">
+          <h4>Selecciona las celdas a colorear</h4>
+          <p>Ej: la celda con el % de meta alcanzada (B6).</p>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">2</div>
+        <div class="paso-body">
+          <h4>Formato → Formato condicional</h4>
+          <p>Aparece el panel de reglas a la derecha.</p>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">3</div>
+        <div class="paso-body">
+          <h4>Agrega las 3 reglas</h4>
+          <p>Una por color: rojo si &lt;50%, amarillo si entre 50-80%, verde si &gt;80%.</p>
+        </div>
+      </div>
+    </div>
+
+    <table class="fc-tabla">
+      <thead>
+        <tr>
+          <th>Condición</th>
+          <th>Valor</th>
+          <th>Color</th>
+          <th>Significado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Es menor que</td>
+          <td>0.5 (50%)</td>
+          <td><span class="fc-chip fc-rojo">🔴 Rojo</span></td>
+          <td>Meta en riesgo</td>
+        </tr>
+        <tr>
+          <td>Entre</td>
+          <td>0.5 y 0.8</td>
+          <td><span class="fc-chip fc-amarillo">🟡 Amarillo</span></td>
+          <td>Hay que acelerar</td>
+        </tr>
+        <tr>
+          <td>Es mayor o igual que</td>
+          <td>0.8 (80%)</td>
+          <td><span class="fc-chip fc-verde">🟢 Verde</span></td>
+          <td>Va bien</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <span class="callout-ic">✨</span>
+      <p><strong>Aplícalo también a filas completas:</strong> En "Datos", colorea toda la fila de rojo si el estado es "Atrasado". Selecciona el rango → Formato condicional → Fórmula personalizada → <code style="color:var(--cyan)">=$D1="Atrasado"</code></p>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- SECCIÓN 4 -->
+  <section class="guia-section" id="graficas">
+    <div class="seccion-tag">📈 GRÁFICAS</div>
+    <h2>Gráficas que se actualizan solas</h2>
+    <p class="intro">Las gráficas de Sheets se conectan a tus datos. Cuando agregas una venta, la gráfica se actualiza sola — sin tocar nada.</p>
+
+    <div class="pasos">
+      <div class="paso">
+        <div class="paso-num">1</div>
+        <div class="paso-body">
+          <h4>Crea una tabla resumen por semana</h4>
+          <p>En el Dashboard: Semana 1, 2, 3, 4 en col A. En col B, usa SUMAR.SI.CONJUNTO para cada período.</p>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">2</div>
+        <div class="paso-body">
+          <h4>Selecciona las dos columnas → Insertar → Gráfica</h4>
+          <p>Sheets propone la mejor gráfica automáticamente. Elige barras para ventas por período.</p>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">3</div>
+        <div class="paso-body">
+          <h4>Personaliza colores y etiquetas</h4>
+          <p>Doble clic en la gráfica → Editor de gráficas. Cambia colores, agrega título, muestra valores.</p>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">4</div>
+        <div class="paso-body">
+          <h4>Mueve la gráfica al Dashboard</h4>
+          <p>La gráfica puede vivir en cualquier hoja. Arrástrala al Dashboard para tenerla con tus KPIs.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="callout-ic">💡</span>
+      <p><strong>Truco:</strong> Usa QUERY para agrupar datos por mes o semana automáticamente. Pregúntale a Claude: "¿Cómo agrupo ventas por semana en Google Sheets para una gráfica?"</p>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- SECCIÓN 5 -->
+  <section class="guia-section" id="alertas">
+    <div class="seccion-tag">🚨 ALERTAS</div>
+    <h2>Te avisa cuando algo va mal</h2>
+    <p class="intro">El dashboard muestra el problema. Las alertas te avisan aunque no estés mirando la pantalla. Este script revisa tus KPIs y manda un correo si algo está por debajo del umbral.</p>
+
+    <div class="code-block">
+      <div class="code-label">Apps Script — Sistema de alertas del dashboard</div>
+      <div class="code-line">function verificarAlertas() {</div>
+      <div class="code-line">&nbsp;&nbsp;const ss = SpreadsheetApp.getActiveSpreadsheet();</div>
+      <div class="code-line">&nbsp;&nbsp;const dash = ss.getSheetByName("Dashboard");</div>
+      <div class="code-line">&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;<span class="code-comment">// Lee los KPIs del Dashboard (ajusta celdas según tu hoja)</span></div>
+      <div class="code-line">&nbsp;&nbsp;const ventasMes = dash.getRange("B5").getValue();</div>
+      <div class="code-line">&nbsp;&nbsp;const meta = dash.getRange("B2").getValue();</div>
+      <div class="code-line">&nbsp;&nbsp;const pendientes = dash.getRange("B8").getValue();</div>
+      <div class="code-line">&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;const porcentajeMeta = ventasMes / meta;</div>
+      <div class="code-line">&nbsp;&nbsp;let alertas = [];</div>
+      <div class="code-line">&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;if (porcentajeMeta &lt; 0.5) {</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;alertas.push(`🔴 CRÍTICO: Solo ${(porcentajeMeta*100).toFixed(0)}% de la meta alcanzada`);</div>
+      <div class="code-line">&nbsp;&nbsp;} else if (porcentajeMeta &lt; 0.8) {</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;alertas.push(`🟡 ATENCIÓN: ${(porcentajeMeta*100).toFixed(0)}% de la meta — hay que acelerar`);</div>
+      <div class="code-line">&nbsp;&nbsp;}</div>
+      <div class="code-line">&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;if (pendientes > 20) {</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;alertas.push(`⚠️ Tienes ${pendientes} pedidos pendientes sin atender`);</div>
+      <div class="code-line">&nbsp;&nbsp;}</div>
+      <div class="code-line">&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;if (alertas.length > 0) {</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;const cuerpo = `📊 ALERTA DE DASHBOARD\n\n`</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ alertas.join("\n") + "\n\n"</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ `Ventas mes: Q${ventasMes} / Meta: Q${meta}\n`</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ `Revisa tu dashboard: ${ss.getUrl()}`;</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;GmailApp.sendEmail(</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"tu@email.com",</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"🚨 Alerta de Dashboard — Acción necesaria",</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cuerpo</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;);</div>
+      <div class="code-line">&nbsp;&nbsp;}</div>
+      <div class="code-line">}</div>
+    </div>
+
+    <div class="callout">
+      <span class="callout-ic">⏰</span>
+      <p><strong>Configura el disparador:</strong> Activa este script para que corra cada mañana a las 7am. Si todo está bien, no manda nada. Si algo está mal, llegas a trabajar con el correo de alerta esperándote.</p>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- SECCIÓN 6 -->
+  <section class="guia-section" id="claude">
+    <div class="seccion-tag">🤖 CON CLAUDE</div>
+    <h2>Cómo pedirle todo esto a Claude</h2>
+    <p class="intro">No tienes que entender cada fórmula o línea de código. Dile a Claude exactamente qué tienes y qué quieres, y él te da todo listo para copiar.</p>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Prompt maestro para tu dashboard completo</div>
+      <div class="prompt-text">Tengo Google Sheets con estas hojas:
+- "Ventas": Fecha (A), Cliente (B), Producto (C), Monto (D), Estado (E)
+- "Dashboard": hoja vacía
+
+Necesito que me des:
+
+1. FÓRMULAS para el dashboard:
+   - Total vendido este mes (mes actual automáticamente)
+   - % de meta alcanzada (meta está en celda Dashboard!B2)
+   - Pedidos pendientes (Estado = "Pendiente")
+   - Top 3 productos más vendidos
+
+2. REGLAS de formato condicional:
+   - Para la celda del %: rojo &lt;50%, amarillo 50-80%, verde &gt;80%
+   - Para filas en Ventas: rojo si Estado = "Atrasado"
+
+3. CÓDIGO de Apps Script que:
+   - Revise cada mañana si el % de meta es &lt;80%
+   - Envíe alerta por correo si hay problema
+   - Incluya link al sheet en el correo
+
+Dame todo en orden y listo para usar.</div>
+    </div>
+
+    <div class="uso-grid">
+      <div class="uso">
+        <div class="ic">📋</div>
+        <h4>Describe tu hoja</h4>
+        <p>Menciona columnas exactas, nombres de hojas y qué dato está en cada columna.</p>
+      </div>
+      <div class="uso">
+        <div class="ic">🎯</div>
+        <h4>Sé específico</h4>
+        <p>"Los estados son: Confirmado, Pendiente, Atrasado, Completado." Claude necesita los valores exactos.</p>
+      </div>
+      <div class="uso">
+        <div class="ic">🔄</div>
+        <h4>Pide ajustes</h4>
+        <p>"Cambia el umbral de alerta a 70%" o "Agrega también la alerta de ventas del día cero."</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIKTOK SCRIPT -->
+  <div class="tiktok-section" id="tiktok">
+    <div class="tiktok-badge">🎬 GUION TIKTOK</div>
+    <h2>Script listo para grabar</h2>
+    <p class="sub">Duración estimada: 85 segundos · Hook: "Mi jefe me pregunta cómo van las ventas — abro esto"</p>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 1</span>
+        <span class="escena-tiempo">0:00 — 0:08</span>
+        <span class="escena-titulo">El hook</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Google Sheets abierto mostrando un dashboard con KPIs en verde, gráficas y colores</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">Cuando mi cliente me pregunta cómo van las ventas, abro esto. Ve lo que ve él: total del mes, porcentaje de meta, pedidos pendientes — en una sola pantalla, actualizado al segundo.</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 2</span>
+        <span class="escena-tiempo">0:08 — 0:22</span>
+        <span class="escena-titulo">El problema</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Múltiples hojas de Sheets abiertas, scrolling interminable, buscando datos</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">Antes era así: abrías tres hojas diferentes, sumabas a mano, hacías la cuenta de cuánto habías vendido. Tardabas 10 minutos buscando información que ya tenías — solo que dispersa.</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 3</span>
+        <span class="escena-tiempo">0:22 — 0:42</span>
+        <span class="escena-titulo">La construcción</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Claude generando fórmulas → pegando en Sheets → dashboard formándose con colores automáticos</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">Le expliqué a Claude mis columnas y le pedí: fórmulas para el resumen, formato condicional que se pinte solo en verde, amarillo o rojo según la meta, y una gráfica de ventas por semana. Me dio todo en 30 segundos. Lo pegué y listo.</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 4</span>
+        <span class="escena-tiempo">0:42 — 1:05</span>
+        <span class="escena-titulo">Las alertas</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Gmail recibiendo correo de alerta → volviendo a Sheets donde el KPI está en rojo</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">Y el extra: un script que revisa cada mañana. Si las ventas están por debajo del 80% de la meta, me llega un correo de alerta con el link directo al sheet. No tengo que acordarme de revisar — el sistema me avisa.</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 5</span>
+        <span class="escena-tiempo">1:05 — 1:25</span>
+        <span class="escena-titulo">El cierre</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Vista final del dashboard completo. Frase: "Tu negocio en una pantalla."</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">Esto lo puede tener cualquier negocio — tienda, consultoría, salón, restaurant. Si agregas datos en Sheets, puedes tener este dashboard funcionando hoy. Comenta "DASHBOARD" y te mando la guía completa con todas las fórmulas y el código del script.</p>
+      </div>
+    </div>
+  </div>
+
+  <nav class="guia-nav">
+    <a href="guia-sheets-03-correos.html">
+      <span class="gnav-dir">← Guía anterior</span>
+      <span class="gnav-tit">Correos Automáticos desde Sheets</span>
+    </a>
+    <a href="recursos.html" class="gnav-right">
+      <span class="gnav-dir">Ver todos los recursos →</span>
+      <span class="gnav-tit">Biblioteca completa</span>
+    </a>
+  </nav>
+</div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <a class="logo" href="index.html">⚡ Mente en Automático</a>
+    <p class="footer-copy">© 2025 Jonathan Bautista · Guatemala · Automatización con IA</p>
+  </div>
+</footer>
+</body>
+</html>

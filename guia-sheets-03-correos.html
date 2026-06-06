@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Envía Correos Automáticos desde Google Sheets con Apps Script | Mente en Automático</title>
+<meta name="description" content="Aprende a enviar correos automáticos desde Google Sheets usando Apps Script y Claude AI. Confirmaciones, alertas y reportes sin tocar el teclado. Con guion de TikTok.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+.guia-hero{padding:80px 0 50px;text-align:center}
+.guia-num{display:inline-block;background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.guia-hero h1{font-size:clamp(28px,5vw,50px);font-weight:900;line-height:1.1;margin-bottom:14px}
+.guia-hero .sub{color:var(--muted);font-size:clamp(15px,2vw,18px);max-width:620px;margin:0 auto 28px;line-height:1.6}
+.guia-meta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.guia-badge{background:var(--card);border:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:600;padding:5px 14px;border-radius:999px}
+.indice{background:linear-gradient(135deg,#0a1340,#0a0a2e);border:1px solid var(--line);border-radius:20px;padding:28px 32px;max-width:680px;margin:0 auto 48px}
+.indice h3{font-size:14px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon);margin-bottom:16px}
+.indice ol{padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.indice li a{color:var(--ink);font-size:14px;text-decoration:none;transition:.15s}
+.indice li a:hover{color:var(--cyan)}
+.guia-wrap{max-width:780px;margin:0 auto;padding:0 20px}
+.guia-section{margin-bottom:56px;scroll-margin-top:80px}
+.seccion-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--neon);margin-bottom:12px}
+.guia-section h2{font-size:clamp(22px,3.5vw,32px);font-weight:900;margin-bottom:10px;line-height:1.2}
+.guia-section .intro{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:24px}
+.pasos{display:flex;flex-direction:column;gap:12px;margin:20px 0}
+.paso{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;align-items:flex-start}
+.paso-num{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center}
+.paso-body h4{font-size:14px;font-weight:800;margin-bottom:3px}
+.paso-body p{color:var(--muted);font-size:13.5px;line-height:1.5}
+.code-block{background:#030c1a;border:1.5px solid rgba(0,191,255,.25);border-radius:14px;padding:20px 22px;margin:16px 0;font-family:'Courier New',monospace}
+.code-label{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--neon);margin-bottom:10px}
+.code-line{font-size:12.5px;color:#7dd3fc;line-height:1.9}
+.code-comment{color:#4b6c8a;font-style:italic;font-size:12px}
+.prompt-card{background:linear-gradient(135deg,#060f22,#05091a);border:1.5px solid rgba(0,191,255,.3);border-radius:16px;padding:22px 24px;margin:16px 0}
+.prompt-label{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--neon);margin-bottom:10px}
+.prompt-text{font-family:'Courier New',monospace;font-size:13px;color:#b8d4ff;line-height:1.7;background:rgba(0,0,0,.3);border-radius:10px;padding:14px 16px;white-space:pre-wrap;word-break:break-word;margin-bottom:12px}
+.callout{display:flex;gap:14px;background:rgba(0,191,255,.06);border:1px solid rgba(0,191,255,.2);border-radius:14px;padding:18px;margin:20px 0;align-items:flex-start}
+.callout-ic{font-size:22px;flex-shrink:0}
+.callout p{color:var(--muted);font-size:14px;line-height:1.6;margin:0}
+.callout strong{color:var(--ink)}
+.uso-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:20px 0}
+.uso{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.uso .ic{font-size:22px;margin-bottom:8px}
+.uso h4{font-size:14px;font-weight:800;margin-bottom:4px;color:var(--cyan)}
+.uso p{color:var(--muted);font-size:13px;line-height:1.5}
+.correo-preview{background:#0a1020;border:1.5px solid rgba(0,191,255,.2);border-radius:14px;overflow:hidden;margin:16px 0}
+.correo-header{background:rgba(0,191,255,.08);border-bottom:1px solid rgba(0,191,255,.15);padding:12px 18px;display:flex;flex-direction:column;gap:4px}
+.correo-meta{font-size:12px;color:var(--muted)}
+.correo-meta strong{color:var(--ink)}
+.correo-asunto{font-size:14px;font-weight:800;color:var(--ink)}
+.correo-cuerpo{padding:16px 18px;font-size:13px;color:var(--muted);line-height:1.7}
+.correo-cuerpo p{margin-bottom:8px}
+.correo-cuerpo .dato{color:var(--cyan);font-weight:700}
+.tiktok-section{background:linear-gradient(135deg,#160820,#0d0520);border:2px solid rgba(255,0,80,.3);border-radius:22px;padding:36px;margin:48px 0}
+.tiktok-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,0,80,.15);border:1px solid rgba(255,0,80,.3);color:#ff5080;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.tiktok-section h2{font-size:clamp(20px,3vw,28px);font-weight:900;margin-bottom:8px}
+.tiktok-section .sub{color:var(--muted);font-size:14px;margin-bottom:28px;line-height:1.6}
+.escena{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px;margin-bottom:14px}
+.escena-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.escena-num{background:rgba(255,0,80,.2);color:#ff5080;font-size:11px;font-weight:900;padding:3px 10px;border-radius:999px;letter-spacing:1px}
+.escena-tiempo{color:var(--muted);font-size:12px;font-weight:700}
+.escena-titulo{font-size:13px;font-weight:800;color:var(--ink);margin-left:auto}
+.escena-campo{margin-bottom:10px}
+.escena-campo label{display:block;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--neon);margin-bottom:4px}
+.escena-campo p{color:var(--muted);font-size:13.5px;line-height:1.6;margin:0;background:rgba(0,0,0,.3);border-radius:8px;padding:10px 14px}
+.pantalla-txt{color:#ffd700;font-style:italic}
+.voz-txt{color:#e2e8f0}
+.sep{border:none;border-top:1px solid var(--line);margin:48px 0}
+.pdf-bar{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 24px;margin-bottom:40px;flex-wrap:wrap;gap:14px}
+.pdf-bar p{color:var(--muted);font-size:13.5px;margin:0}
+.pdf-bar strong{color:var(--ink)}
+.btn-pdf{background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;font-size:13px;font-weight:900;padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.guia-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:56px}
+.guia-nav a{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;text-decoration:none;color:inherit;transition:.2s;display:flex;flex-direction:column;gap:4px}
+.guia-nav a:hover{border-color:var(--neon);transform:translateY(-3px)}
+.gnav-dir{font-size:11px;color:var(--muted);font-weight:700}
+.gnav-tit{font-size:15px;font-weight:800;color:var(--ink)}
+.gnav-right{text-align:right}
+@media print{
+  canvas,header.nav,footer,.pdf-bar,.guia-nav,.cta-final,.menu-btn{display:none!important}
+  body{background:#fff!important;color:#111!important}
+  .guia-section,.indice,.escena,.tiktok-section,.uso,.paso,.callout,.code-block,.prompt-card,.correo-preview{border:1px solid #ddd!important;background:#fff!important;box-shadow:none!important;color:#111!important;break-inside:avoid}
+  .guia-section h2,.guia-num,.seccion-tag,.tiktok-badge{color:#111!important;-webkit-text-fill-color:#111!important}
+  .code-line,.prompt-text{color:#1a56db!important}
+  .correo-meta,.correo-cuerpo{color:#333!important}
+  .correo-cuerpo .dato{color:#0055cc!important}
+  h1 span{-webkit-text-fill-color:#0055cc!important;background:none!important}
+  @page{margin:1.5cm;size:A4}
+}
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html">⚡ Mente en Automático</a>
+    <nav class="nav-links">
+      <a href="recursos.html">Recursos</a>
+      <a href="index.html#newsletter">Newsletter</a>
+    </nav>
+    <button class="menu-btn" onclick="document.querySelector('.nav-links').classList.toggle('open')">☰</button>
+  </div>
+</header>
+
+<main>
+<section class="guia-hero">
+  <div class="guia-wrap">
+    <div class="guia-num">📧 Sheets + Gmail · Guía 03</div>
+    <h1>Envía Correos Automáticos<br><span>desde Google Sheets</span></h1>
+    <p class="sub">Confirmaciones de pedido, alertas de pago vencido y reportes semanales — todo sin tocar el teclado. Claude escribe el código, tú solo lo pegas.</p>
+    <div class="guia-meta">
+      <span class="guia-badge">⏱ 12 min lectura</span>
+      <span class="guia-badge">🟢 Nivel: Básico</span>
+      <span class="guia-badge">🛠 Apps Script + Gmail</span>
+      <span class="guia-badge">🎬 Guion TikTok incluido</span>
+    </div>
+  </div>
+</section>
+
+<div class="guia-wrap">
+  <div class="pdf-bar">
+    <p><strong>¿Quieres esta guía en PDF?</strong> Comenta "CORREOS" en el video de TikTok y te lo mando.</p>
+    <button class="btn-pdf" onclick="window.print()">📄 Descargar PDF</button>
+  </div>
+
+  <div class="indice">
+    <h3>📋 En esta guía</h3>
+    <ol>
+      <li><a href="#por-que">Por qué automatizar correos desde Sheets</a></li>
+      <li><a href="#casos-uso">3 casos de uso reales</a></li>
+      <li><a href="#confirmacion">Código: Confirmación de pedido automática</a></li>
+      <li><a href="#pagos">Código: Alerta de pagos vencidos</a></li>
+      <li><a href="#reporte">Código: Reporte semanal a tu equipo</a></li>
+      <li><a href="#disparadores">Disparadores: el truco para que funcione solo</a></li>
+      <li><a href="#tiktok">Guion TikTok</a></li>
+    </ol>
+  </div>
+
+  <!-- SECCIÓN 1 -->
+  <section class="guia-section" id="por-que">
+    <div class="seccion-tag">📧 INTRO</div>
+    <h2>El correo manual es tiempo muerto</h2>
+    <p class="intro">Cada vez que confirmas un pedido, avisas que un pago venció o mandas el resumen del mes — estás repitiendo exactamente lo mismo. Apps Script + Gmail te permite hacer eso una sola vez y olvidarte para siempre.</p>
+
+    <div class="uso-grid">
+      <div class="uso">
+        <div class="ic">🛒</div>
+        <h4>Tiendas en línea</h4>
+        <p>Confirma cada orden al instante: número, productos, total y fecha de entrega.</p>
+      </div>
+      <div class="uso">
+        <div class="ic">💰</div>
+        <h4>Cobros y finanzas</h4>
+        <p>Avisa automáticamente cuando una factura lleva 3, 7 o 15 días sin pagar.</p>
+      </div>
+      <div class="uso">
+        <div class="ic">📊</div>
+        <h4>Reportes de equipo</h4>
+        <p>Manda el resumen de ventas cada lunes a las 8am sin que nadie lo active.</p>
+      </div>
+      <div class="uso">
+        <div class="ic">📅</div>
+        <h4>Reservaciones</h4>
+        <p>Confirma citas de clientes con todos los detalles en segundos.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="callout-ic">💡</span>
+      <p><strong>La clave:</strong> Google Sheets ya tiene los datos. Apps Script solo los toma, los mete en una plantilla de correo y usa Gmail para enviarlo. Claude te escribe el código completo — tú solo lo copias y pegas.</p>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- SECCIÓN 2 -->
+  <section class="guia-section" id="casos-uso">
+    <div class="seccion-tag">📋 CASOS DE USO</div>
+    <h2>Lo que vas a construir hoy</h2>
+    <p class="intro">Tres scripts listos para usar. Elige el que más se parezca a tu negocio y adáptalo en 5 minutos con ayuda de Claude.</p>
+
+    <div class="uso-grid">
+      <div class="uso">
+        <div class="ic">✅</div>
+        <h4>Script 1</h4>
+        <p>Confirmación de pedido — un correo personalizado por cada fila nueva en tu hoja.</p>
+      </div>
+      <div class="uso">
+        <div class="ic">🔴</div>
+        <h4>Script 2</h4>
+        <p>Alerta de pago vencido — revisa la hoja y manda recordatorio a quien debe.</p>
+      </div>
+      <div class="uso">
+        <div class="ic">📈</div>
+        <h4>Script 3</h4>
+        <p>Reporte semanal — resume las ventas del período y lo manda a tu equipo.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="callout-ic">📌</span>
+      <p><strong>Antes de empezar:</strong> Abre tu Google Sheet → Extensiones → Apps Script → pega el código → guarda (Ctrl+S) → ejecuta. Así de simple.</p>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- SECCIÓN 3 -->
+  <section class="guia-section" id="confirmacion">
+    <div class="seccion-tag">🛒 SCRIPT 1</div>
+    <h2>Confirmación de pedido automática</h2>
+    <p class="intro">Tu Sheet tiene: Nombre del cliente (col A), Email (col B), Producto (col C), Total (col D), Estado (col E). Cuando el estado cambia a "Confirmado", sale el correo.</p>
+
+    <div class="prompt-card">
+      <div class="prompt-label">Prompt para Claude</div>
+      <div class="prompt-text">Tengo un Google Sheet con estas columnas:
+A: Nombre, B: Email, C: Producto, D: Total (Q), E: Estado
+
+Crea un script de Apps Script que:
+1. Recorra todas las filas desde la 2
+2. Si la columna E dice "Confirmado" y la columna F está vacía
+3. Envíe un correo al email de col B con:
+   - Asunto: "✅ Pedido confirmado - [nombre]"
+   - Cuerpo con el nombre, producto y total
+   - Mensaje de que estará listo en 3-5 días hábiles
+4. Marque col F con "Enviado" para no mandar el correo dos veces
+Haz el código completo listo para pegar en Apps Script.</div>
+    </div>
+
+    <div class="code-block">
+      <div class="code-label">Apps Script — Confirmación de pedido</div>
+      <div class="code-line">function enviarConfirmaciones() {</div>
+      <div class="code-line">&nbsp;&nbsp;const hoja = SpreadsheetApp.getActiveSpreadsheet()</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;.getSheetByName("Pedidos");</div>
+      <div class="code-line">&nbsp;&nbsp;const datos = hoja.getDataRange().getValues();</div>
+      <div class="code-line">&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;for (let i = 1; i &lt; datos.length; i++) {</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;const nombre = datos[i][0];</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;const email = datos[i][1];</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;const producto = datos[i][2];</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;const total = datos[i][3];</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;const estado = datos[i][4];</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;const enviado = datos[i][5];</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;if (estado === "Confirmado" &amp;&amp; enviado !== "Enviado") {</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const asunto = `✅ Pedido confirmado — ${nombre}`;</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const cuerpo = `Hola ${nombre},\n\n`</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ `Tu pedido de "${producto}" por Q${total} está confirmado.\n`</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ `Tiempo de entrega: 3-5 días hábiles.\n\n`</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ `¡Gracias por tu compra!\nMente en Automático`;</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GmailApp.sendEmail(email, asunto, cuerpo);</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hoja.getRange(i + 1, 6).setValue("Enviado");</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+      <div class="code-line">&nbsp;&nbsp;}</div>
+      <div class="code-line">}</div>
+    </div>
+
+    <p style="color:var(--muted);font-size:13.5px;margin-top:8px">La columna F actúa como "candado" — una vez marcada como "Enviado", el script nunca vuelve a mandar ese correo aunque lo ejecutes mil veces.</p>
+
+    <div class="correo-preview">
+      <div class="correo-header">
+        <div class="correo-meta"><strong>De:</strong> tu@gmail.com &nbsp;|&nbsp; <strong>Para:</strong> cliente@email.com</div>
+        <div class="correo-asunto">✅ Pedido confirmado — María García</div>
+      </div>
+      <div class="correo-cuerpo">
+        <p>Hola <span class="dato">María García</span>,</p>
+        <p>Tu pedido de "<span class="dato">Curso de Automatización</span>" por <span class="dato">Q450</span> está confirmado.</p>
+        <p>Tiempo de entrega: <span class="dato">3-5 días hábiles</span>.</p>
+        <p>¡Gracias por tu compra!<br>Mente en Automático</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- SECCIÓN 4 -->
+  <section class="guia-section" id="pagos">
+    <div class="seccion-tag">🔴 SCRIPT 2</div>
+    <h2>Alerta de pagos vencidos</h2>
+    <p class="intro">Tu Sheet de cobros tiene: Cliente (col A), Email (col B), Monto (col C), Fecha de vencimiento (col D), Estado (col E). El script manda recordatorio a quienes llevan 7+ días sin pagar.</p>
+
+    <div class="code-block">
+      <div class="code-label">Apps Script — Alerta de pagos</div>
+      <div class="code-line">function alertarPagosVencidos() {</div>
+      <div class="code-line">&nbsp;&nbsp;const hoja = SpreadsheetApp.getActiveSpreadsheet()</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;.getSheetByName("Cobros");</div>
+      <div class="code-line">&nbsp;&nbsp;const datos = hoja.getDataRange().getValues();</div>
+      <div class="code-line">&nbsp;&nbsp;const hoy = new Date();</div>
+      <div class="code-line">&nbsp;&nbsp;let recordatoriosEnviados = 0;</div>
+      <div class="code-line">&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;for (let i = 1; i &lt; datos.length; i++) {</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;const cliente = datos[i][0];</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;const email = datos[i][1];</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;const monto = datos[i][2];</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;const vencimiento = new Date(datos[i][3]);</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;const estado = datos[i][4];</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;const diasVencido = Math.floor(</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(hoy - vencimiento) / (1000 * 60 * 60 * 24)</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;);</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;if (estado === "Pendiente" &amp;&amp; diasVencido >= 7) {</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const asunto = `⚠️ Pago vencido — ${cliente}`;</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;const cuerpo = `Estimado/a ${cliente},\n\n`</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ `Tu pago de Q${monto} venció hace ${diasVencido} días.\n`</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ `Por favor regulariza tu situación a la brevedad.\n\n`</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;+ `Escríbenos si tienes alguna duda.\nMente en Automático`;</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GmailApp.sendEmail(email, asunto, cuerpo);</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;recordatoriosEnviados++;</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+      <div class="code-line">&nbsp;&nbsp;}</div>
+      <div class="code-line">&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;console.log(`Recordatorios enviados: ${recordatoriosEnviados}`);</div>
+      <div class="code-line">}</div>
+    </div>
+
+    <div class="callout">
+      <span class="callout-ic">⚡</span>
+      <p><strong>Personaliza fácil con Claude:</strong> "Ajusta el script para que envíe el primer recordatorio a los 3 días, el segundo a los 7, y marque la fila como 'Moroso' a los 15." Claude lo adapta en segundos.</p>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- SECCIÓN 5 -->
+  <section class="guia-section" id="reporte">
+    <div class="seccion-tag">📊 SCRIPT 3</div>
+    <h2>Reporte semanal automático</h2>
+    <p class="intro">Cada lunes a las 8am, este script resume las ventas de la semana y se lo manda a tu equipo. Nadie tiene que hacer nada.</p>
+
+    <div class="code-block">
+      <div class="code-label">Apps Script — Reporte semanal</div>
+      <div class="code-line">function reporteSemanal() {</div>
+      <div class="code-line">&nbsp;&nbsp;const hoja = SpreadsheetApp.getActiveSpreadsheet()</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;.getSheetByName("Ventas");</div>
+      <div class="code-line">&nbsp;&nbsp;const datos = hoja.getDataRange().getValues();</div>
+      <div class="code-line">&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;const hoy = new Date();</div>
+      <div class="code-line">&nbsp;&nbsp;const hace7dias = new Date(hoy - 7 * 24 * 60 * 60 * 1000);</div>
+      <div class="code-line">&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;let total = 0, cantVentas = 0;</div>
+      <div class="code-line">&nbsp;&nbsp;let detalles = "";</div>
+      <div class="code-line">&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;for (let i = 1; i &lt; datos.length; i++) {</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;const fecha = new Date(datos[i][0]);</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;const cliente = datos[i][1];</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;const monto = datos[i][2];</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;if (fecha >= hace7dias) {</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;total += monto;</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cantVentas++;</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;detalles += `- ${cliente}: Q${monto}\n`;</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+      <div class="code-line">&nbsp;&nbsp;}</div>
+      <div class="code-line">&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;const cuerpo = `📊 REPORTE SEMANAL\n`</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;+ `=================\n`</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;+ `Ventas totales: ${cantVentas}\n`</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;+ `Monto total: Q${total}\n\n`</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;+ `DETALLE:\n${detalles}\n`</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;+ `Generado automáticamente por Apps Script`;</div>
+      <div class="code-line">&nbsp;&nbsp;</div>
+      <div class="code-line">&nbsp;&nbsp;GmailApp.sendEmail(</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;"tu@email.com",</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;"📊 Reporte semanal de ventas",</div>
+      <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;cuerpo</div>
+      <div class="code-line">&nbsp;&nbsp;);</div>
+      <div class="code-line">}</div>
+    </div>
+  </section>
+
+  <hr class="sep">
+
+  <!-- SECCIÓN 6 -->
+  <section class="guia-section" id="disparadores">
+    <div class="seccion-tag">⏰ DISPARADORES</div>
+    <h2>El truco: que funcione solo</h2>
+    <p class="intro">Un script que tienes que ejecutar manualmente no es automatización. Los <strong>disparadores</strong> (triggers) son la magia que lo hace correr solo.</p>
+
+    <div class="pasos">
+      <div class="paso">
+        <div class="paso-num">1</div>
+        <div class="paso-body">
+          <h4>Abre el editor de Apps Script</h4>
+          <p>Extensiones → Apps Script → pega tu código y guarda (Ctrl+S).</p>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">2</div>
+        <div class="paso-body">
+          <h4>Ve a Disparadores (reloj)</h4>
+          <p>En el panel izquierdo, clic en el ícono de reloj ⏰ o "Triggers" en la barra lateral.</p>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">3</div>
+        <div class="paso-body">
+          <h4>Añade un nuevo disparador</h4>
+          <p>Clic en "+ Añadir disparador" (esquina inferior derecha). Selecciona tu función.</p>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">4</div>
+        <div class="paso-body">
+          <h4>Configura cuándo ejecutar</h4>
+          <p>Elige: Basado en tiempo → Día → Lunes a las 8-9am. O cada hora, cada día — lo que necesites.</p>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">5</div>
+        <div class="paso-body">
+          <h4>¡Listo! Funciona solo</h4>
+          <p>Google ejecutará el script automáticamente. Puedes cerrar la computadora — no necesitas estar presente.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="callout">
+      <span class="callout-ic">🔒</span>
+      <p><strong>Primer uso:</strong> Google te pedirá autorización para que Apps Script use Gmail en tu nombre. Es normal — acepta los permisos. Solo se pide una vez.</p>
+    </div>
+  </section>
+
+  <!-- TIKTOK SCRIPT -->
+  <div class="tiktok-section" id="tiktok">
+    <div class="tiktok-badge">🎬 GUION TIKTOK</div>
+    <h2>Script listo para grabar</h2>
+    <p class="sub">Duración estimada: 80 segundos · Hook: "Mando 50 correos y no toco el teclado"</p>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 1</span>
+        <span class="escena-tiempo">0:00 — 0:06</span>
+        <span class="escena-titulo">El hook</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Gmail abierto mostrando "50 mensajes enviados"</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">Esta semana mandé 50 correos personalizados a mis clientes. ¿Cuánto tiempo me tomó? Cero segundos.</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 2</span>
+        <span class="escena-tiempo">0:06 — 0:18</span>
+        <span class="escena-titulo">El problema</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Google Sheet con lista de pedidos. Mano escribiendo correos uno a uno.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">Antes hacía esto: entraba a Gmail, escribía "Hola [nombre], tu pedido está listo", copiaba, cambiaba el nombre, mandaba. Repetía 20, 30, 50 veces. Es un trabajo de máquina, no de humano.</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 3</span>
+        <span class="escena-tiempo">0:18 — 0:35</span>
+        <span class="escena-titulo">La solución</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Claude.ai con el prompt. Apps Script editor con el código generado.</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">Ahora le digo a Claude: "Tengo un Sheet con nombre, email y estado del pedido. Cuando el estado sea Confirmado, envía un correo personalizado y marca la fila." En 10 segundos me da el código completo.</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 4</span>
+        <span class="escena-tiempo">0:35 — 0:55</span>
+        <span class="escena-titulo">El demo</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Pegar código en Apps Script → Ejecutar → Gmail recibiendo correos automáticamente</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">Copio el código, lo pego en Apps Script — que está dentro de Google Sheets, sin salir —, ejecuto una vez y mira: correos saliendo automáticamente, uno por cada pedido confirmado. Cada uno con el nombre del cliente, el producto y el precio correcto.</p>
+      </div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header">
+        <span class="escena-num">ESCENA 5</span>
+        <span class="escena-tiempo">0:55 — 1:20</span>
+        <span class="escena-titulo">El cierre</span>
+      </div>
+      <div class="escena-campo">
+        <label>Pantalla</label>
+        <p class="pantalla-txt">Configuración de trigger → Reloj mostrando "Lunes 8am" → Frase final en pantalla</p>
+      </div>
+      <div class="escena-campo">
+        <label>Voz</label>
+        <p class="voz-txt">Y el truco final: activo el disparador para que corra solo cada mañana. Yo duermo, Google Sheets trabaja. Si quieres el código completo de los tres scripts que uso — confirmaciones, alertas de pago vencido y reporte semanal — comenta "CORREOS" y te los mando.</p>
+      </div>
+    </div>
+  </div>
+
+  <nav class="guia-nav">
+    <a href="guia-sheets-02-apps-script.html">
+      <span class="gnav-dir">← Guía anterior</span>
+      <span class="gnav-tit">Apps Script de Cero con Claude</span>
+    </a>
+    <a href="guia-sheets-04-dashboard.html" class="gnav-right">
+      <span class="gnav-dir">Guía siguiente →</span>
+      <span class="gnav-tit">Dashboard de Ventas con Alertas</span>
+    </a>
+  </nav>
+</div>
+</main>
+
+<footer class="footer">
+  <div class="footer-inner">
+    <a class="logo" href="index.html">⚡ Mente en Automático</a>
+    <p class="footer-copy">© 2025 Jonathan Bautista · Guatemala · Automatización con IA</p>
+  </div>
+</footer>
+</body>
+</html>

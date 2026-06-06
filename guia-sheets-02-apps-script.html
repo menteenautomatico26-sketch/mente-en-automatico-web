@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Apps Script de Cero con Claude: Automatiza Google Sheets sin Programar | Mente en Automático</title>
+<meta name="description" content="Aprende a usar Google Apps Script con Claude AI para automatizar tus Sheets sin saber programar. Ejemplos reales: reportes automáticos, alertas y más. Con guion de TikTok.">
+<link rel="icon" href="icon.jpg">
+<link rel="stylesheet" href="styles.css">
+<style>
+.guia-hero{padding:80px 0 50px;text-align:center}
+.guia-num{display:inline-block;background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.guia-hero h1{font-size:clamp(28px,5vw,50px);font-weight:900;line-height:1.1;margin-bottom:14px}
+.guia-hero .sub{color:var(--muted);font-size:clamp(15px,2vw,18px);max-width:620px;margin:0 auto 28px;line-height:1.6}
+.guia-meta{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:20px}
+.guia-badge{background:var(--card);border:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:600;padding:5px 14px;border-radius:999px}
+.indice{background:linear-gradient(135deg,#0a1340,#0a0a2e);border:1px solid var(--line);border-radius:20px;padding:28px 32px;max-width:680px;margin:0 auto 48px}
+.indice h3{font-size:14px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon);margin-bottom:16px}
+.indice ol{padding-left:20px;display:flex;flex-direction:column;gap:8px}
+.indice li a{color:var(--ink);font-size:14px;text-decoration:none;transition:.15s}
+.indice li a:hover{color:var(--cyan)}
+.guia-wrap{max-width:780px;margin:0 auto;padding:0 20px}
+.guia-section{margin-bottom:56px;scroll-margin-top:80px}
+.seccion-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--neon);margin-bottom:12px}
+.guia-section h2{font-size:clamp(22px,3.5vw,32px);font-weight:900;margin-bottom:10px;line-height:1.2}
+.guia-section .intro{color:var(--muted);font-size:15px;line-height:1.7;margin-bottom:24px}
+.pasos{display:flex;flex-direction:column;gap:12px;margin:20px 0}
+.paso{display:flex;gap:16px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;align-items:flex-start}
+.paso-num{width:36px;height:36px;flex-shrink:0;border-radius:50%;background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center}
+.paso-body h4{font-size:14px;font-weight:800;margin-bottom:3px}
+.paso-body p{color:var(--muted);font-size:13.5px;line-height:1.5}
+.code-block{background:#030c1a;border:1.5px solid rgba(0,191,255,.25);border-radius:14px;padding:20px 22px;margin:16px 0;font-family:'Courier New',monospace}
+.code-label{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--neon);margin-bottom:10px}
+.code-line{font-size:12.5px;color:#7dd3fc;line-height:1.9}
+.code-comment{color:#4b6c8a;font-style:italic;font-size:12px}
+.prompt-card{background:linear-gradient(135deg,#060f22,#05091a);border:1.5px solid rgba(0,191,255,.3);border-radius:16px;padding:22px 24px;margin:16px 0}
+.prompt-label{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--neon);margin-bottom:10px}
+.prompt-text{font-family:'Courier New',monospace;font-size:13px;color:#b8d4ff;line-height:1.7;background:rgba(0,0,0,.3);border-radius:10px;padding:14px 16px;white-space:pre-wrap;word-break:break-word;margin-bottom:12px}
+.callout{display:flex;gap:14px;background:rgba(0,191,255,.06);border:1px solid rgba(0,191,255,.2);border-radius:14px;padding:18px;margin:20px 0;align-items:flex-start}
+.callout-ic{font-size:22px;flex-shrink:0}
+.callout p{color:var(--muted);font-size:14px;line-height:1.6;margin:0}
+.callout strong{color:var(--ink)}
+.uso-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin:20px 0}
+.uso{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px}
+.uso .ic{font-size:22px;margin-bottom:8px}
+.uso h4{font-size:14px;font-weight:800;margin-bottom:4px;color:var(--cyan)}
+.uso p{color:var(--muted);font-size:13px;line-height:1.5}
+.tiktok-section{background:linear-gradient(135deg,#160820,#0d0520);border:2px solid rgba(255,0,80,.3);border-radius:22px;padding:36px;margin:48px 0}
+.tiktok-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,0,80,.15);border:1px solid rgba(255,0,80,.3);color:#ff5080;font-size:11px;font-weight:900;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:999px;margin-bottom:16px}
+.tiktok-section h2{font-size:clamp(20px,3vw,28px);font-weight:900;margin-bottom:8px}
+.tiktok-section .sub{color:var(--muted);font-size:14px;margin-bottom:28px;line-height:1.6}
+.escena{background:rgba(0,0,0,.4);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:20px;margin-bottom:14px}
+.escena-header{display:flex;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.escena-num{background:rgba(255,0,80,.2);color:#ff5080;font-size:11px;font-weight:900;padding:3px 10px;border-radius:999px;letter-spacing:1px}
+.escena-tiempo{color:var(--muted);font-size:12px;font-weight:700}
+.escena-titulo{font-size:13px;font-weight:800;color:var(--ink);margin-left:auto}
+.escena-campo{margin-bottom:10px}
+.escena-campo label{display:block;font-size:10px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;color:var(--neon);margin-bottom:4px}
+.escena-campo p{color:var(--muted);font-size:13.5px;line-height:1.6;margin:0;background:rgba(0,0,0,.3);border-radius:8px;padding:10px 14px}
+.pantalla-txt{color:#ffd700;font-style:italic}
+.voz-txt{color:#e2e8f0}
+.sep{border:none;border-top:1px solid var(--line);margin:48px 0}
+.pdf-bar{display:flex;align-items:center;justify-content:space-between;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 24px;margin-bottom:40px;flex-wrap:wrap;gap:14px}
+.pdf-bar p{color:var(--muted);font-size:13.5px;margin:0}
+.pdf-bar strong{color:var(--ink)}
+.btn-pdf{background:linear-gradient(135deg,var(--neon),var(--neon2));color:#001226;font-size:13px;font-weight:900;padding:10px 22px;border-radius:999px;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.guia-nav{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:56px}
+.guia-nav a{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;text-decoration:none;color:inherit;transition:.2s;display:flex;flex-direction:column;gap:4px}
+.guia-nav a:hover{border-color:var(--neon);transform:translateY(-3px)}
+.gnav-dir{font-size:11px;color:var(--muted);font-weight:700}
+.gnav-tit{font-size:15px;font-weight:800;color:var(--ink)}
+.gnav-right{text-align:right}
+@media print{
+  canvas,header.nav,footer,.pdf-bar,.guia-nav,.cta-final,.menu-btn{display:none!important}
+  body{background:#fff!important;color:#111!important}
+  .guia-section,.indice,.escena,.tiktok-section,.uso,.paso,.callout,.code-block,.prompt-card{border:1px solid #ddd!important;background:#fff!important;box-shadow:none!important;color:#111!important;break-inside:avoid}
+  .guia-section h2,.guia-num,.seccion-tag,.tiktok-badge{color:#111!important;-webkit-text-fill-color:#111!important}
+  .code-line,.prompt-text{color:#1a56db!important}
+  h1 span{-webkit-text-fill-color:#0055cc!important;background:none!important}
+  @page{margin:1.5cm;size:A4}
+}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="index.html"><img class="logo-ic" src="icon.jpg" alt="Mente en Automático"><span>MENTE EN AUTOMÁTICO<small>IA &amp; Eficiencia</small></span></a>
+    <nav><a href="recursos.html">← Recursos</a><a href="servicios.html">Servicios</a><a href="novedades.html">Novedades</a></nav>
+    <button class="menu-btn">☰</button>
+  </div>
+</header>
+
+<section class="guia-hero">
+  <div class="wrap" style="max-width:780px">
+    <div class="guia-num">Sheets · Guía 02 · Gratis</div>
+    <h1>Apps Script con Claude:<br><span style="background:linear-gradient(120deg,var(--cyan),var(--neon2));-webkit-background-clip:text;background-clip:text;color:transparent">Automatiza sin Programar</span></h1>
+    <p class="sub">Le describes a Claude lo que quieres automatizar, él escribe el código de Apps Script, tú lo pegas y listo. Sin cursos de programación. Sin Stack Overflow.</p>
+    <div class="guia-meta">
+      <span class="guia-badge">⏱ 10 min de lectura</span>
+      <span class="guia-badge">⚙️ Apps Script + Claude</span>
+      <span class="guia-badge">✓ Sin programar</span>
+      <span class="guia-badge">🔄 2025</span>
+    </div>
+  </div>
+</section>
+
+<div class="guia-wrap">
+  <div class="pdf-bar reveal">
+    <p><strong>📥 Descarga esta guía en PDF</strong><br>Código listo para copiar, prompts para Claude y guion de TikTok.</p>
+    <button class="btn-pdf" onclick="window.print()">📄 Descargar PDF</button>
+  </div>
+
+  <div class="indice reveal">
+    <h3>📋 Contenido de esta guía</h3>
+    <ol>
+      <li><a href="#que-es">¿Qué es Apps Script y para qué sirve?</a></li>
+      <li><a href="#abrir">Cómo abrir el editor en 30 segundos</a></li>
+      <li><a href="#claude">El flujo: Claude escribe, tú pegas</a></li>
+      <li><a href="#ejemplos">3 automatizaciones que puedes activar hoy</a></li>
+      <li><a href="#tiktok">🎬 Guion de TikTok listo para grabar</a></li>
+    </ol>
+  </div>
+
+  <div class="guia-section" id="que-es">
+    <div class="seccion-tag">⚙️ Sección 1</div>
+    <h2>¿Qué es Apps Script y para qué sirve?</h2>
+    <p class="intro">Google Apps Script es el motor de automatización de Google. Es código JavaScript que vive dentro de tus Sheets, Docs o Gmail — y puede hacer cosas que las fórmulas no pueden.</p>
+    <div class="uso-grid">
+      <div class="uso reveal"><div class="ic">📧</div><h4>Enviar correos automáticos</h4><p>Manda reportes diarios, alertas de stock bajo o confirmaciones de pedidos — sin tocar nada.</p></div>
+      <div class="uso reveal"><div class="ic">⏰</div><h4>Ejecutarse solo</h4><p>Configura que el script corra todos los días a las 8am, o cada vez que alguien edita la hoja.</p></div>
+      <div class="uso reveal"><div class="ic">📋</div><h4>Mover datos entre hojas</h4><p>Copia registros de una hoja a otra según condiciones. Archiva automáticamente filas completadas.</p></div>
+      <div class="uso reveal"><div class="ic">🔔</div><h4>Crear alertas inteligentes</h4><p>Si el inventario baja de cierto nivel, te manda un WhatsApp (vía API) o un correo instantáneo.</p></div>
+    </div>
+    <div class="callout reveal">
+      <span class="callout-ic">🤖</span>
+      <p><strong>La clave:</strong> No necesitas aprender a programar. Con Claude, describes en español lo que quieres que haga tu Sheet, él te escribe el código exacto, y tú lo pegas en el editor. Así de simple.</p>
+    </div>
+  </div>
+
+  <div class="guia-section" id="abrir">
+    <div class="seccion-tag">🚀 Sección 2</div>
+    <h2>Cómo abrir el editor en 30 segundos</h2>
+    <div class="pasos">
+      <div class="paso reveal"><div class="paso-num">1</div><div class="paso-body"><h4>Abre tu Google Sheet</h4><p>Cualquier hoja de cálculo que tengas en Google Drive. Si no tienes ninguna, crea una nueva en sheets.google.com.</p></div></div>
+      <div class="paso reveal"><div class="paso-num">2</div><div class="paso-body"><h4>Extensiones → Apps Script</h4><p>En el menú superior: <strong>Extensiones → Apps Script</strong>. Se abre una nueva pestaña con el editor de código.</p></div></div>
+      <div class="paso reveal"><div class="paso-num">3</div><div class="paso-body"><h4>Verás esto (normal)</h4>
+        <div class="code-block" style="margin:8px 0">
+          <div class="code-line">function myFunction() {</div>
+          <div class="code-line">&nbsp;&nbsp;<span class="code-comment">// Tu código va aquí</span></div>
+          <div class="code-line">}</div>
+        </div>
+        <p>Esto es el punto de partida. Borra todo y pega el código que te dé Claude.</p>
+      </div></div>
+      <div class="paso reveal"><div class="paso-num">4</div><div class="paso-body"><h4>Clic en ▶ Ejecutar</h4><p>Después de pegar el código de Claude: clic en el botón de play (▶) o presiona Ctrl+R. La primera vez te pedirá permisos — acéptalos, son para que el script pueda acceder a tu Sheet.</p></div></div>
+    </div>
+  </div>
+
+  <div class="guia-section" id="claude">
+    <div class="seccion-tag">🤖 Sección 3</div>
+    <h2>El flujo: Claude escribe, tú pegas</h2>
+    <p class="intro">Este es el proceso exacto para cualquier automatización que quieras crear:</p>
+    <div class="pasos">
+      <div class="paso reveal"><div class="paso-num">1</div><div class="paso-body"><h4>Describe lo que quieres en español</h4><p>No uses términos técnicos. Explícalo como se lo explicarías a un asistente: "Quiero que cuando la columna C diga Completado, copie esa fila a la hoja Archivo."</p></div></div>
+      <div class="paso reveal"><div class="paso-num">2</div><div class="paso-body"><h4>Dale contexto de tu Sheet a Claude</h4><p>Dile los nombres de tus columnas y hojas. Ejemplo: "Mi Sheet tiene columnas: A=Fecha, B=Cliente, C=Estado, D=Monto. Tengo dos hojas: Pedidos y Archivo."</p></div></div>
+      <div class="paso reveal"><div class="paso-num">3</div><div class="paso-body"><h4>Pega el código en el editor</h4><p>Claude te dará el código completo. Cópialo todo, abre el editor de Apps Script (Extensiones → Apps Script), borra lo que hay y pega el nuevo código.</p></div></div>
+      <div class="paso reveal"><div class="paso-num">4</div><div class="paso-body"><h4>Prueba y ajusta</h4><p>Ejecuta el script. Si hay algún error, cópialo y mándalo de vuelta a Claude: "Me da este error: [error]". Él lo corrige.</p></div></div>
+    </div>
+
+    <h3 style="font-size:17px;font-weight:800;margin:28px 0 14px">Prompts que funcionan con Claude</h3>
+    <div class="prompt-card reveal">
+      <div class="prompt-label">📋 Prompt modelo para Apps Script</div>
+      <div class="prompt-text">Necesito un script de Google Apps Script para mi hoja de cálculo.
+
+Mi Sheet tiene estas columnas en la hoja "Pedidos":
+- Columna A: Fecha
+- Columna B: Cliente
+- Columna C: Estado (puede decir: Pendiente, En proceso, Completado)
+- Columna D: Monto
+
+Quiero que el script haga lo siguiente:
+[DESCRIBE AQUÍ LO QUE QUIERES: copiar filas, enviar correos, calcular totales, etc.]
+
+Por favor escribe el código completo y explícame brevemente qué hace cada parte importante.</div>
+    </div>
+  </div>
+
+  <div class="guia-section" id="ejemplos">
+    <div class="seccion-tag">⚡ Sección 4</div>
+    <h2>3 automatizaciones que puedes activar hoy</h2>
+    <p class="intro">Estas son las más útiles para empezar. Cada una incluye el código listo para pegar.</p>
+
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:16px" class="reveal">
+      <div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon);margin-bottom:8px">Automatización 01</div>
+      <h3 style="font-size:17px;font-weight:900;margin-bottom:8px">📧 Resumen diario por correo</h3>
+      <p style="color:var(--muted);font-size:13.5px;line-height:1.6;margin-bottom:14px">Cada mañana a las 8am te manda un correo con el resumen del día anterior: total de pedidos, monto total, cuántos pendientes.</p>
+      <div class="code-block">
+        <div class="code-label">⚙️ Código Apps Script</div>
+        <div class="code-line">function enviarResumenDiario() {</div>
+        <div class="code-line">&nbsp;&nbsp;const hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Pedidos");</div>
+        <div class="code-line">&nbsp;&nbsp;const datos = hoja.getDataRange().getValues();</div>
+        <div class="code-line">&nbsp;&nbsp;let total = 0, pendientes = 0;</div>
+        <div class="code-line">&nbsp;&nbsp;</div>
+        <div class="code-line">&nbsp;&nbsp;for (let i = 1; i &lt; datos.length; i++) {</div>
+        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;total += datos[i][3]; <span class="code-comment">// Columna D = Monto</span></div>
+        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;if (datos[i][2] === "Pendiente") pendientes++;</div>
+        <div class="code-line">&nbsp;&nbsp;}</div>
+        <div class="code-line">&nbsp;&nbsp;</div>
+        <div class="code-line">&nbsp;&nbsp;const mensaje = `Resumen del día:\n- Total pedidos: ${datos.length-1}\n- Monto total: Q${total}\n- Pendientes: ${pendientes}`;</div>
+        <div class="code-line">&nbsp;&nbsp;GmailApp.sendEmail("tu@email.com", "📊 Resumen diario", mensaje);</div>
+        <div class="code-line">}</div>
+      </div>
+      <p style="color:var(--muted);font-size:12.5px;margin-top:8px">💡 Para que corra solo: en Apps Script → Activadores (reloj) → Agregar activador → Basado en tiempo → Diario → 8am</p>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:16px" class="reveal">
+      <div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon);margin-bottom:8px">Automatización 02</div>
+      <h3 style="font-size:17px;font-weight:900;margin-bottom:8px">⚠️ Alerta de stock bajo</h3>
+      <p style="color:var(--muted);font-size:13.5px;line-height:1.6;margin-bottom:14px">Revisa tu inventario y te manda correo cuando algún producto baja del mínimo que defines.</p>
+      <div class="code-block">
+        <div class="code-label">⚙️ Código Apps Script</div>
+        <div class="code-line">function alertaStockBajo() {</div>
+        <div class="code-line">&nbsp;&nbsp;const hoja = SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Inventario");</div>
+        <div class="code-line">&nbsp;&nbsp;const datos = hoja.getDataRange().getValues();</div>
+        <div class="code-line">&nbsp;&nbsp;const MINIMO = 10; <span class="code-comment">// Cambia este número según tu necesidad</span></div>
+        <div class="code-line">&nbsp;&nbsp;let alertas = [];</div>
+        <div class="code-line">&nbsp;&nbsp;</div>
+        <div class="code-line">&nbsp;&nbsp;for (let i = 1; i &lt; datos.length; i++) {</div>
+        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;if (datos[i][2] &lt; MINIMO) { <span class="code-comment">// Columna C = Stock</span></div>
+        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alertas.push(`⚠️ ${datos[i][0]}: solo ${datos[i][2]} unidades`);</div>
+        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+        <div class="code-line">&nbsp;&nbsp;}</div>
+        <div class="code-line">&nbsp;&nbsp;</div>
+        <div class="code-line">&nbsp;&nbsp;if (alertas.length > 0) {</div>
+        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;GmailApp.sendEmail("tu@email.com", "🔴 Stock bajo", alertas.join("\n"));</div>
+        <div class="code-line">&nbsp;&nbsp;}</div>
+        <div class="code-line">}</div>
+      </div>
+    </div>
+
+    <div style="background:var(--card);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:16px" class="reveal">
+      <div style="font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:var(--neon);margin-bottom:8px">Automatización 03</div>
+      <h3 style="font-size:17px;font-weight:900;margin-bottom:8px">📁 Archivar filas completadas</h3>
+      <p style="color:var(--muted);font-size:13.5px;line-height:1.6;margin-bottom:14px">Mueve automáticamente a otra hoja las filas donde el Estado es "Completado". Tu hoja principal siempre queda limpia.</p>
+      <div class="code-block">
+        <div class="code-label">⚙️ Código Apps Script</div>
+        <div class="code-line">function archivarCompletados() {</div>
+        <div class="code-line">&nbsp;&nbsp;const ss = SpreadsheetApp.getActiveSpreadsheet();</div>
+        <div class="code-line">&nbsp;&nbsp;const origen = ss.getSheetByName("Pedidos");</div>
+        <div class="code-line">&nbsp;&nbsp;const destino = ss.getSheetByName("Archivo");</div>
+        <div class="code-line">&nbsp;&nbsp;const datos = origen.getDataRange().getValues();</div>
+        <div class="code-line">&nbsp;&nbsp;</div>
+        <div class="code-line">&nbsp;&nbsp;for (let i = datos.length - 1; i >= 1; i--) {</div>
+        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;if (datos[i][2] === "Completado") { <span class="code-comment">// Columna C = Estado</span></div>
+        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;destino.appendRow(datos[i]);</div>
+        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;origen.deleteRow(i + 1);</div>
+        <div class="code-line">&nbsp;&nbsp;&nbsp;&nbsp;}</div>
+        <div class="code-line">&nbsp;&nbsp;}</div>
+        <div class="code-line">}</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="sep">
+
+  <div class="tiktok-section" id="tiktok">
+    <div class="tiktok-badge">🎬 TikTok Script</div>
+    <h2>Guion listo para grabar en CapCut</h2>
+    <p class="sub">Duración estimada: <strong>85 segundos</strong> · Formato: Vertical 9:16 · Gancho: "Le pedí a Claude que programara por mí"</p>
+
+    <div class="escena">
+      <div class="escena-header"><span class="escena-num">ESCENA 1</span><span class="escena-tiempo">0:00 – 0:05</span><span class="escena-titulo">HOOK</span></div>
+      <div class="escena-campo"><label>Pantalla</label><p class="pantalla-txt">Tú frente a cámara. Detrás: pantalla con el editor de Apps Script abierto y código funcionando.</p></div>
+      <div class="escena-campo"><label>Texto en pantalla</label><p>"Automaticé mi Google Sheets sin saber programar 🤯"</p></div>
+      <div class="escena-campo"><label>Voz</label><p class="voz-txt">"Le pedí a Claude que me programara una automatización para Google Sheets. No sé programar. Esto es lo que pasó."</p></div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header"><span class="escena-num">ESCENA 2</span><span class="escena-tiempo">0:05 – 0:25</span><span class="escena-titulo">DEMO EN VIVO</span></div>
+      <div class="escena-campo"><label>Pantalla</label><p class="pantalla-txt">Grabación: tú le escribes a Claude "Necesito un script que...". Claude responde con el código. Copias el código. Lo pegas en Apps Script. Das clic en Ejecutar. El correo llega.</p></div>
+      <div class="escena-campo"><label>Texto en pantalla</label><p>"1. Le describo en español ✍️" → "2. Claude escribe el código 🤖" → "3. Lo pego y ejecuto ▶️" → "✅ Funcionó"</p></div>
+      <div class="escena-campo"><label>Voz</label><p class="voz-txt">"Mira el proceso completo: le describo en español lo que necesito, Claude escribe el código, lo copio, lo pego en el editor de Apps Script, ejecuto — y listo. El correo llegó automáticamente."</p></div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header"><span class="escena-num">ESCENA 3</span><span class="escena-tiempo">0:25 – 0:50</span><span class="escena-titulo">3 CASOS DE USO</span></div>
+      <div class="escena-campo"><label>Pantalla</label><p class="pantalla-txt">Lista animada. Cada caso aparece con ícono. Cortes rápidos.</p></div>
+      <div class="escena-campo"><label>Texto en pantalla</label><p>📧 Resumen diario automático por correo<br>⚠️ Alerta cuando el stock baja<br>📁 Archiva filas completadas solo</p></div>
+      <div class="escena-campo"><label>Voz</label><p class="voz-txt">"Con este método construí tres automatizaciones: resumen diario por correo cada mañana, alerta automática cuando el inventario baja de cierto nivel, y que los pedidos completados se archiven solos. Todo sin escribir una línea de código yo."</p></div>
+    </div>
+
+    <div class="escena">
+      <div class="escena-header"><span class="escena-num">ESCENA 4</span><span class="escena-tiempo">0:50 – 1:05</span><span class="escena-titulo">CTA</span></div>
+      <div class="escena-campo"><label>Pantalla</label><p class="pantalla-txt">Tú en cámara señalando link en bio.</p></div>
+      <div class="escena-campo"><label>Texto en pantalla</label><p>"Los 3 códigos listos para copiar ⬆️ link en bio"</p></div>
+      <div class="escena-campo"><label>Voz</label><p class="voz-txt">"En la guía del link de bio están los tres códigos completos listos para copiar, el prompt exacto para pedirle el tuyo a Claude, y cómo configurarlo para que corra solo todos los días."</p></div>
+    </div>
+
+    <div class="callout" style="margin-top:20px">
+      <span class="callout-ic">🎵</span>
+      <p><strong>Tip CapCut:</strong> El momento más impactante es cuando llega el correo automático en pantalla (escena 2). Si puedes mostrar tu teléfono recibiendo la notificación de Gmail mientras el script corre, el efecto es brutal. Ese es el "proof" que convence.</p>
+    </div>
+  </div>
+
+  <div class="guia-nav reveal">
+    <a href="guia-sheets-01-intro.html"><span class="gnav-dir">← Anterior</span><span class="gnav-tit">Sheets 01: Fórmulas esenciales</span></a>
+    <a href="guia-sheets-03-correos.html" class="gnav-right"><span class="gnav-dir">Siguiente →</span><span class="gnav-tit">Sheets 03: Correos automáticos</span></a>
+  </div>
+
+  <div class="cta-final reveal" style="margin:48px 0">
+    <h2>¿Quieres tu propia automatización?</h2>
+    <p>En una sesión 1:1 construimos la automatización exacta que necesitas para tu trabajo — con Claude y Apps Script, configurada y funcionando antes de terminar la sesión.</p>
+    <div style="display:flex;gap:14px;justify-content:center;flex-wrap:wrap">
+      <a class="btn btn-primary" href="servicios.html">Ver sesiones disponibles →</a>
+      <a class="btn btn-ghost" href="recursos.html">Ver más guías</a>
+    </div>
+  </div>
+</div>
+
+<footer><div class="wrap"><div>© <span id="y"></span> Jonathan Bautista · Mente en Automático · Guatemala 🇬🇹</div><div><a href="recursos.html">Recursos</a> · <a href="index.html">Inicio</a> · <a href="https://instagram.com/menteenautomatico" target="_blank">Instagram</a></div></div></footer>
+<script src="app.js"></script>
+<script>document.getElementById("y").textContent=new Date().getFullYear();</script>
+</body>
+</html>

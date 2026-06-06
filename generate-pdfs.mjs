@@ -29,6 +29,22 @@ const guides = [
   {
     file: 'guia-clientes-locales.html',
     pdf: 'Guia-Vende-Paginas-Web-a-Clientes-Locales.pdf'
+  },
+  {
+    file: 'guia-sheets-01-intro.html',
+    pdf: 'Guia-Sheets-01-Formulas-Esenciales.pdf'
+  },
+  {
+    file: 'guia-sheets-02-apps-script.html',
+    pdf: 'Guia-Sheets-02-Apps-Script-con-Claude.pdf'
+  },
+  {
+    file: 'guia-sheets-03-correos.html',
+    pdf: 'Guia-Sheets-03-Correos-Automaticos.pdf'
+  },
+  {
+    file: 'guia-sheets-04-dashboard.html',
+    pdf: 'Guia-Sheets-04-Dashboard-con-Alertas.pdf'
   }
 ];
 
