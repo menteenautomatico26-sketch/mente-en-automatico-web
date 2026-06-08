@@ -1,0 +1,19 @@
+{
+  "name": "mente-en-automatico-web",
+  "version": "1.0.0",
+  "description": "Sitio estático (HTML/CSS/JS) de **Mente en Automático · IA & Eficiencia**. Tienda de plantillas, novedades de IA y contacto.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://local_proxy@127.0.0.1:34633/git/menteenautomatico26-sketch/mente-en-automatico-web"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "puppeteer": "^25.1.0"
+  }
+}
